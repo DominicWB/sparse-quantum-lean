@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "Please cite the associated paper and the archived software snapshot once its DOI is assigned."
+type: software
+title: "Lean proofs for root-sparsity Hamiltonian simulation and dissipative differential equations"
+version: 0.1.0-rc5
+date-released: 2026-10-02
+authors:
+  - family-names: Berry
+    given-names: Dominic W.
+license: Apache-2.0
+keywords:
+  - Lean
+  - quantum algorithms
+  - Hamiltonian simulation
+  - differential equations
+abstract: >-
+  Formalized primitive sparse-oracle query bounds for Hamiltonian simulation
+  and constant-coefficient dissipative linear differential equations.
+  The project targets Lean and Mathlib 4.32.1 and includes checked axiom audits.

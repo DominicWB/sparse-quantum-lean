@@ -1,0 +1,86 @@
+name: Lean
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 360
+    env:
+      LEAN_NUM_THREADS: 4
+    steps:
+      - name: Check out the exact source
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Check release structure
+        run: python3 scripts/check_release.py
+
+      - name: Install pinned Lean toolchain
+        uses: leanprover/lean-action@50fcf42d2e460296f1a34b402e990d1b24f8b596 # v1
+        with:
+          auto-config: "false"
+          build: "false"
+          test: "false"
+          lint: "false"
+          use-mathlib-cache: "false"
+          use-github-cache: "false"
+
+      - name: Record toolchain versions
+        run: |
+          set -euo pipefail
+          lean --version | tee toolchain.log
+          lake --version | tee -a toolchain.log
+
+      - name: Restore compiled project modules
+        id: proof-cache
+        uses: actions/cache/restore@5a3ec84eff668545956fd18022155c47e93e2684 # v4.2.3
+        with:
+          path: .lake/build
+          # The run suffix allows a failed build's completed modules to be saved.
+          # Lake still checks dependency traces before reusing an artifact.
+          key: lean-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.toml', 'lake-manifest.json') }}-${{ hashFiles('SparseHamiltonian.lean', 'SparseODE.lean', 'SparseHamiltonian/**/*.lean', 'SparseODE/**/*.lean') }}-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            lean-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.toml', 'lake-manifest.json') }}-${{ hashFiles('SparseHamiltonian.lean', 'SparseODE.lean', 'SparseHamiltonian/**/*.lean', 'SparseODE/**/*.lean') }}-
+            lean-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.toml', 'lake-manifest.json') }}-
+
+      - name: Download pinned Mathlib cache
+        run: |
+          set -euo pipefail
+          lake exe cache get 2>&1 | tee cache.log
+
+      - name: Build proofs and checked axiom audits
+        id: proofs
+        timeout-minutes: 330
+        run: |
+          set -euo pipefail
+          lake build 2>&1 | tee build.log
+
+      - name: Save compiled project modules, including progress from a failed build
+        if: always() && (steps.proofs.outcome == 'success' || steps.proofs.outcome == 'failure')
+        uses: actions/cache/save@5a3ec84eff668545956fd18022155c47e93e2684 # v4.2.3
+        with:
+          path: .lake/build
+          key: ${{ steps.proof-cache.outputs.cache-primary-key }}
+
+      - name: Ensure dependency pins were preserved
+        run: |
+          git diff --exit-code -- lean-toolchain lakefile.toml lake-manifest.json
+          python3 scripts/check_release.py
+
+      - name: Retain build evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: lean-build-evidence
+          path: |
+            toolchain.log
+            cache.log
+            build.log
+          if-no-files-found: warn
+          retention-days: 30

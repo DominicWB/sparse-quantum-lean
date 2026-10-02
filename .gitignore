@@ -1,0 +1,13 @@
+/.lake/
+/build.log
+/cache.log
+/toolchain.log
+/lean_output*.txt
+/*.zip
+/*.tar.gz
+Thumbs.db
+Desktop.ini
+*.olean
+*.ilean
+*.trace
+__pycache__/
