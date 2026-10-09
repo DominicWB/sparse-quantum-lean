@@ -14,9 +14,49 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 AXIOMS = "[propext, Classical.choice, Quot.sound]"
-AUDIT_COUNTS = {"SparseHamiltonian": 91, "SparseODE": 497}
+STANDARD_AXIOMS = ("propext", "Classical.choice", "Quot.sound")
+AUDIT_COUNTS = {"SparseHamiltonian": 91, "SparseODE": 497, "SparseLinearSystems": 709,
+                "GateEfficientHamiltonian": 142, "TimeDependentHamiltonian": 110,
+                "TimeDependentODE": 154, "GateEfficientTimeDependent": 58,
+                "GateEfficientODE": 471, "GeneralODE": 358, "LinearSystemLowerBound": 318,
+                "SparseLowerBounds": 1047, "GateEfficientNative": 335,
+                "AdaptiveHamiltonianLowerBound": 102, "ChebyshevFilter": 117,
+                "TimeDependentExtensions": 135, "SparseLowerBounds/ODE": 253,
+                "GeneralODEZeroTime": 22, "LowerBoundRemarks": 123, "GateEfficientBinary": 474,
+                "GateEfficientBinaryTime": 27,
+                "GateEfficientSynthesis": 71, "GateEfficientBinaryODE": 391,
+                "ODELowerBoundExtensions": 720, "GateEfficientBinaryODETime": 97,
+                "ChebyshevLinearSystem": 96, "GateEfficientSynthesisTrials": 49,
+                "GateEfficientODEBudget": 55, "ChebyshevLinearSystemFinite": 114,
+                "ZeroTimeRemarks": 65, "UnitaryImplementationPrecision": 59,
+                "AdaptiveODELowerBound": 131, "UnitaryImplementationExtensions": 79,
+                "IntegrablePathSimulation": 75, "ZeroTimeGateODE": 152,
+                "TimeDependentHamiltonianLowerBound": 133,
+                "ConstantODELowerBound": 49, "PhysicalODELowerBound": 102,
+                "DysonSingleProgram": 103, "GateEfficientMesh": 98,
+                "GateEfficientBitBudget": 116, "GateEfficientRemarks": 170,
+                "DeferredMeasurementLowerBounds": 273, "AdaptiveUnitaryLowerBound": 41,
+                "GateEfficientSigned": 35, "GateEfficientSelect": 86,
+                "GateEfficientQuadrature": 58,
+                "GateEfficientBinarySelect": 206,
+                "MeasuredUnitaryLowerBound": 100, "DysonGeneralAccess": 44,
+                "TimeDependentLowerBoundExtensions": 165, "ReleasedODESolverLowerBounds": 142,
+                "GateEfficientBinaryNodes": 226,
+                "GateEfficientSelective": 109,
+                "QLSHoeffding": 41,
+                "GateEfficientSchedule": 61}
+# A checked audit block fixes Lean's exact axiom report for one declaration.
+AUDIT_PATTERN = re.compile(
+    r"/--\s*info: '(\S+)' (?:depends on axioms: \[([^\]]*)\]|does not depend on any axioms)"
+    r"\s*-\/\s*#guard_msgs\s*\(whitespace\s*:=\s*lax\)\s+in\s*#print\s+axioms\s+(\S+)")
 MATHLIB_COMMIT = "520045ab14e26149ee970e2e617ca04b09bde5d6"
 PROHIBITED = {"sorry", "admit", "axiom", "native_decide", "unsafe", "implemented_by"}
+
+
+def standard_report(listed):
+    """True when a reported axiom list is a subset of the standard three, in Lean's order."""
+    names = [name.strip() for name in listed.split(",")] if listed.strip() else []
+    return names == [name for name in STANDARD_AXIOMS if name in names]
 
 
 def strip_lean(text, erase_strings=False):
@@ -82,6 +122,8 @@ def main():
     sources = sorted(ROOT.glob("*.lean"))
     for track in AUDIT_COUNTS:
         sources += sorted((ROOT / track).rglob("*.lean"))
+        sources.append(ROOT / (track + ".lean"))
+    sources = sorted(set(sources))
     paths = sources + [ROOT / p for p in ("lean-toolchain", "lakefile.toml", "lake-manifest.json")]
     actual = {p.relative_to(ROOT).as_posix(): p for p in paths}
     expected = reference["files"]
@@ -107,18 +149,20 @@ def main():
     require(prints == guards == total_audits,
             f"expected exactly {total_audits} checked axiom reports")
 
-    pattern = re.compile(
-        r"/--\s*info: '([^'\s]+)' depends on axioms: " + re.escape(AXIOMS) +
-        r"\s*-\/\s*#guard_msgs\s*\(whitespace\s*:=\s*lax\)\s+in\s*#print\s+axioms\s+(\S+)")
+    partial = 0
     for track, count in AUDIT_COUNTS.items():
-        pairs = pattern.findall(texts[track + "/Audit.lean"])
-        require(len(pairs) == count, f"expected {count} checked audit blocks in {track}")
-        require(all(message == declaration for message, declaration in pairs),
+        blocks = AUDIT_PATTERN.findall(texts[track + "/Audit.lean"])
+        require(len(blocks) == count, f"expected {count} checked audit blocks in {track}")
+        require(all(message == declaration for message, _, declaration in blocks),
                 "audit message/declaration mismatch in " + track)
-        require([declaration for _, declaration in pairs] == reference["audits"][track],
+        require(all(standard_report(listed) for _, listed, _ in blocks),
+                "audit report outside the standard axioms in " + track)
+        partial += sum("[" + listed + "]" != AXIOMS for _, listed, _ in blocks)
+        require([declaration for _, _, declaration in blocks] == reference["audits"][track],
                 "audited declarations differ from release manifest: " + track)
+        module = track.replace("/", ".")
         root_imports = re.findall(r"^import\s+(\S+)\s*$", texts[track + ".lean"], re.MULTILINE)
-        require(root_imports == [track + ".Statements", track + ".Audit"],
+        require(root_imports == [module + ".Statements", module + ".Audit"],
                 "default library must import its statements and audits: " + track)
 
     # The configuration hashes above cover every transitive dependency pin.
@@ -148,7 +192,63 @@ def main():
     print(f"PASS: {len(sources)} Lean source files and pinned configuration match the release hashes.")
     print(f"PASS: {total_audits} checked axiom audit blocks "
           f"({AUDIT_COUNTS['SparseHamiltonian']} Hamiltonian, "
-          f"{AUDIT_COUNTS['SparseODE']} ODE); source hygiene.")
+          f"{AUDIT_COUNTS['SparseODE']} ODE, "
+          f"{AUDIT_COUNTS['SparseLinearSystems']} linear-system, "
+          f"{AUDIT_COUNTS['GateEfficientHamiltonian']} gate-level, "
+          f"{AUDIT_COUNTS['TimeDependentHamiltonian']} time-dependent Hamiltonian, "
+          f"{AUDIT_COUNTS['TimeDependentODE']} time-dependent ODE, "
+          f"{AUDIT_COUNTS['GateEfficientTimeDependent']} gate-level time-dependent, "
+          f"{AUDIT_COUNTS['GateEfficientODE']} gate-level ODE, "
+          f"{AUDIT_COUNTS['GeneralODE']} general ODE, "
+          f"{AUDIT_COUNTS['LinearSystemLowerBound']} linear-system lower bound, "
+          f"{AUDIT_COUNTS['SparseLowerBounds']} Hamiltonian lower bound, "
+          f"{AUDIT_COUNTS['GateEfficientNative']} native gate-level, "
+          f"{AUDIT_COUNTS['AdaptiveHamiltonianLowerBound']} adaptive Hamiltonian lower bound, "
+          f"{AUDIT_COUNTS['ChebyshevFilter']} Chebyshev filter, "
+          f"{AUDIT_COUNTS['TimeDependentExtensions']} time-dependent extensions, "
+          f"{AUDIT_COUNTS['SparseLowerBounds/ODE']} ODE lower bound, "
+          f"{AUDIT_COUNTS['GeneralODEZeroTime']} zero-time general ODE, "
+          f"{AUDIT_COUNTS['LowerBoundRemarks']} lower-bound remarks, "
+          f"{AUDIT_COUNTS['GateEfficientBinary']} binary-data gate-level, "
+          f"{AUDIT_COUNTS['GateEfficientBinaryTime']} time-dependent binary-data gate-level, "
+          f"{AUDIT_COUNTS['GateEfficientSynthesis']} finite-gate-set synthesis, "
+          f"{AUDIT_COUNTS['GateEfficientBinaryODE']} binary-data gate-level ODE, "
+          f"{AUDIT_COUNTS['ODELowerBoundExtensions']} ODE lower-bound extensions, "
+          f"{AUDIT_COUNTS['GateEfficientBinaryODETime']} time-dependent binary-data gate-level ODE, "
+          f"{AUDIT_COUNTS['ChebyshevLinearSystem']} Chebyshev linear-system, "
+          f"{AUDIT_COUNTS['GateEfficientSynthesisTrials']} synthesised trials, "
+          f"{AUDIT_COUNTS['GateEfficientODEBudget']} binary-data ODE budget, "
+          f"{AUDIT_COUNTS['ChebyshevLinearSystemFinite']} finite-gate linear-system, "
+          f"{AUDIT_COUNTS['ZeroTimeRemarks']} zero-time remarks, "
+          f"{AUDIT_COUNTS['UnitaryImplementationPrecision']} unitary-precision, "
+          f"{AUDIT_COUNTS['AdaptiveODELowerBound']} adaptive ODE lower bound, "
+          f"{AUDIT_COUNTS['UnitaryImplementationExtensions']} unitary-implementation extensions, "
+          f"{AUDIT_COUNTS['IntegrablePathSimulation']} integrable-path simulation, "
+          f"{AUDIT_COUNTS['ZeroTimeGateODE']} zero-time gate-level ODE, "
+          f"{AUDIT_COUNTS['TimeDependentHamiltonianLowerBound']} "
+          "time-dependent Hamiltonian lower bound, "
+          f"{AUDIT_COUNTS['ConstantODELowerBound']} constant-coefficient ODE lower bound, "
+          f"{AUDIT_COUNTS['PhysicalODELowerBound']} physical-oracle ODE lower bound, "
+          f"{AUDIT_COUNTS['DysonSingleProgram']} single-program Dyson, "
+          f"{AUDIT_COUNTS['GateEfficientMesh']} gate-level mesh, "
+          f"{AUDIT_COUNTS['GateEfficientBitBudget']} bit-length budget, "
+          f"{AUDIT_COUNTS['GateEfficientRemarks']} gate-level remarks, "
+          f"{AUDIT_COUNTS['DeferredMeasurementLowerBounds']} deferred-measurement lower bounds, "
+          f"{AUDIT_COUNTS['AdaptiveUnitaryLowerBound']} adaptive unitary lower bound, "
+          f"{AUDIT_COUNTS['GateEfficientSigned']} signed-time gate-level, "
+          f"{AUDIT_COUNTS['GateEfficientSelect']} coherent-selection gate-level, "
+          f"{AUDIT_COUNTS['GateEfficientQuadrature']} source-quadrature, "
+          f"{AUDIT_COUNTS['GateEfficientBinarySelect']} binary coherent-selection, "
+          f"{AUDIT_COUNTS['MeasuredUnitaryLowerBound']} measured unitary lower bound, "
+          f"{AUDIT_COUNTS['DysonGeneralAccess']} general-access Dyson, "
+          f"{AUDIT_COUNTS['TimeDependentLowerBoundExtensions']} "
+          "time-dependent lower-bound extensions, "
+          f"{AUDIT_COUNTS['ReleasedODESolverLowerBounds']} released ODE solver lower bound, "
+          f"{AUDIT_COUNTS['GateEfficientBinaryNodes']} computed source-node, "
+          f"{AUDIT_COUNTS['GateEfficientSelective']} selective-synthesis, "
+          f"{AUDIT_COUNTS['QLSHoeffding']} Hoeffding-schedule, "
+          f"{AUDIT_COUNTS['GateEfficientSchedule']} manuscript-schedule); "
+          f"{partial} report a strict subset of {AXIOMS}; source hygiene.")
     print("PASS: Lean/Mathlib 4.32.1; package, README and citation versions agree.")
     print("Packaging checks only; run lake build to verify the proofs and axiom audits.")
     return 0

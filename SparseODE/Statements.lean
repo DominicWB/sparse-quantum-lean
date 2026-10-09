@@ -35,6 +35,7 @@ The worst-case matrix-query count is at most
 `40 * g` calls to each supplied source interface, including inverses.
 
 The time-dependent extension (`ode:thm:time`), general-generator extension
-(`ode:thm:general`), linear-system algorithm and all lower bounds are outside
-this formalization, as are gate and workspace bounds.
+(`ode:thm:general`) and all lower bounds are outside this formalization, as are
+gate and workspace bounds. The linear-system algorithm (`qls:thm:main`) is
+formalized separately in the `SparseLinearSystems` library.
 -/

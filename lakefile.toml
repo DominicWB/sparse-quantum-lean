@@ -1,6 +1,23 @@
 name = "sparseQuantumAlgorithms"
-version = "0.1.0-rc5"
-defaultTargets = ["SparseHamiltonian", "SparseODE"]
+version = "0.1.0-rc6"
+defaultTargets = ["SparseHamiltonian", "SparseODE", "SparseLinearSystems", "GateEfficientHamiltonian",
+  "TimeDependentHamiltonian", "TimeDependentODE", "GateEfficientTimeDependent", "GateEfficientODE",
+  "GeneralODE", "LinearSystemLowerBound", "SparseLowerBounds", "GateEfficientNative",
+  "AdaptiveHamiltonianLowerBound", "ChebyshevFilter", "TimeDependentExtensions", "ODELowerBounds",
+  "GeneralODEZeroTime", "LowerBoundRemarks", "GateEfficientBinary", "GateEfficientBinaryTime",
+  "GateEfficientSynthesis", "GateEfficientBinaryODE",
+  "ODELowerBoundExtensions", "GateEfficientBinaryODETime", "ChebyshevLinearSystem",
+  "GateEfficientSynthesisTrials", "GateEfficientODEBudget", "ChebyshevLinearSystemFinite",
+  "ZeroTimeRemarks", "UnitaryImplementationPrecision",
+  "AdaptiveODELowerBound", "UnitaryImplementationExtensions", "IntegrablePathSimulation",
+  "ZeroTimeGateODE", "TimeDependentHamiltonianLowerBound",
+  "ConstantODELowerBound", "PhysicalODELowerBound", "DysonSingleProgram",
+  "GateEfficientMesh", "GateEfficientBitBudget", "GateEfficientRemarks",
+  "DeferredMeasurementLowerBounds", "AdaptiveUnitaryLowerBound", "GateEfficientSigned",
+  "GateEfficientSelect", "GateEfficientQuadrature", "GateEfficientBinarySelect",
+  "MeasuredUnitaryLowerBound", "DysonGeneralAccess", "TimeDependentLowerBoundExtensions",
+  "ReleasedODESolverLowerBounds", "GateEfficientBinaryNodes",
+  "GateEfficientSelective", "QLSHoeffding", "GateEfficientSchedule"]
 
 [[require]]
 name = "mathlib"
@@ -13,3 +30,163 @@ name = "SparseHamiltonian"
 
 [[lean_lib]]
 name = "SparseODE"
+
+[[lean_lib]]
+name = "SparseLinearSystems"
+
+[[lean_lib]]
+name = "GateEfficientHamiltonian"
+
+[[lean_lib]]
+name = "TimeDependentHamiltonian"
+
+[[lean_lib]]
+name = "TimeDependentODE"
+
+[[lean_lib]]
+name = "GateEfficientTimeDependent"
+
+[[lean_lib]]
+name = "GateEfficientODE"
+
+[[lean_lib]]
+name = "GeneralODE"
+
+[[lean_lib]]
+name = "LinearSystemLowerBound"
+
+[[lean_lib]]
+name = "SparseLowerBounds"
+
+[[lean_lib]]
+name = "GateEfficientNative"
+
+[[lean_lib]]
+name = "AdaptiveHamiltonianLowerBound"
+
+[[lean_lib]]
+name = "ChebyshevFilter"
+
+[[lean_lib]]
+name = "TimeDependentExtensions"
+
+[[lean_lib]]
+name = "ODELowerBounds"
+roots = ["SparseLowerBounds.ODE"]
+
+[[lean_lib]]
+name = "GeneralODEZeroTime"
+
+[[lean_lib]]
+name = "LowerBoundRemarks"
+
+[[lean_lib]]
+name = "GateEfficientBinary"
+
+[[lean_lib]]
+name = "GateEfficientBinaryTime"
+
+[[lean_lib]]
+name = "GateEfficientSynthesis"
+
+[[lean_lib]]
+name = "GateEfficientBinaryODE"
+
+[[lean_lib]]
+name = "ODELowerBoundExtensions"
+
+[[lean_lib]]
+name = "GateEfficientBinaryODETime"
+
+[[lean_lib]]
+name = "ChebyshevLinearSystem"
+
+[[lean_lib]]
+name = "GateEfficientSynthesisTrials"
+
+[[lean_lib]]
+name = "GateEfficientODEBudget"
+
+[[lean_lib]]
+name = "ChebyshevLinearSystemFinite"
+
+[[lean_lib]]
+name = "ZeroTimeRemarks"
+
+[[lean_lib]]
+name = "UnitaryImplementationPrecision"
+
+[[lean_lib]]
+name = "AdaptiveODELowerBound"
+
+[[lean_lib]]
+name = "UnitaryImplementationExtensions"
+
+[[lean_lib]]
+name = "IntegrablePathSimulation"
+
+[[lean_lib]]
+name = "ZeroTimeGateODE"
+
+[[lean_lib]]
+name = "TimeDependentHamiltonianLowerBound"
+
+[[lean_lib]]
+name = "ConstantODELowerBound"
+
+[[lean_lib]]
+name = "PhysicalODELowerBound"
+
+[[lean_lib]]
+name = "DysonSingleProgram"
+
+[[lean_lib]]
+name = "GateEfficientMesh"
+
+[[lean_lib]]
+name = "GateEfficientBitBudget"
+
+[[lean_lib]]
+name = "GateEfficientRemarks"
+
+[[lean_lib]]
+name = "DeferredMeasurementLowerBounds"
+
+[[lean_lib]]
+name = "AdaptiveUnitaryLowerBound"
+
+[[lean_lib]]
+name = "GateEfficientSigned"
+
+[[lean_lib]]
+name = "GateEfficientSelect"
+
+[[lean_lib]]
+name = "GateEfficientQuadrature"
+
+[[lean_lib]]
+name = "GateEfficientBinarySelect"
+
+[[lean_lib]]
+name = "MeasuredUnitaryLowerBound"
+
+[[lean_lib]]
+name = "DysonGeneralAccess"
+
+[[lean_lib]]
+name = "TimeDependentLowerBoundExtensions"
+
+[[lean_lib]]
+name = "ReleasedODESolverLowerBounds"
+
+[[lean_lib]]
+name = "GateEfficientBinaryNodes"
+
+[[lean_lib]]
+name = "GateEfficientSelective"
+
+[[lean_lib]]
+name = "QLSHoeffding"
+
+[[lean_lib]]
+name = "GateEfficientSchedule"

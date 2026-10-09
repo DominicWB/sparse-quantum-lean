@@ -1,0 +1,40 @@
+import SparseHamiltonian.OracleCircuit
+import Mathlib.Analysis.CStarAlgebra.Matrix
+import Mathlib.Algebra.Order.Chebyshev
+import Mathlib.Tactic.Module
+import Mathlib.Analysis.SpecialFunctions.Pow.Real
+import Mathlib.Analysis.SpecialFunctions.Log.Basic
+import SparseHamiltonian.NativeSparseBlockEncoding
+import SparseHamiltonian.EncodedOracle
+import Mathlib.Analysis.SpecialFunctions.Trigonometric.Bounds
+import Mathlib.Data.Nat.Log
+import SparseHamiltonian.SparseStateOverlap
+import Mathlib.Analysis.Normed.Algebra.Exponential
+import Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic
+import Mathlib.Analysis.SpecialFunctions.Exponential
+import Mathlib.Analysis.SpecialFunctions.Trigonometric.Deriv
+import Mathlib.Analysis.Calculus.MeanValue
+import Mathlib.Algebra.Order.BigOperators.Ring.Finset
+import Mathlib.Algebra.BigOperators.Fin
+import Mathlib.Tactic.Ring
+import Mathlib.Analysis.Complex.RealDeriv
+import Mathlib.Tactic.LinearCombination
+import Mathlib.Analysis.SpecialFunctions.Sqrt
+import Mathlib.Data.Nat.Choose.Basic
+import Mathlib.Data.Complex.Basic
+import SparseHamiltonian.HamiltonianStability
+import Mathlib.Analysis.SpecialFunctions.Log.Base
+import Mathlib.LinearAlgebra.Matrix.Kronecker
+import Mathlib.Data.Matrix.Composition
+import Mathlib.LinearAlgebra.UnitaryGroup
+import Mathlib.Analysis.Complex.Basic
+import Mathlib.Data.ZMod.ValMinAbs
+import Mathlib.Logic.Equiv.Fintype
+import SparseHamiltonian.EncodedMultiOracle
+import SparseHamiltonian.ManuscriptPrecision
+import SparseHamiltonian.MaskedProgram
+import SparseHamiltonian.LookupFromBasisOracle
+import SparseHamiltonian.ImprovedSparseHamiltonian
+
+/-! External dependencies of the `SparseLowerBounds` library: the Mathlib modules and
+the released `SparseHamiltonian` modules used by the lower-bound proofs. -/

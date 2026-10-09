@@ -807,6 +807,7 @@ def oracle (D : Data X n Z) (γ η t ε : ℝ) (x : X) :
     Physical n Z γ η t ε →L[ℂ] Physical n Z γ η t ε :=
   lift γ η t ε (flatEntry D x)
 
+omit [DecidableEq n] [DecidableEq Z] in
 theorem oracle_unitary (D : Data X n Z) (γ η t ε : ℝ) (x : X) :
     IsUnitary (oracle D γ η t ε x) :=
   lift_unitary γ η t ε _ (flatEntry_unitary D x)
@@ -839,15 +840,19 @@ def letter (D : Data X n Z) (γ η t ε : ℝ) :
       (.seq .query (.fixed (lift γ η t ε route)
         (lift_unitary γ η t ε _ route_unitary)))
 
+omit [DecidableEq n] [DecidableEq Z] [Nonempty n] in
 @[simp] theorem letter_count_row (D : Data X n Z) (γ η t ε : ℝ) :
     (letter D γ η t ε .rowLocation).count = 0 := rfl
 
+omit [DecidableEq n] [DecidableEq Z] [Nonempty n] in
 @[simp] theorem letter_count_column (D : Data X n Z) (γ η t ε : ℝ) :
     (letter D γ η t ε .columnLocation).count = 0 := rfl
 
+omit [DecidableEq n] [DecidableEq Z] [Nonempty n] in
 @[simp] theorem letter_count_value (D : Data X n Z) (γ η t ε : ℝ) :
     (letter D γ η t ε .value).count = 1 := rfl
 
+omit [DecidableEq Z] in
 theorem letter_eval (D : Data X n Z) (γ η t ε : ℝ) (l : Query) (x : X) :
     (letter D γ η t ε l).eval x = nativeOracle D γ η t ε l x := by
   rw [nativeOracle_eq]
@@ -864,6 +869,7 @@ def compile (D : Data X n Z) (γ η t ε : ℝ)
     OracleCircuit.Program (oracle D γ η t ε) :=
   p.compile (letter D γ η t ε)
 
+omit [DecidableEq Z] in
 /-- The transformation preserves the entire physical operator, not just a
 successful branch or a clean input state. -/
 theorem compile_eval (D : Data X n Z) (γ η t ε : ℝ)
@@ -871,6 +877,7 @@ theorem compile_eval (D : Data X n Z) (γ η t ε : ℝ)
     (compile D γ η t ε p).eval x = p.eval x :=
   p.eval_compile (letter D γ η t ε) (letter_eval D γ η t ε) x
 
+omit [DecidableEq Z] in
 /-- Only value calls remain, with no multiplicative overhead from controls. -/
 theorem compile_count_le (D : Data X n Z) (γ η t ε : ℝ)
     (p : MultiOracleCircuit.Program (nativeOracle D γ η t ε)) :
@@ -881,6 +888,7 @@ theorem compile_count_le (D : Data X n Z) (γ η t ε : ℝ)
     _ ≤ p.cost (fun _ => 1) := p.cost_mono (by intro l; cases l <;> simp)
     _ = p.count := by simp
 
+omit [DecidableEq Z] in
 /-- Counting is exact: no locator is counted as an unknown entry operation. -/
 theorem compile_count (D : Data X n Z) (γ η t ε : ℝ)
     (p : MultiOracleCircuit.Program (nativeOracle D γ η t ε)) :
