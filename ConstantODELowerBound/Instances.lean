@@ -8,7 +8,7 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # Runs of the released constant-coefficient solver on the hard families exist
 
-Theorem `ode:thm:main` (manuscript lines 3013-3033) and lines 4114-4115: the released
+Theorem `ode:thm:main` and Section `odel:sec:main`: the released
 constant-coefficient solver `SparseHamiltonian.ODECompleteEndpoint.solver` runs on each hard
 constant-coefficient family, so the bounds of `Runs` are not vacuous.
 

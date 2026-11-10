@@ -9,6 +9,9 @@ from the adjoint of the inverse identity), the lower bound for the Hermitian
 dilation, and the regularized dilation `M_σ` as a continuous linear
 equivalence with `‖M_σ⁻¹‖ ≤ 1 / gap κ σ` (`regularizedDilationEquiv`,
 `regularizedDilationEquiv_inverse_norm_le`).
+
+Notation: the regularization parameter is `σ` here and `ξ` in the manuscript, so a subscript `σ` (as
+in `g_σ`, `r_σ`, `H_{σ,r}`) stands for the manuscript's subscript `ξ`.
 -/
 
 namespace SparseLinearSystems.InputInverseBounds

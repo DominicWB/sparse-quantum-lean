@@ -8,7 +8,7 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # Theorem `odel:thm:combined` for retry protocols
 
-Manuscript lines 3697-3709 (statement) and 4001-4009 (proof). For `s ≥ 32`, `τ ≥ 4`, `ḡ ≥ 2`,
+Manuscript: Theorem `odel:thm:combined` and its proof. For `s ≥ 32`, `τ ≥ 4`, `ḡ ≥ 2`,
 `0 < ε ≤ 1/64` (`CombinedRange`), every **retry-protocol** solver of the time-dependent class
 (`RetrySolver` over the sampled-time access, the release's `ODERepeatProtocol.Protocol`
 semantics) has worst-case matrix-query complexity
@@ -25,7 +25,7 @@ where `Q` is the worst-case number of value queries over all transcripts
   `Hamiltonian.assembly`.
 * `herald_max_retry`, `herald_witness_retry`, `precision_terms_witness_retry`: eq.
   `odel:eq:hsbound` for retry protocols in max and family form, and the fourth sentence of
-  `odel:thm:combined` (lines 3707-3708: the precision terms are witnessed by the `g = 1`
+  `odel:thm:combined` (the precision terms are witnessed by the `g = 1`
   families), the retry analogues of `herald_max`, `herald_witness`, `precision_terms_witness`.
 * `combined_retry` (family form): one of the three families is in the class and retry-forces the
   bound (`forces_or_of_max_retry`, the classical step of `forces_or_of_max`).
@@ -36,7 +36,7 @@ where `Q` is the worst-case number of value queries over all transcripts
   restated here.
 
 As for `combined`, this is a worst-case statement over the class; the three terms are witnessed by
-different families and are not multiplied (lines 4005-4008).
+different families and are not multiplied (proof of Theorem `odel:thm:combined`).
 -/
 
 namespace ODELowerBoundExtensions.Release
@@ -91,11 +91,11 @@ theorem forces_or_of_max_retry {X₁ N₁ Z₁ X₂ N₂ Z₂ X₃ N₃ Z₃ : T
 
 variable {s : ℕ} {τ gbar ε : ℝ}
 
-/-- **Eq. `odel:eq:hsbound` for retry protocols, max form** (Lemma `odel:lem:herald`, lines
-3954-3999; the retry analogue of `SparseLowerBounds.ODE.herald_max`): for one retry solver of each
-of the three `g = 1` families (time, mixed, precision) at `(s, τ, ε)`, the largest worst-case
-value count is at least `c₀ (√s τ + √(sτr) + r)`, `c₀ = log 2/(4096π)` (`Hamiltonian.assembly`).
-For `L < 64τ` the time bound alone carries it (line 3996). -/
+/-- **Eq. `odel:eq:hsbound` for retry protocols, max form** (Lemma `odel:lem:herald`; the retry
+analogue of `SparseLowerBounds.ODE.herald_max`): for one retry solver of each of the three `g = 1`
+families (time, mixed, precision) at `(s, τ, ε)`, the largest worst-case value count is at least
+`c₀ (√s τ + √(sτr) + r)`, `c₀ = log 2/(4096π)` (`Hamiltonian.assembly`). For `L < 64τ` the time
+bound alone carries it (proof of Lemma `odel:lem:herald`). -/
 theorem herald_max_retry (h : HSRange τ s ε) {ιT ιM ιP ET EM EP GT GM GP : Type}
     [Fintype ιT] [Fintype ιM] [Fintype ιP]
     [NormedAddCommGroup ET] [InnerProductSpace ℂ ET] [CompleteSpace ET] [FiniteDimensional ℂ ET]
@@ -118,12 +118,12 @@ theorem herald_max_retry (h : HSRange τ s ε) {ιT ιM ιP ET EM EP GT GM GP : 
       fun hs' => (precision_forces_sqrt_retry h hL hs' ιP EP GP AP).1⟩)
     (fun hL hs => (mixed_forces_retry h hL hs ιM EM GM AM).1)
 
-/-- **Eq. `odel:eq:hsbound` for retry protocols, family form** (Lemma `odel:lem:herald`, lines
-3954-3999; the retry analogue of `SparseLowerBounds.ODE.herald_witness`): for `τ ≥ 1`, `s ≥ 32`,
-`0 < ε ≤ 1/64` (`HSRange`) and any `ḡ ≥ 1`, one of the time, mixed and precision families
-(homogeneous, constant-coefficient, `D = 0`, `g = 1`) is in the class (`η = 1`, `T = τ`,
-`g ≤ ḡ`) and forces every retry solver to make `c₀ (√s τ + √(sτr) + r)` value queries (and as
-many queries in total) in the worst case, `c₀ = log 2/(4096π)`. -/
+/-- **Eq. `odel:eq:hsbound` for retry protocols, family form** (Lemma `odel:lem:herald`; the retry
+analogue of `SparseLowerBounds.ODE.herald_witness`): for `τ ≥ 1`, `s ≥ 32`, `0 < ε ≤ 1/64`
+(`HSRange`) and any `ḡ ≥ 1`, one of the time, mixed and precision families (homogeneous,
+constant-coefficient, `D = 0`, `g = 1`) is in the class (`η = 1`, `T = τ`, `g ≤ ḡ`) and forces every
+retry solver to make `c₀ (√s τ + √(sτr) + r)` value queries (and as many queries in total) in the
+worst case, `c₀ = log 2/(4096π)`. -/
 theorem herald_witness_retry (h : HSRange τ s ε) (hg : 1 ≤ gbar) :
     RetryWitnesses (timeFamilyAt τ s h.s_ge (by linarith [h.one_le_tau])) τ gbar ε
         (c0 * (Real.sqrt s * τ + Real.sqrt (s * τ * hsR τ ε) + hsR τ ε)) ∨
@@ -143,8 +143,8 @@ theorem herald_witness_retry (h : HSRange τ s ε) (hg : 1 ≤ gbar) :
   · exact Or.inr (Or.inr ⟨precisionFamilyAt_inClass h hg, precisionFamilyAt_T h, hf⟩)
 
 /-- **The precision terms of Theorem `odel:thm:combined` for retry protocols are witnessed by
-`g = 1` families** (fourth sentence of the theorem, lines 3707-3708; the retry analogue of
-`SparseLowerBounds.ODE.precision_terms_witness`): on `HSRange` and for any `ḡ ≥ 1`, one of the
+`g = 1` families** (fourth sentence of the theorem, Theorem `odel:thm:combined`; the retry analogue
+of `SparseLowerBounds.ODE.precision_terms_witness`): on `HSRange` and for any `ḡ ≥ 1`, one of the
 homogeneous constant-coefficient families with `D = 0` and `g = 1` (time, mixed, precision)
 retry-witnesses `c₀ (√(sτr) + r)`. -/
 theorem precision_terms_witness_retry (h : HSRange τ s ε) (hg : 1 ≤ gbar) :
@@ -163,9 +163,10 @@ theorem precision_terms_witness_retry (h : HSRange τ s ε) (hg : 1 ≤ gbar) :
   · exact Or.inr (Or.inl (hw.mono hb))
   · exact Or.inr (Or.inr (hw.mono hb))
 
-/-- **Theorem `odel:thm:combined` for retry protocols, max form** (lines 4001-4009): for one retry
-solver of each of the three families (joint, mixed, precision) at `(s, τ, ḡ, ε)`, the largest
-worst-case value count is at least `c (ḡ √s τ + √(sτr) + r)`, `c = log 2/(8192π)`. -/
+/-- **Theorem `odel:thm:combined` for retry protocols, max form** (proof of Theorem
+`odel:thm:combined`): for one retry solver of each of the three families (joint, mixed, precision)
+at `(s, τ, ḡ, ε)`, the largest worst-case value count is at least `c (ḡ √s τ + √(sτr) + r)`,
+`c = log 2/(8192π)`. -/
 theorem combined_max_retry (h : CombinedRange s τ gbar ε) {ιJ ιM ιP EJ EM EP GJ GM GP : Type}
     [Fintype ιJ] [Fintype ιM] [Fintype ιP]
     [NormedAddCommGroup EJ] [InnerProductSpace ℂ EJ] [CompleteSpace EJ] [FiniteDimensional ℂ EJ]
@@ -211,7 +212,7 @@ theorem combined_max_retry (h : CombinedRange s τ gbar ε) {ιJ ιM ιP EJ EM E
   rw [combinedConst_eq, hsτ]
   linarith [mul_nonneg c0_pos.le hS]
 
-/-- **Theorem `odel:thm:combined` for retry protocols** (lines 3697-3709, proof 4001-4009): for
+/-- **Theorem `odel:thm:combined` for retry protocols** (with its proof): for
 `s ≥ 32`, `τ ≥ 4`, `ḡ ≥ 2`, `0 < ε ≤ 1/64`, one of the three families — the joint family of
 `odel:thm:joint` (`g = Θ(ḡ)`) or the mixed or precision family of `odel:lem:herald` (`g = 1`) — is
 in the class (`η = 1`, `T = τ`, `g ≤ ḡ`) and forces every retry-protocol solver to make at least

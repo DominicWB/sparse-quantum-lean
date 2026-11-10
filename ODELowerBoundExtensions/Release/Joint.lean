@@ -7,8 +7,8 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # Theorem `odel:thm:joint` for retry protocols
 
-Manuscript lines 3860-3905 (statement 3860-3868, proof 3869-3905), for the release's retry
-protocols. As in `SparseLowerBounds/ODE/JointTheorem`, with the same constants:
+Manuscript: Theorem `odel:thm:joint` and its proof, for the release's retry protocols. As in
+`SparseLowerBounds/ODE/JointTheorem`, with the same constants:
 
 * `joint_general_retry` (`joint_general` for protocols): any labelled family whose labels are
   implemented with costs `w` by membership programs (`EncodedOracle.ImplementsOn` with the phase
@@ -16,11 +16,11 @@ protocols. As in `SparseLowerBounds/ODE/JointTheorem`, with the same constants:
   conditional output `ε`-accurate for `jointTarget` (`2ε ≤ 1`) has worst-case cost at least
   `β² n √(M 2^μ) / 8`, `β = jointCorr ε = (2/3)(1 - 2ε)`. Route: the heralded correlation
   `AdaptiveHamiltonianLowerBound.tree_correlation` of `Tree.final p` with the half observable
-  `halfObs` (lines 3887-3894, ideal value `halfSign(a_*)` by `inner_halfObs_jointTarget`), then
-  `retry_decision_count_ge` (`Release/Adversary`) with the outer adversary of Lemma
-  `odel:lem:outer` (`outerGamma`, `outer_schurCert`, `outerDeg_le_sum_outerGamma`,
-  `halfSign_oddCand_of_outerGamma_ne_zero`) and the arithmetic `outer_arith`, as in
-  `outer_count_ge`.
+  `halfObs` (proof of Theorem `odel:thm:joint`, ideal value `halfSign(a_*)` by
+  `inner_halfObs_jointTarget`), then `retry_decision_count_ge` (`Release/Adversary`) with the outer
+  adversary of Lemma `odel:lem:outer` (`outerGamma`, `outer_schurCert`,
+  `outerDeg_le_sum_outerGamma`, `halfSign_oddCand_of_outerGamma_ne_zero`) and the arithmetic
+  `outer_arith`, as in `outer_count_ge`.
 * `joint_forces_retry` (`joint_forces`): the joint family retry-forces `β² n √(M 2^μ) / 16` value
   queries, with the membership certificate `implementsOn_joint` and Boolean cost `hardCost`
   (two per value query, so `worstCost hardCost = 2 · worstCost valueWeight`).
@@ -40,8 +40,8 @@ open scoped InnerProduct InnerProductSpace
 -- The nested time-addressed workspaces exceed the default instance size (as in `JointTheorem`).
 set_option synthInstance.maxSize 1024
 
-/-- **Lemma `odel:lem:outer` for retry protocols** (`outer_count_ge` for protocols, lines
-3743-3798): a retry protocol over any labelled family implemented with costs `w` by membership
+/-- **Lemma `odel:lem:outer` for retry protocols** (`outer_count_ge` for protocols, Section
+`odel:sec:main`): a retry protocol over any labelled family implemented with costs `w` by membership
 programs, whose heralded output has signed correlation at least `β ≥ 0` with the half answer
 `halfSign M (oddCand x)`, measured by a contraction `A`, has worst-case cost at least
 `β² n √(M m) / 8`. -/
@@ -104,7 +104,7 @@ theorem joint_general_retry {M n μ s : ℕ} (hM : 2 ≤ M) (hMe : Even M) (hn :
     jointCorr ε ^ 2 * n * Real.sqrt ((M : ℝ) * 2 ^ μ) / 8 ≤ p.worstCost w := by
   have hm := two_le_two_pow hμ
   have hβ : 0 ≤ jointCorr ε := by unfold jointCorr; linarith
-  -- Lines 3887-3894: heralded half measurement, correlation `β` with `halfSign(a_*)`.
+  -- Proof of Theorem `odel:thm:joint`: heralded half measurement, correlation `β` with `halfSign(a_*)`.
   have key : ∀ x, jointCorr ε ≤ halfSign M (oddCand x) *
       corr (Readout.outObs e (halfObs M μ s)) (p.successDensity x) := fun x =>
     AdaptiveHamiltonianLowerBound.tree_correlation (F := E) e

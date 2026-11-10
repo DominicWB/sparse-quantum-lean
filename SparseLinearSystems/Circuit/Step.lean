@@ -18,6 +18,9 @@ with
 * two masked controlled-source calls (one forward, one inverse),
 
 exactly on the full clean subspace (`stepProg_intertwines`).
+
+Notation: the regularization parameter is `σ` here and `ξ` in the manuscript, so a subscript `σ` (as
+in `g_σ`, `r_σ`, `H_{σ,r}`) stands for the manuscript's subscript `ξ`.
 -/
 
 namespace SparseLinearSystems.Step

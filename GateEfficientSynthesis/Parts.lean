@@ -3,9 +3,14 @@ import GateEfficientSynthesis.Circuit
 /-!
 # The synthesis hypothesis from single-qubit synthesis and the decomposition of controlled gates
 
-The paper uses "a gate set admitting single-qubit synthesis of length `O(log(1/ζ))` at accuracy
-`ζ`" and decomposes controlled known gates before synthesis. `Synthesis.of_parts` derives the
-synthesis hypothesis `Synthesis` from these two results of other papers, stated as
+The paper assumes (the finite-gate assumptions of Section `gate:sec:result`) that "An arbitrary
+one-qubit unitary can be synthesised to error `ζ` with `O(log(1/ζ))` gates for `0 < ζ ≤ 1/2`"
+(Ref. KMM2013) and that "A one-qubit unitary with at most three controls (on specified bits equal
+to zero or one) has an exact decomposition into a bounded number of gates from the set and
+uncontrolled one-qubit unitaries" (Ref. Barenco et al.), and decomposes controlled known gates
+before synthesis ("Decompose controlled known operations before synthesis", proof of Theorem
+`hs:thm:gates`). `Synthesis.of_parts` derives the synthesis hypothesis `Synthesis` from these two
+results of other papers, stated as
 `OneQubitSynthesis 𝒢 X₁ L` (the case without controls, with the clean ancillas `X₁`) and
 `ControlDecomposition 𝒢 X₂ K` (every one-qubit unitary with at most three controls acts on the
 clean ancillas `X₂` exactly as a product of at most `K` gates, each a gate of `𝒢` or

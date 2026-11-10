@@ -28,11 +28,11 @@ This module removes the idle vocabulary and reads the released output through a 
   the clean readout `SparseLowerBounds.Hamiltonian.endpointReadout 1 i₀` (any `i₀`), for every
   oracle family (`LinearSystemLowerBound.abs_corr_sub_le`).
 
-These lemmas are generic infrastructure of the retry class of this namespace (manuscript lines
-3710-3730 for the released solver, lines 4262-4265 for the Dyson solver).
-`ReleaseProtocol.accurate` (`Release/Instances`, the released solver over `releaseOracle`) is the
-instance of `certificate_densityAccurate`; the Dyson solver (`Dyson/Family/Retry`) uses
-`stripIdle`, `mapProtocol` and `certificate_densityAccurate`.
+These lemmas are generic infrastructure of the retry class of this namespace (eqs. `odel:eq:upper`
+and `odel:eq:refined` for the released solver, eq. `odel:eq:fixed` for the Dyson solver).
+`ReleaseProtocol.accurate` (`Release/Instances`, the released
+solver over `releaseOracle`) is the instance of `certificate_densityAccurate`; the Dyson solver
+(`Dyson/Family/Retry`) uses `stripIdle`, `mapProtocol` and `certificate_densityAccurate`.
 -/
 
 namespace ODELowerBoundExtensions.Release

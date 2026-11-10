@@ -7,6 +7,7 @@ The exact-gate part of Theorem `hs:thm:gates` (gate-efficient sparse
 simulation) of the accompanying paper is formalized by
 `SparseHamiltonian.GateCircuit.Sim.gate_efficient_simulation` in
 `GateEfficientHamiltonian/Circuit/Theorem.lean`.
+References to the manuscript use its labels.
 
 **Access model.** The system is an arbitrary complex Hilbert space `P`; for
 the simulation of a finite register, `P` is that register (and may include an
@@ -40,7 +41,12 @@ one oblivious amplification round `L Z L† Z L` (times `-1`) of the LCU circuit
 `L`, which prepares the signed branch table and the uniform pointer state of
 every branch, runs `N = 2d` reuse steps (private call, `U_J`-conjugated
 boundary network at the current pointer word, pointer increment), and
-unprepares.
+unprepares. `d` and `2^m` here follow the package schedule. Theorem
+`hs:thm:gates` with eqs. `hs:eq:gate-schedule` and `hs:eq:gate-clocks` is
+`SparseHamiltonian.GateSchedule.gate_efficient_simulation_ms` (exact gates;
+`GateEfficientSchedule/Endpoint.lean:123`) and
+`SparseHamiltonian.GateSchedule.sel_simulation_ms` (finite gate set;
+`GateEfficientSchedule/Selective.lean:150`).
 
 **Guarantees** (`gate_efficient_simulation`):
 
@@ -57,7 +63,7 @@ unprepares.
 **Proof map.** Module paths are relative to `GateEfficientHamiltonian/Circuit/`.
 
 * Dyadic compression of the chronological boundary network, equation
-  `hs:eq:gate-dyadic`: `Dyadic` (`chron_eq_compressed`, `chron_closed`).
+  `gate:eq:dyadic`: `Dyadic` (`chron_eq_compressed`, `chron_closed`).
 * The network on the register and its transducer blocks:
   `NetLift`, `NetIdeal` (`NET_emb`, `chron_boundary`), `Select` (`BNET_emb`,
   `blkB_net`, `blkC_net`, `blkG_net`).

@@ -7,14 +7,13 @@ set_option autoImplicit false
 /-!
 # The endpoint search bound from readout probabilities
 
-For the lower half of Corollary `hs:cor:unitary` of the manuscript (lines 1647-1666 and
-1711-1718) at trace-distance error `1/2`. A family of readout effects `R_y`, `y : Fin N`, on the
-output, with `‖R_x - R_{x'}‖ ≤ 1`, gives read values `r(x, y)`: the heralded correlation of `R_y`
-on instance `x`. The pair observable `R_x - R_{x'}` has the gap
-`g(x, x') = r(x, x) - r(x, x') - r(x', x) + r(x', x')` (`pair_gap_eq`), and these gaps sum to
-`2 ∑_x (N r(x, x) - ∑_y r(x, y))` over the ordered pairs (`sum_pair_gaps`): the gaps are large on
-average whenever the read value of the correct answer exceeds a `1/N` share of the total, even
-though a single pair may have no gap.
+For the lower half of Corollary `hs:cor:unitary` of the manuscript at trace-distance error `1/2`. A
+family of readout effects `R_y`, `y : Fin N`, on the output, with `‖R_x - R_{x'}‖ ≤ 1`, gives read
+values `r(x, y)`: the heralded correlation of `R_y` on instance `x`. The pair observable
+`R_x - R_{x'}` has the gap `g(x, x') = r(x, x) - r(x, x') - r(x', x) + r(x', x')` (`pair_gap_eq`),
+and these gaps sum to `2 ∑_x (N r(x, x) - ∑_y r(x, y))` over the ordered pairs (`sum_pair_gaps`):
+the gaps are large on average whenever the read value of the correct answer exceeds a `1/N` share of
+the total, even though a single pair may have no gap.
 
 * `tree_count_ge_of_reads`: adaptive protocols over phase-implemented labels, on
   finite-dimensional spaces; separation from

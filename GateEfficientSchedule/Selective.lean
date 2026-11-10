@@ -134,7 +134,7 @@ theorem sim_supplied_ms (a : ℕ) (prim : J → Reg Y R →L[ℂ] Reg Y R)
 
 set_option maxRecDepth 8192 in
 /-- **Gate-efficient sparse Hamiltonian simulation over a finite gate set with the manuscript's
-schedule** (Theorem `hs:thm:gates`, time-independent part, with `k`, `d`, `M`, `r` of equations
+schedule** (Theorem `hs:thm:gates`, with `k`, `d`, `M` and `r = r_reuse` of equations
 `hs:eq:gate-schedule`, `hs:eq:gate-clocks` and `ξ = ε/(24d)` of `hs:eq:gate-Gzero`). Under the
 synthesis hypothesis `Synthesis 𝒢 X L` with `L ζ ≤ c₁ log(1/ζ) + c₀` on `(0, 1]`, an
 adjoint-closed `𝒢`, the clock promises of the released analysis, and a valid supplied circuit

@@ -7,7 +7,7 @@ set_option autoImplicit false
 /-!
 # Theorem `hsl:thm:main` for adaptive algorithms
 
-Manuscript lines 2075-2124 and 2456-2474: eq. `hsl:eq:main`,
+Manuscript: Theorem `hsl:thm:main` and its proof, eq. `hsl:eq:main`,
 `max(Q_T, Q_M, Q_P) ≥ c₀ (√s τ + √(sτr) + r)` with `c₀ = log 2/(4096π)`, now for adaptive
 algorithms: the released adaptive protocols `SparseLinearSystems.Protocol.Tree` (fresh
 measured runs with classical branching on the outcomes, uniformly random trial labels and

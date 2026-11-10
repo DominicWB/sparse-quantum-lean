@@ -8,10 +8,10 @@ set_option autoImplicit false
 /-!
 # Measured solvers of the dissipative ODE class
 
-Manuscript Section `odel:sec:main`, lines 3669-3680 (access with inverses and controls, success
+Manuscript Section `odel:sec:main` (access with inverses and controls, success
 flag of probability at least `2/3` on every input, conditional trace distance `ε` from the
-normalised solution, worst-case query bound) and line 2364 (purification and deferred
-measurement).
+normalised solution, worst-case query bound) and the end of the proof of Lemma
+`hsl:lem:precision` (purification and deferred measurement).
 
 * `MeasuredSolver F O E G ε`: a measured algorithm (`Model.Measured`: mid-run and multi-outcome
   measurements, classical control, randomness and resets of finite-dimensional registers on a

@@ -6,7 +6,7 @@ section
 /-!
 # Theorem `odel:thm:combined`: the combined worst-case ODE lower bound
 
-Manuscript lines 3697-3709 (statement) and 4001-4009 (proof). For `s ≥ 32`,
+Manuscript: Theorem `odel:thm:combined` and its proof. For `s ≥ 32`,
 `τ ≥ 4`, `ḡ ≥ 2`, `0 < ε ≤ 1/64` (`CombinedRange`), every solver for the
 time-dependent class (`ODE/Model`, `η = 1`, `T = τ`, `g ≤ ḡ`) has worst-case
 matrix-query complexity
@@ -15,7 +15,7 @@ matrix-query complexity
 
 with `L = log(1/ε)`, `h = log(e + L/τ)`, `r = L/h` (`Hamiltonian.hsR`).
 
-**Witnesses** (lines 3705-3708). The first term is witnessed by the joint
+**Witnesses** (Theorem `odel:thm:combined`). The first term is witnessed by the joint
 family of Theorem `odel:thm:joint` (`jointFamilyAt`: inhomogeneous,
 time-dependent, `D = 0` by `jointFamily_skew`, `g = √M = Θ(ḡ)`;
 `joint_witness`). The last two terms are witnessed, on the whole range, by
@@ -24,7 +24,7 @@ constant-coefficient ODEs with `D = 0` and `g = 1` (`ODE/Precision`, Lemma
 `odel:lem:herald`): `precision_terms_witness` (one of the time, mixed and
 precision families), from eq. `odel:eq:hsbound` in the ODE model
 (`herald_witness`); its proof uses the mixed and precision bounds for
-`L ≥ 64τ` and the time bound alone for `L < 64τ` (line 3996). The headline
+`L ≥ 64τ` and the time bound alone for `L < 64τ` (proof of Lemma `odel:lem:herald`). The headline
 `combined` uses the joint, mixed and precision families only, since the time
 term `√s τ` of the time family is dominated by the joint term `ḡ √s τ`.
 
@@ -39,13 +39,12 @@ value queries and for all matrix queries) is derived from the max form,
 classically: if no family forced it, one cheap
 solver per family would contradict `combined_max`.
 
-As in lines 4005-4008, this is a worst-case statement over the class: no
-single instance witnesses all terms, and the independent lower bounds are
-not multiplied (nor are the two precision terms multiplied by `ḡ`, lines
-3715-3719). The initial state and sources are public, and only matrix
-queries are counted (lines 3685-3686, 3700). Inverse calls are counted, and
-controlled calls are covered by the reduction of `ODE/Model` (**Controlled
-calls**) at cost `1` per controlled value call.
+As in the proof of Theorem `odel:thm:combined`, this is a worst-case statement over the class: no
+single instance witnesses all terms, and the independent lower bounds are not multiplied (nor are
+the two precision terms multiplied by `ḡ`, Section `odel:sec:main`). The initial state and sources
+are public, and only matrix queries are counted (Section `odel:sec:main` and Theorem
+`odel:thm:combined`). Inverse calls are counted, and controlled calls are covered by the reduction
+of `ODE/Model` (**Controlled calls**) at cost `1` per controlled value call.
 -/
 
 namespace SparseLowerBounds.ODE
@@ -57,7 +56,7 @@ open Hamiltonian
 -- The nested time-addressed workspaces exceed the default instance size.
 set_option synthInstance.maxSize 1024
 
-/-- The parameter range of Theorem `odel:thm:combined` (lines 3697-3699). -/
+/-- The parameter range of Theorem `odel:thm:combined`. -/
 structure CombinedRange (s : ℕ) (τ gbar ε : ℝ) : Prop where
   s_ge : 32 ≤ s
   tau_ge : 4 ≤ τ
@@ -102,7 +101,7 @@ theorem c0_le_jointConst : c0 ≤ jointConst := by
   unfold jointConst
   linarith [c0_le, cT_le_inv_32, c0_pos]
 
-/-- **Theorem `odel:thm:combined`, max form** (lines 4001-4009): for one solver
+/-- **Theorem `odel:thm:combined`, max form** (proof of Theorem `odel:thm:combined`): for one solver
 of each of the three families (joint, mixed, precision) at `(s, τ, ḡ, ε)`, the
 largest value-query count is at least `c (ḡ √s τ + √(sτr) + r)`.
 This is the form from which the family form `combined` is derived. -/
@@ -145,7 +144,7 @@ theorem combined_max (h : CombinedRange s τ gbar ε) {ιJ ιM ιP GJ GM GP : Ty
   rw [combinedConst_eq, hsτ]
   linarith [mul_nonneg c0_pos.le hS]
 
-/-- **Theorem `odel:thm:combined`** (lines 3697-3709, proof 4001-4009): for
+/-- **Theorem `odel:thm:combined`** (with its proof): for
 `s ≥ 32`, `τ ≥ 4`, `ḡ ≥ 2`, `0 < ε ≤ 1/64`, one of the three families —
 the joint family of `odel:thm:joint` (`g = Θ(ḡ)`) or the mixed or precision
 family of `odel:lem:herald` (`g = 1`) — is in the class (`η = 1`, `T = τ`,
@@ -156,7 +155,7 @@ This headline family form is derived from the max form `combined_max` by
 `forces_or_of_max` (if no family forced the bound, one cheap solver per family
 would contradict it). It is a worst-case statement over the class: it does not
 assert that one instance witnesses all terms, nor that the independent bounds
-multiply (lines 4005-4008). Which families witness which terms (third and
+multiply (proof of Theorem `odel:thm:combined`). Which families witness which terms (third and
 fourth sentences of the theorem) is `joint_witness` and `precision_terms_witness`. -/
 theorem combined (h : CombinedRange s τ gbar ε) :
     (jointFamilyAt s τ gbar h.toJointRange.s_ge h.tau_ge).Witnesses τ gbar ε

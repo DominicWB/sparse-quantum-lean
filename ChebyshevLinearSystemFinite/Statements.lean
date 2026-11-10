@@ -1,25 +1,25 @@
 import ChebyshevLinearSystemFinite.Alloc
+import ChebyshevLinearSystemFinite.CentredAveraging
 
 set_option autoImplicit false
 
 /-!
 # Theorem `qls:thm:main` with finite gates and explicit constants: paper-to-Lean entry point
 
-Theorem 8.1 (`qls:thm:main`) of the accompanying paper with the finite-gate allowance of
-Section "Constant-accuracy probability tests and finite gates" (equations
-`qls:eq:finitedegree` and `qls:eq:bernoulli` and the allocation paragraph after it), and the
-explicit constants of Remark `qls:rem:constants` (equation `qls:eq:testconstant`). The
-released exact-gate proof `ChebyshevLinearSystem.main` (library `ChebyshevLinearSystem`) is
-unchanged. The endpoints are `main_amp`, `main`, `main_uniform`, `main_uniform_sharp`,
-`main_alloc`, `main_exact`, `main_improved` and `main_improved_exists`
-(`ChebyshevLinearSystemFinite/Main.lean`,
-`ChebyshevLinearSystemFinite/Alloc.lean`). No result from another paper is used. Unqualified
-names below are in the namespace `ChebyshevLinearSystemFinite`; `Endpoint`, `Step`,
-`Protocol` and `LogicalWalk` refer to the namespaces `SparseLinearSystems.*` of the released
-library and `Estimator` to `SparseLinearSystems.Protocol.Estimator`; `MultiOracleCircuit`,
-`OracleCircuit`, `EncodedLabeledProgram`, `NativeSparseBlockEncoding` and `ODEMixedOutput`
-refer to `SparseHamiltonian.*`, and `ChebyshevLinearSystem`, `ChebyshevFilter` to the released
-libraries of these names.
+Theorem 8.1 (`qls:thm:main`) of the accompanying paper with the finite-gate allowance of the
+paragraph "Finite-gate accuracy" of Section `part:qls` (equations `qls:eq:finitedegree` and
+`qls:eq:bernoulli` and the allocation paragraph after it), and the explicit constants of Remark
+`qls:rem:constants` (equation `qls:eq:testconstant`). The released exact-gate proof
+`ChebyshevLinearSystem.main` (library `ChebyshevLinearSystem`) is unchanged. The endpoints are
+`main_amp`, `main`, `main_uniform`, `main_uniform_sharp`, `main_alloc`, `main_exact`,
+`main_improved` and `main_improved_exists` (`ChebyshevLinearSystemFinite/Main.lean`,
+`ChebyshevLinearSystemFinite/Alloc.lean`). No result from another paper is used. Unqualified names
+below are in the namespace `ChebyshevLinearSystemFinite`; `Endpoint`, `Step`, `Protocol` and
+`LogicalWalk` refer to the namespaces `SparseLinearSystems.*` of the released library and
+`Estimator` to `SparseLinearSystems.Protocol.Estimator`; `MultiOracleCircuit`, `OracleCircuit`,
+`EncodedLabeledProgram`, `NativeSparseBlockEncoding` and `ODEMixedOutput` refer to
+`SparseHamiltonian.*`, and `ChebyshevLinearSystem`, `ChebyshevFilter` to the released libraries of
+these names. References to the manuscript use its labels.
 
 **Access model and promise.** Those of `ChebyshevLinearSystem.main`:
 `D : NativeSparseBlockEncoding.Data X n Z s` (an `s`-sparse `A_x` for every unknown input,
@@ -31,7 +31,7 @@ the state preparation `Ub x` with public reference state `sv`, the physical orac
 unitary `U_b` and `‖sv‖ = 1`. Public instance-independent gates are free.
 
 **The finite-degree protocol** (`Algorithm.lean`, `Degree.lean`). The released Chebyshev
-protocol with the degrees of equation `qls:eq:finitedegree`, `d^fin_σ(δ) = d_σ(δ) + 1`
+protocol with the degrees of equation `qls:eq:finitedegree`, `d^fin_ξ(δ) = d_ξ(δ) + 1`
 (`finDegree`):
 
 * a test of candidate `r` at stage `j` (`testRunF`): the LCU circuit of
@@ -134,11 +134,45 @@ residual amplitude `resid` at the finite degree; `delta0_le`: `δ₀ ≤ δ/(1 +
   `(51200π - 1)/y`; `averaging_ratio`: `1400 d^fin_σ(1/100) < q_av`;
   `averaging_ratio_final`: `1400 d^fin_σ(δ) < k q_av`.
 
+**Centred averaging and the query comparison** (`CentredAveraging.lean`, namespace
+`ChebyshevLinearSystemFinite.CentredAveraging`; Remark `qls:rem:averaging` and the comparison
+paragraph of Remark `qls:rem:constants`). For a real polynomial `p` of degree at most `d` with
+nonnegative coefficients and `p(1) = 1` (`polyOp p W = f(W)`), `m = ⌊d/2⌋` (`lowHalf`) and
+`c = ⌈d/2⌉` (`highHalf`):
+
+* `centred_sub_eq`, `norm_centred_sub_apply`, `norm_centred_apply`, `opNorm_centred_sub`: for a
+  unitary `W` and `W P = P`, `W^{-m} f(W) - P = W^{-m}(f(W) - P)`, with the same error on every
+  vector, the same operator-norm error and the same selected norm; `centred_filter_error`: for the
+  averaging filter `f_N(W)^k` and the fixed-space projector, the error `(N b)^{-k} ‖x‖` and
+  equation `qls:eq:filterprobability` of the centred filter;
+* `centred_sum`: `W^{-m} f(W) = ∑_{|z| ≤ c} a_{z+m} W^z` (exponents in `[-m, d - m] ⊆ [-c, c]`;
+  for odd `d` the branch `-c` carries weight zero, `centCoeff_neg_highHalf`);
+  `centSeedT_isometry`, `centT_compression`: on the released counter register (`2c ≤ T`) the
+  centred coefficient seed is an isometry and the `c` signed steps compress to `W^{-m} f(W)`;
+* `centred_run`, `centred_test_amplitude`: the released signed-step run
+  `ChebyshevLinearSystem.runPhys … c` on the physical oracle family has success block
+  `W_{σ,r}(x)^{-m} f(W_{σ,r}(x))` on every input, its literal adjoint program the adjoint block,
+  and both make `54 c` matrix-oracle and `2 c` source calls; `centred_run_zero` (`d = 0`: no step,
+  identity block); `centred_averaging_run`: the averaging filter `f_N(W)^k` with
+  `⌈k (N - 1)/2⌉` signed steps;
+* the comparison, with `n_av = ⌈100π/ω⌉`, `ω = g/(512√s)` (`nAv`, `qAv_eq`: `q_av = n_av - 1`):
+  `step_costs` (a forward and a signed step both make `54` matrix-oracle and `2` source calls),
+  `test_query_comparison` (`1400` times the calls of the Chebyshev run of `d^fin_σ(1/100)` signed
+  steps are fewer than those of the forward run of `q_av` steps), `final_query_comparison` (the
+  repeated stage: `d^fin_σ(δ)` against `k q_av`, `δ ≤ 1/100`), `walkStepsAv`, `walkSteps_ratio`,
+  `budget_query_comparison` (the prescribed budgets with the numbers of tests and attempts of
+  `walkStepsF`), and `averaging_schedules` (the forward run of `k q_av` steps, the centred run of
+  `⌈k q_av/2⌉` signed steps and a Chebyshev run, with their exact amplitudes and counts). The
+  comparison concerns the stated conservative forward averaging schedule only;
+  `centred_test_ratio` (`700 d^fin_σ(1/100) < ⌈q_av/2⌉`) and `centred_final_ratio`
+  (`700 d^fin_σ(δ) < ⌈k q_av/2⌉` and `700 d^fin_σ(δ) < k ⌈q_av/2⌉` for `0 < δ ≤ 1/100`) are
+  derived here, not claims of the manuscript.
+
 **Intermediate results.**
 
 * `impl_bernoulli` (equation `qls:eq:bernoulli`): an implemented test whose success vector is
-  within `e_test` of the ideal one has `|p_F - p_σ(r)| ≤ δ₀² + 2e_test = 10⁻⁴`,
-  `p_σ(r) = ‖P_{σ_j,r} J e‖²`; `impl_test_bounds`: hence
+  within `e_test` of the ideal one has `|p_F - p_ξ(r)| ≤ δ₀² + 2e_test = 10⁻⁴`,
+  `p_ξ(r) = ‖P_{ξ_j,r} J e‖²`; `impl_test_bounds`: hence
   `1/(2(1 + q²)) - 10⁻⁴ ≤ p_F ≤ 1/(1 + q²) + 10⁻⁴`, `q = ρ_j/r`.
 * `impl_final_amp`: an implemented final attempt whose decoded amplitude is within `e_fin` of
   the ideal one is within `δ₀ + e_fin = ε/1000` of the decoded exact projection `c A⁻¹ b`
@@ -186,6 +220,7 @@ residual amplitude `resid` at the finite degree; `delta0_le`: `δ₀ ≤ δ/(1 +
   `main_improved`, `main_improved_exists`.
 * `Alloc`: `allocRun`, `allocRun_approx`, `allocTest`, `allocFinal`, `allocAlgorithm`,
   `main_alloc`.
+* `CentredAveraging`: centred averaging and the query comparison, as above.
 
 Every theorem of the library is axiom-audited in `ChebyshevLinearSystemFinite/Audit.lean`.
 
@@ -214,8 +249,8 @@ Every theorem of the library is axiom-audited in `ChebyshevLinearSystemFinite/Au
   preparation within `η_c`, unprepared by its actual adjoint, is the special case `allocRun`
   (seed and flag each within `η_c`). The remark that the coefficient distribution changes by at
   most `2η_c` in total variation is not used.
-* The test allowance enters as the manuscript's two-sided bound `|p_F - p_σ(r)| ≤ 10⁻⁴`; the
-  released estimator analysis assumed the one-sided bound `p_σ(r) ≤ p_F` of exact gates and is
+* The test allowance enters as the manuscript's two-sided bound `|p_F - p_ξ(r)| ≤ 10⁻⁴`; the
+  released estimator analysis assumed the one-sided bound `p_ξ(r) ≤ p_F` of exact gates and is
   re-proved with the two-sided tolerance (`algorithm_bad_le_tol`); the thresholds, margins and
   classical control are unchanged (`0.2299 + 0.0001 = 0.23`, `0.2499 - 0.0099 ≥ 0.22`).
 * As in the released proof the tests use the public lower bound `g = σ_j ≤ g_{σ_j}` and the final
@@ -255,4 +290,7 @@ access model, walk, circuit layer, protocol, estimator, endpoint lemmas and Cheb
 was changed. It covers the items "the finite-gate allowance of equation `qls:eq:finitedegree`"
 and "the explicit constants of Remark `qls:rem:constants`" listed as not formalised in
 `ChebyshevLinearSystem/Statements.lean`.
+
+Notation: the regularization parameter is `σ` here and `ξ` in the manuscript, so a subscript `σ` (as
+in `g_σ`, `r_σ`, `H_{σ,r}`) stands for the manuscript's subscript `ξ`.
 -/

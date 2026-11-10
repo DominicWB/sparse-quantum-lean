@@ -5,6 +5,10 @@ import GateEfficientRemarks.ODE.ZeroReleasedTrials
 # Zero time or a known zero generator over a finite gate set: the time-dependent budgets in `𝔟`
 on the released trial register
 
+The finite-gate-set forms of Theorem `ode:thm:gates` in this module are a partial formalisation of
+its finite-set statement, under this package's format hypotheses: the manuscript states Theorem
+`ode:thm:gates` over a finite gate set; the conformance endpoints count native gates.
+
 The time-dependent counterpart of `ZeroReleasedTrials` (Theorem `ode:thm:gates`, time-dependent
 part, equations `ode:eq:gate-main`, `ode:eq:gate-space`, `ode:eq:gate-word-budget`): only the
 preparation is synthesised (`GateSynthTrials.synthPrep hS (ν/3)`), as in the released
@@ -202,7 +206,8 @@ theorem zero_gates_le_prepBoundT (q : PubT) (hq : BTPublicOK0 q) {Zs : Type*}
 
 /-- **Equations `ode:eq:gate-main` and `ode:eq:gate-space` in `𝔟` over a finite gate set, with
 the per-trial claim, on the released time-dependent trial register, for zero time or a known zero
-generator** (Theorem `ode:thm:gates`, time-dependent part, with its remark).
+generator** (partial formalisation, under this package's format hypotheses, of the finite-set
+statement of Theorem `ode:thm:gates`, time-dependent part, with its remark).
 
 Under `Synthesis 𝒢 Xa len` with `len ζ ≤ c₁ log(1/ζ) + c₀` (`c₀, c₁ ≥ 0`), `AdjClosed 𝒢` and
 `zeroTestKinds ⊆ 𝒢`, for time-indexed binary public data with `BTPublicOK0 q` in the zero case, a
@@ -447,9 +452,10 @@ theorem binary_ode_time_budget_trials_bits_zero_released (hS : Synthesis 𝒢 Xa
       bmax ζs (primsT_isUnitary D en x) hζs hload hwp hbud hI
 
 /-- **Equations `ode:eq:gate-main` and `ode:eq:gate-space` in `𝔟` over a finite gate set, with
-the per-trial claim, from time-indexed binary sparse data for every `T ≥ 0`** (Theorem
-`ode:thm:gates`, time-dependent part, equation `ode:eq:gate-word-budget`, with its remark on zero
-time and a known zero generator).
+the per-trial claim, from time-indexed binary sparse data for every `T ≥ 0`** (partial
+formalisation, under this package's format hypotheses, of the finite-set statement of Theorem
+`ode:thm:gates`, time-dependent part, equation `ode:eq:gate-word-budget`, with its remark on
+zero time and a known zero generator).
 
 Under the synthesis hypotheses of `GateBitBudget.binary_ode_time_budget_trials_bits`, for
 time-indexed binary public data with `BTPublicOK0 q` (every `T ≥ 0`), the rescaling `γ` of bit

@@ -5,8 +5,9 @@ set_option autoImplicit false
 /-!
 # Deferral of a measured algorithm
 
-Manuscript lines 2363-2364 ("purification and deferred measurement") and 5185-5186 ("coherent
-purification and padding to their worst-case query count").
+Manuscript: the end of the proof of Lemma `hsl:lem:precision` ("Purification and deferred
+measurement") and the proof of Lemma `qlsl:lem:xor` ("coherent purification and padding to
+their worst-case query count").
 
 `defer` turns a measured algorithm into an aligned schedule over the selection family on
 `Joint (Rec W k) K` (`k` record registers of width `W`):

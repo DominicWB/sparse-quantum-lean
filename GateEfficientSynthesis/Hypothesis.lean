@@ -3,12 +3,18 @@ import GateEfficientSynthesis.Payload
 /-!
 # Finite gate sets and the synthesis hypothesis
 
-The gate-level libraries count *elementary gates*: one-qubit unitaries with at most three
-literal controls (`GateOK 3`). Theorems `hs:thm:gates` and `ode:thm:gates` of the accompanying
-paper finally compile every elementary gate over a finite gate set, using "a gate set admitting
-single-qubit synthesis of length `O(log(1/ζ))` at accuracy `ζ`" (for example the construction
-with at most two clean ancillas of Kliuchnikov, Maslov and Mosca), after decomposing controlled
-known gates. These are results from other papers; they enter here as explicit hypotheses.
+The gate-level libraries count *elementary gates*: one-qubit unitaries with at most three literal
+controls (`GateOK 3`). Theorem `hs:thm:gates` of the accompanying paper finally compiles every
+elementary gate over a finite gate set (the finite-gate-set forms of Theorem `ode:thm:gates` here
+are a partial formalisation, under this package's format hypotheses, of its finite-set statement:
+the manuscript states Theorem `ode:thm:gates` over a finite gate set; the conformance endpoints
+count native gates), under the finite-gate assumptions
+of Section `gate:sec:result`: "An arbitrary one-qubit unitary can be synthesised to error `ζ` with
+`O(log(1/ζ))` gates for `0 < ζ ≤ 1/2`" (Ref. KMM2013; for example the construction with at most
+two clean ancillas of Kliuchnikov, Maslov and Mosca) and "A one-qubit unitary with at most three
+controls (on specified bits equal to zero or one) has an exact decomposition into a bounded number
+of gates from the set and uncontrolled one-qubit unitaries" (Ref. Barenco et al.). These are
+results from other papers; they enter here as explicit hypotheses.
 
 * `Kind`: a gate kind, the values of the control literals (in order) and the one-qubit matrix;
   a gate set is a set of kinds, `kind g` is the kind of a placed gate, and `GateOf 𝒢 g` states

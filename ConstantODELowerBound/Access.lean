@@ -7,7 +7,7 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # The released constant-coefficient oracle on hard data: search-weight growth
 
-Section `odel:sec:main` (manuscript lines 4105-4109 and 4119-4122: access model; public location
+Section `odel:sec:main` (access model; public location
 lists, public source preparation, all unknown information in exact finite-word entries). For
 native data `D` whose locators are input-independent and whose table entries are one-bit
 functions of a one-hot input (`AdaptiveHamiltonianLowerBound.Access.HardAccess D g`), the

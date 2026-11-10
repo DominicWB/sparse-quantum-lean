@@ -17,8 +17,8 @@ ordered product of the slot exponentials `exp(-i (τ/N) Ĥ_{σ k})` on `N` slots
 (`exists_sampled_simulation`) with the released error `2 (ε/3) + N (√s τ / N)³` and count
 `6 · 54 · d`, independently of `N`, `M` and `σ`.
 
-The manuscript uses such a "known map from each new time label to its original sample label"
-in the proof of `hs:cor:hybrid`; here it is realised in the fixed clean encoding.
+The proof of `hs:cor:hybrid` uses the same refinement ("on each new interval choose the original
+sample containing its left endpoint"); here it is realised in the fixed clean encoding.
 -/
 
 namespace TimeDependentExtensions

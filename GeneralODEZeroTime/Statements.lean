@@ -4,15 +4,16 @@ import GeneralODEZeroTime.Theorem
 # Theorem `ode:thm:general` at `T = 0`: paper-to-Lean entry point
 
 The proof of Theorem `ode:thm:general` (general constant-coefficient equations, Section
-`ode:sec:general`) of the accompanying paper begins with "The case `T = 0` is direct state
-preparation." The released theorem `SparseHamiltonian.GeneralODE.general` (library
-`GeneralODE`, whose statement file lists the case `T = 0` as not formalised) assumes `T > 0`;
-it is unchanged. This library formalises the case `T = 0` in the same physical oracle model and
-states Theorem `ode:thm:general` for every `T ≥ 0`. Nothing from outside the paper is used at
-`T = 0`: in particular the hypothesis `BlockSolver f q₀` (the block-input linear-system solver
-of Costa et al. and Dalzell) is not needed there. Declarations are named relative to the
-namespace `SparseHamiltonian.GeneralODE`; the new ones are in `GeneralODEZeroTime/Theorem.lean`,
-the others in the released libraries (`GeneralODE` and the ODE layer of `SparseODE`).
+`ode:sec:general`) of the accompanying paper begins with "The case `T = 0` is direct preparation of
+the initial state." The released theorem `SparseHamiltonian.GeneralODE.general` (library
+`GeneralODE`, whose statement file lists the case `T = 0` as not formalised) assumes `T > 0`; it is
+unchanged. This library formalises the case `T = 0` in the same physical oracle model and states
+Theorem `ode:thm:general` for every `T ≥ 0`. Nothing from outside the paper is used at `T = 0`: in
+particular the hypothesis `BlockSolver f q₀` (the block-input linear-system solver of Costa et al.
+and Dalzell) is not needed there. Declarations are named relative to the namespace
+`SparseHamiltonian.GeneralODE`; the new ones are in `GeneralODEZeroTime/Theorem.lean`, the others in
+the released libraries (`GeneralODE` and the ODE layer of `SparseODE`).
+References to the manuscript use its labels.
 
 * The case `T = 0` (direct state preparation): `general_zero`, with the protocol
   `ZeroTime.protocol`.
@@ -93,6 +94,7 @@ Every theorem of the library is axiom-audited in `GeneralODEZeroTime/Audit.lean`
 **Not formalised.** The block-input linear-system solver used for `T > 0` (it remains the
 hypothesis `BlockSolver f q₀` of `general` and `general_nonneg`), gate counts, and the related
 remarks after `hs:thm:time`, `ode:thm:main` and `ode:thm:gates` that zero time or a known zero
-generator needs no matrix queries (for a known zero generator with `T > 0` the target
-`x₀ + T b` needs both source interfaces).
+generator needs no matrix query (`hs:thm:time`), none outside the supplied input and source
+preparations (`ode:thm:main`) and no propagator query (`ode:thm:gates`); for a known zero
+generator with `T > 0` the target `x₀ + T b` needs both source interfaces.
 -/

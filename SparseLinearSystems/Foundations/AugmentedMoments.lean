@@ -7,6 +7,9 @@ The scalar part of the compressed second-moment bound of the four-branch
 construction: `(s (1 - σ²) + σ² + r⁻² + 1) / (256 s) ≤ 66/256` for `s ≥ 1` and
 `r ≥ 1/8` (`four_branch_moment_le`).  The operator statement is part of
 `Augmented.augmented_hyp`.
+
+Notation: the regularization parameter is `σ` here and `ξ` in the manuscript, so a subscript `σ` (as
+in `g_σ`, `r_σ`, `H_{σ,r}`) stands for the manuscript's subscript `ξ`.
 -/
 
 namespace SparseLinearSystems.AugmentedMoments

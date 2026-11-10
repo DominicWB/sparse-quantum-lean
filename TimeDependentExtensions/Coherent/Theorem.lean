@@ -6,13 +6,12 @@ set_option autoImplicit false
 /-!
 # Coherent selection of durations and start times
 
-The paragraph "Regularity and coherent parameters" after Theorem `hs:thm:time`: the proof
-permits coherent selection of known durations and start times, provided the corresponding
-coherent sampled-time oracle is supplied and a common schedule is fixed for the largest total
-time. Here the selection register is a branch label `i`; on slot `k` branch `i` evolves for
-`u_i(σ k) / N`, hence for `n_r u_i(r) / N` on the `n_r` slots that read sample `r`, with public
-`0 ≤ u_i(r) ≤ T`; the values `u_i(r) ∈ {0, T}` switch the intervals of a window on and off
-(`windows`).
+The paragraphs after the proof of Theorem `hs:thm:time`: the proof permits coherent selection of
+known durations and start times, provided the corresponding coherent sampled-time oracle is supplied
+and a common schedule is fixed for the largest total time. Here the selection register is a branch
+label `i`; on slot `k` branch `i` evolves for `u_i(σ k) / N`, hence for `n_r u_i(r) / N` on the
+`n_r` slots that read sample `r`, with public `0 ≤ u_i(r) ≤ T`; the values `u_i(r) ∈ {0, T}` switch
+the intervals of a window on and off (`windows`).
 
 The SELECT on `N` slots of `MeshSelect` simulates, coherently in a branch label, the ordered
 products of the tagged LCHS Hamiltonians with branch-dependent durations. For Hamiltonian

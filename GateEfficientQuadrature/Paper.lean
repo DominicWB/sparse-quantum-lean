@@ -3,20 +3,20 @@ import GateEfficientQuadrature.Mass
 /-!
 # The sufficient positive quadrature of the proof of Theorem `ode:thm:gates`
 
-The proof of Theorem `ode:thm:gates` (manuscript lines 4857-4874 of v20) specifies a sufficient
-positive quadrature for time-dependent forcing: if `‖b(v)‖ ≤ b_*` and `Lip(b) ≤ L_b`, put
-`Λ_A = √s (η_D + η_H)` (a bound of the generator) and `C_b = Λ_A b_* + L_b`; "a power-of-two
-left-endpoint mesh with `m ≥ max{1, T² C_b / (2 ν B)}` has vector quadrature error at most
-`ν B`", and `|B_m - B| ≤ T² L_b / (2m) ≤ ν B`, `(1 - ν) B ≤ B_m ≤ (1 + ν) B`, `0 < B_m` and
-`B_m ≤ 2B`, including when `x₀ = 0`.
+The proof of Theorem `ode:thm:gates` specifies a sufficient positive quadrature for time-dependent
+forcing: if `‖b(v)‖ ≤ b_*` and `Lip(b) ≤ L_b` (below, `Λ_A = √s (η_D + η_H)` bounds the generator
+and `C_b = Λ_A b_* + L_b`; the paper writes both out), "a power-of-two left-endpoint mesh with
+`m ≥ max{1, T² [√s (η_D + η_H) b_* + L_b] / (2 ν B)}` has vector quadrature error at most `ν B`"
+(that is, `m ≥ max{1, T² C_b / (2 ν B)}`), and `|B_m - B| ≤ T² L_b / (2m) ≤ ν B`,
+`(1 - ν) B ≤ B_m ≤ (1 + ν) B`, `0 < B_m` and `B_m ≤ 2B`, including when `x₀ = 0`.
 
 `paper_quadrature` states all of this, with the paper's number `m` of nodes written `n`, for a
-solution `x` of `x' = -G(u) x + b(u)` on `[0, T]` with an accretive generator, `‖G(u)‖ ≤ Λ` (the
-paper's `Λ_A`), the left-endpoint nodes `q T / n` with the weights `T / n` and the exact samples
-`b(q T / n)`, every number `n ≥ 1` of nodes with `n ≥ T² C_b / (2 ν B)` (a power of two in the
-paper, `exists_pow_two_nodes`), and the source certificate written with homogeneous solutions:
-`y_0` from `0` with `y_0(0) = x(0)` and `Y_q` from `q T / n` with
-`Y_q(q T / n) = (T / n) b(q T / n)` (informally `U(T, 0) x₀` and `(T / n) U(T, v_q) b(v_q)`).
+solution `x` of `x' = -G(u) x + b(u)` on `[0, T]` with an accretive generator, `‖G(u)‖ ≤ Λ` (in the
+paper `Λ = √s (η_D + η_H)`), the left-endpoint nodes `q T / n` with the weights `T / n` and the
+exact samples `b(q T / n)`, every number `n ≥ 1` of nodes with `n ≥ T² (Λ b_* + L_b) / (2 ν B)` (a
+power of two in the paper, `exists_pow_two_nodes`), and the source certificate written with
+homogeneous solutions: `y_0` from `0` with `y_0(0) = x(0)` and `Y_q` from `q T / n` with `Y_q(q T /
+n) = (T / n) b(q T / n)` (informally `U(T, 0) x₀` and `(T / n) U(T, v_q) b(v_q)`).
 -/
 
 set_option autoImplicit false

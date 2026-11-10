@@ -6,8 +6,8 @@ set_option autoImplicit false
 /-!
 # The operator-norm notion through the deferred unitary
 
-"Randomised or adaptive algorithms are covered by purification and deferred measurement"
-(proof of `hsl:lem:precision` of the manuscript, lines 2363-2364). The deferral of a measured
+"Purification and deferred measurement include adaptive and randomised algorithms"
+(proof of `hsl:lem:precision` of the manuscript). The deferral of a measured
 algorithm `M` (`DeferredMeasurementLowerBounds.Deferral`) is one unitary program on the
 workspace with record registers, run on the fresh record and read through the isometric output
 `deferredOutput M`. Its decoded map `deferredMap counted M x`

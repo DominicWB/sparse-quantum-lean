@@ -9,8 +9,11 @@ set_option synthInstance.maxSize 4096
 /-!
 # Amplification and the four-trial wrapper for any LCU preparation (`odel:lem:dyson`)
 
-Manuscript lines 4251-4253: "Amplitude amplification with a known lower bound on success
-probability costs `O(ḡ e^z)` and gives constant heralded success."
+Manuscript: the proof of Lemma `odel:lem:dyson`: "Amplify the actual circuit using its own inverse.
+A direct trial covers amplitudes above `1/2` with constant probability; for smaller amplitudes,
+randomised amplification with a bounded schedule of `O(e^z ḡ)` calls does so. Mixing the two
+trials and repeating a constant number of times gives heralded success probability at least `2/3`
+without changing the conditional direction."
 
 This is the release's completion pipeline of `TimeDependentExtensions.ODE.solver`
 (`MeshSource.publicTrials`, `SourceTD.primitive_source_certificate`,

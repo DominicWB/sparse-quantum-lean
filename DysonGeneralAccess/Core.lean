@@ -5,8 +5,11 @@ set_option autoImplicit false
 /-!
 # One heralded program from an amplified trial family over any access
 
-Manuscript, proof of Lemma `odel:lem:dyson` (lines 4251-4253): "Amplitude amplification with a known
-lower bound on success probability costs `O(ḡ e^z)` and gives constant heralded success." The
+Manuscript, proof of Lemma `odel:lem:dyson`: "Amplify the actual circuit using its own inverse. A
+direct trial covers amplitudes above `1/2` with constant probability; for smaller amplitudes,
+randomised amplification with a bounded schedule of `O(e^z ḡ)` calls does so. Mixing the two
+trials and repeating a constant number of times gives heralded success probability at least `2/3`
+without changing the conditional direction." The
 released trial families carry the complete certificate `ODECompleteTrial.Certificate` of the
 four-attempt retry wrapper; `DysonSingleProgram` turns such a family into one program over the ODE
 lower-bound access. This module does it over an arbitrary unitary access `O` (for instance the

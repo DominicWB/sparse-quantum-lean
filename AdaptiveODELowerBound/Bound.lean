@@ -5,7 +5,7 @@ set_option autoImplicit false
 /-!
 # The arithmetic of Theorem `odel:thm:combined`
 
-Manuscript lines 4437-4445 (proof of Theorem `odel:thm:combined`: the class contains the joint
+Manuscript: the proof of Theorem `odel:thm:combined` (the class contains the joint
 family and the `g = 1` families of Lemma `odel:lem:herald`; the maximum of their lower bounds is
 at least a fixed fraction of their sum).
 
@@ -25,9 +25,9 @@ open SparseLowerBounds SparseLowerBounds.ODE SparseLowerBounds.Hamiltonian
 
 variable {s : ℕ} {τ gbar ε : ℝ}
 
-/-- **The arithmetic of Theorem `odel:thm:combined`** (lines 4437-4445): on `CombinedRange`,
-reals `Q_J`, `Q_M`, `Q_P` satisfying the joint bound `c_J ḡ √s τ ≤ Q_J` and the precision and
-mixed bounds of Lemma `odel:lem:herald` (in the cases where they hold) have
+/-- **The arithmetic of Theorem `odel:thm:combined`** (proof of Theorem `odel:thm:combined`): on
+`CombinedRange`, reals `Q_J`, `Q_M`, `Q_P` satisfying the joint bound `c_J ḡ √s τ ≤ Q_J` and the
+precision and mixed bounds of Lemma `odel:lem:herald` (in the cases where they hold) have
 `c (ḡ √s τ + √(sτr) + r) ≤ max(Q_J, Q_M, Q_P)`, `c = log 2/(8192π)`. -/
 theorem combinedBound_le_max (h : CombinedRange s τ gbar ε) {QJ QM QP : ℝ}
     (hJ : jointConst * gbar * Real.sqrt s * τ ≤ QJ)

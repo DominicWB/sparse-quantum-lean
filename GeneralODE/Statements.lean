@@ -9,7 +9,11 @@ accompanying paper, with Lemma `ode:lem:block` (Fourier implementation of the
 arcsine polynomial), is formalized here. The one ingredient from outside the
 paper, a near-optimal linear-system solver with block-encoded input (Costa et
 al.; Dalzell), is the explicit hypothesis `BlockSolver f q₀`; it is never an
-axiom.
+axiom. The manuscript's proof asks the solver only for conditional output trace distance
+`δ_LS = ε/(4096 ḡ²)` with possibly mixed output (eq. `ode:eq:history-solver-tolerance`); that
+weaker hypothesis is the later library `MixedOutputODE`
+(`SparseHamiltonian.MixedOutputODE.general`), which reuses this one.
+References to the manuscript use its labels.
 
 * Main theorem: `SparseHamiltonian.GeneralODE.general` in
   `GeneralODE/Theorem.lean`, with the guarantee

@@ -9,9 +9,9 @@ set_option synthInstance.maxSize 4096
 
 The exponential left-endpoint scheme on the mesh, with the selected samples
 `A_{σ r}` as cell generators and the forcing samples `b̃_r`, is within the release's certified
-discretisation bound of every solution of the piecewise problem (manuscript lines 4178-4190,
-contractive Duhamel comparison with integrated sample errors and the source quadrature, and
-4237-4239). This is `TimeDependentExtensions.ODEMesh.mesh_error`, rewritten from cells
+discretisation bound of every solution of the piecewise problem (proof of Lemma
+`odel:lem:dyson`: contractive Duhamel comparison with integrated sample errors and the source
+quadrature). This is `TimeDependentExtensions.ODEMesh.mesh_error`, rewritten from cells
 `r : ℕ` to cells `r : Fin M` (as in `TimeDependentExtensions.MeshSampling.target_error`), with
 the energy bound `‖x(u)‖ ≤ ‖x(0)‖ + b_max T` (`piecewise_norm_le`) and the public bound
 `‖A_{σ r}‖ ≤ s Λ`.
@@ -30,8 +30,8 @@ open scoped BigOperators InnerProduct
 variable {X n Z : Type*} [Fintype n] [DecidableEq n] {s Ks : ℕ}
 
 set_option maxHeartbeats 1000000 in
-/-- **Certified mesh comparison for the selected samples** (lines 4178-4190): the scheme with
-generators `A_{σ r}` and forcing samples `b̃_r` is within
+/-- **Certified mesh comparison for the selected samples** (proof of Lemma `odel:lem:dyson`): the
+scheme with generators `A_{σ r}` and forcing samples `b̃_r` is within
 `(r₀ + b_max T) ∑_r ∫ ‖G_r - A_{σ r}‖ + ∑_r ∫ ‖b_r - b̃_r‖ + s Λ ∑_q Δ_q² rb_q / 2` of `x(T)`. -/
 theorem mesh_selected_error {M : ℕ} (hM : 0 < M) (σ : Fin M → Fin Ks)
     (D : Data (X × Fin Ks) n Z s) {t : ℕ → ℝ} {T : ℝ} (hmesh : IsMesh t M T) (x : X)

@@ -6,7 +6,8 @@ section
 /-!
 # The joint search-parity promise problem
 
-Manuscript lines 3732-3743 (Section "A joint search-parity adversary"). An
+Manuscript: the joint search-parity problem before Lemma `odel:lem:outer`, introduced as "a query
+problem in which search and parity occur in the same adversary argument". An
 input consists of hidden positions `j_{ak} ∈ ℤ_m` for candidates
 `a ∈ {1, …, M}` and stages `k ∈ {1, …, n}` (`Positions M n m`). The membership
 oracle answers the bit `[z = j_{ak}]` at query `(a, k, z)` (`membership`, Boolean
@@ -26,17 +27,17 @@ namespace SparseLowerBounds.ODE
 noncomputable section
 
 /-- Hidden positions `j_{ak}`: candidate `a`, stage `k`, position in `ℤ_m`
-(lines 3735-3736). -/
+(Section `odel:sec:main`). -/
 abbrev Positions (M n m : ℕ) : Type := Fin M → Fin n → Fin m
 
-/-- Candidate `a` of `j` is odd: `σ_a = -1`, i.e. `Σ_k j_{ak}` is odd (line 3741). -/
+/-- Candidate `a` of `j` is odd: `σ_a = -1`, i.e. `Σ_k j_{ak}` is odd (Section `odel:sec:main`). -/
 def IsOddCand {M n m : ℕ} (j : Positions M n m) (a : Fin M) : Prop :=
   Odd (∑ k, (j a k : ℕ))
 
 instance {M n m : ℕ} (j : Positions M n m) (a : Fin M) : Decidable (IsOddCand j a) := by
   unfold IsOddCand; infer_instance
 
-/-- **The promised inputs** (line 3742): exactly one candidate is odd. -/
+/-- **The promised inputs** (Section `odel:sec:main`): exactly one candidate is odd. -/
 def Promised (M n m : ℕ) : Type := {j : Positions M n m // ∃! a, IsOddCand j a}
 
 instance (M n m : ℕ) : Fintype (Promised M n m) := by
@@ -80,11 +81,11 @@ theorem parity_eq_one_of_ne (x : Promised M n m) {a : Fin M} (ha : a ≠ oddCand
 theorem parity_oddCand (x : Promised M n m) : parity (x.1 (oddCand x)) = -1 :=
   (parity_eq_neg_one_iff _ _).mpr (oddCand_spec x)
 
-/-- **The membership bits** `y_X(a, k, z) = [j_{ak} = z]` (lines 3737-3739). -/
+/-- **The membership bits** `y_X(a, k, z) = [j_{ak} = z]` (Section `odel:sec:main`). -/
 def membership (x : Promised M n m) (i : Fin M × Fin n × Fin m) : Bool :=
   decide (x.1 i.1 i.2.1 = i.2.2)
 
-/-- The answer of the decision problem (line 3743): `+1` if `a` is in the first
+/-- The answer of the decision problem (Section `odel:sec:main`): `+1` if `a` is in the first
 half of the candidates (`a < M/2`), `-1` otherwise. -/
 def halfSign (M : ℕ) (a : Fin M) : ℝ := if (a : ℕ) < M / 2 then 1 else -1
 

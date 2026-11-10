@@ -6,22 +6,21 @@ section
 /-!
 # The public spin chain `B_n`
 
-Manuscript lines 2218-2232 (eqs. `hsl:eq:spin`, `hsl:eq:spinamp`). On
+Manuscript: the chain construction of Section `part:hsl` (eqs. `hsl:eq:spin`, `hsl:eq:spinamp`). On
 `ℂ^{n+1}` with basis `|0⟩, …, |n⟩`, a path Hamiltonian with real weights `c`
 is `Σ_k c_k (|k+1⟩⟨k| + |k⟩⟨k+1|)` (`pathMatrix`). The spin chain uses
 `b_k = √((k+1)(n-k))/n` (`spinWeight`), the restriction of `n⁻¹ Σ_j X_j` to
 the symmetric subspace of `n` qubits.
 
-* `‖B_n‖ = 1` (`norm_spinMatrix`); more generally a path with weights
-  `0 ≤ c_k ≤ b_k` has norm at most one (`norm_pathMatrix_le`, the
-  nonnegativity argument of lines 2263-2270: Schur test with the positive
-  eigenvector `√binom(n,k)`);
+* `‖B_n‖ = 1` (`norm_spinMatrix`); more generally a path with weights `0 ≤ c_k ≤ b_k` has norm at
+  most one (`norm_pathMatrix_le`, the nonnegativity argument of the chain construction of Section
+  `part:hsl`: Schur test with the positive eigenvector `√binom(n,k)`);
 * the endpoint amplitude `⟨n| e^{-iτ a B_n} |0⟩ = (-i)^n sin(aτ/n)^n`
   (`endAmp_scaled`, eq. `hsl:eq:spinamp`). A Lean-friendly proof: the explicit
   vector `f_k(t) = √binom(n,k) cos(at/n)^{n-k} (-i sin(at/n))^k` solves
   `f' = -i a B_n f`, `f(0) = |0⟩`, and `t ↦ e^{ita B_n} f(t)` has zero derivative;
 * a path with weights within `δ` of `c` is within `2δ` in operator norm
-  (`norm_pathMatrix_sub_le`, row sums, line 2271).
+  (`norm_pathMatrix_sub_le`, row sums, the chain construction of Section `part:hsl`).
 
 Evolution is `evolve H τ = exp(-iτH)` in exactly the release's endpoint form
 `NormedSpace.exp ((-Complex.I * τ) • SparseStateOverlap.matrixOperator H)`
@@ -125,8 +124,7 @@ theorem evolve_smul (H : Matrix S S ℂ) (a τ : ℝ) :
   exact Helpers.SpinChain.flow_smul _ a τ
 
 /-- For a solution `f' = -iHf`, the curve `t ↦ e^{itH} f(t)` is stationary
-(the uniqueness step of the explicit-solution proof of eq. `hsl:eq:spinamp`,
-lines 2226-2232). -/
+(the uniqueness step of the explicit-solution proof of eq. `hsl:eq:spinamp`). -/
 theorem hasDerivAt_evolve_neg_apply (H : Matrix S S ℂ) {f : ℝ → EuclideanSpace ℂ S}
     (hf : ∀ t, HasDerivAt f
       ((-Complex.I) • SparseHamiltonian.SparseStateOverlap.matrixOperator H (f t)) t)
@@ -141,11 +139,11 @@ theorem evolve_apply_eq_of_hasDerivAt (H : Matrix S S ℂ) {f : ℝ → Euclidea
     (τ : ℝ) : evolve H τ (f 0) = f τ := by
   exact Helpers.SpinChain.flow_apply_eq_of_hasDerivAt _ hf τ
 
-/-- **Schur test** for the `L²` operator norm: if `|A_{ij}| ≤ w_{ij}` with `w`
-symmetric and `Σ_j w_{ij} v_j ≤ r v_i` for a positive vector `v`, then
-`‖A‖ ≤ r`. With `v_k = √binom(n,k)` this is the nonnegativity argument of
-lines 2263-2270; with `v = 1` it is the row-sum bound of line 2271 and the
-padding-block bound of lines 2480-2481. (`0 ≤ r` is needed for an empty index type.) -/
+/-- **Schur test** for the `L²` operator norm: if `|A_{ij}| ≤ w_{ij}` with `w` symmetric and
+`Σ_j w_{ij} v_j ≤ r v_i` for a positive vector `v`, then `‖A‖ ≤ r`. With `v_k = √binom(n,k)` this is
+the nonnegativity argument of the chain construction of Section `part:hsl`; with `v = 1` it is the
+row-sum bound there and the padding-block bound at the end of the proof of Theorem `hsl:thm:main`.
+(`0 ≤ r` is needed for an empty index type.) -/
 theorem norm_le_of_schur (A : Matrix S S ℂ) (w : S → S → ℝ) (hw : ∀ i j, w i j = w j i)
     (hA : ∀ i j, ‖A i j‖ ≤ w i j) (v : S → ℝ) (hv : ∀ i, 0 < v i) {r : ℝ} (hr : 0 ≤ r)
     (hwv : ∀ i, ∑ j, w i j * v j ≤ r * v i) : ‖A‖ ≤ r := by
@@ -176,7 +174,7 @@ theorem spinWeight_nonneg (n k : ℕ) : 0 ≤ spinWeight n k := by
 theorem spinWeight_le_one (n k : ℕ) : spinWeight n k ≤ 1 := by
   exact Helpers.SpinChain.weight_le_one n k
 
-/-- Every genuine edge weight is positive (line 2277). -/
+/-- Every genuine edge weight is positive (the chain construction of Section `part:hsl`). -/
 theorem spinWeight_pos {n k : ℕ} (hk : k < n) : 0 < spinWeight n k := by
   exact Helpers.SpinChain.weight_pos hk
 
@@ -188,7 +186,7 @@ theorem inv_sqrt_le_spinWeight {n k : ℕ} (hk : k < n) : (Real.sqrt n)⁻¹ ≤
 /-- Two consecutive weights meet at a vertex with squared mass at most one:
 `b_k² + b_{k+1}² ≤ 1` (for every `n, k`; `n² - n - 2j(n-j) ≥ 0` with
 `j = k+1 < n`). This gives row/column Euclidean norms at most one for the
-chains (lines 2113-2114, 2282-2283). -/
+chains (Theorem `hsl:thm:main` and the chain construction of Section `part:hsl`). -/
 theorem spinWeight_sq_add_sq_le (n k : ℕ) : spinWeight n k ^ 2 + spinWeight n (k + 1) ^ 2 ≤ 1 := by
   exact Helpers.SpinChain.weight_sq_add_sq_le n k
 
@@ -239,9 +237,9 @@ theorem sum_norm_pathMatrix_mul (c : ℕ → ℝ) (v : Fin (n + 1) → ℝ) (i :
 /-! ### The explicit solution behind eq. `hsl:eq:spinamp` -/
 
 /-- The explicit solution of `f' = -i a B_n f`, `f(0) = |0⟩`:
-`f_k(t) = √binom(n,k) cos(at/n)^{n-k} (-i sin(at/n))^k`, the symmetric-subspace
-restriction of `(cos θ |0⟩ - i sin θ |1⟩)^{⊗n}` with `θ = at/n` (lines
-2231-2232: each qubit contributes `-i sin(τ/n)` between `|0⟩` and `|1⟩`). -/
+`f_k(t) = √binom(n,k) cos(at/n)^{n-k} (-i sin(at/n))^k`, the symmetric-subspace restriction of
+`(cos θ |0⟩ - i sin θ |1⟩)^{⊗n}` with `θ = at/n` (the chain construction of Section `part:hsl`: each
+qubit contributes `-i sin(τ/n)` between `|0⟩` and `|1⟩`). -/
 def spinSolution (n : ℕ) (a t : ℝ) : EuclideanSpace ℂ (Fin (n + 1)) :=
   WithLp.toLp 2 fun k =>
     ((Real.sqrt (n.choose (k : ℕ)) : ℝ) : ℂ) * ((Real.cos (a * t / n) : ℝ) : ℂ) ^ (n - (k : ℕ)) *
@@ -291,7 +289,7 @@ theorem hasDerivAt_spinSolution (_hn : 1 ≤ n) (a t : ℝ) :
   exact Helpers.SpinChain.spin_row a _ _ (Nat.lt_succ_iff.1 k.isLt)
 
 /-- **Eq. `hsl:eq:spinamp`, endpoint amplitude**, for the scaled chain `a B_n`:
-`⟨n| e^{-iτ a B_n} |0⟩ = (-i)^n sin(aτ/n)^n` (lines 2226-2232). -/
+`⟨n| e^{-iτ a B_n} |0⟩ = (-i)^n sin(aτ/n)^n`. -/
 theorem endAmp_scaled (hn : 1 ≤ n) (a τ : ℝ) :
     endAmp n (fun k => a * spinWeight n k) τ =
       (-Complex.I) ^ n * ((Real.sin (a * τ / n) ^ n : ℝ) : ℂ) := by
@@ -301,9 +299,8 @@ theorem endAmp_scaled (hn : 1 ≤ n) (a τ : ℝ) :
 
 /-! ### Norms: the positive eigenvector `√binom(n,k)` -/
 
-/-- The positive eigenvector `v_k = √binom(n,k)` of `B_n` (the restriction of
-`|+⟩^{⊗n}`); the Schur-test weight of the nonnegativity argument (lines
-2263-2270). -/
+/-- The positive eigenvector `v_k = √binom(n,k)` of `B_n` (the restriction of `|+⟩^{⊗n}`); the
+Schur-test weight of the nonnegativity argument (the chain construction of Section `part:hsl`). -/
 def binomVec (n : ℕ) : Fin (n + 1) → ℝ := fun k => Real.sqrt (n.choose (k : ℕ))
 
 theorem binomVec_pos (n : ℕ) (k : Fin (n + 1)) : 0 < binomVec n k := by
@@ -349,8 +346,8 @@ theorem norm_spinMatrix (hn : 1 ≤ n) : ‖spinMatrix n‖ = 1 := by
     simp only [Pi.zero_apply, Complex.ofReal_eq_zero] at h0
     exact (binomVec_pos n 0).ne' h0
 
-/-- The nonnegativity argument (lines 2263-2270): weights `0 ≤ c_k ≤ b_k`
-give a path of norm at most one. -/
+/-- The nonnegativity argument (the chain construction of Section `part:hsl`): weights
+`0 ≤ c_k ≤ b_k` give a path of norm at most one. -/
 theorem norm_pathMatrix_le {c : ℕ → ℝ} (hc0 : ∀ k, 0 ≤ c k)
     (hc : ∀ k, k < n → c k ≤ spinWeight n k) : ‖pathMatrix n c‖ ≤ 1 := by
   refine Helpers.SpinChain.norm_le_of_schur _ (fun i j => ‖spinMatrix n i j‖)
@@ -373,8 +370,8 @@ theorem norm_pathMatrix_le {c : ℕ → ℝ} (hc0 : ∀ k, 0 ≤ c k)
       exact (binomVec_pos 0 i).le
     · exact (sum_norm_spinMatrix_mul_binomVec hn i).le
 
-/-- Row sums of a path (line 2271): each row meets at most two edges, so with
-`|c_k| ≤ δ` every absolute row sum is at most `2δ` (the `v = 1` input of
+/-- Row sums of a path (the chain construction of Section `part:hsl`): each row meets at most two
+edges, so with `|c_k| ≤ δ` every absolute row sum is at most `2δ` (the `v = 1` input of
 `norm_le_of_schur`; with `pathMatrix_sub` it gives `norm_pathMatrix_sub_le`). -/
 theorem sum_norm_pathMatrix_le {c : ℕ → ℝ} {δ : ℝ} (hδ0 : 0 ≤ δ)
     (hδ : ∀ k, k < n → |c k| ≤ δ) (i : Fin (n + 1)) :
@@ -394,7 +391,8 @@ theorem sum_norm_pathMatrix_le {c : ℕ → ℝ} {δ : ℝ} (hδ0 : 0 ≤ δ)
         · exact hδ0
     _ = 2 * δ := by ring
 
-/-- Row sums (line 2271): `‖B - B'‖ ≤ 2δ` when the weights differ by at most `δ`. -/
+/-- Row sums (the chain construction of Section `part:hsl`): `‖B - B'‖ ≤ 2δ` when the weights differ
+by at most `δ`. -/
 theorem norm_pathMatrix_sub_le {c c' : ℕ → ℝ} {δ : ℝ} (hδ0 : 0 ≤ δ)
     (hδ : ∀ k, k < n → |c k - c' k| ≤ δ) : ‖pathMatrix n c - pathMatrix n c'‖ ≤ 2 * δ := by
   rw [pathMatrix_sub]

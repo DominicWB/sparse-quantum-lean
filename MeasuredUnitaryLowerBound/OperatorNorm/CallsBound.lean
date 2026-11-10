@@ -7,13 +7,13 @@ set_option synthInstance.maxSize 8192
 /-!
 # The operator-norm `Ω(√N)` bound over controlled and controlled-inverse entry calls
 
-Corollary `hs:cor:unitary` of the manuscript (lines 1647-1666, operator-norm error
-`0 < ε ≤ 1/2`, inverse calls counted, `Θ(√N)`), with the access of the lower-bound setting
-("with inverses and coherent controls", lines 2079-2080) and measured algorithms by purification
-and deferred measurement (lines 2363-2364). Measured algorithms over the call family
-`AdaptiveODELowerBound.Access.callFamily` of the released entry oracle (forward, inverse,
-controlled and controlled-inverse calls, each counted once) that implement every `U_m` within
-operator-norm error `ε₀ ≤ 1/2` (`NormImplements`) meet the hypotheses of
+Corollary `hs:cor:unitary` of the manuscript (operator-norm error `0 < ε ≤ 1/2`, inverse calls
+counted, `Θ(√N)`), with the access of the lower-bound setting (with inverses and the controls of
+Lemma `access:lem:control`, Section `hsl:sec:main`) and measured algorithms by purification and
+deferred measurement (proof of Lemma `hsl:lem:precision`). Measured algorithms over the call family
+`AdaptiveODELowerBound.Access.callFamily` of the released entry oracle (forward, inverse, controlled
+and controlled-inverse calls, each counted once) that implement every `U_m` within operator-norm
+error `ε₀ ≤ 1/2` (`NormImplements`) meet the hypotheses of
 `MeasuredUnitaryLowerBound.Calls.implementation_count_ge_measured_calls_endpoint` with success
 probability one and trace distance `ε₀ √(1 - ε₀²/4)`:
 

@@ -4,11 +4,14 @@ import GateEfficientNative.ODE.Grover
 /-!
 # Gate sets for exact zero tests and actual inverses
 
-The trials of Theorem `ode:thm:gates` run Grover iterations on the actual (finite-gate)
-preparation and its actual inverse, with the two reflections and the global sign kept exact
-("These tests are exactly implementable using reversible Boolean gates and a phase flip").
-Over a finite gate set `𝒢` this needs two properties of `𝒢`, stated here as explicit
-hypotheses:
+The trials of Theorem `ode:thm:gates` run Grover iterations on the actual (finite-gate) preparation
+and its actual inverse, with the two reflections and the global sign kept exact ("The two
+reflections test the known initial state and the selected zero-output-work subspace. They use
+reversible Boolean gates and a phase flip"). Over a finite gate set `𝒢` (a partial formalisation,
+under this package's format hypotheses, of the finite-set statement: the manuscript states Theorem
+`ode:thm:gates` over a finite gate set; the conformance endpoints count native gates) this needs
+two properties of `𝒢`, stated here as
+explicit hypotheses:
 
 * `AdjClosed 𝒢`: with every kind `(p, u)` the gate set contains its adjoint kind `(p, uᴴ)`.
   The literal inverse of a circuit over `𝒢` (`GateNative.ninv`, gates `⟨cs, t, uᴴ⟩`) is then
@@ -26,12 +29,12 @@ hypotheses:
 `GateEfficientNative` on every native ODE register whose pool is large enough for them (they
 have at least two literals, `two_le_zeroLitsN`).
 
-Both hypotheses are without loss of generality (`extra_hyps`): for every synthesis hypothesis
-`Synthesis 𝒢₀ X L`, the gate set `closeKinds 𝒢₀`, which adds to `𝒢₀` the adjoint kinds of its
-kinds and the four self-adjoint kinds of the exact zero tests (`zeroTestKinds_adjClosed`), is
-finite and satisfies `Synthesis` with the same ancillas and length function
-(`synthesis_closeKinds`), is closed under adjoints (`closeKinds_adjClosed`) and contains
-`zeroTestKinds`.
+Both hypotheses are stated assumptions, met over an enlarged gate set (`extra_hyps`): for every
+synthesis hypothesis `Synthesis 𝒢₀ X L`, the gate set `closeKinds 𝒢₀`, which adds to `𝒢₀` the
+adjoint kinds of its kinds and the four self-adjoint kinds of the exact zero tests
+(`zeroTestKinds_adjClosed`), is finite and satisfies `Synthesis` with the same ancillas and length
+function (`synthesis_closeKinds`), is closed under adjoints (`closeKinds_adjClosed`) and contains
+`zeroTestKinds`; the gate counts are then gates of `closeKinds 𝒢₀`, not of `𝒢₀`.
 -/
 
 set_option autoImplicit false
@@ -274,7 +277,7 @@ theorem gateOf_negGateN (hzt : zeroTestKinds ⊆ 𝒢) :
 
 end Native
 
-/-! ### The gate-set hypotheses are without loss of generality -/
+/-! ### The gate-set hypotheses hold over an enlarged gate set -/
 
 section Closure
 
@@ -326,10 +329,11 @@ theorem synthesis_closeKinds {𝒢₀ : Set Kind} {X : Type*} [Fintype X] [Decid
   exact ⟨gs, fun g hg => ⟨(hgs g hg).1, (hgs g hg).2.1, Or.inl (Or.inl (hgs g hg).2.2)⟩,
     hlen, happ⟩
 
-/-- **The extra gate-set hypotheses are without loss of generality**: for every synthesis
+/-- **The extra gate-set hypotheses hold over an enlarged gate set**: for every synthesis
 hypothesis `Synthesis 𝒢₀ X L`, the gate set `closeKinds 𝒢₀` (the kinds of `𝒢₀`, their adjoint
 kinds and the four kinds of the exact zero tests) satisfies `Synthesis` with the same ancillas
-and length function, is closed under adjoints, and contains the kinds of the exact zero tests. -/
+and length function, is closed under adjoints, and contains the kinds of the exact zero tests. They
+remain stated assumptions: the gate counts are then over `closeKinds 𝒢₀`, not over `𝒢₀`. -/
 theorem extra_hyps {𝒢₀ : Set Kind} {X : Type*} [Fintype X] [DecidableEq X] {L : ℝ → ℕ}
     (hS : Synthesis 𝒢₀ X L) :
     Synthesis (closeKinds 𝒢₀) X L ∧ AdjClosed (closeKinds 𝒢₀) ∧

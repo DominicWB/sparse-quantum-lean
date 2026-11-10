@@ -12,8 +12,8 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # Theorem `odel:thm:combined` over the general-mesh physical oracle: controlled calls, padding
 
-Manuscript lines 4133-4145 (Theorem `odel:thm:combined`) and 4437-4445 (its proof: "Pad
-dimensions to a common known size if desired"), with lines 4335-4340 (known zero padding, any
+Manuscript: Theorem `odel:thm:combined` and its proof ("Pad dimensions to a common known size if
+desired"), with the end of the proof of Theorem `odel:thm:joint` (known zero padding, any
 sufficiently large qubit register), for adaptive solvers over the physical oracle of the
 released general-mesh solver and over its call forms (`MeshForces`). The constant is
 `c = log 2/(8192π)` (`SparseLowerBounds.ODE.combinedBound`), from the per-family bounds by
@@ -30,7 +30,7 @@ released general-mesh solver and over its call forms (`MeshForces`). The constan
   `PadTo S Nd` to one common dimension `Nd`, in particular `Nd = 2^q`.
 
 As in the manuscript, these are worst-case statements over the class: the three terms are
-witnessed by different families and are not multiplied (lines 4443-4444).
+witnessed by different families and are not multiplied (proof of Theorem `odel:thm:combined`).
 
 Known padding registers range over `Type`, the universe of the families in `MeshForces` and
 `ConstForces` and of the released normal-form lemma
@@ -72,11 +72,11 @@ theorem combined_max_cost_mesh (h : CombinedRange s τ gbar ε) {qJ qM qP : ℝ}
       fun hs' => (precision_forces_sqrt_mesh hH hL hs').le_cost hP⟩)
     (fun hL hs => (mixed_forces_mesh hH hL hs).le_cost hM)
 
-/-- **Theorem `odel:thm:combined` over the general-mesh physical oracle** (lines 4133-4145): for
-`s ≥ 32`, `τ ≥ 4`, `ḡ ≥ 2`, `0 < ε ≤ 1/64`, one of the joint, mixed and precision families is in
-the class (`η = 1`, `T = τ`, `g ≤ ḡ`) and forces `c (ḡ √s τ + √(sτr) + r)` value calls (and as
-many matrix calls) on every adaptive solver over the physical oracle or its call forms
-(controlled and controlled-inverse calls included), `c = log 2/(8192π)`. The first term is
+/-- **Theorem `odel:thm:combined` over the general-mesh physical oracle** (Theorem
+`odel:thm:combined`): for `s ≥ 32`, `τ ≥ 4`, `ḡ ≥ 2`, `0 < ε ≤ 1/64`, one of the joint, mixed and
+precision families is in the class (`η = 1`, `T = τ`, `g ≤ ḡ`) and forces `c (ḡ √s τ + √(sτr) + r)`
+value calls (and as many matrix calls) on every adaptive solver over the physical oracle or its call
+forms (controlled and controlled-inverse calls included), `c = log 2/(8192π)`. The first term is
 witnessed by the joint family (inhomogeneous, time-dependent): `g = √M`
 (`SparseLowerBounds.ODE.jointFamilyAt_g`), `ḡ/√2 ≤ √M ≤ ḡ` and dimension at most `3 ḡ² s`
 (`SparseLowerBounds.ODE.joint_instance_props`), and `D = 0`
@@ -125,10 +125,10 @@ theorem combined_max_cost_pad_mesh (h : CombinedRange s τ gbar ε) (dense : Boo
       fun hs' => (precision_forces_sqrt_pad_mesh hH hL hs' PP).le_cost hP⟩)
     (fun hL hs => (mixed_forces_pad_mesh hH hL hs PM).le_cost hM)
 
-/-- **Theorem `odel:thm:combined` for padded families over the general-mesh physical oracle**
-(lines 4437-4445): for any dense flag and known paddings, one of the three padded families is in
-the class and forces `c (ḡ √s τ + √(sτr) + r)` value calls (and as many matrix calls) on every
-adaptive solver over the physical oracle or its call forms. -/
+/-- **Theorem `odel:thm:combined` for padded families over the general-mesh physical oracle**: for
+any dense flag and known paddings, one of the three padded families is in the class and forces
+`c (ḡ √s τ + √(sτr) + r)` value calls (and as many matrix calls) on every adaptive solver over the
+physical oracle or its call forms. -/
 theorem combined_pad_mesh (h : CombinedRange s τ gbar ε) (dense : Bool) (PJ PM PP : Type)
     [Fintype PJ] [DecidableEq PJ] [Fintype PM] [DecidableEq PM] [Fintype PP] [DecidableEq PP] :
     MeshWitnesses (jointPadFamilyAt s τ gbar dense h.toJointRange.s_ge h.tau_ge PJ) τ gbar ε
@@ -152,9 +152,9 @@ theorem combined_pad_mesh (h : CombinedRange s τ gbar ε) (dense : Bool) (PJ PM
   · exact Or.inr (Or.inl ⟨hI.2.1.1, hI.2.1.2.1, meshForces_of_cost hf⟩)
   · exact Or.inr (Or.inr ⟨hI.2.2.1, hI.2.2.2.1, meshForces_of_cost hf⟩)
 
-/-- **Theorem `odel:thm:combined` in one common dimension over the physical oracle** (lines
-4437-4445): for every `Nd` at least the dimensions of the three hard families, the families
-padded by `PadTo S Nd` have dimension exactly `Nd`, maximum sparsity exactly `s` (the joint
+/-- **Theorem `odel:thm:combined` in one common dimension over the physical oracle** (proof of
+Theorem `odel:thm:combined`): for every `Nd` at least the dimensions of the three hard families, the
+families padded by `PadTo S Nd` have dimension exactly `Nd`, maximum sparsity exactly `s` (the joint
 family with the dense block), and one of them is in the class and mesh-forces
 `c (ḡ √s τ + √(sτr) + r)`. -/
 theorem combined_common_dimension_mesh (h : CombinedRange s τ gbar ε) (dense : Bool) (Nd : ℕ)
@@ -191,11 +191,11 @@ theorem combined_common_dimension_mesh (h : CombinedRange s τ gbar ε) (dense :
     ⟨(joint_witness_pad_mesh h.toJointRange dense _).2, hI.2.1.2.2, hI.2.2.2.2⟩,
     combined_pad_mesh h dense _ _ _⟩
 
-/-- **Theorem `odel:thm:combined` on a qubit register over the physical oracle** (line 4340 and
-lines 4437-4445): for every `q` with `3 ḡ² s ≤ 2^q` and `4 s (τ + r + 1) ≤ 2^q`, the three
-families padded by `PadTo S (2^q)` have dimension exactly `2^q` and maximum sparsity exactly `s`
-(the joint family when `dense = true`), and one of them is in the class and mesh-forces
-`c (ḡ √s τ + √(sτr) + r)`. -/
+/-- **Theorem `odel:thm:combined` on a qubit register over the physical oracle** (proof of Theorem
+`odel:thm:joint` and the proof of Theorem `odel:thm:combined`): for every `q` with `3 ḡ² s ≤ 2^q`
+and `4 s (τ + r + 1) ≤ 2^q`, the three families padded by `PadTo S (2^q)` have dimension exactly
+`2^q` and maximum sparsity exactly `s` (the joint family when `dense = true`), and one of them is in
+the class and mesh-forces `c (ḡ √s τ + √(sτr) + r)`. -/
 theorem combined_qubit_register_mesh (h : CombinedRange s τ gbar ε) (dense : Bool) (q : ℕ)
     (hqJ : 3 * gbar ^ 2 * s ≤ (2 : ℝ) ^ q) (hqH : 4 * s * (τ + hsR τ ε + 1) ≤ (2 : ℝ) ^ q) :
     Fintype.card (JointIndex (jointM gbar) (jointMu s) s ⊕

@@ -4,6 +4,10 @@ import ZeroTimeGateODE.BinaryTime
 /-!
 # Time-indexed binary data over a finite gate set, every trial synthesised, for every `T ≥ 0`
 
+The finite-gate-set forms of Theorem `ode:thm:gates` in this module are a partial formalisation of
+its finite-set statement, under this package's format hypotheses: the manuscript states Theorem
+`ode:thm:gates` over a finite gate set; the conformance endpoints count native gates.
+
 The released time-dependent solver from time-indexed binary sparse data with every trial
 synthesised (`GateBinaryODETime.binary_ode_time_solver_synth`, Theorem `ode:thm:gates`,
 time-dependent part) requires `T > 0` and `η_H + η_D > 0` (`GateBinaryODETime.PubT.OK`). The
@@ -47,8 +51,9 @@ variable {X n : Type*} [Fintype n] [DecidableEq n] {Zs : Type*} [Fintype Zs] [De
 variable {Xa : Type*} [Fintype Xa] [DecidableEq Xa] {𝒢 : Set Kind} {len : ℝ → ℕ}
 
 /-- **Zero time or a known zero generator from time-indexed binary sparse data over a finite
-gate set, every trial synthesised** (remark of Theorem `ode:thm:gates`, time-dependent part:
-direct source assembly, no matrix calls).
+gate set, every trial synthesised** (partial formalisation, under this package's format hypotheses,
+of the finite-set form of the remark of Theorem `ode:thm:gates`,
+time-dependent part: direct source assembly, no matrix calls).
 
 For binary public data with `BTPublicOK0 q` in the zero case `T = 0 ∨ η_H + η_D = 0`, with the
 synthesis hypothesis `Synthesis 𝒢 Xa len`, the synthesised protocol
@@ -140,8 +145,9 @@ theorem binary_ode_time_solver_synth_zero (hS : Synthesis 𝒢 Xa len) (q : PubT
       bmax ζs (primsT_isUnitary D en x) hζs hload hwp hbud hI
 
 /-- **Dissipative ODE from time-indexed binary sparse data over a finite gate set, every trial
-synthesised, for every `T ≥ 0`** (Theorem `ode:thm:gates`, time-dependent part, with its remark
-on zero time and a known zero generator, finite-set synthesis as a hypothesis).
+synthesised, for every `T ≥ 0`** (partial formalisation, under this package's format hypotheses, of
+the finite-set statement of Theorem `ode:thm:gates`, time-dependent part,
+with its remark on zero time and a known zero generator, finite-set synthesis as a hypothesis).
 
 For binary public data with `BTPublicOK0 q` and the time-indexed binary data and circuits of the
 released `GateBinaryODETime.binary_ode_time_solver_synth`, the synthesised protocol

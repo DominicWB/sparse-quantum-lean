@@ -6,14 +6,14 @@ set_option autoImplicit false
 /-!
 # Gate-level time-dependent circuits as oracle programs
 
-The manuscript states its gate-level theorem (Theorem `hs:thm:gates`, line 1814, with the time
-slots of line 1801) for time-independent Hamiltonians only (line 1849). The package's gate-level
-time-dependent circuits (`SparseHamiltonian.GateCircuit.SlotSim.gate_efficient_time_simulation`,
-the slot-selected private Cayley operation) run instruction lists `gs`
-(`SparseHamiltonian.GateCircuit.Instr`): elementary gates, calls of the public unitary `U_J` and
-slot-selected private calls `slotOracle cs D` with literal controls `cs`, each private call,
-forward or inverse, counted once (`nPriv gs`). On a hard path constant in time (the manuscript,
-lines 1512-1516) the private operation is the same at every slot, `D k = D_x`.
+The manuscript states its gate-level theorem (Theorem `hs:thm:gates`, with the time slots of Section
+`hs:sec:gates`) for time-independent Hamiltonians only. The package's gate-level time-dependent
+circuits (`SparseHamiltonian.GateCircuit.SlotSim.gate_efficient_time_simulation`, the slot-selected
+private Cayley operation) run instruction lists `gs` (`SparseHamiltonian.GateCircuit.Instr`):
+elementary gates, calls of the public unitary `U_J` and slot-selected private calls
+`slotOracle cs D` with literal controls `cs`, each private call, forward or inverse, counted once
+(`nPriv gs`). On a hard path constant in time (the manuscript, the paragraphs after the proof of
+Theorem `hs:thm:time`) the private operation is the same at every slot, `D k = D_x`.
 
 * `privFamily D`: the labelled family of private calls, one label per list of literal controls;
 * `slotOracle_const_eq`: a constant private call is a masked call of `D_x` in one fixed layout

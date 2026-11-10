@@ -7,7 +7,7 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # The released general-mesh solver on families with a dissipative part
 
-Manuscript Theorem `ode:thm:time` (line 2879): uniform sparse energy bounds `η_H`, `η_D` on the
+Manuscript Theorem `ode:thm:time`: uniform sparse energy bounds `η_H`, `η_D` on the
 Hermitian and dissipative parts, `D ⪰ 0`, and the public slot conditions with the radius
 `η_H + R(ḡ, ε) η_D`.
 

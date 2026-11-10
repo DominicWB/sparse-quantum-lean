@@ -8,25 +8,42 @@ set_option synthInstance.maxSize 4096
 /-!
 # Lemma `odel:lem:dyson`: the fixed-parameter precision obstruction (Dyson solver)
 
-Manuscript, lines 4155-4254 (Lemma
-`odel:lem:dyson`, eq. `odel:eq:dyson`, proof): under the coherent time access, certified time
-discretisation and source preparation of Theorem `ode:thm:time`, there is a generic
-sparse-oracle solver with `Q_A = O(ḡ e^z [1 + z + L_g/log(e + L_g/z)])` matrix queries,
-`z = s η T`, `L_g = log(C ḡ/ε)`.
+Manuscript, Lemma `odel:lem:dyson` (eq. `odel:eq:dyson` and the proof): "Assume the coherent time
+queries, attainable sample accuracy and source access of Theorem `ode:thm:time`, including coherent
+matrix access on every finite mesh selected from the public error certificate. Assume a supplied
+common row and column Euclidean-norm bound `η` for `A(t)`." There is a generic sparse-oracle solver
+with `Q_A = O(ḡ e^z [1 + z + L_g/log(e + L_g/z)])` matrix queries, `z = s η T`, `L_g = log(C ḡ/ε)`.
+This package assumes, as its own hypotheses, interval-integrable generator and forcing pieces on
+each closed mesh cell and a classical solution on each closed cell (`SolvesODE`: a derivative at
+every point of the cell, one-sided at its ends), so a generator jump inside a cell that leaves the
+solution without a derivative there is not covered.
 
 **Input class** (the data and certificate shape of `TimeDependentExtensions.ODE.solver`,
 generalised by the cell-to-sample map `σ`, with per-instance accretivity of the used samples in
-place of the release's energy bounds): time-indexed native data
-`D : Data (X × Fin Kₛ) n Z s` (entries bounded by the public `Λ = D.scale`, the `η` of the
-lemma), a public mesh `t` with `M` cells and a public reversible cell-to-sample map
+place of the release's energy bounds; `DysonFullClass` admits represented samples of either sign):
+time-indexed native data `D : Data (X × Fin Kₛ) n Z s` (entries bounded by the public entry bound
+`Λ = D.scale`; the lemma's row and column Euclidean-norm bound `η` implies the entry bound
+`Λ = η`), a public mesh `t` with `M` cells and a public reversible cell-to-sample map
 `σ : Fin M → Fin Kₛ` ("coherent matrix access on every finite mesh selected from the public
-regularity certificate", lines 4156-4159, 4191-4196), public source norms `r₀`, `rb`, the
+error certificate", Lemma `odel:lem:dyson`), public source norms `r₀`, `rb`, the
 supplied source interfaces `J₀`, `Jb` and seed. An instance has generator pieces `G_r(u)`,
 forcing pieces `b_r(u)`, a solution with `B ≤ g ‖x(T)‖`, accretive samples, and the released
 integrated certificate (constant `2000`, without the slot-refinement term, which the Dyson
 solver does not need). `dyson_release_class` (`Corollaries.lean`) proves the inclusion: every
 instance accepted by the released `TimeDependentExtensions.ODE.Outcome` (`σ = id`, under its
 public PSD promise) is accepted by `Outcome`.
+
+**Source access.** The manuscript's proof uses the weight and data preparations of eqs.
+`ode:eq:source-interface-mass` and `ode:eq:source-interface-preparation`, including the supplied
+phases for signed or complex quadrature coefficients and a source normalisation `B_q ≤ c_q B`. The
+Lean statements use the source access of the released time-dependent solver instead: public norms
+`r₀` of the initial state and `rb_r` of one forcing sample per mesh cell, unitary interfaces `J₀`,
+`Jb` loading their directions, and the positive left-endpoint cell quadrature whose weights are the
+cell lengths (its error enters the certificate), with `B ≤ ḡ ‖x(T)‖` imposed on the quadrature
+mass `MeshSampling.mass r₀ t rb`. This is the case of positive weights without phases and with
+exactly known source norms; the lemma for the general source interface is in `DysonFullClass`,
+with this package's label-controlled loading and a classical propagator on each closed mesh
+cell (the interface itself is formalised for Theorem `ode:thm:time` in `GeneralSourceODE`).
 
 **Access** (`oracle`): built with the release builder `ODECoordinateNativeControl.physicalOracle`
 used by `MeshSource.physicalOracle`, from the supplied source family
@@ -60,7 +77,7 @@ open scoped InnerProduct BigOperators
 variable {X n Z : Type*} [Fintype n] [DecidableEq n] [Fintype Z] [AddCommGroup Z]
   [DecidableEq Z] {s Ks : ℕ}
 
-/-- The block-encoding normalisation `α = s Λ` (`α = s η`, line 4172). -/
+/-- The block-encoding normalisation `α = s Λ` (`α = s η`, proof of Lemma `odel:lem:dyson`). -/
 def rate (D : Data (X × Fin Ks) n Z s) : ℝ := (s : ℝ) * D.scale
 
 /-- The public truncation degree at `z = s Λ T`. -/
@@ -147,8 +164,8 @@ theorem shape_eq (D : Data (X × Fin Ks) n Z s) {M : ℕ} (t : ℕ → ℝ) (T g
 
 set_option maxHeartbeats 4000000 in
 set_option maxRecDepth 20000 in
-/-- **Lemma `odel:lem:dyson`** (lines 4155-4254): for every public time-indexed native input on
-a mesh with a public cell-to-sample map, every `T > 0`, `g ≥ 1`, `0 < ε ≤ 1`, nonnegative public
+/-- **Lemma `odel:lem:dyson`** (Lemma `odel:lem:dyson`): for every public time-indexed native input
+on a mesh with a public cell-to-sample map, every `T > 0`, `g ≥ 1`, `0 < ε ≤ 1`, nonnegative public
 source norms with positive mass, unitary source interfaces and a unit seed, the Dyson solver
 satisfies `Outcome`: the released complete certificate on every valid instance, with worst-case
 matrix queries at most `16000 ḡ e^z (1 + z + L_g/log(e + L_g/z))`, `z = s Λ T`,

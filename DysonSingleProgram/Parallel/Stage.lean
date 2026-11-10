@@ -5,8 +5,8 @@ set_option autoImplicit false
 /-!
 # Attempts on separate registers, first-success herald and readout
 
-Manuscript lines 4111-4113 (Section `odel:sec:main`, output model) and 4687-4689 (proof of Lemma
-`odel:lem:dyson`): the solver produces a success flag of probability at
+Manuscript: Section `odel:sec:main` (output model) and the proof of Lemma
+`odel:lem:dyson`: the solver produces a success flag of probability at
 least `2/3`; conditional on success its output density is within trace distance `ε` of the
 normalised solution. The released wrapper makes at most four fresh attempts and keeps the first
 success (`ODERepeatProtocol.Protocol.repeatTrials t 4`). A single program makes all attempts, each

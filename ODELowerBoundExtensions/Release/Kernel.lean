@@ -6,7 +6,7 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # The Gram kernel of a retry protocol and its adversary progress
 
-Manuscript lines 3743-3798 (proof of Lemma `odel:lem:outer`: the positive spectral adversary of
+Manuscript: the proof of Lemma `odel:lem:outer` (the positive spectral adversary of
 `SparseLowerBounds/Query/PositiveAdversary`), extended from one program to the release's retry
 protocols (`ODERepeatProtocol.Protocol`).
 

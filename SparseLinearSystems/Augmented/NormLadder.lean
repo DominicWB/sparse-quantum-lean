@@ -16,6 +16,9 @@ The proof is variational rather than spectral: for a self-adjoint invertible
 `‖M y‖² ≤ c ‖M' y‖²` gives `‖M'⁻¹ β‖² ≤ c ‖M⁻¹ β‖²` (`inv_norm_sq_le`).
 The quadratic forms are explicit: `‖M_σ y‖² = (1 - σ²) Q(y) + σ² ‖y‖²` with
 `‖y‖²/κ² ≤ Q(y) ≤ ‖y‖²`.
+
+Notation: the regularization parameter is `σ` here and `ξ` in the manuscript, so a subscript `σ` (as
+in `g_σ`, `r_σ`, `H_{σ,r}`) stands for the manuscript's subscript `ξ`.
 -/
 
 namespace SparseLinearSystems.Augmented

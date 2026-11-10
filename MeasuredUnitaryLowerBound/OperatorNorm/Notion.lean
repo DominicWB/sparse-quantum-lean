@@ -6,12 +6,10 @@ set_option autoImplicit false
 /-!
 # Operator-norm implementation of a unitary by a measured algorithm
 
-Corollary `hs:cor:unitary` of the manuscript (lines 1647-1666) asks for a unitary circuit
-`A_U` with `‖A_U - U‖ ≤ ε` (eq. `hs:eq:unitaryerror`, lines 1652-1654), a guarantee that
-"includes inputs entangled with an untouched reference" (lines 1663-1664; "The operator-norm
-bound is unchanged by an untouched reference", line 1709). Randomised and adaptive algorithms
-are covered "by purification and deferred measurement" (proof of `hsl:lem:precision`, lines
-2363-2364).
+Corollary `hs:cor:unitary` of the manuscript asks for a unitary circuit `A_U` with error on all
+output registers `‖A_U - U‖ ≤ ε` (eq. `hs:eq:unitaryerror`); "The guarantee includes an untouched
+reference". Randomised and adaptive algorithms are covered: "Purification and deferred measurement
+include adaptive and randomised algorithms" (proof of Lemma `hsl:lem:precision`).
 
 A measured algorithm `DeferredMeasurementLowerBounds.Model.Measured O E` implements a quantum
 instrument, not an operator. Its output on an input `φ`, records discarded, is
@@ -30,7 +28,7 @@ given an operator-norm form here.
 * `readKraus e A`, `garbageTensor U γ`: the two maps, with their values (`readKraus_apply`,
   `garbageTensor_apply`) and norms (`norm_readKraus_apply_sq`, `norm_garbageTensor_apply`);
 * `NormImplements M J e x U ε`: the notion;
-* the guarantee "includes inputs entangled with an untouched reference" (lines 1663-1664, 1709)
+* "The guarantee includes an untouched reference" (Corollary `hs:cor:unitary`)
   is, for a linear map `T` between possibly different spaces (such as
   `readKraus e A - garbageTensor U γ`), the package's
   `SparseHamiltonian.FiniteReferenceLift.norm_lift_le` (`‖T ⊗ 1‖ ≤ ‖T‖` for a finite reference,
@@ -106,15 +104,15 @@ theorem norm_garbageTensor_apply {R : Type*} [Fintype R]
 
 variable {K X L : Type*} [NormedAddCommGroup K] [InnerProductSpace ℂ K] [CompleteSpace K]
 
-/-- **Operator-norm implementation by a measured algorithm** (eq. `hs:eq:unitaryerror`, lines
-1652-1654, for measured algorithms by purification, lines 2363-2364). On the instance `x`, the
-measured algorithm `M`, run on the encoded inputs `J ψ` and read through `e`, implements `U`
-within operator-norm error `ε`: its output has a finite Kraus family `A`
+/-- **Operator-norm implementation by a measured algorithm** (eq. `hs:eq:unitaryerror`, for measured
+algorithms by purification, proof of Lemma `hsl:lem:precision`). On the instance `x`, the measured
+algorithm `M`, run on the encoded inputs `J ψ` and read through `e`, implements `U` within
+operator-norm error `ε`: its output has a finite Kraus family `A`
 (`successDensity x (J ψ) = ∑_r |A_r ψ⟩⟨A_r ψ|`), it succeeds (the herald fires) with probability
-`‖ψ‖²`, i.e. with certainty on unit inputs, as for a unitary circuit, and its
-read dilation `ψ ↦ (e (A_r ψ))_r` is within operator norm `ε` of `U ⊗ γ` for a unit garbage
-vector `γ` over the records. Algorithms that reject (success probability below one on some unit
-input) are outside `NormImplements`; for them the heralded trace-distance bounds
+`‖ψ‖²`, i.e. with certainty on unit inputs, as for a unitary circuit, and its read dilation
+`ψ ↦ (e (A_r ψ))_r` is within operator norm `ε` of `U ⊗ γ` for a unit garbage vector `γ` over the
+records. Algorithms that reject (success probability below one on some unit input) are outside
+`NormImplements`; for them the heralded trace-distance bounds
 (`MeasuredUnitaryLowerBound.Deferred.implementation_count_ge_measured_endpoint` with `p₀ > 0`)
 apply. -/
 def NormImplements {O : L → X → K →L[ℂ] K} (M : Measured O E) (J : EuclideanSpace ℂ S →L[ℂ] K)

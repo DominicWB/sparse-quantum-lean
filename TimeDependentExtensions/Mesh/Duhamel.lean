@@ -9,12 +9,12 @@ set_option autoImplicit false
 
 A path with breakpoints at the mesh points is given by one piece `H_r` per interval
 `[t_r, t_{r+1}]`; a propagator of the piecewise path solves `U' = -i H_r(u) U` on every closed
-interval, with one-sided derivatives at the mesh points (`IsPiecewisePropagator`). This is
-the manuscript's piecewise Lipschitz path "when all breakpoints are supplied", and more
-generally a path with continuous pieces, measured by the integrated certificate. Propagators
-are classical (`SolvesOn`: a derivative at every point of each closed interval), so a piece
-with a jump inside its interval has no propagator and every discontinuity must be a mesh
-point; Carathéodory propagators of general integrable paths are not treated.
+interval, with one-sided derivatives at the mesh points (`IsPiecewisePropagator`). This is the
+manuscript's piecewise Lipschitz path ("we include its known breakpoints in the mesh"), and more
+generally a path with continuous pieces, measured by the integrated certificate. Propagators are
+classical (`SolvesOn`: a derivative at every point of each closed interval), so a piece with a jump
+inside its interval has no propagator and every discontinuity must be a mesh point; Carathéodory
+propagators of general integrable paths are not treated.
 
 * `duhamel_integral`: on one interval, against a frozen self-adjoint sample `H̃`,
   `‖U(b) - exp(-i (b - a) H̃) U(a)‖ ≤ ∫_a^b ‖H(u) - H̃‖ du` for an interval-integrable

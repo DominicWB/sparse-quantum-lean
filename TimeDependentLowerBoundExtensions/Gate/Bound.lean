@@ -7,28 +7,29 @@ set_option synthInstance.maxSize 4096
 /-!
 # Theorem `hsl:thm:main` for gate-level time-dependent circuits
 
-Theorem `hsl:thm:main` counts sparse queries, with all known gates free (the manuscript, lines
-2078-2082 and 2102-2119), and applies to the time-dependent class with time-independent hard
-instances (lines 1512-1516). The manuscript's gate-level theorem (`hs:thm:gates`, line 1814) is
-stated for time-independent Hamiltonians only (line 1849); the gate-level time-dependent circuits
-used here are the package's slot-selected circuits
-(`SparseHamiltonian.GateCircuit.SlotSim.gate_efficient_time_simulation`). The statements below
-are corollaries of Theorem `hsl:thm:main` for those circuits, an extension of lines 1512-1516.
+Theorem `hsl:thm:main` counts sparse queries, with all known gates free (the manuscript), and
+applies to the time-dependent class with time-independent hard instances (the paragraphs after the
+proof of Theorem `hs:thm:time`). The manuscript's gate-level theorem (`hs:thm:gates`) is stated for
+time-independent Hamiltonians only; the gate-level time-dependent circuits used here are the
+package's slot-selected circuits
+(`SparseHamiltonian.GateCircuit.SlotSim.gate_efficient_time_simulation`). The statements below are
+corollaries of Theorem `hsl:thm:main` for those circuits, an extension of the remark after the proof
+of Theorem `hs:thm:time`.
 
 In these circuits the instance enters only through the supplied private operation `D_k`
 (slot-selected, counted once per call, `nPriv`); `U_J` and the elementary gates are public. A
-sparse-query lower bound in this setting therefore concerns private operations realised by
-sparse queries: `NativeRealization D D_x q` says that, on one fixed isometric encoding, `D_x` is
+sparse-query lower bound in this setting therefore concerns private operations realised by sparse
+queries: `NativeRealization D D_x q` says that, on one fixed isometric encoding, `D_x` is
 implemented by a program over all call forms (plain, inverse, controlled, controlled inverse;
-`AdaptiveODELowerBound.Access.callFamily`) of the native sparse queries of `D`, with an
-untouched spectator register, using at most `q` value calls (location calls free). It is a
-hypothesis built from the package's program model (`MultiOracleCircuit.Program`) and value-call
-weight (`AdaptiveHamiltonianLowerBound.Access.valueWeight`). The realisation is exact
-(`p.eval x ∘ e = e ∘ D_x`), as in the exact-gate model of the package's slot-selected circuits;
-the manuscript's gate model (lines 1805-1812) allows each controlled private operation an error
-`ξ` at a fixed primitive-oracle cost, and that approximate form (which would add
-`nPriv · ξ` to the endpoint error) is not stated here. The hard paths are constant in time, so
-`D_k = D_x` at every slot. All bounds below are conditional on `NativeRealization`.
+`AdaptiveODELowerBound.Access.callFamily`) of the native sparse queries of `D`, with an untouched
+spectator register, using at most `q` value calls (location calls free). It is a hypothesis built
+from the package's program model (`MultiOracleCircuit.Program`) and value-call weight
+(`AdaptiveHamiltonianLowerBound.Access.valueWeight`). The realisation is exact
+(`p.eval x ∘ e = e ∘ D_x`), as in the exact-gate model of the package's slot-selected circuits; the
+manuscript's gate model (Section `hs:sec:gates`) allows each controlled private operation an error
+`ξ` at a fixed primitive-oracle cost, and that approximate form (which would add `nPriv · ξ` to the
+endpoint error) is not stated here. The hard paths are constant in time, so `D_k = D_x` at every
+slot. All bounds below are conditional on `NativeRealization`.
 
 * `nonempty_privAccess`: every private call, with any literal controls and forward or inverse,
   then costs at most `2q` Boolean queries (masked calls, `Core.implementsOn_masked`);

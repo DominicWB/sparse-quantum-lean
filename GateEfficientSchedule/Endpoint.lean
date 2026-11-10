@@ -6,10 +6,10 @@ import GateEfficientSchedule.Manuscript
 
 The manuscript's schedule (equations `hs:eq:gate-schedule` and `hs:eq:gate-clocks`):
 
-* `W = αTν` (here `τ q̄`, with `τ = αT` and `q̄ = ν`), `b = 32Q`,
-  `k = ⌈4W/Q + log₂(4096/ε)⌉`, `d = k (b - 1)`;
-* `M = 2^m` the least power of two at least `max{2, 4αT, (αT)^{3/2}/√(3ε)}`;
-* `r = ⌈log₂(2d+2)⌉`.
+* `W = αTν` (here `τ q̄`, with `τ = αT` and `q̄ = ν`), `b_av = 32Q`,
+  `k = ⌈4W/Q + log₂(4096/ε)⌉`, `d = k (b_av - 1)`;
+* `M = 2^{m_slot}` the least power of two at least `max{2, 4αT, (αT)^{3/2}/√(3ε)}`;
+* `r = r_reuse = ⌈log₂(2d+2)⌉`.
 
 `simCircuitMs a τ Q q̄ ε` is the released gate-level circuit with exactly this filter depth
 (`depthMs`), this slot count (`slotMs`) and this reuse register (`simRK`). Its error budget is the
@@ -18,7 +18,7 @@ Cayley discretisation `ε/4` (by the sharp local error `w³/12`,
 `hamiltonian_cayley_error_sharp`), so the full output error before gate approximation is `ε/2`.
 
 * `meshMs`, `slotMs`: the threshold `max{2, 4τ, √(τ³/(3ε))}` (`√(τ³/(3ε)) = τ^{3/2}/√(3ε)`) and
-  `m = log₂ M` (`slotMs_spec`: `M ≥` the threshold and `M` is the least such power of two);
+  `m = m_slot = log₂ M` (`slotMs_spec`: `M ≥` the threshold and `M` is the least such power of two);
 * `mesh_budget`: such an `M` has step `w = τ/M ≤ 1/4` and Cayley error `M w³/12 ≤ ε/4`;
 * `gate_efficient_simulation_ms`: valid elementary instructions, exactly `6d` private Cayley
   calls and `12d` calls of `U_J` or `U_J†`, at most `200 (d+1)(a+m+r+1)` elementary gates on

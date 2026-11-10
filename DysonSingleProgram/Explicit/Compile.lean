@@ -6,7 +6,7 @@ set_option autoImplicit false
 /-!
 # The compiled amplified trials have the amplification shape
 
-Manuscript lines 4687-4689 (proof of Lemma `odel:lem:dyson`). The released Dyson trials are the
+Manuscript: the proof of Lemma `odel:lem:dyson`. The released Dyson trials are the
 counted amplification programs `ODEGroverProgram.amplified p P Q j` of the logical preparation
 `p`, compiled to the physical oracle by the encoded substitution
 `EncodedLabeledProgram.compile E hE circuits` (fixed unitaries `U ↦ lift E U`, calls replaced by
@@ -50,7 +50,8 @@ theorem eval_compile_adjoint (E : P →L[ℂ] K) (hE : E† ∘L E = 1)
     simp only [MultiOracleCircuit.Program.adjoint, EncodedLabeledProgram.compile,
       MultiOracleCircuit.Program.eval_seq, hp, hq, star_mul]
 
-/-- **The compiled amplified trials have the amplification shape** (lines 4687-4689). -/
+/-- **The compiled amplified trials have the amplification shape** (proof of Lemma
+`odel:lem:dyson`). -/
 theorem groverShape_compile (E : P →L[ℂ] K) (hE : E† ∘L E = 1)
     (circuits : L → MultiOracleCircuit.Program F) (p : MultiOracleCircuit.Program O)
     (Pr Q : P →L[ℂ] P) (hP : IsOrthogonalProjection Pr) (hQ : IsOrthogonalProjection Q)

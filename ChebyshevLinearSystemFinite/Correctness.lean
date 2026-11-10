@@ -17,7 +17,7 @@ such bounds):
   `[1/(2(1 + q²)), 1/(1 + q²) + δ₀²]`, `q = ρ_j/r` (from `test_fact_deg`);
 * `impl_bernoulli` (equation `qls:eq:bernoulli`): an implemented test whose success vector is
   within `e_test = (10⁻⁴ - δ₀²)/2` of the ideal one has probability within `2 e_test` of the
-  ideal one (`probability_sub_le_of_amp`), so `|p_F - p_σ(r)| ≤ δ₀² + 2 e_test = 10⁻⁴`;
+  ideal one (`probability_sub_le_of_amp`), so `|p_F - p_ξ(r)| ≤ δ₀² + 2 e_test = 10⁻⁴`;
   `impl_test_bounds`: its probability lies in `[1/(2(1 + q²)) - 10⁻⁴, 1/(1 + q²) + 10⁻⁴]`;
 * `impl_final_amp`: an implemented final attempt whose decoded amplitude is within
   `e_fin = ε/1000 - δ₀` of the ideal one is within `δ₀ + e_fin = ε/1000` of the decoded exact
@@ -28,6 +28,9 @@ such bounds):
 * `impl_correctness`: unitary runs, success probability at least `2/3` and conditional trace
   distance at most `ε`, with the two-sided estimator analysis `algorithm_bad_le_tol` and the
   released `Protocol.Tree.successMass_ge`, `Protocol.Tree.output_guarantee`.
+
+Notation: the regularization parameter is `σ` here and `ξ` in the manuscript, so a subscript `σ` (as
+in `g_σ`, `r_σ`, `H_{σ,r}`) stands for the manuscript's subscript `ξ`.
 -/
 
 namespace ChebyshevLinearSystemFinite
@@ -64,7 +67,7 @@ theorem testRunF_bounds (D : NativeSparseBlockEncoding.Data X n Z s) (x : X) (κ
 
 /-- **Test probabilities of every implementation** (equation `qls:eq:bernoulli`): an
 implemented test whose success vector at the input is within `e_test = (10⁻⁴ - δ₀²)/2` of the
-ideal one has `|p_F - p_σ(r)| ≤ δ₀² + 2 e_test = 10⁻⁴`, so its probability lies in
+ideal one has `|p_F - p_ξ(r)| ≤ δ₀² + 2 e_test = 10⁻⁴`, so its probability lies in
 `[1/(2(1+q²)) - 10⁻⁴, 1/(1+q²) + 10⁻⁴]`. -/
 theorem impl_test_bounds (D : NativeSparseBlockEncoding.Data X n Z s) (x : X) (κ ε : ℝ)
     (hκ : 1 ≤ κ) (hA1 : ‖Aop D x‖ ≤ 1) (hlow : ∀ v, ‖v‖ ≤ κ * ‖Aop D x v‖)
@@ -85,8 +88,8 @@ theorem impl_test_bounds (D : NativeSparseBlockEncoding.Data X n Z s) (x : X) (�
   constructor <;> linarith [hideal.1, hideal.2]
 
 /-- **Equation `qls:eq:bernoulli`**: an implemented test whose success vector at the input is
-within `e_test` of the ideal one has `|p_F - p_σ(r)| ≤ δ₀² + 2 e_test = 10⁻⁴`, where
-`p_σ(r) = ‖P_{σ_j,r} J e‖²` is the exact probability of the eigenvalue-one projection. -/
+within `e_test` of the ideal one has `|p_F - p_ξ(r)| ≤ δ₀² + 2 e_test = 10⁻⁴`, where
+`p_ξ(r) = ‖P_{ξ_j,r} J e‖²` is the exact probability of the eigenvalue-one projection. -/
 theorem impl_bernoulli (D : NativeSparseBlockEncoding.Data X n Z s) (x : X) (κ ε : ℝ)
     (hκ : 1 ≤ κ) (hA1 : ‖Aop D x‖ ≤ 1) (hlow : ∀ v, ‖v‖ ≤ κ * ‖Aop D x v‖)
     (Ub : X → V0 →L[ℂ] V0) (hUb : ∀ x, IsUnitary (Ub x)) (sv : V0) (hsv : ‖sv‖ = 1)

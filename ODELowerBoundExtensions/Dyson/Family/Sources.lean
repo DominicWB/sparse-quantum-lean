@@ -7,8 +7,8 @@ set_option synthInstance.maxSize 4096
 /-!
 # Public sources: the Dyson certificate on the lower-bound access (`odel:lem:dyson`)
 
-Manuscript lines 3655-3688 (public stage sources of the class of `odel:thm:combined`) and
-lines 4262-4265 (the consequence of Lemma `odel:lem:dyson` is stated for that class).
+Manuscript: Section `odel:sec:main` (public stage sources of the class of `odel:thm:combined`)
+and the consequence of eq. `odel:eq:fixed` (stated for that class).
 
 In the class the initial state and the stage sources are public, so the Dyson solver's two
 source interfaces are input-independent unitaries `J₀'`, `Jb'`, whose calls are known gates

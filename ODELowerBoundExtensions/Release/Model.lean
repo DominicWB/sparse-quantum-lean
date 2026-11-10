@@ -7,12 +7,10 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # Release-style retry protocols as solvers of the dissipative ODE class
 
-Manuscript lines 3675-3681 (Section `odel:sec:main`, the output model of Theorem
-`odel:thm:combined`): "The solver produces a success flag of probability at least `2/3` on every
-input. Conditional on success, its output density operator is within trace distance `ε` of the
-normalised solution. [...] The lower bounds thus apply to Theorems `ode:thm:main` and
-`ode:thm:time`." Line numbers follow the numbering of `SparseLowerBounds/ODE/Statements.lean`;
-later versions of the manuscript shift Section `part:odel`, whose labels are the stable references.
+Manuscript: Section `odel:sec:main` (the output model of Theorem `odel:thm:combined`): "A solver
+must herald success with probability at least `2/3` on every input. Its conditional output density
+operator must be within trace distance `ε` of the normalised solution. [...] the lower bounds apply
+to the upper bounds of the preceding section." References to the manuscript use its labels.
 
 The released ODE solvers (`TimeDependentExtensions.ODE.solver`, `ODECompleteTrial.algorithm`)
 are not single programs but bounded retry protocols `SparseHamiltonian.ODERepeatProtocol.Protocol`
@@ -23,12 +21,12 @@ decoded, failures are discarded, at most finitely many attempts are made. The so
 
 This module widens the class to exactly these protocols, with the released semantics:
 
-* `RetrySolver F O E G ε`: a protocol `prot : Protocol O E` over any labelled oracle family `O`
-  on the inputs of the family `F`, an isometric readout `E → ℂ^N ⊗ G` of the decoded output, success
+* `RetrySolver F O E G ε`: a protocol `prot : Protocol O E` over any labelled oracle family `O` on
+  the inputs of the family `F`, an isometric readout `E → ℂ^N ⊗ G` of the decoded output, success
   mass `prot.successMass x ≥ 2/3` on every input and, for every solution, conditional output
   `prot.conditionalDensity x` within trace distance `ε` of `x(T)/‖x(T)‖` in the observable form
-  `AdaptiveHamiltonianLowerBound.DensityAccurate` (lines 3675-3678). The ODE model's own access
-  is `O = F.access ι`; the release's physical oracle is another choice (`Release/Bridge`).
+  `AdaptiveHamiltonianLowerBound.DensityAccurate` (Section `odel:sec:main`). The ODE model's own
+  access is `O = F.access ι`; the release's physical oracle is another choice (`Release/Bridge`).
 * `RetryForces F ε b`: every retry solver over the sampled-time access `F.access ι` (any branch
   register `ι`, output space `E`, garbage `G`) makes at least `b` value queries and `b` queries
   in total, in the worst case over all transcripts (`Protocol.worstCost`, every attempt and every
@@ -47,7 +45,7 @@ counts, so `RetryForces` implies `Forces` and the retry theorems contain the rel
   `g = 1` families get tree bounds also, since their retry bounds come from the adaptive
   Hamiltonian lower bound (`Release/Herald`).
 * On the release's physical oracle, the lower bounds and the bracket assume public source
-  interfaces (`PublicSources`: unitary and input-independent, lines 3685-3686). The released
+  interfaces (`PublicSources`: unitary and input-independent, Section `odel:sec:main`). The released
   solver itself accepts any unitary `J₀`, `J_b`, possibly input-dependent.
 * `ℓ = log(C ḡ/ε)` with `C = 40000`, the released solver's instance of the paper's unspecified
   absolute constant `C > 1` (`Release/Instances`).
@@ -68,7 +66,7 @@ open scoped InnerProduct InnerProductSpace
 /-- Operators on the system space `ℂ^N` (source and initial-state preparations). -/
 abbrev SysOp (N : Type*) [Fintype N] : Type _ := EuclideanSpace ℂ N →L[ℂ] EuclideanSpace ℂ N
 
-/-- **A retry-protocol solver for the family `F` at accuracy `ε`** (lines 3675-3678), over a
+/-- **A retry-protocol solver for the family `F` at accuracy `ε`** (Section `odel:sec:main`), over a
 labelled oracle family `O` on the inputs of `F`: the release's bounded fresh-trial protocol
 `prot` (`ODERepeatProtocol.Protocol`: uniformly random circuit label per attempt, fresh unit
 seed, clean-output herald, first success decoded, finitely many attempts), an isometric readout

@@ -16,7 +16,7 @@ result from another paper is used. Unqualified names below are in the namespace
 `ChebyshevLinearSystem`; `Endpoint`, `Facts`, `Step`, `Protocol`, `LogicalWalk` and
 `Augmented` refer to the namespaces `SparseLinearSystems.*` of the released library, and
 `NativeSparseBlockEncoding`, `ODEMixedOutput` and `EncodedLabeledProgram` to
-`SparseHamiltonian.*`.
+`SparseHamiltonian.*`. References to the manuscript use its labels.
 
 **Access model.** That of the released theorem. `D : NativeSparseBlockEncoding.Data X n Z s`
 supplies, for every unknown input `x : X`, an `N × N` matrix `A_x` with at most `s ≥ 1`
@@ -188,4 +188,7 @@ access model, walk, circuit layer, protocol, estimator analysis and endpoint lem
 `SparseLinearSystems` and the filter facts of `ChebyshevFilter`. No released Lean module was
 changed. It covers the item "Theorem `qls:thm:main` with the Chebyshev filter" listed as not
 formalised in `ChebyshevFilter/Statements.lean`.
+
+Notation: the regularization parameter is `σ` here and `ξ` in the manuscript, so a subscript `σ` (as
+in `g_σ`, `r_σ`, `H_{σ,r}`) stands for the manuscript's subscript `ξ`.
 -/

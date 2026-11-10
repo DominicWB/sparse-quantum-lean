@@ -6,8 +6,8 @@ set_option autoImplicit false
 /-!
 # Computations with the first-success herald and readout
 
-Manuscript lines 4111-4113 (Section `odel:sec:main`, output model: success flag and conditional
-output density) and 4687-4689 (proof of Lemma `odel:lem:dyson`). Facts about the herald
+Manuscript: Section `odel:sec:main` (output model: success flag and conditional output density)
+and the proof of Lemma `odel:lem:dyson`. Facts about the herald
 `heraldStep` and the readout `outStep` of `Parallel/Stage.lean` used to show that a stage
 reproduces a released retry protocol (`Parallel/Readout.lean`).
 

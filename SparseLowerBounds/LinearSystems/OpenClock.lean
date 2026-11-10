@@ -6,7 +6,7 @@ section
 /-!
 # The open computation clock and its Hermitian dilation
 
-Manuscript lines 5250-5302. On clock states `|0⟩, …, |T-1⟩` and a register
+Manuscript: the proof of Theorem `qlsl:thm:main`. On clock states `|0⟩, …, |T-1⟩` and a register
 `ℂ^ι`, transitions `L_t` (`L : ℕ → Matrix ι ι ℂ`; only `t ≤ T - 2` is used)
 define
 
@@ -39,11 +39,11 @@ open scoped Matrix Matrix.Norms.L2Operator
 
 variable {ι : Type*} [Fintype ι] [DecidableEq ι]
 
-/-- `T_L = Σ_t |t+1⟩⟨t| ⊗ L_t` on `Fin T × ι` (line 5253). -/
+/-- `T_L = Σ_t |t+1⟩⟨t| ⊗ L_t` on `Fin T × ι` (proof of Theorem `qlsl:thm:main`). -/
 def clockShift (T : ℕ) (L : ℕ → Matrix ι ι ℂ) : Matrix (Fin T × ι) (Fin T × ι) ℂ :=
   Matrix.of fun p q => if (p.1 : ℕ) = q.1 + 1 then L q.1 p.2 q.2 else 0
 
-/-- **Eq. `qlsl:eq:C`** (line 5265): `C = (I - r T_L)/2`. -/
+/-- **Eq. `qlsl:eq:C`** (eq. `qlsl:eq:C`): `C = (I - r T_L)/2`. -/
 def clockMatrix (T : ℕ) (r : ℝ) (L : ℕ → Matrix ι ι ℂ) : Matrix (Fin T × ι) (Fin T × ι) ℂ :=
   (2 : ℂ)⁻¹ • (1 - (r : ℂ) • clockShift T L)
 
@@ -155,7 +155,7 @@ theorem norm_toLp_clockShift_mulVec_le (hL : ∀ t, ‖L t‖ ≤ 1) (x : Fin T 
 
 end OpenClock
 
-/-- The clock is open: `T_L^T = 0` (line 5262). -/
+/-- The clock is open: `T_L^T = 0` (proof of Theorem `qlsl:thm:main`). -/
 theorem clockShift_pow_self : clockShift T L ^ T = 0 := by
   ext p q
   rw [clockShift_pow_apply_eq_zero T p q (by have := p.1.isLt; omega)]
@@ -175,7 +175,7 @@ theorem norm_clockShift_le (hL : ∀ t, ‖L t‖ ≤ 1) : ‖clockShift T L‖ 
   exact norm_le_of_mulVec zero_le_one fun w =>
     (norm_toLp_clockShift_mulVec_le hL w).trans_eq (one_mul _).symm
 
-/-- **Eq. `qlsl:eq:Cpromise`**, first part (line 5271): `‖C‖ ≤ (1+r)/2`. -/
+/-- **Eq. `qlsl:eq:Cpromise`**, first part: `‖C‖ ≤ (1+r)/2`. -/
 theorem norm_clockMatrix_le {r : ℝ} (hr : 0 ≤ r) (hL : ∀ t, ‖L t‖ ≤ 1) :
     ‖clockMatrix T r L‖ ≤ (1 + r) / 2 := by
   rw [clockMatrix, norm_smul]
@@ -187,7 +187,7 @@ theorem norm_clockMatrix_le {r : ℝ} (hr : 0 ≤ r) (hL : ∀ t, ‖L t‖ ≤ 
   rw [h2]
   linarith
 
-/-- `‖(I - r T_L) v‖ ≥ (1 - r) ‖v‖` (lines 5274-5275). -/
+/-- `‖(I - r T_L) v‖ ≥ (1 - r) ‖v‖` (proof of Theorem `qlsl:thm:main`). -/
 theorem le_norm_one_sub_smul_clockShift {r : ℝ} (hr : 0 ≤ r) (hL : ∀ t, ‖L t‖ ≤ 1)
     (v : EuclideanSpace ℂ (Fin T × ι)) :
     (1 - r) * ‖v‖ ≤ ‖Matrix.toEuclideanLin (1 - (r : ℂ) • clockShift T L) v‖ := by
@@ -232,7 +232,7 @@ theorem isUnit_clockMatrix (r : ℝ) : IsUnit (clockMatrix T r L) := by
   exact (Matrix.isUnit_iff_isUnit_det _).mpr
     (Matrix.isUnit_det_of_right_inverse (clockMatrix_mul_neumann r))
 
-/-- **Eq. `qlsl:eq:Cpromise`**, second part (lines 5272-5275):
+/-- **Eq. `qlsl:eq:Cpromise`**, second part:
 `σ_min(C) ≥ (1-r)/2`, i.e. `‖C⁻¹‖ ≤ 2/(1-r)` (`= 2R` for `r = 1 - 1/R`). -/
 theorem norm_inv_clockMatrix_le {r : ℝ} (hr0 : 0 ≤ r) (hr1 : r < 1) (hL : ∀ t, ‖L t‖ ≤ 1) :
     ‖(clockMatrix T r L)⁻¹‖ ≤ 2 / (1 - r) := by
@@ -250,7 +250,7 @@ theorem norm_inv_clockMatrix_le {r : ℝ} (hr0 : 0 ≤ r) (hr1 : r < 1) (hL : �
           linarith [pow_nonneg hr0 T]
   exact (mul_le_mul_of_nonneg_left hsum zero_le_two).trans_eq (mul_one_div _ _)
 
-/-- **Eq. `qlsl:eq:history`** (lines 5277-5282):
+/-- **Eq. `qlsl:eq:history`** (proof of Theorem `qlsl:thm:main`):
 `C⁻¹ (|0⟩ ⊗ ψ) = 2 Σ_{t<T} r^t |t⟩ ⊗ ψ_t`. -/
 theorem history (r : ℝ) (ψ : ι → ℂ) :
     (clockMatrix T r L)⁻¹ *ᵥ atClock T 0 ψ =
@@ -259,7 +259,7 @@ theorem history (r : ℝ) (ψ : ι → ℂ) :
   congr 1
   exact Finset.sum_congr rfl fun k _ => by rw [Matrix.smul_mulVec, clockShift_pow_mulVec_atClock]
 
-/-- Unitary transitions keep every `ψ_t` normalised (line 5283). -/
+/-- Unitary transitions keep every `ψ_t` normalised (proof of Theorem `qlsl:thm:main`). -/
 theorem norm_walk (hL : ∀ t, L t ∈ Matrix.unitaryGroup ι ℂ) (ψ : ι → ℂ) (t : ℕ) :
     ‖WithLp.toLp 2 (walk L ψ t)‖ = ‖WithLp.toLp 2 ψ‖ := by
   induction t with
@@ -271,7 +271,7 @@ theorem norm_walk (hL : ∀ t, L t ∈ Matrix.unitaryGroup ι ℂ) (ψ : ι → 
       Unitary.map_mem _ (hL t)
     exact ContinuousLinearMap.norm_map_of_mem_unitary hU (WithLp.toLp 2 (walk L ψ t))
 
-/-- **Eq. `qlsl:eq:p`** (lines 5285-5290), the geometric-sum identity behind it:
+/-- **Eq. `qlsl:eq:p`** (proof of Theorem `qlsl:thm:main`), the geometric-sum identity behind it:
 `Σ_{t=n}^{2n-1} r^{2t} = r^{2n}/(1+r^{2n}) · Σ_{t<2n} r^{2t}`. -/
 theorem answer_weight (r : ℝ) (n : ℕ) :
     ∑ t ∈ Finset.Ico n (2 * n), r ^ (2 * t) =
@@ -296,7 +296,7 @@ theorem answer_weight (r : ℝ) (n : ℕ) :
 
 variable {β : Type*} [Fintype β] [DecidableEq β]
 
-/-- **Eq. `qlsl:eq:hermitian`** (lines 5294-5298): `A = [[0, C], [Cᴴ, 0]]`, the
+/-- **Eq. `qlsl:eq:hermitian`** (proof of Theorem `qlsl:thm:main`): `A = [[0, C], [Cᴴ, 0]]`, the
 first `Fin 2` index being the sector. -/
 def dilation (C : Matrix β β ℂ) : Matrix (Fin 2 × β) (Fin 2 × β) ℂ :=
   Matrix.of fun p q =>
@@ -356,7 +356,7 @@ theorem isHermitian_dilation (C : Matrix β β ℂ) : Matrix.IsHermitian (dilati
   rcases q with ⟨b, j⟩
   fin_cases a <;> fin_cases b <;> simp [dilation, Matrix.conjTranspose_apply]
 
-/-- The dilation has the singular values of `C`, each twice (line 5299). -/
+/-- The dilation has the singular values of `C`, each twice (proof of Theorem `qlsl:thm:main`). -/
 theorem norm_dilation (C : Matrix β β ℂ) : ‖dilation C‖ = ‖C‖ := by
   refine le_antisymm (norm_le_of_mulVec (norm_nonneg _) fun x => ?_) ?_
   · rw [← sectorVec_eta x, dilation_mulVec_sectorVec]
@@ -390,7 +390,7 @@ theorem norm_inv_dilation {C : Matrix β β ℂ} (hC : IsUnit C) : ‖(dilation 
   rw [inv_dilation hC, norm_dilation, ← Matrix.conjTranspose_nonsing_inv,
     Matrix.l2_opNorm_conjTranspose]
 
-/-- `A⁻¹ (b₀, 0) = (0, C⁻¹ b₀)` (lines 5300-5301). -/
+/-- `A⁻¹ (b₀, 0) = (0, C⁻¹ b₀)` (proof of Theorem `qlsl:thm:main`). -/
 theorem inv_dilation_mulVec_sectorVec {C : Matrix β β ℂ} (hC : IsUnit C) (b₀ : β → ℂ) :
     (dilation C)⁻¹ *ᵥ sectorVec b₀ 0 = sectorVec 0 (C⁻¹ *ᵥ b₀) := by
   rw [inv_dilation hC, dilation_mulVec_sectorVec, Matrix.mulVec_zero,

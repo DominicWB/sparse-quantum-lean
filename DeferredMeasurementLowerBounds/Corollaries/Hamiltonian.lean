@@ -8,8 +8,9 @@ set_option autoImplicit false
 /-!
 # Theorem `hsl:thm:main` for measured algorithms
 
-Manuscript Theorem `hsl:thm:main` (lines 2102-2119, eq. `hsl:eq:main`) and line 2364
-("Randomised or adaptive algorithms are covered by purification and deferred measurement").
+Manuscript Theorem `hsl:thm:main` (eq. `hsl:eq:main`) and the end of the proof of Lemma
+`hsl:lem:precision` ("Purification and deferred measurement include adaptive and randomised
+algorithms").
 
 `main_max_measured`: for any three **measured algorithms** (mid-run and multi-outcome
 measurements, classical control, randomness and resets of finite-dimensional registers on a

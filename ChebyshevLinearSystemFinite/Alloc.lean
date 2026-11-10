@@ -26,6 +26,9 @@ the `d^fin` signed steps by `d^fin ρ`; no extra matrix queries.
   steps, one coefficient preparation `St j` per stage and one `Sf` for the final attempts.
 * `main_alloc`: Theorem `qls:thm:main` for `allocAlgorithm` under the explicit requirements
   `ρ ≤ ε/(10¹⁰ s^{3/2} κ³ log(1/ε))` and `η ≤ ε/(10⁷ s κ²)`, through `main`.
+
+Notation: the regularization parameter is `σ` here and `ξ` in the manuscript, so a subscript `σ` (as
+in `g_σ`, `r_σ`, `H_{σ,r}`) stands for the manuscript's subscript `ξ`.
 -/
 
 namespace ChebyshevLinearSystemFinite

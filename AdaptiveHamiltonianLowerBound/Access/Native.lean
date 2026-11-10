@@ -13,8 +13,9 @@ common space `NSpace N Z`. The linear-system lower bound admits as oracle labels
 fixed isometric layout `K ≃ ⊕_{σ ∈ S} NSpace`, every spectator branch applies the identity,
 one native query or the inverse of one, with weight at least one — or an input-independent
 unitary of any weight. Native calls include spectator registers, controlled and masked
-versions, inverses and coherent choices of the native query (manuscript lines 2078-2081:
-"with inverses and coherent controls").
+versions, inverses and coherent choices of the native query (Section `hsl:sec:main` uses the
+native sparse access of Section `sec:overview`, with the inverses and controls of Section
+`hs:sec:control`).
 
 That definition is stated for inputs `Fin n → Fin m`. The precision family of the
 Hamiltonian-simulation lower bound has inputs `Fin n → Bool`, so `Access.Admissible`

@@ -354,15 +354,13 @@ def nativeSimT (a m : ℕ) (τ Q qbar ε : ℝ) (UJg : List (Gate (Fin a ⊕ S))
       Z ar.bT ar.bP ar.A) Y J) :=
   hcirc (wireRel _ _ _ _) (slotSel _ _ _ _) UJg nd ar (SlotSim.simCircuitT a τ Q qbar (ε / 4) m)
 
-/-- **Native gate-efficient time-dependent simulation** (Theorem
-`hs:thm:gates`, time-dependent part, before finite-set synthesis).  The
-slot-selected private Cayley operations `D k` are given natively by one
-compute circuit `V` on the slot wires, the private register and scratch,
-with `V† R_val V` acting on clean scratch as `D k` at slot word `k`.  Under
-the clock promises at every slot, the mesh conditions (at half the
-accuracy of the released theorem) and `48 d ζ ≤ ε`, the native circuit has
-the counts of `native_simulation` and its full output is within `ε` of
-`U(t)` for every propagator `U` of the path. -/
+/-- **Native gate-efficient time-dependent simulation** (Theorem `hs:thm:time` with the circuit of
+`hs:thm:gates`, before finite-set synthesis). The slot-selected private Cayley operations `D k` are
+given natively by one compute circuit `V` on the slot wires, the private register and scratch, with
+`V† R_val V` acting on clean scratch as `D k` at slot word `k`. Under the clock promises at every
+slot, the mesh conditions (at half the accuracy of the released theorem) and `48 d ζ ≤ ε`, the
+native circuit has the counts of `native_simulation` and its full output is within `ε` of `U(t)` for
+every propagator `U` of the path. -/
 theorem native_time_simulation (a m : ℕ) (prim : J → Reg Y R →L[ℂ] Reg Y R)
     (hprim : ∀ j, IsUnitary (prim j))
     (UJg : List (Gate (Fin a ⊕ S))) (hUJg : ∀ g ∈ UJg, GateOK 3 g)

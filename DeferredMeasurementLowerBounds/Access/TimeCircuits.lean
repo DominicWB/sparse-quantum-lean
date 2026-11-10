@@ -6,8 +6,8 @@ set_option synthInstance.maxSize 8192
 /-!
 # Circuits over the call forms of the sampled-time ODE access
 
-Manuscript Section `odel:sec:main`, lines 3669-3673 (a reversible value oracle and in-place
-locators, "their inverses and controls, with a coherent time address").
+Manuscript Section `odel:sec:main` (a reversible value oracle and in-place
+locators, "including inverses, controls and coherent time addresses where needed").
 
 `plainCircuit`, `callCircuit`: the deferred selection labels of a measured algorithm over the
 sampled-time access `F.access ι` (plain shape) or over its call forms `callFamily (F.access ι)`

@@ -4,6 +4,10 @@ import GateEfficientODEBudget.Synth
 /-!
 # The preparation bound and the synthesis factor in the word budget
 
+The finite-gate-set forms of Theorem `ode:thm:gates` in this module are a partial formalisation of
+its finite-set statement, under this package's format hypotheses: the manuscript states Theorem
+`ode:thm:gates` over a finite gate set; the conformance endpoints count native gates.
+
 For equations `ode:eq:gate-main` and `ode:eq:gate-space` of Theorem `ode:thm:gates` over a finite
 gate set, in the word budget of equation `ode:eq:gate-word-budget`: the released solvers
 (`GateODEBudget.binary_ode_budget_trials`, `GateODEBudget.binary_ode_time_budget_trials`)

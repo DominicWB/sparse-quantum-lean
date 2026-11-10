@@ -7,9 +7,9 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # Theorem `odel:thm:psd` over the general-mesh physical oracle, with controlled calls
 
-Manuscript lines 4114-4115 ("The lower bounds thus apply to Theorems `ode:thm:main` and
-`ode:thm:time`") and 4452-4571 (Theorem `odel:thm:psd`, eq. `odel:eq:psd`): the homogeneous
-constant-coefficient families `ẋ = -D_X x` with `D_X ⪰ 0`, `‖D_X‖ = 1`, `T = τ`, `1 ≤ g ≤ √2`
+Manuscript: Section `odel:sec:main` ("the lower bounds apply to the upper bounds of the preceding
+section") and Theorem `odel:thm:psd` (eq. `odel:eq:psd`): the homogeneous constant-coefficient
+families `ẋ = -D_X x` with `D_X ⪰ 0`, `‖D_X‖ = 1`, `T = τ`, `1 ≤ g ≤ √2`
 (`ODELowerBoundExtensions.Psd.psdSearchFamilyAt`, `psdScalarFamilyAt`, one stage) and adaptive
 solvers over the physical oracle of the released general-mesh solver and over its call forms
 (`MeshForces`; retry protocols and released protocols of the general-mesh solver by
@@ -24,7 +24,7 @@ solvers over the physical oracle of the released general-mesh solver and over it
   (`ODELowerBoundExtensions.Psd.psd_assembly`), on `PsdRange` (`τ ≥ 1`, which contains the
   manuscript's `τ ≥ 2`).
 
-As in the manuscript (lines 4573-4578), no constant-error `Ω(√s τ)` bound is asserted for the
+As in the manuscript (Theorem `odel:thm:psd`), no constant-error `Ω(√s τ)` bound is asserted for the
 purely dissipative subclass.
 -/
 
@@ -41,8 +41,9 @@ set_option synthInstance.maxSize 8192
 
 variable {τ ε : ℝ} {s : ℕ}
 
-/-- **The gadget family over the physical oracle** (lines 4547-4553): for `s ≥ 512n/τ`, the
-gadget family mesh-forces `psdGadgetConst √(sτr)`, `psdGadgetConst = log 2/(1536√2)`. -/
+/-- **The gadget family over the physical oracle** (proof of Theorem `odel:thm:psd`): for
+`s ≥ 512n/τ`, the gadget family mesh-forces `psdGadgetConst √(sτr)`,
+`psdGadgetConst = log 2/(1536√2)`. -/
 theorem psd_search_forces_mesh (h : PsdRange τ s ε) (hs : 512 * (precN τ ε : ℝ) / τ ≤ s) :
     MeshForces (psdSearchFamilyAt h) ε (psdGadgetConst * Real.sqrt (s * τ * hsR τ ε)) :=
   meshForces_of_growth
@@ -54,8 +55,8 @@ theorem psd_search_forces_mesh (h : PsdRange τ s ε) (hs : 512 * (precN τ ε :
       intro L W Fl E G _ _ _ _ _ _ _ _ _ _ _ _ _ O w hU hO A
       exact Families.psd_search_solver h hs hU w hO A)
 
-/-- **The scalar family over the physical oracle** (lines 4555-4562): the scalar family
-mesh-forces `r/32`. -/
+/-- **The scalar family over the physical oracle** (proof of Theorem `odel:thm:psd`): the scalar
+family mesh-forces `r/32`. -/
 theorem psd_scalar_forces_mesh (h : PsdRange τ s ε) :
     MeshForces (psdScalarFamilyAt h) ε (hsR τ ε / 32) :=
   meshForces_of_growth even_two _ AdaptiveHamiltonianLowerBound.Access.toBits
@@ -66,8 +67,8 @@ theorem psd_scalar_forces_mesh (h : PsdRange τ s ε) :
       intro L W Fl E G _ _ _ _ _ _ _ _ _ _ _ _ _ O w hU hO A
       exact (Families.psd_scalar_solver h hU w hO A).1)
 
-/-- **The scalar family for small sparsity over the physical oracle** (lines 4565-4568): for
-`s < 512n/τ`, the scalar family mesh-forces `√(sτr)/256`. -/
+/-- **The scalar family for small sparsity over the physical oracle** (proof of Theorem
+`odel:thm:psd`): for `s < 512n/τ`, the scalar family mesh-forces `√(sτr)/256`. -/
 theorem psd_scalar_forces_sqrt_mesh (h : PsdRange τ s ε) (hs : (s : ℝ) < 512 * precN τ ε / τ) :
     MeshForces (psdScalarFamilyAt h) ε (Real.sqrt (s * τ * hsR τ ε) / 256) :=
   meshForces_of_growth even_two _ AdaptiveHamiltonianLowerBound.Access.toBits

@@ -6,8 +6,8 @@ section
 /-!
 # Theorem `hsl:thm:main`: the Hamiltonian-simulation query lower bound
 
-Manuscript lines 2102-2124 (statement and remarks), 2411-2474 (assembly) and
-2476-2487 (dimension and exact sparsity). Let `τ ≥ 1`, `s ≥ 32` and
+Manuscript: Theorem `hsl:thm:main` (statement and remarks) and its proof (assembly; dimension
+and exact sparsity at the end). Let `τ ≥ 1`, `s ≥ 32` and
 `0 < ε ≤ 1/64` (`HSRange τ s ε`), `L = log(1/ε)`, `h = log(e + L/τ)`,
 `r = L/h` (eq. `hsl:eq:parameters`).
 
@@ -22,21 +22,20 @@ within trace distance `ε` of `e^{-iτH_X} ψ_in`, in the observable form
 `Readout.Accurate` (eq. `hsl:eq:accuracy`). `Q = p.labelCount .value` counts
 value queries; location queries are free (they are input-independent).
 
-**Controlled calls** (lines 2078-2081 "with inverses and coherent controls",
-2285-2289). `MultiOracleCircuit.Program` has no controlled primitive; controlled
-calls are covered by reduction. A controlled location call is a fixed gate
-(input-independent locators, `HardInstance.locators_const`): cost 0. A
-controlled value call is one spectator value call between fixed controlled
-swaps that, on the inactive branch, route the word register to a dummy `Word B`
-register in the uniform superposition `Σ_z |z⟩/√|Word B|`, invariant under
-every shift `z ↦ z ∓ f a` (the release's `NativeControlledOracle.referenceSwap`
-pattern). So `*_main`, `*_herald` and `*_endpoint` with spectator
-`Ω × Fin 2 × Word B` apply at cost 1 per controlled value call; `*_native` does
-not. (Not stated here: an `ImplementsOn` lemma for a controlled-value label at
-cost 2 via `PhaseCircuit.implementsOn_circuit`, for the `*_general` forms.)
+**Controlled calls** (Section `hsl:sec:main` and the chain construction of Section `part:hsl`:
+public locators, inverses and controls). `MultiOracleCircuit.Program` has no controlled primitive;
+controlled calls are covered by reduction. A controlled location call is a fixed gate
+(input-independent locators, `HardInstance.locators_const`): cost 0. A controlled value call is one
+spectator value call between fixed controlled swaps that, on the inactive branch, route the word
+register to a dummy `Word B` register in the uniform superposition `Σ_z |z⟩/√|Word B|`, invariant
+under every shift `z ↦ z ∓ f a` (the release's `NativeControlledOracle.referenceSwap` pattern). So
+`*_main`, `*_herald` and `*_endpoint` with spectator `Ω × Fin 2 × Word B` apply at cost 1 per
+controlled value call; `*_native` does not. (Not stated here: an `ImplementsOn` lemma for a
+controlled-value label at cost 2 via `PhaseCircuit.implementsOn_circuit`, for the `*_general`
+forms.)
 
-**Per-family bounds at the main parameters** (the three families of lines
-2372-2474, as concrete native data from `Hamiltonian/HardData`):
+**Per-family bounds at the main parameters** (the three families of the
+proof, as concrete native data from `Hamiltonian/HardData`):
 
 * `time_main`: time family `timeData`, `Q ≥ c_T √s τ` (eq. `hsl:eq:timelower`);
 * `mixed_main`: for `L ≥ 64τ` and `s ≥ 64n/τ`, mixed family `mixedMainData`,
@@ -47,18 +46,18 @@ cost 2 via `PhaseCircuit.implementsOn_circuit`, for the `*_general` forms.)
 
 and the same for programs without spectator (`*_main_native`).
 
-**Hard instances** (`hard_instances`, lines 2113-2118 and 2476-2487): each
+**Hard instances** (`hard_instances`, Theorem `hsl:thm:main`): each
 family's matrices are real symmetric with operator norm exactly one, maximum
 row and column Euclidean norms exactly one (the release's `η = 1` promise),
 maximum row and column sparsity exactly `s`, exact dyadic words with
 position-independent decode, input-independent location lists and locator
 extensions, and dimension at most `4 s (τ + r + 1)` (`HardInstance`).
 
-**Combined statement** (eq. `hsl:eq:main`, `c₀ = log 2/(4096π)`). The
-manuscript proves "the maximum of three lower bounds is at least one third of
-their sum" (lines 2121-2124): the three terms are witnessed by different
-families. Combined quantification (a formalization choice): the max form, which
-is what the manuscript proves, with the family form as an equivalent statement:
+**Combined statement** (eq. `hsl:eq:main`, `c₀ = log 2/(4096π)`). The manuscript uses that the
+maximum of three nonnegative lower bounds is at least a third of their sum (Section `hsl:sec:main`):
+the three terms are witnessed by different families. Combined quantification (a formalization
+choice): the max form, which is what the manuscript proves, with the family form as an equivalent
+statement:
 
 * `main_max`: for any three algorithms, each accurate on its own
   family, `max(Q_T, Q_M, Q_P) ≥ c₀ (√s τ + √(sτr) + r)`;
@@ -99,13 +98,11 @@ theorem isHermitian_of_realSymmetric {S : Type*} {M : Matrix S S ℂ}
   ext i j
   rw [Matrix.conjTranspose_apply, hM.2, entry_symm_of_transpose hM.1 j i]
 
-/-- **The instance properties of Theorem `hsl:thm:main`** (lines 2113-2118,
-2476-2487) for native sparse data with words `Word B`: real symmetric;
-operator norm exactly one; maximum row and column Euclidean norms exactly one;
-maximum row and column sparsity exactly `s`; exact finite-word dyadic entries
-(scale `1`, position-independent decode `valMinAbs z / 2^B`, every entry
-`v/2^B` with `-2^B < v ≤ 2^B`); input-independent location lists and full
-in-place locator extensions. -/
+/-- **The instance properties of Theorem `hsl:thm:main`** (Theorem `hsl:thm:main`) for native sparse
+data with words `Word B`: real symmetric; operator norm exactly one; maximum row and column
+Euclidean norms exactly one; maximum row and column sparsity exactly `s`; exact finite-word dyadic
+entries (scale `1`, position-independent decode `valMinAbs z / 2^B`, every entry `v/2^B` with
+`-2^B < v ≤ 2^B`); input-independent location lists and full in-place locator extensions. -/
 structure HardInstance {X N : Type*} [Fintype N] [DecidableEq N] {B s : ℕ}
     (D : Data X N (Word B) s) : Prop where
   transpose_eq : ∀ x, (D.matrix x)ᵀ = D.matrix x
@@ -187,7 +184,7 @@ theorem scalarData_hardInstance {n : ℕ} (τ : ℝ) (hs : 2 ≤ s) :
     _ = 1 := (hP x).2.2.2.1
 
 /-- The time family's clock length is at most `τ` for `τ ≥ 1` (dimension
-bound, lines 2477-2478). -/
+bound, proof of Theorem `hsl:thm:main`). -/
 theorem timeN_le (hτ : 1 ≤ τ) : (timeN τ : ℝ) ≤ τ := by
   unfold timeN
   rw [Nat.cast_max, Nat.cast_one]
@@ -197,9 +194,8 @@ theorem timeN_le (hτ : 1 ≤ τ) : (timeN τ : ℝ) ≤ τ := by
         Nat.floor_le (div_nonneg (by linarith) Real.pi_pos.le)
     _ ≤ τ := by rw [div_le_iff₀ Real.pi_pos]; nlinarith
 
-/-- **Theorem `hsl:thm:main`, hard instances** (lines 2113-2118 and
-2476-2487): the three families at the main parameters satisfy
-`HardInstance`, and their dimensions are at most `4 s (τ + r + 1)`
+/-- **Theorem `hsl:thm:main`, hard instances** (Theorem `hsl:thm:main`): the three families at the
+main parameters satisfy `HardInstance`, and their dimensions are at most `4 s (τ + r + 1)`
 (`O(s(τ + r + 1))`, made explicit). -/
 theorem hard_instances (h : HSRange τ s ε) :
     HardInstance (timeData τ s h.s_ge) ∧ HardInstance (mixedMainData τ ε s h.s_ge) ∧
@@ -233,7 +229,7 @@ theorem hard_instances (h : HSRange τ s ε) :
 
 /-! ### The three families at the main parameters -/
 
-/-- **Time family** (lines 2379-2409, eq. `hsl:eq:timelower`), spectator form:
+/-- **Time family** (Lemma `hsl:lem:time`, eq. `hsl:eq:timelower`), spectator form:
 an `ε`-accurate algorithm makes at least `c_T √s τ` value queries,
 `c_T = log 2/(192π)`. -/
 theorem time_main (h : HSRange τ s ε) (Ω : Type*) [Fintype Ω]
@@ -246,7 +242,7 @@ theorem time_main (h : HSRange τ s ε) (Ω : Type*) [Fintype Ω]
     cT * Real.sqrt s * τ ≤ p.labelCount .value ∧ cT * Real.sqrt s * τ ≤ p.count :=
   time_spec Ω h.one_le_tau h.s_ge h.eps_le p φ₀ hφ₀ e he hacc
 
-/-- **Mixed family** (lines 2439-2444, eq. `hsl:eq:mixrbound`), spectator
+/-- **Mixed family** (proof of Theorem `hsl:thm:main`, eq. `hsl:eq:mixrbound`), spectator
 form: if `L ≥ 64τ` and `s ≥ 64n/τ` (`n = ⌊r/4⌋`), an `ε`-accurate algorithm
 makes at least `(log 2/(384√2)) √(sτr)` value queries. -/
 theorem mixed_main (h : HSRange τ s ε) (hL : 64 * τ ≤ hsL ε)
@@ -267,7 +263,7 @@ theorem mixed_main (h : HSRange τ s ε) (hL : 64 * τ ≤ hsL ε)
   have hnum := mixrbound h hL
   exact ⟨hnum.trans hmix.1, hnum.trans hmix.2⟩
 
-/-- **Precision family** (lines 2435-2452, eqs. `hsl:eq:rbound`,
+/-- **Precision family** (proof of Theorem `hsl:thm:main`, eqs. `hsl:eq:rbound`,
 `hsl:eq:failedmix`), spectator form: if `L ≥ 64τ`, an `ε`-accurate algorithm
 makes at least `r/32` value queries, and at least `√(sτr)/(64√2)` when
 `s < 64n/τ`. No seed or readout norm hypothesis is needed. -/
@@ -338,8 +334,7 @@ theorem precision_main_native (h : HSRange τ s ε) (hL : 64 * τ ≤ hsL ε)
 
 /-! ### Combined statement -/
 
-/-- **Theorem `hsl:thm:main`, eq. `hsl:eq:main`, max form**
-(lines 2109-2111, 2121-2124, 2456-2474): for any three algorithms (spectator
+/-- **Theorem `hsl:thm:main`, eq. `hsl:eq:main`, max form**: for any three algorithms (spectator
 form), accurate on the time, mixed and precision families respectively,
 `max(Q_T, Q_M, Q_P) ≥ c₀ (√s τ + √(sτr) + r)`, `c₀ = log 2/(4096π)`. The
 mixed algorithm is only used when `L ≥ 64τ` and `s ≥ 64n/τ`, the precision
@@ -416,7 +411,7 @@ theorem main_exists (h : HSRange τ s ε) :
   have := max_lt hT (max_lt hM hP)
   linarith
 
-/-- **Eq. `hsl:eq:fixedtime`** (lines 2491-2496): at `τ = 1` the sum of
+/-- **Eq. `hsl:eq:fixedtime`** (Section `part:hsl`): at `τ = 1` the sum of
 eq. `hsl:eq:main` is `√s + √(sL/log(e+L)) + L/log(e+L)`. This is only the
 algebraic identity: the `Ω`-bound of eq. `hsl:eq:fixedtime` is
 `main_max` (or `main_exists`) at `τ = 1` rewritten by

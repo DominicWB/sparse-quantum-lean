@@ -7,22 +7,20 @@ set_option synthInstance.maxSize 8192
 /-!
 # The trace-distance endpoint `ε = 1/2` for algorithms with measurements inside a run
 
-Corollary `hs:cor:unitary` of the manuscript (lines 1647-1666,
-trace-distance form of the error range `0 < ε ≤ 1/2`,
+Corollary `hs:cor:unitary` of the manuscript (trace-distance form of the error range `0 < ε ≤ 1/2`,
 "including inverse calls", "`Θ(√N)`") for measured algorithms
-(`DeferredMeasurementLowerBounds.Model.Measured`: measurements, resets and classical control
-inside a run; "Randomised or adaptive algorithms are covered by purification and deferred
-measurement", the closing sentence of the proof of `hsl:lem:precision`, lines 2363-2364). The
-released bounds
+(`DeferredMeasurementLowerBounds.Model.Measured`: measurements, resets and classical control inside
+a run; "Purification and deferred measurement include adaptive and randomised algorithms", the
+closing sentence of the proof of `hsl:lem:precision`). The released bounds
 `DeferredMeasurementLowerBounds.Corollaries.search_count_ge_measured_heralded` and
 `implementation_count_ge_measured` need `p₀ (1 - ε₀) > 1/2` for a positive factor, hence miss
 `ε₀ = 1/2`. Here the deferral of the measured algorithm is compiled, as in
 `DeferredMeasurementLowerBounds.Corollaries.search_count_ge_measured_sharp`, into one program over
 the controlled spectated phase oracle (`DeferredMeasurementLowerBounds.Access.phaseCircuits`,
 `DeferredMeasurementLowerBounds.Access.compiledProgram`), whose decoded final vectors read the
-output values with the probabilities `readProb` of the measured algorithm; the summed pair gaps
-of `Global.program_count_ge_of_reads` with `Reading.measured_read_bound` then give, for
-success probability at least `p₀ > 0` and conditional trace distance `ε₀ ≤ 1/2`,
+output values with the probabilities `readProb` of the measured algorithm; the summed pair gaps of
+`Global.program_count_ge_of_reads` with `Reading.measured_read_bound` then give, for success
+probability at least `p₀ > 0` and conditional trace distance `ε₀ ≤ 1/2`,
 
   `(p₀ (N (1 - ε₀) - 1))² ≤ 4 (N - 1) √(N - 1) Q`,
 

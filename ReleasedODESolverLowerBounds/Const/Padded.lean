@@ -6,12 +6,12 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # Padded forms of the ODE lower bounds for measured solvers over the constant-coefficient oracle
 
-Manuscript Section `odel:sec:main`, lines 3669-3681 ("The lower bounds thus apply to Theorems
-`ode:thm:main` and `ode:thm:time`"), with measurements inside a run (lines 2363-2364): the
-padding claims for the `g = 1` families (lines 2485-2486, "append known zeros to equalise
-dimensions across families or to obtain a qubit register"; lines 4005-4006, "Pad dimensions to a
-common known size if desired"), over the physical oracle of the released constant-coefficient
-solver of Theorem `ode:thm:main` (line 2584) and over its call forms.
+Manuscript Section `odel:sec:main` ("the lower bounds apply to the upper bounds of the preceding
+section"), with measurements inside a run (proof of Lemma `hsl:lem:precision`): the padding claims
+for the `g = 1` families (the end of the proof of Theorem `hsl:thm:main`, "Further known zero
+padding equalises dimensions or accommodates a qubit register"; proof of Theorem
+`odel:thm:combined`, "Pad dimensions to a common known size if desired"), over the physical oracle
+of the released constant-coefficient solver of Theorem `ode:thm:main` and over its call forms.
 
 Every statement is the corresponding statement of `PhysicalODELowerBound.Const` with
 `MeasuredConstWitnesses` in place of `ConstWitnesses`

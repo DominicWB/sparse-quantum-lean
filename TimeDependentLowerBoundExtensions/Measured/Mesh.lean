@@ -7,20 +7,19 @@ set_option synthInstance.maxSize 4096
 /-!
 # Theorem `hsl:thm:main` for measured algorithms over the released general-mesh oracles
 
-The lower bound of Theorem `hsl:thm:main` (the manuscript, lines 2102-2119, eq. `hsl:eq:main`)
-applies to the time-dependent class with time-independent hard instances (lines 1512-1516), and
-randomised or adaptive algorithms are covered by purification and deferred measurement (lines
-2363-2364). This module states it for **measured algorithms**
-(`DeferredMeasurementLowerBounds.Model.Measured`: mid-run and multi-outcome measurements,
-classical control, randomness and resets) whose oracle calls are the physical oracle family of
-the released general-mesh and integrable-path simulators
-(`TimeDependentExtensions.Hamiltonian.simulation`,
+The lower bound of Theorem `hsl:thm:main` (the manuscript, eq. `hsl:eq:main`) applies to the
+time-dependent class with time-independent hard instances (the paragraphs after the proof of Theorem
+`hs:thm:time`), and randomised or adaptive algorithms are covered by purification and deferred
+measurement (proof of Lemma `hsl:lem:precision`). This module states it for **measured algorithms**
+(`DeferredMeasurementLowerBounds.Model.Measured`: mid-run and multi-outcome measurements, classical
+control, randomness and resets) whose oracle calls are the physical oracle family of the released
+general-mesh and integrable-path simulators (`TimeDependentExtensions.Hamiltonian.simulation`,
 `IntegrablePathSimulation.Hamiltonian.simulation`),
 `TimeDependentExtensions.Hamiltonian.oracle (constData D M) N γ η T ε'` (any numbers `M` of mesh
-intervals and `N` of slots, and any schedule), on the
-constant time, mixed and precision data, and over its call forms (plain, inverse, controlled and
-controlled inverse, `AdaptiveODELowerBound.Access.callFamily`; native access "with inverses and
-coherent controls", lines 2078-2080).
+intervals and `N` of slots, and any schedule), on the constant time, mixed and precision data, and
+over its call forms (plain, inverse, controlled and controlled inverse,
+`AdaptiveODELowerBound.Access.callFamily`; native access with inverses and the controls of Lemma
+`access:lem:control`, Section `hsl:sec:main`).
 
 * `main_max_measured_mesh`, `main_max_measured_calls_mesh`:
   `c₀ (√s τ + √(sτr) + r) ≤ max(Q_T, Q_M, Q_P)`, `c₀ = log 2/(4096π)`, `Q` the worst-case number

@@ -7,9 +7,9 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # The Gram kernel of an adaptive protocol and its adversary progress
 
-Manuscript lines 4181-4234 (Lemma `odel:lem:outer`) and lines 2672-2673 ("Randomised or adaptive
-algorithms are covered by purification and deferred measurement"), for the adaptive protocols
-`SparseLinearSystems.Protocol.Tree`.
+Manuscript: Lemma `odel:lem:outer` and the end of the proof of Lemma `hsl:lem:precision`
+("Purification and deferred measurement include adaptive and randomised algorithms"), for the
+adaptive protocols `SparseLinearSystems.Protocol.Tree`.
 
 **Kernel** (`treeKernel`). Defer the measurement of a test run: the run of `t` on input `x`
 prepares `φ_x = C_x ψ`; its success branch is `Π φ_x` (`Π = F F†` the flag projection) followed

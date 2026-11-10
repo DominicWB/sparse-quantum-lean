@@ -7,9 +7,10 @@ set_option autoImplicit false
 /-!
 # Search-weight growth of the call forms
 
-Section `odel:sec:main` (manuscript lines 4105-4109: "Access is through a reversible value oracle
-and in-place row/column locators, their inverses and controls") and the encoding for the proof of
-Theorem `odel:thm:joint` (lines 4292-4293: "The same holds for inverse and controlled calls").
+Section `odel:sec:main` ("The value oracle and in-place row and column locators have the canonical
+reversible access, including inverses, controls and coherent time addresses where needed") and the
+construction before Theorem `odel:thm:joint` (a value query "uses at most two membership queries,
+also for inverse and controlled calls").
 
 For a labelled oracle family `O` with search-weight growth `w`
 (`AdaptiveHamiltonianLowerBound.SearchGrowth`: label `l` has growth `(λ²)^{w l}` for the search

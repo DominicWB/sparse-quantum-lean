@@ -7,8 +7,8 @@ section
 /-!
 # Parameters of the linear-system lower bound
 
-The hard instance of Theorem `qlsl:thm:main` (manuscript lines 5070-5100) is
-built from the parameters of eq. `qlsl:eq:parameters` (lines 5342-5348):
+The hard instance of Theorem `qlsl:thm:main` is
+built from the parameters of eq. `qlsl:eq:parameters`:
 
 * `R = 2^{⌊log₂(κ/2)⌋}` (`hardR`, exponent `hardRho`),
 * `m = 2^{⌊log₂(s-1)⌋}` (`hardM`, exponent `hardMu`),
@@ -17,7 +17,7 @@ built from the parameters of eq. `qlsl:eq:parameters` (lines 5342-5348):
 
 and the clock ratio `r = 1 - 1/R` (`clockRatio`, eq. `qlsl:eq:C`). This module
 proves every numeric fact the proof uses, in the parameter range
-`κ ≥ 32`, `s ≥ 5`, `0 < ε ≤ 1/64` (`HardRange`): lines 5349-5433. It needs only
+`κ ≥ 32`, `s ≥ 5`, `0 < ε ≤ 1/64` (`HardRange`): proof of Theorem `qlsl:thm:main`. It needs only
 real analysis, so it can be proved independently of the operator modules.
 -/
 
@@ -25,7 +25,7 @@ namespace SparseLowerBounds.LinearSystems
 
 noncomputable section
 
-/-- The parameter range of Theorem `qlsl:thm:main` (lines 5071-5072):
+/-- The parameter range of Theorem `qlsl:thm:main`:
 `κ ≥ 32`, `s ≥ 5`, `0 < ε ≤ 1/64`. -/
 structure HardRange (κ : ℝ) (s : ℕ) (ε : ℝ) : Prop where
   kappa_ge : 32 ≤ κ
@@ -102,7 +102,7 @@ lemma log_sixteen_le (h : HardRange κ s ε) :
     Real.log (1 / (16 * ε)) ≤ Real.log (1 / ε) := by
   rw [log_sixteen_eq h]; linarith [two_thirds_lt_log_two]
 
-/-! ### `R` and `m` (lines 5349-5352) -/
+/-! ### `R` and `m` (proof of Theorem `qlsl:thm:main`) -/
 
 theorem sixteen_le_hardR (h : HardRange κ s ε) : 16 ≤ hardR κ := by
   exact calc 16 = 2 ^ 4 := by norm_num
@@ -126,7 +126,7 @@ theorem hardR_le_kappa_div_two (h : HardRange κ s ε) : (hardR κ : ℝ) ≤ κ
   have h3 : ((⌊κ / 2⌋₊ : ℕ) : ℝ) ≤ κ / 2 := Nat.floor_le (by linarith [h.kappa_ge])
   linarith
 
-/-- `‖A⁻¹‖ ≤ 2R ≤ κ` (line 5351). -/
+/-- `‖A⁻¹‖ ≤ 2R ≤ κ` (proof of Theorem `qlsl:thm:main`). -/
 theorem two_hardR_le_kappa (h : HardRange κ s ε) : 2 * (hardR κ : ℝ) ≤ κ := by
   linarith [hardR_le_kappa_div_two h]
 
@@ -150,21 +150,21 @@ lemma s_le_two_hardM (h : HardRange κ s ε) : s ≤ 2 * hardM s := by
   have := h.s_ge
   omega
 
-/-- `m > s/4` (line 5349; in fact `m ≥ s/2`). -/
+/-- `m > s/4` (proof of Theorem `qlsl:thm:main`; in fact `m ≥ s/2`). -/
 theorem s_div_four_lt_hardM (h : HardRange κ s ε) : (s : ℝ) / 4 < hardM s := by
   have h1 : (s : ℝ) ≤ 2 * (hardM s : ℝ) := by exact_mod_cast s_le_two_hardM h
   have h2 : (4 : ℝ) ≤ (hardM s : ℝ) := by exact_mod_cast four_le_hardM h
   linarith
 
-/-- `m + 1 ≤ s` (line 5352): the hard matrices are `s`-sparse. -/
+/-- `m + 1 ≤ s` (proof of Theorem `qlsl:thm:main`): the hard matrices are `s`-sparse. -/
 theorem hardM_succ_le (h : HardRange κ s ε) : hardM s + 1 ≤ s := by
   have h1 := hardM_le h
   have := h.s_ge
   omega
 
-/-! ### `n` (eq. `qlsl:eq:nrange`, lines 5354-5366) -/
+/-! ### `n` (eq. `qlsl:eq:nrange`) -/
 
-/-- `ln(1/(16ε)) ≥ L/3`, from `L ≥ ln 64` (lines 5354-5355). -/
+/-- `ln(1/(16ε)) ≥ L/3`, from `L ≥ ln 64` (proof of Theorem `qlsl:thm:main`). -/
 theorem log_div_three_le (h : HardRange κ s ε) :
     Real.log (1 / ε) / 3 ≤ Real.log (1 / (16 * ε)) := by
   rw [log_sixteen_eq h]; linarith [six_log_two_le h]
@@ -178,7 +178,7 @@ lemma lt_hardN_add_one (_h : HardRange κ s ε) :
     ((hardR κ : ℝ) - 1) / 2 * Real.log (1 / (16 * ε)) < (hardN κ ε : ℝ) + 1 :=
   Nat.lt_floor_add_one _
 
-/-- **Eq. `qlsl:eq:nrange`** (lines 5356-5364):
+/-- **Eq. `qlsl:eq:nrange`** (proof of Theorem `qlsl:thm:main`):
 `(R-1)L/6 - 1 ≤ n`, `RL/8 ≤ n`, `κL/32 < n` and `n ≤ RL/2`. -/
 theorem nrange (h : HardRange κ s ε) :
     ((hardR κ : ℝ) - 1) * Real.log (1 / ε) / 6 - 1 ≤ hardN κ ε ∧
@@ -207,7 +207,7 @@ theorem nrange (h : HardRange κ s ε) :
     mul_le_mul_of_nonneg (by linarith) hℓL (by linarith) (by linarith)
   exact ⟨first, second, by linarith, by linarith⟩
 
-/-- `n ≥ 2L` (line 5365). -/
+/-- `n ≥ 2L` (proof of Theorem `qlsl:thm:main`). -/
 theorem two_log_le_hardN (h : HardRange κ s ε) : 2 * Real.log (1 / ε) ≤ hardN κ ε := by
   have hR := sixteen_le_hardR_real h
   have hL := four_le_log h
@@ -215,7 +215,7 @@ theorem two_log_le_hardN (h : HardRange κ s ε) : 2 * Real.log (1 / ε) ≤ har
     mul_le_mul_of_nonneg_right hR (by linarith)
   linarith [(nrange h).2.1]
 
-/-- `n ≥ R/2` (line 5365), as used for the actual conditioning. -/
+/-- `n ≥ R/2` (proof of Theorem `qlsl:thm:main`), as used for the actual conditioning. -/
 theorem hardR_le_two_hardN (h : HardRange κ s ε) : hardR κ ≤ 2 * hardN κ ε := by
   have hR := sixteen_le_hardR_real h
   have hL := four_le_log h
@@ -228,7 +228,7 @@ theorem hardN_pos (h : HardRange κ s ε) : 0 < hardN κ ε := by
   have h1 : (0 : ℝ) < hardN κ ε := by linarith [two_log_le_hardN h, four_le_log h]
   exact_mod_cast h1
 
-/-! ### Dimension `N = 4mn` (lines 5088-5089, 5302 and 5365-5366) -/
+/-! ### Dimension `N = 4mn` (Theorem `qlsl:thm:main`) -/
 
 /-- The slot list fits into the dimension: `s ≤ N = 4mn`. -/
 theorem s_le_dim (h : HardRange κ s ε) : s ≤ 4 * hardM s * hardN κ ε := by
@@ -261,7 +261,7 @@ theorem dim_bounds (h : HardRange κ s ε) :
   · linarith
   · linarith
 
-/-! ### Answer probability and bias (lines 5392-5418) -/
+/-! ### Answer probability and bias (proof of Theorem `qlsl:thm:main`) -/
 
 lemma one_le_two_pow (ρ : ℕ) : (1 : ℝ) ≤ (2 : ℝ) ^ ρ := one_le_pow₀ (by norm_num)
 
@@ -292,7 +292,7 @@ lemma neg_inv_le_log_clockRatio {ρ : ℕ} (hR : (2 : ℝ) ≤ (2 : ℝ) ^ ρ) :
     ring
   linarith
 
-/-- `r^{2n} ≥ e^{-2n/(R-1)} ≥ 16ε` (lines 5392-5395). -/
+/-- `r^{2n} ≥ e^{-2n/(R-1)} ≥ 16ε` (proof of Theorem `qlsl:thm:main`). -/
 theorem sixteen_eps_le_pow (h : HardRange κ s ε) :
     16 * ε ≤ clockRatio (hardRho κ) ^ (2 * hardN κ ε) := by
   have hRc : (hardR κ : ℝ) = (2 : ℝ) ^ hardRho κ := by push_cast; rfl
@@ -325,7 +325,7 @@ theorem sixteen_eps_le_pow (h : HardRange κ s ε) :
     rw [hlogpow]; linarith
   exact (Real.log_le_log_iff (by positivity) (by positivity)).mp key
 
-/-- **Eq. `qlsl:eq:answerprob`** (lines 5396-5400): `p ≥ 16ε/(1+16ε) ≥ 64ε/5`. -/
+/-- **Eq. `qlsl:eq:answerprob`** (proof of Theorem `qlsl:thm:main`): `p ≥ 16ε/(1+16ε) ≥ 64ε/5`. -/
 theorem answerProb_ge (h : HardRange κ s ε) :
     64 / 5 * ε ≤ answerProb (clockRatio (hardRho κ)) (hardN κ ε) := by
   have hq := sixteen_eps_le_pow h
@@ -344,14 +344,14 @@ theorem two_eps_le_answerProb (h : HardRange κ s ε) :
     2 * ε ≤ answerProb (clockRatio (hardRho κ)) (hardN κ ε) := by
   linarith [answerProb_ge h, h.eps_pos]
 
-/-- **Eq. `qlsl:eq:bias`** (lines 5409-5416): `(2/3)(p - 2ε) ≥ 36ε/5 ≥ ε`. -/
+/-- **Eq. `qlsl:eq:bias`** (proof of Theorem `qlsl:thm:main`): `(2/3)(p - 2ε) ≥ 36ε/5 ≥ ε`. -/
 theorem eps_le_bias (h : HardRange κ s ε) :
     ε ≤ 2 / 3 * (answerProb (clockRatio (hardRho κ)) (hardN κ ε) - 2 * ε) := by
   linarith [answerProb_ge h, h.eps_pos]
 
-/-! ### The final inequality (lines 5420-5433) -/
+/-! ### The final inequality (proof of Theorem `qlsl:thm:main`) -/
 
-/-- **The final count** (lines 5420-5433). With `β = ε`, the right side is the
+/-- **The final count** (proof of Theorem `qlsl:thm:main`). With `β = ε`, the right side is the
 XOR lower bound `(√m/4)(n ln 2 + ln β)` of `qlsl:lem:xor`; using `n ≥ 2L`,
 `ln 2 > 2/3`, eq. `qlsl:eq:nrange` and `√m > √s/2`, it exceeds
 `κ √s ln(1/ε)/1536`. A Boolean count `2Q` at least the XOR bound therefore

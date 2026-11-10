@@ -7,13 +7,16 @@ set_option synthInstance.maxSize 4096
 /-!
 # Lemma `odel:lem:dyson` as one heralded program over its general access
 
-Manuscript, Lemma `odel:lem:dyson` (lines 4155-4168) and eq. `odel:eq:dyson` (lines
-4162-4165): under coherent time queries,
-certified time discretisation, the source quadrature/preparation access of Theorem
-`ode:thm:time` and coherent matrix access on every finite mesh selected from the public
-regularity certificate, there is a generic sparse-oracle solver with
-`Q_A = O(ḡ e^z [1 + z + L_g/log(e + L_g/z)])`, `z = s η T`, `L_g = log(C ḡ/ε)`; only matrix
-queries are counted (line 4166). The released `ODELowerBoundExtensions.Dyson.dyson` gives the
+Manuscript, Lemma `odel:lem:dyson` and eq. `odel:eq:dyson`: "Assume the coherent time queries,
+attainable sample accuracy and source access of Theorem `ode:thm:time`, including coherent matrix
+access on every finite mesh selected from the public error certificate. Assume a supplied common
+row and column Euclidean-norm bound `η` for `A(t)`." Then there is a generic sparse-oracle solver
+with `Q_A = O(ḡ e^z [1 + z + L_g/log(e + L_g/z)])`, `z = s η T`, `L_g = log(C ḡ/ε)`; only matrix
+queries are counted. This package assumes, as its own hypotheses, interval-integrable generator
+and forcing pieces on each closed mesh cell and a classical solution on each closed cell
+(`SolvesODE`: a derivative at every point of the cell, one-sided at its ends), so a generator jump
+inside a cell that leaves the solution without a derivative there is not covered. The released
+`ODELowerBoundExtensions.Dyson.dyson` gives the
 solver as a public trial family with the complete certificate of the four-attempt retry wrapper.
 Here the solver is one heralded program (`Model.HeraldedSolver`) over the same access with
 spectator registers, `fiberOracle J (Dyson.oracle D K M J₀ Jb)`.
@@ -21,7 +24,7 @@ spectator registers, `fiberOracle J (Dyson.oracle D K M J₀ Jb)`.
 * `SingleOutcome`: one heralded single program over the general access, for the valid instances
   `Dyson.Valid` (the premises of `Dyson.Outcome`), with at most `dysonBound z ḡ ε` matrix
   queries (`cost (matrixWeight 1)`: row, column and value calls, inverses included; source
-  calls are not counted; the controls of the access, lines 3669-3671, are built into
+  calls are not counted; the controls of the access, Section `odel:sec:main`, are built into
   `Dyson.oracle` through its controlled workspace `NativeControlledOracle.Workspace`, and the
   program has no further controlled call);
 * `single_dyson`: `SingleOutcome` under the hypotheses of `Dyson.dyson`.

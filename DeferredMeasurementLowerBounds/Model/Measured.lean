@@ -5,11 +5,11 @@ set_option autoImplicit false
 /-!
 # Measured query algorithms
 
-Manuscript lines 2363-2364 ("Randomised or adaptive algorithms are covered by purification and
-deferred measurement"), lines 3669-3680 (the solver class of Section `odel:sec:main`: a success
-flag of probability at least `2/3`, a conditional output, a worst-case query bound) and lines
-5185-5186 ("controlled queries and adaptive algorithms after coherent purification and padding
-to their worst-case query count").
+Manuscript: the end of the proof of Lemma `hsl:lem:precision` ("Purification and deferred
+measurement include adaptive and randomised algorithms"), Section `odel:sec:main` (the solver class
+of Section `odel:sec:main`: a success flag of probability at least `2/3`, a conditional output, a
+worst-case query bound) and the proof of Lemma `qlsl:lem:xor` ("controlled queries and adaptive
+algorithms after coherent purification and padding to their worst-case query count").
 
 A **measured algorithm** `Measured O E` acts on one persistent workspace `K` (any complex
 Hilbert space) with a labelled oracle family `O : L → X → K →L[ℂ] K`. It is a finite tree of

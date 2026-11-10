@@ -8,10 +8,10 @@ import Mathlib.Logic.Function.DependsOn
 /-!
 # Factorial suppression of linear-entry parity-amplitude encodings
 
-This file formalises the structural remark that closes the subsection "What this establishes, and
-what remains open" of Part `hsl` (after Theorem `hsl:thm:main`; manuscript
-`sparse_quantum_algorithms.tex`, lines 2796-2813) of *Root-sparsity scaling for Hamiltonian
-simulation, differential equations and linear-system solvers*.
+This file formalises the structural remark after Corollary `hsl:cor:power` in Section `part:hsl`
+("There is also a direct reason why factorial decay appears in this particular
+parity-amplitude construction") of *Root-sparsity scaling for Hamiltonian simulation,
+differential equations and linear-system solvers*.
 
 ## The remark
 
@@ -34,7 +34,7 @@ correlation with that block's balanced parity vanishes. Consequently
 * Hamiltonians are maps `H : (∀ b, Ω b) → A` into a `ℂ`-algebra `A`; for the analytic bound `A`
   is a complete normed `ℂ`-algebra with `‖1‖ = 1` (`NormOneClass`), e.g. square complex matrices
   with the spectral norm, or bounded operators on a nonzero Hilbert space.
-* "Each entry is linear in the membership bits of independent blocks" is `IsBlockAffine H`:
+* "every entry is linear in the membership bits of independent blocks" is `IsBlockAffine H`:
   `H X = H₀ + ∑ b, F b (X b)`. An entry linear in the membership bits has the form
   `c₀ + ∑_{b,z} c_{b,z} [X_b = z]`, and `isBlockAffine_iff_membership` and
   `isBlockAffine_iff_entries` show that `IsBlockAffine` is exactly this condition, both in the

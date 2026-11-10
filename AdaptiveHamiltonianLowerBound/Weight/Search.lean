@@ -6,28 +6,28 @@ set_option autoImplicit false
 /-!
 # The search weight on adaptive protocols
 
-The weight of Lemma `hsl:lem:search` (manuscript lines 2151-2203) is
+The weight of Lemma `hsl:lem:search` is
 `w = P_u + a² P_v + a R` on one hidden register `ℂ^m` (`m` even, `a ≥ 1`;
 `SparseLowerBounds.SearchWeight.w`). This file supplies the two one-coordinate facts the
 kernel-potential argument of `Weight/Kernel.lean` needs, for oracle calls that depend on one
 bit `[j c = q₀]` of the hidden input:
 
 * `norm_conj_reflect_sub_le`: `‖w D_b w⁻¹ - D_b‖ ≤ 4√2 a/√m + 4a²/m` for the reflection
-  `D_b = 1 - 2|b⟩⟨b|` (from `w D_b w⁻¹ = D_b - 2(e⟨b| + |b⟩f† + e f†)`, line 2178, and
-  `‖e‖, ‖f‖ ≤ √2 a/√m`, line 2176).
-* `norm_act_w_joint_bitOp`: a call acting as `V₁` on the marked position and as `V₀`
-  elsewhere (`V₀`, `V₁` norm-preserving) satisfies `‖w Ô η‖ ≤ λ ‖w η‖` with
-  `λ = 1 + 4√2 a/√m + 4a²/m` (`searchLam m a`), the paper's display bound of lines
-  2182-2183. The call is `Ô = A ⊗ 1 + B ⊗ D_b` with `A = (V₀ + V₁)/2`, `B = (V₀ - V₁)/2`,
-  so `w Ô w⁻¹ = Ô + B ⊗ (w D_b w⁻¹ - D_b)` and `‖B‖ ≤ 1`.
+  `D_b = 1 - 2|b⟩⟨b|` (from `w D_b w⁻¹ = D_b - 2(e⟨b| + |b⟩f† + e f†)`, proof of Lemma
+  `hsl:lem:search`, and `‖e‖, ‖f‖ ≤ √2 a/√m`, proof of Lemma `hsl:lem:search`).
+* `norm_act_w_joint_bitOp`: a call acting as `V₁` on the marked position and as `V₀` elsewhere
+  (`V₀`, `V₁` norm-preserving) satisfies `‖w Ô η‖ ≤ λ ‖w η‖` with `λ = 1 + 4√2 a/√m + 4a²/m`
+  (`searchLam m a`), the display bound of the proof of Lemma `hsl:lem:search`. The call is
+  `Ô = A ⊗ 1 + B ⊗ D_b` with `A = (V₀ + V₁)/2`, `B = (V₀ - V₁)/2`, so
+  `w Ô w⁻¹ = Ô + B ⊗ (w D_b w⁻¹ - D_b)` and `‖B‖ ≤ 1`.
 * `wgrowth_bit`: on all hidden registers the weight `w^{⊗ι}` grows by at most `λ²` under
   such a call (one call costs one growth factor).
 * `search_tree_xor`: for every adaptive protocol whose labels have growth `λ^{2 w l}` in both
   directions, `|Σ_j σ_j Re tr(M ρ_j)| ≤ a^{-2n} λ^{2 worstCost} m^n` (`‖w⁻¹ Z w⁻¹‖ ≤ a⁻²`,
-  lines 2172-2173).
+  proof of Lemma `hsl:lem:search`).
 
-The numerical forms: `λ ≤ 1 + 12a/√m` for `a ≤ √m` (`searchLam_le_twelve`, line 2183) and
-`λ ≤ 7a²` for `m = 2` (`searchLam_two_le`), used for the precision family.
+The numerical forms: `λ ≤ 1 + 12a/√m` for `a ≤ √m` (`searchLam_le_twelve`, proof of Lemma
+`hsl:lem:search`) and `λ ≤ 7a²` for `m = 2` (`searchLam_two_le`), used for the precision family.
 -/
 
 namespace AdaptiveHamiltonianLowerBound
@@ -40,7 +40,8 @@ open LinearSystemLowerBound
 
 variable {m : ℕ}
 
-/-- The per-call growth of the search weight, `λ = 1 + 4√2 a/√m + 4a²/m` (line 2182). -/
+/-- The per-call growth of the search weight, `λ = 1 + 4√2 a/√m + 4a²/m` (proof of Lemma
+`hsl:lem:search`). -/
 def searchLam (m : ℕ) (a : ℝ) : ℝ := 1 + 4 * Real.sqrt 2 * a / Real.sqrt m + 4 * a ^ 2 / m
 
 theorem one_le_searchLam (m : ℕ) {a : ℝ} (ha : 0 ≤ a) : 1 ≤ searchLam m a := by
@@ -49,7 +50,7 @@ theorem one_le_searchLam (m : ℕ) {a : ℝ} (ha : 0 ≤ a) : 1 ≤ searchLam m 
   unfold searchLam
   linarith
 
-/-- `λ ≤ 1 + 12 a/√m` for `0 ≤ a ≤ √m` (line 2183). -/
+/-- `λ ≤ 1 + 12 a/√m` for `0 ≤ a ≤ √m` (proof of Lemma `hsl:lem:search`). -/
 theorem searchLam_le_twelve {a : ℝ} (ha : 0 ≤ a) (ham : a ≤ Real.sqrt m) :
     searchLam m a ≤ 1 + 12 * a / Real.sqrt m :=
   SparseLowerBounds.SearchWeight.fine_le_twelve ha ham
@@ -159,7 +160,7 @@ theorem norm_half_sub_le (V₀ V₁ : V →L[ℂ] V) (h₀ : ∀ v, ‖V₀ v‖
   rw [h2]
   linarith
 
-/-- **One-coordinate weight growth of a single-bit call** (lines 2174-2184):
+/-- **One-coordinate weight growth of a single-bit call** (proof of Lemma `hsl:lem:search`):
 `‖w Ô η‖ ≤ (1 + 4√2 a/√m + 4a²/m) ‖w η‖`. -/
 theorem norm_act_w_joint_bitOp (hm : Even m) {a : ℝ} (ha : 1 ≤ a) (q₀ : Fin m)
     (V₀ V₁ : V →L[ℂ] V) (h₀ : ∀ v, ‖V₀ v‖ = ‖v‖) (h₁ : ∀ v, ‖V₁ v‖ = ‖v‖)
@@ -267,10 +268,10 @@ variable {K F E L : Type*}
   [NormedAddCommGroup E] [InnerProductSpace ℂ E] [CompleteSpace E] [FiniteDimensional ℂ E]
   {O : L → (ι → Fin m) → K →L[ℂ] K}
 
-/-- **Parity bound for adaptive protocols, search weight** (lines 2189-2199 for adaptive
-protocols): if every label has growth `(λ²)^{w l}` in both directions, then
-`|Σ_j σ_j Re tr(M ρ_j)| ≤ a^{-2|ι|} (λ²)^{worstCost} m^{|ι|}` for the heralded outputs
-`ρ_j` and a contraction `M`. -/
+/-- **Parity bound for adaptive protocols, search weight** (proof of Lemma `hsl:lem:search` for
+adaptive protocols): if every label has growth `(λ²)^{w l}` in both directions, then
+`|Σ_j σ_j Re tr(M ρ_j)| ≤ a^{-2|ι|} (λ²)^{worstCost} m^{|ι|}` for the heralded outputs `ρ_j` and a
+contraction `M`. -/
 theorem search_tree_xor (hm : Even m) {a : ℝ} (ha : 1 ≤ a)
     (hU : ∀ l j, OracleCircuit.IsUnitary (O l j)) (w : L → ℕ)
     (hO : ∀ l, WGrowth (SparseLowerBounds.SearchWeight.w m a) (O l) ((searchLam m a ^ 2) ^ w l))

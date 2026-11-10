@@ -16,8 +16,8 @@ matrices after relabelling the sector (`Bool ≃ Fin 2`) and the clock register
 * `matrixOperator_submatrix`, `norm_matrixOperator_submatrix`,
   `norm_inverse_matrixOperator_submatrix`: reindexing by a bijection is conjugation by a
   permutation unitary, which preserves the operator norm and the norm of the inverse;
-* `family_cond`: the actual condition number satisfies `κ/16 < ‖A_X‖ ‖A_X⁻¹‖ ≤ κ` (the
-  remark after Theorem `qlsl:thm:main`, eq. `qlsl:eq:actualconditioning`), from
+* `family_cond`: the actual condition number satisfies `κ/16 < ‖A_X‖ ‖A_X⁻¹‖ ≤ κ` (proof of
+  Theorem `qlsl:thm:main`, the display after eq. `qlsl:eq:actualconditioning`), from
   `SparseLowerBounds.LinearSystems.quarter_lt_cond`;
 * `family_dimension_le`, `family_dimension_sharp`: the dimension satisfies
   `s κ ln(1/ε) / 32 < N ≤ (s - 1) κ ln(1/ε)`, the upper half from
@@ -207,7 +207,7 @@ theorem Rpar_le_two_npar (κ ε : ℝ) (hκ : 32 ≤ κ) (hε : 0 < ε) (hε1 : 
   have : (Rpar κ : ℝ) ≤ 2 * npar κ ε := by nlinarith
   exact_mod_cast this
 
-/-- **Actual condition number** (remark after Theorem `qlsl:thm:main`, eq.
+/-- **Actual condition number** (proof of Theorem `qlsl:thm:main`, the display after eq.
 `qlsl:eq:actualconditioning`): `κ/16 < ‖A_X‖ ‖A_X⁻¹‖ ≤ κ`. -/
 theorem family_cond (κ ε : ℝ) (s : ℕ) (hκ : 32 ≤ κ) (hε : 0 < ε) (hε1 : ε ≤ 1 / 64)
     (x : Inp κ ε s) :

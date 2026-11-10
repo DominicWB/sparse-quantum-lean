@@ -6,11 +6,10 @@ section
 /-!
 # Opposite halves of the candidates
 
-Helper for `ODE/JointGraph` (proof of Lemma `odel:lem:outer`, manuscript lines
-3768-3776). The outer adversary moves the odd candidate between the two halves
-`{a < M/2}` and `{a ≥ M/2}` of the candidates (`OppHalf`). For `M` even each
-half has `M/2` elements (`card_oppHalf`), and the half answers `halfSign` of
-candidates in opposite halves are opposite (`halfSign_of_oppHalf`).
+Helper for `ODE/JointGraph` (proof of Lemma `odel:lem:outer`). The outer adversary moves the odd
+candidate between the two halves `{a < M/2}` and `{a ≥ M/2}` of the candidates (`OppHalf`). For `M`
+even each half has `M/2` elements (`card_oppHalf`), and the half answers `halfSign` of candidates in
+opposite halves are opposite (`halfSign_of_oppHalf`).
 -/
 
 namespace SparseLowerBounds.ODE

@@ -8,7 +8,8 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # The padded `g = 1` families against adaptive protocols
 
-Manuscript lines 4437-4445 ("Pad dimensions to a common known size if desired") for the `g = 1`
+Manuscript: the proof of Theorem `odel:thm:combined` ("Pad dimensions to a common known size if
+desired") for the `g = 1`
 families of Lemma `odel:lem:herald`: the released zero-padded families
 `ODELowerBoundExtensions.Padding.timePadFamilyAt`, `mixedPadFamilyAt`, `precisionPadFamilyAt`
 (`ẋ = -i(H ⊕ 0) x`, `x(0) = ψ_in ⊕ 0`), for adaptive solvers over the sampled-time access and
@@ -29,7 +30,7 @@ the bounds (`Herald.treeForces_of_ham`).
   `precision_forces_sqrt_pad_tree`: the per-family bounds for every known padding `P`.
 * `herald_max_cost_pad_tree` (max form over realised value counts), `herald_witness_pad_tree`
   (family form of eq. `odel:eq:hsbound`) and `precision_terms_witness_pad_tree` (the fourth
-  sentence of Theorem `odel:thm:combined`, lines 4143-4144, for the padded families).
+  sentence of Theorem `odel:thm:combined`, for the padded families).
 -/
 
 namespace AdaptiveODELowerBound.Padding
@@ -232,8 +233,8 @@ theorem herald_witness_pad_tree (h : HSRange τ s ε) {gbar : ℝ} (hg : 1 ≤ g
   · exact Or.inr (Or.inr ⟨hI.2.2.1, hI.2.2.2.1, treeForces_of_cost hf⟩)
 
 /-- **The precision terms of Theorem `odel:thm:combined` for adaptive protocols are witnessed by
-padded `g = 1` families** (fourth sentence of the theorem, lines 4143-4144, with the padding of
-line 4441; as `precision_terms_witness_tree`): on `HSRange`, for any `ḡ ≥ 1` and any known
+padded `g = 1` families** (fourth sentence of the theorem, with the padding of
+its proof; as `precision_terms_witness_tree`): on `HSRange`, for any `ḡ ≥ 1` and any known
 paddings, one of the padded homogeneous constant-coefficient families (`D = 0`, `g = 1`)
 tree-witnesses `c₀ (√(sτr) + r)`. -/
 theorem precision_terms_witness_pad_tree (h : HSRange τ s ε) {gbar : ℝ} (hg : 1 ≤ gbar)

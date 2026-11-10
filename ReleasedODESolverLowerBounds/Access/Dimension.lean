@@ -10,7 +10,8 @@ The physical workspaces of the released ODE solvers grow at least linearly in th
 register: `|J| · dim Phys(ι) ≤ dim Phys(J × ι)`. This is the counting fact behind the
 spectator absorption of `Access/Absorb`.
 
-Manuscript line 2364 (purification and deferred measurement). Enlarging the branch register of
+Manuscript: the end of the proof of Lemma `hsl:lem:precision` (purification and deferred
+measurement). Enlarging the branch register of
 the same released oracle by the absorbed record register is a formalisation device:
 `PhysicalODELowerBound.Mesh.MeshForces` and `PhysicalODELowerBound.Const.ConstForces` quantify
 over every spectator index, so they cover the enlarged oracle.

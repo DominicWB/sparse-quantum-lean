@@ -7,16 +7,17 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # Theorem `odel:thm:combined` for retry protocols over the released solver's oracle
 
-Manuscript lines 3675-3681 ("The lower bounds thus apply to Theorems `ode:thm:main` and
-`ode:thm:time`") and 3697-3709. The analogue of `SparseLowerBounds.Hamiltonian.main_max_release`
-for the ODE lower bound: the bounds hold for **every** retry protocol (`RetrySolver`) over the
-physical oracle family of the released general-mesh solver `TimeDependentExtensions.ODE.solver`
-run on the hard family's data along any public placement `σ : Fin M → Fin K` of `M` mesh pieces
-into the `K` stages (`meshOracle F σ ι N d J₀ J_b`, any spectator index `ι`, slot count `N`,
-degree `d`; the released runs use the uniform refinement `σ = stageOf K R`, `releaseOracle`), with
-public source interfaces (`PublicSources`: unitary and input-independent, lines 3685-3686),
-success mass at least `2/3` and conditional accuracy `ε` for the family's normalised solution.
-As in `main_max_release`, two counts are bounded: the worst-case number of value queries
+Manuscript: Section `odel:sec:main` ("the lower bounds apply to the upper bounds of the preceding
+section") and Theorem `odel:thm:combined`. The analogue of
+`SparseLowerBounds.Hamiltonian.main_max_release` for the ODE lower bound: the bounds hold for
+**every** retry protocol (`RetrySolver`) over the physical oracle family of the released
+general-mesh solver `TimeDependentExtensions.ODE.solver` run on the hard family's data along any
+public placement `σ : Fin M → Fin K` of `M` mesh pieces into the `K` stages
+(`meshOracle F σ ι N d J₀ J_b`, any spectator index `ι`, slot count `N`, degree `d`; the released
+runs use the uniform refinement `σ = stageOf K R`, `releaseOracle`), with public source interfaces
+(`PublicSources`: unitary and input-independent, Section `odel:sec:main`), success mass at least
+`2/3` and conditional accuracy `ε` for the family's normalised solution. As in `main_max_release`,
+two counts are bounded: the worst-case number of value queries
 `Protocol.worstCost (ODESourceQueryBudget.matrixWeight valueWeight)` (forward and inverse value
 calls; location and source calls not counted), and the release's own matrix count
 `Protocol.worstCost (ODESourceQueryBudget.matrixWeight (fun _ => 1))` (row, column and value calls,

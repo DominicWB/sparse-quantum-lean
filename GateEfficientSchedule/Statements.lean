@@ -5,28 +5,30 @@ import GateEfficientSchedule.Abstract
 # Theorem `hs:thm:gates` and Lemma `hs:lem:abstract` with the manuscript's filter schedule, slot
 count and error allocation: paper-to-Lean entry point
 
-Theorem `hs:thm:gates` of the accompanying paper (gate-efficient sparse simulation, manuscript
-line 3408) fixes the schedule
+Theorem `hs:thm:gates` of the accompanying paper (gate-efficient sparse simulation) fixes the
+schedule
 
-* `W = αTν`, `b = 32Q`, `k = ⌈4W/Q + log₂(4096/ε)⌉`, `d = k(b - 1)` (equation
-  `hs:eq:gate-schedule`, line 3381), with the integer `Q = ⌈max{1, γ√s}⌉` of `hs:eq:params`
-  (line 2444);
+* `W = αT(1 + γ²)/2` (`= αTν` with `ν = (1 + γ²)/2`), `b = 32Q`, `k = ⌈4W/Q + log₂(4096/ε)⌉`,
+  `d = k(b - 1)` (equation `hs:eq:gate-schedule`), with the integer `Q = ⌈max{1, γ√s}⌉` of
+  `ov:eq:Q`;
 * `M` the least power of two at least `max{2, 4αT, (αT)^{3/2}/√(3ε)}`, `m = log₂ M`,
-  `r = ⌈log₂(2d+2)⌉` (equation `hs:eq:gate-clocks`, line 3389);
+  `r = r_reuse = ⌈log₂(2d+2)⌉` (equation `hs:eq:gate-clocks`);
 
-and its proof allocates the error as follows (lines 3636-3660): the choice of `M` makes the
-Cayley discretisation error at most `ε/4`, the schedule gives filter error `δ = ε/8`, so "the full
-output error after amplification is therefore at most `ε/2` before gate approximation"; "give
-each private call error `ξ = ε/(24d)`. Their total contribution is at most `ε/4`"; the remaining
-known rotations are approximated "with total operator error at most `ε/4`". For the
-time-dependent setting the theorem uses "the same circuit" on a uniform mesh of `M = 2^m ≥ 2`
-slots satisfying `hs:eq:timegrid` (line 3059): `M ≥ max{1, 4αT, 6βT²/ε, (ΛT)^{3/2}/√ε}`, which
-"makes each of the three summed contributions" of `hs:eq:timedisc` (line 3051), the Cayley error
-`Λ³Δ³/12`, the freezing error `βΔ²/2` and the sample error `δ_val Δ` summed over the slots, "at
-most `ε/12`". The proof of Lemma `hs:lem:abstract` (the general boundary-resolvent simulation
-lemma, line 2506) uses the same allocation: "Take `δ = ε/8` in `hs:eq:kchoice`. Together with the
-`ε/4` discretisation error, this gives ideal-gate error at most `ε/2`", with at most
-`6(32Q - 1)⌈4W/Q + log₂(4096/ε)⌉` calls (equation `hs:eq:explicitcount`, line 2799).
+and its proof allocates the error as follows: "The mesh in Eq. `hs:eq:gate-clocks` gives Cayley bias
+at most `ε/4`. The filter schedule gives tolerance `ε/8` and amplified error at most `ε/4`. Thus the
+ideal-gate circuit has error at most `ε/2`"; "Give each private call error `ξ = ε/(24d)`, so
+telescoping contributes at most `ε/4`"; the remaining known rotations are approximated "to total
+operator error" at most `ε/4`. The theorem is "a time-independent result". For time-dependent
+Hamiltonians this library keeps the slot-selected circuit of the released libraries on a uniform
+mesh of `M = 2^m ≥ 2` slots satisfying eq. `hs:eq:timegrid` of Theorem `hs:thm:time`,
+`M ≥ max{1, 4αT, 6βT²/ε, (ΛT)^{3/2}/√ε}`, whose last two lower bounds "make the summed Lipschitz and
+Cayley errors at most `ε/12` each, and the representation-error assumption supplies the same bound
+for the third contribution" of eq. `hs:eq:timedisc` (the Cayley error `Λ³Δ³/12`, the freezing error
+`βΔ²/2` and the sample error `δ_val Δ`, summed over the slots). The proof of Lemma `hs:lem:abstract`
+(the general boundary-resolvent simulation lemma) uses the same allocation: "Finally choose
+`δ = ε/8` in Eq. `hs:eq:kchoice`. Amplification contributes at most `ε/4` and the finite mesh
+contributes at most `ε/4`", with at most `6(32Q - 1)⌈4W/Q + log₂(4096/ε)⌉` calls (equation
+`hs:eq:explicitcount`).
 
 The released gate-level endpoints use the formal schedule `SharpFilterSchedule.depth` at the filter
 accuracy `ε/3` (`k_Lean = 1 + ⌈4W/Q + 2 log(3/ε)⌉`, `d_Lean = k_Lean(⌈32Q⌉ - 1)`; neither schedule
@@ -37,9 +39,9 @@ freezing estimate with the constant `1` in place of `1/2`; the released form of 
 `3840 (W + Q log(1/ε))`. This library proves the theorem and the lemma with the manuscript's
 schedule, constants and allocation, and leaves the released definitions and endpoints unchanged.
 
-No result from another paper is used. The released libraries are unchanged. Manuscript lines
-refer to `sparse_quantum_algorithms.tex` (v24); the labels are the stable references. Every
-theorem of the library is axiom-audited in `GateEfficientSchedule/Audit.lean`.
+No result from another paper is used. The released libraries are unchanged. References to the
+manuscript use its labels. Every theorem of the library is axiom-audited in
+`GateEfficientSchedule/Audit.lean`.
 
 **Naming convention.** All declarations of this library are in the namespace
 `SparseHamiltonian.GateSchedule` and are named relative to it below. Released declarations are
@@ -197,7 +199,7 @@ circuits and the native data, and Lemma `hs:lem:abstract`, are given with the ma
 the isometry, scalar and binary-data instances of the released lemma
 (`GateRemarks.abstract_simulation_isometry`, `abstract_simulation_scalar`,
 `abstract_simulation_binary`) keep the released schedule, and so does Lemma `ode:lem:gate-select`
-(the released depth and subdivision condition replace `ode:eq:gate-select-schedule`, line 4806, and
+(the package's own depth and mesh condition replace `ode:eq:gate-select-schedule`, and
 the first three conditions of `ode:eq:gate-select-mesh`). The binary-data and
 bit-budget endpoints (`GateBinary.binary_simulation`, `GateBitBudget.binary_simulation_bits`,
 their finite-gate-set and time-dependent forms) keep the released schedule; equation

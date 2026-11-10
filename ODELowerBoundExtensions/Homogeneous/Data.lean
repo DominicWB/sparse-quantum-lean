@@ -6,26 +6,26 @@ set_option autoImplicit false
 set_option synthInstance.maxSize 1024
 
 /-!
-# Remark `odel:rem:homogeneous`: the sampled-time data and the family
+# Proposition `odel:rem:homogeneous`: the sampled-time data and the family
 
-Manuscript lines 3907-3952 with the encoding of lines 3852-3858 ("All matrix entries are exact
-complex dyadic numbers. The nonzero locations, their time dependence, and full locator
-extensions are known"). The data follows `SparseLowerBounds.ODE.jointData`, with the stage
-tables `homTable` and the per-address decode `homPhase` of
-`ODELowerBoundExtensions.Homogeneous.Table`; every entry is an exact complex dyadic number
-(`homData_dyadic`).
+Manuscript: Proposition `odel:rem:homogeneous`, with the encoding of the construction before Theorem
+`odel:thm:joint` ("All entries are complex dyadic numbers with public support, public time
+dependence of that support and public full locator extensions"). The data follows
+`SparseLowerBounds.ODE.jointData`, with the stage tables `homTable` and the per-address decode
+`homPhase` of `ODELowerBoundExtensions.Homogeneous.Table`; every entry is an exact complex dyadic
+number (`homData_dyadic`).
 
-**Locators** depend on the stage but not on the input (`homData_locators_input_indep`): on
-the hidden stages the joint lists `jointLoc` inside the flag block (`hiddenLoc`), on the known
-stages lists whose slots `0`, `1` are `(f, i)` and `(!f, i)` (`pulseLoc`). Both are fixed
-injective lists with permutation extensions (`Hamiltonian.rowEquiv`, `permCLM`).
-The stage dependence is forced when `s = 2^μ` (`s` a power of two): then the joint list
-already fills all `s` slots, so it cannot also hold the flag flip `(!f, i)` of the `Y` pulse;
-for uniformity it is used for every `s`. It is allowed by the paper
-(lines 3852-3854, "their time dependence ... are known"). The cost-`0` argument of
-`SparseLowerBounds.ODE.Model` for a controlled locator call (stated there for input- and
-stage-independent locators) still applies: the time address is a workspace register, so the
-locator `Σ_{(i,k)} |i,k⟩⟨i,k| ⊗ L_k` is a fixed gate that does not depend on the input.
+**Locators** depend on the stage but not on the input (`homData_locators_input_indep`): on the
+hidden stages the joint lists `jointLoc` inside the flag block (`hiddenLoc`), on the known stages
+lists whose slots `0`, `1` are `(f, i)` and `(!f, i)` (`pulseLoc`). Both are fixed injective lists
+with permutation extensions (`Hamiltonian.rowEquiv`, `permCLM`). The stage dependence is forced when
+`s = 2^μ` (`s` a power of two): then the joint list already fills all `s` slots, so it cannot also
+hold the flag flip `(!f, i)` of the `Y` pulse; for uniformity it is used for every `s`. It is
+allowed by the paper (the construction before Theorem `odel:thm:joint`: "public time dependence of
+that support"). The cost-`0` argument of `SparseLowerBounds.ODE.Model` for a controlled locator call
+(stated there for input- and stage-independent locators) still applies: the time address is a
+workspace register, so the locator `Σ_{(i,k)} |i,k⟩⟨i,k| ⊗ L_k` is a fixed gate that does not depend
+on the input.
 
 `homFamily` is the family on `[0, T]` for `homBusy M n ≤ T`; it has no source
 (`homFamily_src`), so `B = ‖x₀‖` (`homFamily_mass`).
@@ -133,8 +133,9 @@ theorem homGen_support {j : Positions M n (2 ^ μ)} {k : Fin (n + 4)} {i i' : Ho
 def pulseLoc (M μ s : ℕ) (hs : 0 < s) (i : HomIndex M μ s) : Fin s ↪ HomIndex M μ s :=
   ⟨pulseLocFun M μ s hs i, pulseLocFun_injective hs i⟩
 
-/-- **The stage-dependent public location list** (lines 3852-3854: "the nonzero locations,
-their time dependence, and full locator extensions are known"). -/
+/-- **The stage-dependent public location list** (the construction before Theorem `odel:thm:joint`:
+"All entries are complex dyadic numbers with public support, public time dependence of that support
+and public full locator extensions"). -/
 def homLoc (M n μ s : ℕ) (hs : 0 < s) (k : Fin (n + 4)) (i : HomIndex M μ s) :
     Fin s ↪ HomIndex M μ s :=
   if (k : ℕ) < n then hiddenLoc M μ s i else pulseLoc M μ s hs i
@@ -207,8 +208,9 @@ def homData (M n μ s : ℕ) (hμ : 1 ≤ μ) (hμs : 2 ^ μ ≤ s) :
   column_valid _ j k :=
     (Hamiltonian.permCLM_single _ _ _).trans (by rw [Hamiltonian.colEquiv_slot])
 
-/-- **The locators are public** (lines 3852-3854, 3683-3684): the location lists and location
-oracles of `homData` depend on the stage but not on the input. -/
+/-- **The locators are public** (the construction before Theorem `odel:thm:joint` and Section
+`odel:sec:main`): the location lists and location oracles of `homData` depend on the stage but not
+on the input. -/
 theorem homData_locators_input_indep (hμ : 1 ≤ μ) (hμs : 2 ^ μ ≤ s)
     (p p' : Promised M n (2 ^ μ) × Fin (n + 4)) (hp : p.2 = p'.2) :
     (homData M n μ s hμ hμs).rowloc p = (homData M n μ s hμ hμs).rowloc p' ∧
@@ -221,8 +223,9 @@ theorem homData_locators_input_indep (hμ : 1 ≤ μ) (hμs : 2 ^ μ ≤ s)
   subst hp
   exact ⟨rfl, rfl, rfl, rfl⟩
 
-/-- **Exact complex dyadic entries** (lines 3852, 3922-3923): every sampled entry is
-`c · v/2^μ` with a unit `c ∈ {1, -1, i, -i}` and an integer `-2^μ < v ≤ 2^μ`. -/
+/-- **Exact complex dyadic entries** (the construction before Theorem `odel:thm:joint` and
+Proposition `odel:rem:homogeneous`): every sampled entry is `c · v/2^μ` with a unit
+`c ∈ {1, -1, i, -i}` and an integer `-2^μ < v ≤ 2^μ`. -/
 theorem homData_dyadic (hμ : 1 ≤ μ) (hμs : 2 ^ μ ≤ s)
     (p : Promised M n (2 ^ μ) × Fin (n + 4)) (i i' : HomIndex M μ s) :
     ∃ c : ℂ, ∃ v : ℤ, (c = 1 ∨ c = -1 ∨ c = Complex.I ∨ c = -Complex.I) ∧
@@ -247,9 +250,9 @@ theorem homLen_nonneg {T : ℝ} (hT : homBusy M n ≤ T) (k : Fin (n + 4)) : 0 �
   have := homD_nonneg M
   split_ifs <;> linarith [Real.pi_pos]
 
-/-- **The homogeneous family** (lines 3907-3952): `n` hidden stages, the merged phase pulse,
-the `Y` pulse, the dissipation and the idle stage, on `[0, T]`; no source (`b = 0`), start
-`x₀ = |+⟩ ⊗ u_M ⊗ ω`. -/
+/-- **The homogeneous family** (Proposition `odel:rem:homogeneous`): `n` hidden stages, the merged
+phase pulse, the `Y` pulse, the dissipation and the idle stage, on `[0, T]`; no source (`b = 0`),
+start `x₀ = |+⟩ ⊗ u_M ⊗ ω`. -/
 def homFamily (M n μ s : ℕ) (hμ : 1 ≤ μ) (hμs : 2 ^ μ ≤ s) (T : ℝ) (hT : homBusy M n ≤ T) :
     Family (Promised M n (2 ^ μ)) (HomIndex M μ s) (Hamiltonian.Word μ) (n + 4) s where
   data := homData M n μ s hμ hμs
@@ -260,7 +263,8 @@ def homFamily (M n μ s : ℕ) (hμ : 1 ≤ μ) (hμs : 2 ^ μ ≤ s) (T : ℝ) 
 
 variable {hμ : 1 ≤ μ} {hμs : 2 ^ μ ≤ s} {T : ℝ} {hT : homBusy M n ≤ T}
 
-/-- **The family is homogeneous** (line 3929: `b = 0`): every stage source vanishes. -/
+/-- **The family is homogeneous** (Proposition `odel:rem:homogeneous`: `b = 0`): every stage source
+vanishes. -/
 theorem homFamily_src (k : Fin (n + 4)) : (homFamily M n μ s hμ hμs T hT).src k = 0 := rfl
 
 /-- The stage lengths of `homFamily` indexed by naturals. -/
@@ -301,8 +305,8 @@ theorem homFamily_start_idle : (homFamily M n μ s hμ hμs T hT).start (n + 3) 
   rw [Family.start_succ, homFamily_start_damp, homFamily_lenNat (by omega), homLen,
     if_neg (by simp), if_neg (by simp), if_neg (by simp), if_pos (by simp), homBusy]
 
-/-- The family ends at `T` (`F.T = T`); with `T = τ` this is line 3946, "Known idle intervals
-make `T = τ` exactly". -/
+/-- The family ends at `T` (`F.T = T`); with `T = τ` this is the proof of Proposition
+`odel:rem:homogeneous`, "Known idle intervals make `T = τ` exactly". -/
 theorem homFamily_T : (homFamily M n μ s hμ hμs T hT).T = T := by
   rw [Family.T_eq_start, Family.start_succ, homFamily_start_idle, homFamily_lenNat (by omega),
     homLen, if_neg (by simp), if_neg (by simp), if_neg (by simp), if_neg (by simp)]

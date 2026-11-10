@@ -6,12 +6,11 @@ section
 /-!
 # The release simulator's oracles on the hard families are Boolean-implementable
 
-The lemma named in the module docstring of `Hamiltonian/ReleaseForm`.
-Manuscript lines 2078-2081 (native sparse access
-"with inverses and coherent controls"; location operations may be free),
-2283-2289 (two Boolean queries per value call, location calls free) and
-2126-2130 (the lower bound is compared with the common upper bound
-eq. `hsl:eq:upper` of the release simulator, in the same access model).
+The lemma named in the module docstring of `Hamiltonian/ReleaseForm`. Manuscript: Section
+`hsl:sec:main` (the native sparse access of Section `sec:overview`, "allowing all location
+operations, known gates and state preparation for free"), the chain construction of Section
+`part:hsl` (two Boolean queries per value call) and the comparison after Theorem `hsl:thm:main` with
+the baseline upper bound eq. `hsl:eq:upper` of the release simulator, in the same access model.
 
 The release's simulator (`ImprovedSparseHamiltonian.simulation_log_one`,
 `SparseHamiltonian/ManuscriptPrecision.lean`) is a
@@ -26,9 +25,9 @@ cells `ActiveRegisterLayout.Label PUnit T d`, control/dummy/reference
 registers, Hermitian-dilation branch `Bool`) and fixed register relabellings.
 No label wraps several native calls. Hence the per-label Boolean weight is
 
-  `hardCost l` = `2` for `.value` (query bit, add word, unquery; lines
-  2287-2289), `0` for `.rowLocation` and `.columnLocation` (input-independent
-  permutation unitaries, lines 2283-2285),
+  `hardCost l` = `2` for `.value` (query bit, add word, unquery; the chain construction of Section
+  `part:hsl`), `0` for `.rowLocation` and `.columnLocation` (input-independent permutation
+  unitaries, the chain construction of Section `part:hsl`),
 
 i.e. 2 per native value query inside the label and 0 for its input-independent
 parts, exactly as for programs over the bare native primitives
@@ -141,13 +140,12 @@ abbrev PrecisionPhys (τ ε : ℝ) (s : ℕ) (γ η t δ : ℝ) : Type :=
 
 /-! ### Boolean implementability of the release oracle -/
 
-/-- **The release oracle on the time family is Boolean-implementable**
-(lines 2283-2289): for every schedule `γ η t δ`, with the isometric encoding
+/-- **The release oracle on the time family is Boolean-implementable** (the chain construction of
+Section `part:hsl`): for every schedule `γ η t δ`, with the isometric encoding
 `E = (timeReleaseAccess hs γ η t δ).enc` and the one-hot Boolean family
 `P = (timeReleaseAccess hs γ η t δ).fam`, every label `l` of
-`ImprovedSparseHamiltonian.oracle (timeData τ s hs) γ η t δ` is implemented on
-`E` by at most `hardCost l` queries to `oneHotOracle P` (`2` for the value
-label, `0` for the location labels). -/
+`ImprovedSparseHamiltonian.oracle (timeData τ s hs) γ η t δ` is implemented on `E` by at most
+`hardCost l` queries to `oneHotOracle P` (`2` for the value label, `0` for the location labels). -/
 theorem time_release_implementsOn (hs : 32 ≤ s) (γ η t δ : ℝ) :
     (timeReleaseAccess (τ := τ) hs γ η t δ).enc† ∘L (timeReleaseAccess (τ := τ) hs γ η t δ).enc =
         1 ∧

@@ -7,13 +7,13 @@ set_option synthInstance.maxSize 4096
 # The coherent-selection lower bounds are not vacuous
 
 The released selection simulators (`TimeDependentExtensions.Coherent.coherent_select` and
-`coherent_windows`, the manuscript, lines 1505-1510) apply to constant data
-(`TimeDependentHamiltonianLowerBound.constData`) of any Hermitian sparse instance with entry
-bound `η`. For every public duration table (respectively every public table of windows) they
-supply a program over the selection family of `main_max_select` (respectively
-`main_max_windows`) whose clean isometric input encoding meets `SelectCriterion`
-(respectively `WindowsCriterion`): `exists_selectProgram`, `exists_windowsProgram`. With a
-branch of total duration (window length) `τ`, these are the hypotheses of the two bounds.
+`coherent_windows`, the manuscript, the paragraphs after the proof of Theorem `hs:thm:time`) apply
+to constant data (`TimeDependentHamiltonianLowerBound.constData`) of any Hermitian sparse instance
+with entry bound `η`. For every public duration table (respectively every public table of windows)
+they supply a program over the selection family of `main_max_select` (respectively
+`main_max_windows`) whose clean isometric input encoding meets `SelectCriterion` (respectively
+`WindowsCriterion`): `exists_selectProgram`, `exists_windowsProgram`. With a branch of total
+duration (window length) `τ`, these are the hypotheses of the two bounds.
 -/
 
 namespace TimeDependentLowerBoundExtensions.Coherent

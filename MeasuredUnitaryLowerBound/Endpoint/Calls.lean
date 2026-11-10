@@ -7,13 +7,13 @@ set_option synthInstance.maxSize 8192
 /-!
 # Measured algorithms over controlled and controlled-inverse entry calls
 
-Corollary `hs:cor:unitary` of the manuscript (lines 1647-1666,
-trace-distance form of the error range `0 < ε ≤ 1/2`,
+Corollary `hs:cor:unitary` of the manuscript (trace-distance form of the error range `0 < ε ≤ 1/2`,
 inverse calls counted) for measured algorithms (`DeferredMeasurementLowerBounds.Model.Measured`,
-closing sentence of the proof of `hsl:lem:precision`, lines 2363-2364: purification and
+closing sentence of the proof of `hsl:lem:precision`, purification and
 deferred measurement) whose oracle calls are the four call
 forms of the oracle: plain, inverse, controlled and controlled-inverse
-(`AdaptiveODELowerBound.Access.callFamily`; line 2080: "with inverses and coherent controls").
+(`AdaptiveODELowerBound.Access.callFamily`; the inverses and controls of Section
+`hs:sec:control`).
 
 The deferral of such an algorithm is compiled into controlled calls of the spectator lift of the
 call forms (`DeferredMeasurementLowerBounds.Access.ctrlTreeOf`, encoding

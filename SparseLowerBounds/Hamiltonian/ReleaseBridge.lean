@@ -6,10 +6,10 @@ section
 /-!
 # Theorem `hsl:thm:main` for programs over the release simulator's oracles
 
-Manuscript lines 2078-2124 (statement; the
-lower bound holds in the native access model "with inverses and coherent
-controls", location operations free) and 2090-2097 (an operator-norm error at
-most `ε` implies eq. `hsl:eq:accuracy`).
+Manuscript: Section `hsl:sec:main` and Theorem `hsl:thm:main` (the lower bound holds in the
+native access model, location operations free) and the remark after eq. `hsl:eq:accuracy`
+("The complete-output norm guarantee of our upper bounds implies this weaker requirement after the
+work registers are discarded").
 
 `Hamiltonian/ReleaseForm` proves the lower bounds under the release's
 endpoint error `‖p.eval x ∘L ι - ι ∘L exp(-iτH_x)‖ ≤ ε` for programs over the
@@ -189,7 +189,7 @@ theorem main_max_release (h : HSRange τ s ε) (γT ηT tT δT γM ηM tM δM γ
   exact ⟨hQ, hQ.trans (max_le_max hT' (max_le_max hM' hP'))⟩
 
 /-- **Theorem `hsl:thm:main` for the release simulator's oracle family, max
-form, Boolean weighted cost** (eq. `hsl:eq:main`; lines 2286-2289: a value
+form, Boolean weighted cost** (eq. `hsl:eq:main`; a value
 call, forward or inverse, costs two Boolean queries, a location call none):
 under the hypotheses of `main_max_release`,
 `max(cost_T, cost_M, cost_P) ≥ 2 c₀ (√s τ + √(sτr) + r)`, where

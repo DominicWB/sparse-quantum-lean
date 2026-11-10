@@ -12,17 +12,16 @@ set_option synthInstance.maxSize 4096
 /-!
 # The Dyson solver on the ODE lower-bound class (Certificate layer)
 
-Manuscript lines 4256-4268 (eq. `odel:eq:fixed` and its consequence): "Consequently a uniform
-worst-case lower bound proportional to `ḡ √s τ log(ḡ/ε)` is false under these access
-assumptions: fixing any admissible positive `s, τ, ḡ` makes the auxiliary upper bound sublinear in
-`log(1/ε)`. A constant-coefficient upper bound alone would not exclude such a worst-case assertion
-for the larger time-dependent class; Lemma `odel:lem:dyson` is included precisely to cover that
-class."
+Manuscript: eq. `odel:eq:fixed` and its consequence, "Consequently a uniform worst-case lower bound
+proportional to `ḡ √s τ log(ḡ/ε)` is false under these access assumptions: fixing any admissible
+positive `s, τ, ḡ` makes this comparison upper bound sublinear in `log(1/ε)`. A constant-coefficient
+upper bound alone would not exclude such a worst-case assertion for the larger time-dependent class;
+Lemma `odel:lem:dyson` is included precisely to cover that class."
 
 The class is that of Theorem `odel:thm:combined` (`SparseLowerBounds.ODE.Family`,
-`Family.InClass η ḡ`, lines 3655-3688): piecewise-constant generators with known breakpoints,
+`Family.InClass η ḡ`): piecewise-constant generators with known breakpoints,
 row/column norms at most `η`, public sources, `B ≤ ḡ ‖x(T)‖`, and the sampled-time access
-`Family.access ι` (lines 3669-3673).
+`Family.access ι`.
 
 * `family_dyson`: every family in the class with `T > 0` has a release-style four-trial
   protocol that satisfies the released complete certificate `ODECompleteTrial.Certificate` for
@@ -54,9 +53,9 @@ open scoped InnerProduct BigOperators
 
 set_option maxHeartbeats 4000000 in
 /-- **The Dyson solver on every family of the ODE lower-bound class** (Lemma `odel:lem:dyson`,
-lines 4155-4168, applied to the class of `odel:thm:combined`): a public four-trial protocol over
-the lower-bound access (idle source vocabulary) satisfying the released complete certificate for
-every instance, with worst-case matrix queries at most `dysonBound (s η T) ḡ ε`. -/
+applied to the class of `odel:thm:combined`): a public four-trial protocol over the lower-bound
+access (idle source vocabulary) satisfying the released complete certificate for every instance,
+with worst-case matrix queries at most `dysonBound (s η T) ḡ ε`. -/
 theorem family_dyson {X N Z : Type} [Fintype N] [DecidableEq N] [Fintype Z] [AddCommGroup Z]
     [DecidableEq Z] {K s : ℕ} (F : SparseLowerBounds.ODE.Family X N Z K s) (η gbar ε : ℝ)
     (hF : F.InClass η gbar) (hη : 0 < η) (hT : 0 < F.T) (hg : 1 ≤ gbar) (hε : 0 < ε)

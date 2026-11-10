@@ -9,7 +9,7 @@ set_option autoImplicit false
 # Read values of accurate outputs
 
 The read values of the endpoint search bound (`Global.tree_count_ge_of_reads`) for the
-reduction of Corollary `hs:cor:unitary` of the manuscript (lines 1711-1718: `U_m |0⟩ = |m⟩`):
+reduction of Corollary `hs:cor:unitary` of the manuscript (`U_m |0⟩ = |m⟩`):
 the effect `R_y` reads the value `y` of the system register through an isometry
 `e : E → ℂ^N ⊗ G`, so `r(x, y)` is the probability
 `DeferredMeasurementLowerBounds.Corollaries.readProb e y` of reading `y` jointly with the success

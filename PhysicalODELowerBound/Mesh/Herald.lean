@@ -7,11 +7,11 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # Eq. `odel:eq:hsbound` over the general-mesh physical oracle, with controlled calls
 
-Manuscript lines 4105-4109 (access with inverses and controls), 4114-4115 ("The lower bounds thus
-apply to Theorems `ode:thm:main` and `ode:thm:time`"), 4392-4400 (eq. `odel:eq:hsbound`) and
-4403-4435 (Lemma `odel:lem:herald`), for the time, mixed and precision families (one-stage, constant
-coefficient, `D = 0`, `g = 1`) and adaptive solvers over the physical oracle of the released
-general-mesh solver and over its call forms (`MeshForces`).
+Manuscript: Section `odel:sec:main` (access with inverses and controls; "the lower bounds apply to
+the upper bounds of the preceding section"), eq. `odel:eq:hsbound` and Lemma `odel:lem:herald`, for
+the time, mixed and precision families (one-stage, constant coefficient, `D = 0`, `g = 1`) and
+adaptive solvers over the physical oracle of the released general-mesh solver and over its call
+forms (`MeshForces`).
 
 * `time_forces_mesh`, `mixed_forces_mesh`, `precision_forces_mesh`, `precision_forces_sqrt_mesh`:
   the per-family bounds with the constants of the Hamiltonian lower bound, from
@@ -23,7 +23,7 @@ general-mesh solver and over its call forms (`MeshForces`).
 * `herald_max_cost_mesh` (max form over realised counts) and `herald_witness_mesh` (family form):
   `c₀ (√s τ + √(sτr) + r)`, `c₀ = log 2/(4096π)` (`SparseLowerBounds.Hamiltonian.assembly`).
 * `precision_terms_witness_mesh`: the precision terms `c₀ (√(sτr) + r)` of Theorem
-  `odel:thm:combined` are witnessed by one of the `g = 1` families (lines 4143-4144).
+  `odel:thm:combined` are witnessed by one of the `g = 1` families.
 -/
 
 namespace PhysicalODELowerBound.Mesh
@@ -127,10 +127,10 @@ theorem herald_witness_mesh (h : HSRange τ s ε) {gbar : ℝ} (hg : 1 ≤ gbar)
       meshForces_of_cost hf⟩)
 
 /-- **The precision terms of Theorem `odel:thm:combined` over the general-mesh physical oracle are
-witnessed by `g = 1` families** (fourth sentence of the theorem, lines 4143-4144): on `HSRange`, for
-any `ḡ ≥ 1`, one of the homogeneous constant-coefficient families with `D = 0` and `g = 1` (time,
-mixed, precision) witnesses `c₀ (√(sτr) + r)` on every adaptive solver over the physical oracle or
-its call forms. From `herald_witness_mesh` by `MeshWitnesses.mono`. -/
+witnessed by `g = 1` families** (fourth sentence of the theorem, Theorem `odel:thm:combined`): on
+`HSRange`, for any `ḡ ≥ 1`, one of the homogeneous constant-coefficient families with `D = 0` and
+`g = 1` (time, mixed, precision) witnesses `c₀ (√(sτr) + r)` on every adaptive solver over the
+physical oracle or its call forms. From `herald_witness_mesh` by `MeshWitnesses.mono`. -/
 theorem precision_terms_witness_mesh (h : HSRange τ s ε) {gbar : ℝ} (hg : 1 ≤ gbar) :
     MeshWitnesses (timeFamilyAt τ s h.s_ge (by linarith [h.one_le_tau])) τ gbar ε
         (c0 * (Real.sqrt (s * τ * hsR τ ε) + hsR τ ε)) ∨

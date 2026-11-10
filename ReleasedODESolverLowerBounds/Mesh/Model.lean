@@ -7,11 +7,11 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # Measured solvers over the general-mesh physical oracle
 
-Manuscript Section `odel:sec:main`, lines 3669-3681 (access with inverses and controls, success
-flag of probability at least `2/3` on every input, conditional trace distance `ε`, worst-case
-query bound; "The lower bounds thus apply to Theorems `ode:thm:main` and `ode:thm:time`") and
-lines 2363-2364 (proof of Lemma `hsl:lem:precision`: "Randomised or adaptive algorithms are
-covered by purification and deferred measurement").
+Manuscript Section `odel:sec:main` (access with inverses and controls, success flag of probability
+at least `2/3` on every input, conditional trace distance `ε`, worst-case query bound; "the lower
+bounds apply to the upper bounds of the preceding section") and the end of the proof of Lemma
+`hsl:lem:precision` ("Purification and deferred measurement include adaptive and randomised
+algorithms").
 
 The measured solvers (`DeferredMeasurementLowerBounds.Corollaries.MeasuredSolver`: mid-run and
 multi-outcome measurements, classical control, randomness and resets of finite-dimensional

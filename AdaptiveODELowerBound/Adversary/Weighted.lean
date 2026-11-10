@@ -6,11 +6,11 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # Weighted adversary progress of programs and retry protocols
 
-Manuscript lines 4181-4234 (Lemma `odel:lem:outer`: the positive spectral adversary) and line
-2673 (adaptive algorithms by purification and deferred measurement). This module prepares the
-adversary bound for adaptive protocols (`Adversary/Kernel`): a measured run splits the inputs'
-amplitude into a success and a failure branch of input-dependent weights, so the progress of a
-later part of the protocol is weighted by the earlier branch amplitudes.
+Manuscript: Lemma `odel:lem:outer` (the positive spectral adversary) and the end of the proof of
+Lemma `hsl:lem:precision` (adaptive algorithms by purification and deferred measurement). This
+module prepares the adversary bound for adaptive protocols (`Adversary/Kernel`): a measured run
+splits the inputs' amplitude into a success and a failure branch of input-dependent weights, so the
+progress of a later part of the protocol is weighted by the earlier branch amplitudes.
 
 **Weighted progress.** For a nonnegative symmetric adversary matrix `Γ`, a multiplier kernel
 `Λ : X → X → ℂ` and weights `c : X → ℝ` with `c ≥ 0` and `‖Λ x x'‖ ≤ c x c x'`, the weighted

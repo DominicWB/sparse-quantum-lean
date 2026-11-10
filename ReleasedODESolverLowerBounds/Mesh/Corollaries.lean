@@ -8,13 +8,12 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # The ODE lower bounds for measured solvers over the general-mesh physical oracle
 
-Manuscript Section `odel:sec:main`, lines 3669-3681 ("The lower bounds thus apply to Theorems
-`ode:thm:main` and `ode:thm:time`"), with measurements inside a run (line 2364): Theorem
-`odel:thm:combined` (lines 3697-3709, eq. `odel:eq:combined`), Theorem `odel:thm:joint`
-(line 3860), Remark `odel:rem:homogeneous` (line 3907), Lemma `odel:lem:herald` (line 3967) and
-eq. `odel:eq:hsbound`, Theorem `odel:thm:psd` (line 4016, eq. `odel:eq:psd`), all over the
-physical oracle of the released general-mesh solver of Theorem `ode:thm:time` (line 2879) and
-over its call forms.
+Manuscript Section `odel:sec:main` ("the lower bounds apply to the upper bounds of the preceding
+section"), with measurements inside a run (proof of Lemma `hsl:lem:precision`): Theorem
+`odel:thm:combined` (eq. `odel:eq:combined`), Theorem `odel:thm:joint`, Proposition
+`odel:rem:homogeneous`, Lemma `odel:lem:herald` and eq. `odel:eq:hsbound`, Theorem `odel:thm:psd`
+(eq. `odel:eq:psd`), all over the physical oracle of the released general-mesh solver of Theorem
+`ode:thm:time` and over its call forms.
 
 Every statement is the corresponding statement of `PhysicalODELowerBound.Mesh` with
 `MeasuredMeshWitnesses` in place of `MeshWitnesses` (`measuredMeshWitnesses_of_meshWitnesses`), or,
@@ -105,7 +104,7 @@ theorem joint_witness_measured_mesh (h : JointRange s τ gbar ε) :
       (jointConst * gbar * Real.sqrt s * τ) := by
   exact W (joint_witness_mesh h)
 
-/-- **Remark `odel:rem:homogeneous` for measured solvers over the general-mesh physical
+/-- **Proposition `odel:rem:homogeneous` for measured solvers over the general-mesh physical
 oracle**: on `HomRange` the homogeneous family witnesses `ḡ √s τ / 500`. -/
 theorem hom_witness_measured_mesh (h : HomRange s τ gbar ε) :
     MeasuredMeshWitnesses (homFamilyAt s τ gbar h.s_ge h.gbar_ge h.tau_ge) τ gbar ε
@@ -231,7 +230,7 @@ theorem joint_release_measured_mesh (h : JointRange s τ gbar ε) {M : ℕ}
   exact (measuredMeshForces_of_meshForces (joint_forces_mesh h)).1 M σ ι Nsl d J₀ Jb hJ E G A
 
 /-- **Mixed family at a measured solver over the released general-mesh oracle** (eq.
-`hsl:eq:mixrbound`, line 2441): the measured form of
+`hsl:eq:mixrbound`): the measured form of
 `AdaptiveODELowerBound.Release.mixed_release_tree`. For `L ≥ 64τ` and `s ≥ 64n/τ`, at least
 `(log 2/(384√2)) √(sτr)` value calls, and as many matrix calls, in the worst case. -/
 theorem mixed_release_measured_mesh (h : HSRange τ s ε) (hL : 64 * τ ≤ hsL ε)
@@ -250,7 +249,7 @@ theorem mixed_release_measured_mesh (h : HSRange τ s ε) (hL : 64 * τ ≤ hsL 
   exact (measuredMeshForces_of_meshForces (mixed_forces_mesh h hL hs)).1 M σ ι Nsl d J₀ Jb hJ E G A
 
 /-- **Precision family at a measured solver over the released general-mesh oracle** (eqs.
-`hsl:eq:rbound`, `hsl:eq:failedmix`, lines 2436, 2450): the measured form of
+`hsl:eq:rbound`, `hsl:eq:failedmix`): the measured form of
 `AdaptiveODELowerBound.Release.precision_release_tree`. For `L ≥ 64τ`, at least `r/32` value
 calls in the worst case, and at least `√(sτr)/(64√2)` when `s < 64n/τ`; and as many matrix
 calls. -/

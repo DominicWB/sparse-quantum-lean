@@ -3,15 +3,15 @@ import ODELowerBoundExtensions.Psd.Readout
 /-!
 # Gadget-family words and locators
 
-Manuscript lines 4063-4077 (dyadic entries, public
+Manuscript: the proof of Theorem `odel:thm:psd` (dyadic entries, public
 supports, sparsity at most `2m + 1`). The PSD generator `psdSearchMat` is packaged with the
 Hamiltonian lower bound's one-bit builder `Hamiltonian.bitData` (next module); this module gives
 its word table and its location lists.
 
-**Locators** (input-independent, the "public supports" of line 4025). Core row `p = (k, a)`
-lists the successor block in slots `t < m` and the predecessor block in slots `m ≤ t < 2m`
-exactly as `Hamiltonian.searchLocFun`, and **itself in slot `2m`** (the diagonal `1/2` of
-`(I - H)/2`); all other slots are padding indices. Reference and padding rows are those of
+**Locators** (input-independent, the "public supports" of Theorem `odel:thm:psd`). Core row
+`p = (k, a)` lists the successor block in slots `t < m` and the predecessor block in slots
+`m ≤ t < 2m` exactly as `Hamiltonian.searchLocFun`, and **itself in slot `2m`** (the diagonal `1/2`
+of `(I - H)/2`); all other slots are padding indices. Reference and padding rows are those of
 `Hamiltonian.fullLoc`. Injectivity needs `n ≥ 1` (for `n = 0` the successor of `k` is `k`).
 
 **Words** with `B = F + μ + σ + 1` (`F = psdBits n u`, `m = 2^μ`, `σ = ⌈log₂ s⌉`), read through

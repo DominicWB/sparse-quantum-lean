@@ -3,13 +3,14 @@ import ODELowerBoundExtensions.Padding.JointDenseFacts
 /-!
 # Zero padding of the (densely padded) joint family
 
-Manuscript line 3904 ("Known zero padding permits any
-sufficiently large qubit register") and lines 4005-4006 ("Pad dimensions to a common known size
-if desired"). The densely padded joint family `jointDenseFamily` (`Padding/JointDense`) is padded
-by any finite known register `P`: index `JointIndex M μ s ⊕ P`, matrices `denseGen ⊕ 0_P`
-(`LowerBoundRemarks.HamiltonianPadding.padMat`), word table `padTable (jointDenseTable) P`,
-idle words `padWords (jointDenseIdle) P`, location lists `padLoc jointSlot jointLoc P` (padding
-rows list the slots), initial state and sources extended by zero.
+Manuscript: the end of the proof of Theorem `odel:thm:joint` ("Known zero padding permits any
+sufficiently large qubit register") and the proof of Theorem `odel:thm:combined` ("Pad dimensions to
+a common known size if desired"). The densely padded joint family `jointDenseFamily`
+(`Padding/JointDense`) is padded by any finite known register `P`: index `JointIndex M μ s ⊕ P`,
+matrices `denseGen ⊕ 0_P` (`LowerBoundRemarks.HamiltonianPadding.padMat`), word table
+`padTable (jointDenseTable) P`, idle words `padWords (jointDenseIdle) P`, location lists
+`padLoc jointSlot jointLoc P` (padding rows list the slots), initial state and sources extended by
+zero.
 
 It is a `stageData` family, so its Boolean implementation is `implementsOn_stageData`
 (`implementsOn_jointPad`), and it is the zero padding of `jointDenseFamily` in the sense of
@@ -129,8 +130,9 @@ def jointPadData (hμ : 1 ≤ μ) (hμs : 2 ^ μ ≤ s) (hμB : μ ≤ B) :
     (jointPad_decode hμ hμB) (jointPad_row_covers hμs) (jointPad_col_covers hμs)
 
 variable (M n μ s B dense P) in
-/-- **The zero-padded dense joint family** (lines 3904, 4005-4006): `jointDenseFamily` padded by
-the known register `P`; initial state and sources extended by zero. -/
+/-- **The zero-padded dense joint family** (proof of Theorem `odel:thm:joint` and proof of Theorem
+`odel:thm:combined`): `jointDenseFamily` padded by the known register `P`; initial state and sources
+extended by zero. -/
 def jointPadFamily (hμ : 1 ≤ μ) (hμs : 2 ^ μ ≤ s) (hμB : μ ≤ B) (T : ℝ)
     (hT : (n : ℝ) * (Real.pi / 2) + 1 ≤ T) :
     Family (Promised M n (2 ^ μ)) (JointIndex M μ s ⊕ P) (Word B) (n + 2) s where
@@ -228,9 +230,9 @@ theorem jointPadFamily_table_off (p : Promised M n (2 ^ μ) × Fin (n + 2))
 -- The nested time-addressed workspaces exceed the default instance size.
 set_option synthInstance.maxSize 1024 in
 open OracleCircuit in
-/-- **The padded family's access is a `hardCost` membership program** (lines 3852-3858, 3904):
-`implementsOn_stageData` in the family form of `SparseLowerBounds.ODE.implementsOn_joint`; the
-dense block and the padding cost no query. -/
+/-- **The padded family's access is a `hardCost` membership program** (the construction before
+Theorem `odel:thm:joint`): `implementsOn_stageData` in the family form of
+`SparseLowerBounds.ODE.implementsOn_joint`; the dense block and the padding cost no query. -/
 theorem implementsOn_jointPad (ι : Type*) [Fintype ι] (l : Query) :
     EncodedOracle.ImplementsOn
       (fun x : Promised M n (2 ^ μ) =>

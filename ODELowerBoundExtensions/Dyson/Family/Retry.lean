@@ -9,10 +9,10 @@ set_option synthInstance.maxSize 4096
 /-!
 # Eq. `odel:eq:fixed` and its consequence for the ODE lower-bound class
 
-Manuscript lines 4256-4268: "At fixed positive `s, τ, ḡ`, this gives
+Manuscript: eq. `odel:eq:fixed` and its consequence, "At fixed positive `s, τ, ḡ`, this gives
 `Q_A = O(log(1/ε)/log log(1/ε))` (`ε → 0`). Consequently a uniform worst-case lower bound
 proportional to `ḡ √s τ log(ḡ/ε)` is false under these access assumptions: fixing any admissible
-positive `s, τ, ḡ` makes the auxiliary upper bound sublinear in `log(1/ε)`."
+positive `s, τ, ḡ` makes this comparison upper bound sublinear in `log(1/ε)`."
 
 The statements use the vocabulary of the retry-protocol lower bound
 (`ODELowerBoundExtensions.Release`): a `RetrySolver F (F.access ι) E G ε` is a release-style
@@ -70,10 +70,10 @@ theorem retry_exists_isometric_readout (N : Type) [Fintype N] [DecidableEq N] :
     simp
 
 set_option maxHeartbeats 4000000 in
-/-- **The Dyson solver as a retry solver of the ODE lower-bound class** (Lemma `odel:lem:dyson`,
-lines 4155-4168): every family in the class `InClass η ḡ` with `T > 0` has, for `0 < ε ≤ 1`, a
-release-style retry solver over its own access `F.access ι` whose worst-case query count (all
-labels, inverse calls included) is at most `dysonBound (s η T) ḡ ε`. -/
+/-- **The Dyson solver as a retry solver of the ODE lower-bound class** (Lemma `odel:lem:dyson`):
+every family in the class `InClass η ḡ` with `T > 0` has, for `0 < ε ≤ 1`, a release-style retry
+solver over its own access `F.access ι` whose worst-case query count (all labels, inverse calls
+included) is at most `dysonBound (s η T) ḡ ε`. -/
 theorem retrySolver_dyson {X N Z : Type} [Fintype N] [DecidableEq N] [Fintype Z] [AddCommGroup Z]
     {K s : ℕ} (F : Family X N Z K s) (η gbar ε : ℝ) (hF : F.InClass η gbar) (hη : 0 < η)
     (hT : 0 < F.T) (hg : 1 ≤ gbar) (hε : 0 < ε) (hε1 : ε ≤ 1) :
@@ -120,10 +120,11 @@ theorem retry_time_pos_of_mul_eq {X N Z : Type} [Fintype N] [DecidableEq N] {K s
   push Not at h
   nlinarith
 
-/-- **Eq. `odel:eq:fixed` for the ODE lower-bound class** (lines 4256-4261): at fixed `s`,
-`τ` and `ḡ`, there are `C` and `ε₀ ∈ (0, 1)` such that for every `ε ≤ ε₀`, uniformly in `η > 0`,
-every family of the class `InClass η ḡ` with `T η = τ` has a retry solver over its own access with
-at most `C log(1/ε)/log log(1/ε)` queries in the worst case. -/
+/-- **Eq. `odel:eq:fixed` for the ODE lower-bound class**: at fixed `s`, `τ` and `ḡ`, there are `C`
+and `ε₀ ∈ (0, 1)` such that for
+every `ε ≤ ε₀`, uniformly in `η > 0`, every family of the class `InClass η ḡ` with `T η = τ` has a
+retry solver over its own access with at most `C log(1/ε)/log log(1/ε)` queries in the worst
+case. -/
 theorem retry_fixed (s : ℕ) (τ gbar : ℝ) (hτ : 0 < τ) (hg : 1 ≤ gbar) :
     ∃ C ε₀ : ℝ, 0 < ε₀ ∧ ε₀ < 1 ∧ ∀ ε, 0 < ε → ε ≤ ε₀ → ∀ η : ℝ, 0 < η →
       ∀ {X N Z : Type} [Fintype N] [DecidableEq N] [Fintype Z] [AddCommGroup Z] {K : ℕ}
@@ -147,11 +148,11 @@ theorem retry_fixed (s : ℕ) (τ gbar : ℝ) (hτ : 0 < τ) (hg : 1 ≤ gbar) :
     rw [hz] at hA
     exact ⟨ι, hι, A, hA.trans (hC ε hε hεle)⟩
 
-/-- **No uniform `ḡ √s τ log(ḡ/ε)` lower bound for retry protocols** (lines 4262-4265): at fixed
-`s, τ, ḡ`, for every `c > 0` and all sufficiently small `ε` (threshold independent of `η`), every
-family of the class `InClass η ḡ` with `T η = τ`, for every `η > 0`, has a release-style retry
-solver over its own access `F.access ι` with fewer than `c ḡ √s τ log(ḡ/ε)` queries in the worst
-case. -/
+/-- **No uniform `ḡ √s τ log(ḡ/ε)` lower bound for retry protocols** (the text after eq.
+`odel:eq:fixed`): at fixed `s, τ, ḡ`, for every `c > 0` and all sufficiently
+small `ε` (threshold independent of `η`), every family of the class `InClass η ḡ` with `T η = τ`,
+for every `η > 0`, has a release-style retry solver over its own access `F.access ι` with fewer than
+`c ḡ √s τ log(ḡ/ε)` queries in the worst case. -/
 theorem no_uniform_lower_bound (s : ℕ) (τ gbar c : ℝ) (hτ : 0 < τ) (hg : 1 ≤ gbar)
     (hc : 0 < c) :
     ∃ ε₀ : ℝ, 0 < ε₀ ∧ ∀ ε, 0 < ε → ε ≤ ε₀ → ∀ η : ℝ, 0 < η →
@@ -175,10 +176,11 @@ theorem no_uniform_lower_bound (s : ℕ) (τ gbar c : ℝ) (hτ : 0 < τ) (hg : 
     rw [hz] at hA
     exact ⟨ι, hι, A, hA.trans_lt (h₁ ε hε (hεle.trans (min_le_left _ _)))⟩
 
-/-- **The consequence of Lemma `odel:lem:dyson` in the package vocabulary** (lines 4262-4265):
-for fixed `s`, `τ > 0`, `ḡ ≥ 1` and every `c > 0`, for all sufficiently small `ε` no family
-retry-witnesses the bound `c ḡ √s τ log(ḡ/ε)` (`Release.RetryWitnesses`: in the class with
-`η = 1`, `T = τ`, `g ≤ ḡ`, and every retry solver over `F.access ι` needs that many queries). -/
+/-- **The consequence of Lemma `odel:lem:dyson` in the package vocabulary** (the text after eq.
+`odel:eq:fixed`): for fixed `s`, `τ > 0`, `ḡ ≥ 1` and every `c > 0`, for all
+sufficiently small `ε` no family retry-witnesses the bound `c ḡ √s τ log(ḡ/ε)`
+(`Release.RetryWitnesses`: in the class with `η = 1`, `T = τ`, `g ≤ ḡ`, and every retry solver over
+`F.access ι` needs that many queries). -/
 theorem no_retry_witnesses (s : ℕ) (τ gbar c : ℝ) (hτ : 0 < τ) (hg : 1 ≤ gbar) (hc : 0 < c) :
     ∃ ε₀ : ℝ, 0 < ε₀ ∧ ∀ ε, 0 < ε → ε ≤ ε₀ →
       ∀ {X N Z : Type} [Fintype N] [DecidableEq N] [Fintype Z] [AddCommGroup Z] {K : ℕ}

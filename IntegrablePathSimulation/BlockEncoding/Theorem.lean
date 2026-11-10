@@ -7,13 +7,13 @@ set_option autoImplicit false
 /-!
 # Time-indexed block encodings for integrable Hermitian paths
 
-The paragraph "Relation to time-indexed block encodings" of the manuscript (lines 1640-1660):
-with coherent and controlled access to Hermitian unitaries `O_r` with
+Eqs. `hs:eq:blockspecial` and `hs:eq:blockadditive` of the manuscript (after
+Theorem `hs:thm:time`): with coherent controlled access to Hermitian unitaries `O_r` with
 `J† O_r J = H̃_r / α_BE`, the chronological proof gives equation `hs:eq:blockadditive`,
 `𝒪(α_BE T + log(1/ε))` queries. The comparison with the continuous evolution is the one of
-Theorem `hs:thm:time`, and by the paragraph "Regularity and coherent parameters"
-(lines 1618-1632) all uses of regularity are confined to the integrated sample-error
-certificate, so the bound holds for integrable Hermitian paths.
+Theorem `hs:thm:time`, and by the paragraphs after its proof the integrated sample-error
+certificate replaces the Lipschitz and representation terms, so the bound holds for integrable
+Hermitian paths.
 
 * `simulation`: a program over the released oracle family, and the released encoding, of
   `TimeDependentExtensions.BlockEncoding.simulation`, with the same slot conditions

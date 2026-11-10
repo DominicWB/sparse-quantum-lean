@@ -6,9 +6,10 @@ set_option autoImplicit false
 set_option synthInstance.maxSize 1024
 
 /-!
-# Remark `odel:rem:homogeneous`: the sampled-time access from membership queries
+# Proposition `odel:rem:homogeneous`: the sampled-time access from membership queries
 
-Manuscript lines 3852-3858 and 3947-3948 ("the same oracle simulation ... prove eq.
+Manuscript: the construction before Theorem `odel:thm:joint` and the proof of Proposition
+`odel:rem:homogeneous` ("the same oracle simulation and adversary reduction prove eq.
 `odel:eq:joint`"), following `SparseLowerBounds.ODE.JointCompile` with the stage-indexed tables
 `homTable`. Every label of the coherent sampled-time oracle of `homFamily` (branch register
 `ι`, time address `Fin (n + 4)`) is `EncodedOracle.ImplementsOn` the membership phase oracle
@@ -23,13 +24,13 @@ Manuscript lines 3852-3858 and 3947-3948 ("the same oracle simulation ... prove 
   `k`; on the known stages no address reads a bit and both branch gates add the known word),
   unquery (`PhaseCircuit.implementsOn_circuit`).
 
-Inverse and controlled calls are covered as in `SparseLowerBounds.ODE.Model`. That module's
-cost-`0` argument for a controlled locator call is stated for input- and stage-independent
-locators; the homogeneous locators depend on the stage (forced when `s = 2^μ`, see
-`ODELowerBoundExtensions.Homogeneous.Data`) but not on the input
-(`homData_locators_input_indep`), and the time address is a workspace register, so the locator
-`Σ_{(i,k)} |i,k⟩⟨i,k| ⊗ L_k` is still a fixed gate of cost `0` (lines 3852-3854).
-The template is the released `SparseLowerBounds.ODE.JointCompile`; the stage-indexed builder of
+Inverse and controlled calls are covered as in `SparseLowerBounds.ODE.Model`. That module's cost-`0`
+argument for a controlled locator call is stated for input- and stage-independent locators; the
+homogeneous locators depend on the stage (forced when `s = 2^μ`, see
+`ODELowerBoundExtensions.Homogeneous.Data`) but not on the input (`homData_locators_input_indep`),
+and the time address is a workspace register, so the locator `Σ_{(i,k)} |i,k⟩⟨i,k| ⊗ L_k` is still a
+fixed gate of cost `0` (the construction before Theorem `odel:thm:joint`). The template is the
+released `SparseLowerBounds.ODE.JointCompile`; the stage-indexed builder of
 `ODELowerBoundExtensions.Padding.StageCompile` is fixed to `n + 2` stages, one table and
 stage-independent locators, so it is not reused here.
 -/
@@ -192,8 +193,8 @@ theorem access_hom_value_apply (hμ : 1 ≤ μ) (hμs : 2 ^ μ ≤ s) (T : ℝ) 
       v b (a, z - (((homTable M n μ s b.2).value (homBits x b.2) a : ℤ) : Hamiltonian.Word μ)) :=
   rfl
 
-/-- **Every sampled-time label is a `hardCost`-query membership program** (lines 3854-3858):
-`0` for the locators, `2` for the value oracle. -/
+/-- **Every sampled-time label is a `hardCost`-query membership program** (the construction before
+Theorem `odel:thm:joint`): `0` for the locators, `2` for the value oracle. -/
 theorem implementsOn_hom (ι : Type*) [Fintype ι] {M n μ s : ℕ} (hμ : 1 ≤ μ)
     (hμs : 2 ^ μ ≤ s) (T : ℝ) (hT : homBusy M n ≤ T) (l : Query) :
     EncodedOracle.ImplementsOn

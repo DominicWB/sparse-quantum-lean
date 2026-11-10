@@ -6,7 +6,7 @@ section
 /-!
 # The piecewise-constant dissipative ODE class with sampled-time access
 
-Manuscript lines 3655-3688 (Section `odel:sec:main`). The equation is
+Manuscript: Section `odel:sec:main`. The equation is
 `ẋ = A(t) x + b(t)`, `x(0) = x₀`, `0 ≤ t ≤ T`, with `-A = D + iH`, `D ⪰ 0`.
 In the release's convention (`TimeDependentODE.SolvesODE`) this is
 `ẋ = -G(t) x + b(t)` with the **generator** `G = -A`, and `D ⪰ 0` is
@@ -15,9 +15,9 @@ In the release's convention (`TimeDependentODE.SolvesODE`) this is
 **The class (`Family`, `Family.InClass`).** A family of instances indexed by
 the hidden input `x : X` is given by
 
-* `K` stages with public durations `len k ≥ 0`; stage `k` occupies
-  `[start k, start (k+1)]`, `start k = Σ_{i<k} len i`, and `T = start K`
-  ("piecewise constant time dependence with known breakpoints", lines 3686-3688);
+* `K` stages with public durations `len k ≥ 0`; stage `k` occupies `[start k, start (k+1)]`,
+  `start k = Σ_{i<k} len i`, and `T = start K` ("The time-dependent examples are piecewise constant
+  with known breakpoints", Section `odel:sec:main`);
 * the **sampled-time sparse input** `data : NativeSparseBlockEncoding.Data (X × Fin K) N Z s`,
   whose matrix `data.matrix (x, k)` is the generator `G_k(x)` of stage `k`
   (the convention `G̃_r = D.matrix (x, r)` of the released solvers
@@ -25,10 +25,10 @@ the hidden input `x : X` is given by
   time address being the stage index);
   row/column sparsity at most `s` is built into `Data` (`row_sparsity_le`,
   `col_sparsity_le`); all unknown information is in the exact finite-word
-  table (line 3685);
-* public stage sources `src k` and a public initial state `init` ("initial and
-  source preparation contain no hidden input information", lines 3685-3686;
-  known state preparations are free, lines 3672-3673).
+  table (Section `odel:sec:main`);
+* public stage sources `src k` and a public initial state `init` ("Initial and source preparations
+  contain no hidden information", Section `odel:sec:main`; known state preparations are free,
+  Section `odel:sec:main`).
 
 `sol` solves instance `x` (`Solves`) if `sol 0 = init` and, on every closed
 stage interval, `sol` satisfies the release's `SolvesODE` with the stage's
@@ -46,11 +46,12 @@ coherent sampled-time oracle `Σ_{(i,k)} |i,k⟩⟨i,k| ⊗ O_l(x, k)` (the rele
 `TimeDependentODE.labelOracle` of the native primitives
 `NativeSparseBlockEncoding.oracles` with `TimeDependentODE.sample`), the branch
 register `ι` being an untouched spectator; inverses are `queryAdjoint` and all
-calls are counted (lines 3669-3673). The released solvers query the same
+calls are counted (Section `odel:sec:main`). The released solvers query the same
 primitives through other fixed flattenings (`ODENativeCayley.oracle`) with
 spectator registers; there is no Lean transport between the two forms.
 
-**Controlled calls** (lines 3669-3671 "their inverses and controls", 3856-3857).
+**Controlled calls** (Section `odel:sec:main`, "including inverses, controls and coherent time
+addresses where needed"; the construction before Theorem `odel:thm:joint`).
 `MultiOracleCircuit.Program` has no controlled primitive; controlled calls are
 covered by reduction, as for the Hamiltonian lower bound
 (`Hamiltonian/Statements`, `Hamiltonian/Theorem`).
@@ -73,7 +74,7 @@ of the Hamiltonian lower bound (`Readout.HeraldedAccurate`, `Query/Readout`): a
 program over `access ι F`, a seed of norm at most one, an isometric readout
 `e : W → ℂ^N ⊗ G`, a herald projection with success probability at least `2/3`
 on every input, and conditional accuracy `ε` (observable form of trace distance)
-for the normalised solution `x(T)/‖x(T)‖` of every solution (lines 3675-3678).
+for the normalised solution `x(T)/‖x(T)‖` of every solution (Section `odel:sec:main`).
 As in the release's `TimeDependentODE.Outcome`, accuracy is required for every
 solution; the promise `InClass` gives one, and `ODE/Uniqueness` shows there is
 only one endpoint, so this is the paper's requirement.
@@ -86,7 +87,7 @@ open SparseHamiltonian NativeSparseBlockEncoding OracleCircuit
 open scoped InnerProduct InnerProductSpace
 
 /-- **A piecewise-constant family of the dissipative ODE class with sampled-time
-sparse access** (lines 3655-3688): `K` public stages, the sampled-time native
+sparse access** (Section `odel:sec:main`): `K` public stages, the sampled-time native
 input whose matrix `data.matrix (x, k)` is the generator `G_k(x) = -A_k(x)`,
 public stage sources and a public initial state. -/
 structure Family (X N Z : Type*) [Fintype N] [DecidableEq N] (K s : ℕ) where
@@ -165,7 +166,7 @@ theorem T_eq_sum : F.T = ∑ k, F.len k := by
 
 theorem T_nonneg : 0 ≤ F.T := F.start_nonneg K
 
-/-- **Row sparsity at most `s`** (line 3662): the nonzeros of a row lie in its
+/-- **Row sparsity at most `s`** (Section `odel:sec:main`): the nonzeros of a row lie in its
 `s`-slot location list. -/
 theorem row_sparsity_le (y : X × Fin K) (i : N) :
     (Finset.univ.filter fun j => F.data.matrix y i j ≠ 0).card ≤ s := by
@@ -176,7 +177,7 @@ theorem row_sparsity_le (y : X × Fin K) (i : N) :
     _ ≤ (Finset.univ : Finset (Fin s)).card := Finset.card_image_le
     _ = s := by simp
 
-/-- **Column sparsity at most `s`** (line 3662). -/
+/-- **Column sparsity at most `s`** (Section `odel:sec:main`). -/
 theorem col_sparsity_le (y : X × Fin K) (j : N) :
     (Finset.univ.filter fun i => F.data.matrix y i j ≠ 0).card ≤ s := by
   classical
@@ -188,7 +189,7 @@ theorem col_sparsity_le (y : X × Fin K) (j : N) :
 
 end Family
 
-/-- **The promises of the class** (lines 3657-3669) with row/column Euclidean
+/-- **The promises of the class** (Section `odel:sec:main`) with row/column Euclidean
 norm bound `η` and normalisation bound `ḡ`: every stage generator is accretive
 (`-A = D + iH`, `D ⪰ 0`), every row and column of every sampled matrix has
 Euclidean norm at most `η`, and every instance has a solution with
@@ -209,7 +210,7 @@ namespace Family
 
 variable {X N Z : Type*} [Fintype N] [DecidableEq N] [Fintype Z] [AddCommGroup Z] {K s : ℕ}
 
-/-- **The sampled-time matrix oracle** (lines 3669-3673): label `l` on input `x`
+/-- **The sampled-time matrix oracle** (Section `odel:sec:main`): label `l` on input `x`
 is the release's coherent query `Σ_{(i,k)} |i,k⟩⟨i,k| ⊗ O_l(x, k)`
 (`TimeDependentODE.labelOracle` with `TimeDependentODE.sample`), branch `ι` a
 spectator. -/
@@ -223,7 +224,7 @@ theorem access_unitary (ι : Type*) [Fintype ι] (F : Family X N Z K s) (l : Que
 
 end Family
 
-/-- **A solver for the family `F` at accuracy `ε`** (lines 3675-3678): a program
+/-- **A solver for the family `F` at accuracy `ε`** (Section `odel:sec:main`): a program
 over the sampled-time access with branch register `ι`, a seed of norm at most
 one, an isometric readout onto system `ℂ^N` ⊗ garbage `G`, and a herald
 projection; success probability at least `2/3` on every input and, for every
@@ -280,7 +281,7 @@ theorem matrixOperator_I_smul {N : Type*} [Fintype N] [DecidableEq N] (H : Matri
   rw [Hamiltonian.matrixOperator_eq_toEuclideanCLM, Hamiltonian.matrixOperator_eq_toEuclideanCLM,
     map_smul]
 
-/-- `iH` is accretive for Hermitian `H` (`D = 0`, lines 3849-3850): `Re ⟪v, iHv⟫ = 0`. -/
+/-- `iH` is accretive for Hermitian `H` (`D = 0`, Section `odel:sec:main`): `Re ⟪v, iHv⟫ = 0`. -/
 theorem accretive_I_smul {N : Type*} [Fintype N] [DecidableEq N] {H : Matrix N N ℂ}
     (hH : H.IsHermitian) :
     TimeDependentODE.Accretive (SparseStateOverlap.matrixOperator (Complex.I • H)) := by

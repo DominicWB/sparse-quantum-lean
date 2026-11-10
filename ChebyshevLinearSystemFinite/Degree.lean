@@ -29,6 +29,9 @@ and here:
   (`eTest_ge`, `eFin_ge`, from `delta0_le`) and the sharper `eTest s j ≥ 1/(825000 √s 2^j)`
   and `eFin s κ ε ≥ ε/(41250 √s κ)` (`eTest_ge_sharp`, `eFin_ge_sharp`, from
   `delta0_le_sharp`).
+
+Notation: the regularization parameter is `σ` here and `ξ` in the manuscript, so a subscript `σ` (as
+in `g_σ`, `r_σ`, `H_{σ,r}`) stands for the manuscript's subscript `ξ`.
 -/
 
 namespace ChebyshevLinearSystemFinite

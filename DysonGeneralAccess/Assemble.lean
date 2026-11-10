@@ -6,8 +6,9 @@ set_option autoImplicit false
 /-!
 # A parallel stage over a general access is a heralded single program
 
-Manuscript, proof of Lemma `odel:lem:dyson` (lines 4251-4253: "amplitude amplification ...
-gives constant heralded success") and the output model of Section `odel:sec:main`. The parallel
+Manuscript, proof of Lemma `odel:lem:dyson` ("Mixing the two trials and repeating a constant number
+of times gives heralded success probability at least `2/3`") and the output model of Section
+`odel:sec:main`. The parallel
 stages of `DysonSingleProgram.Parallel` (attempts on separate registers, first-success herald and
 readout) run over any unitary access `O`; their program lives over two nested spectator registers.
 This module reads a stage as a `Model.HeraldedSolver` over `fiberOracle (S.I × Fin M) O` for an

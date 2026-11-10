@@ -24,6 +24,9 @@ the final run decodes the walk boundary and the solution coordinates (`finalOutp
 
 * `test_amplitude`: the decoded test amplitude is `F_{b,d}(W_{σ,r}) J e`;
 * `final_amplitude`: the decoded final amplitude is `S† J† F_{b,d}(W_{σ,r}) J e`.
+
+Notation: the regularization parameter is `σ` here and `ξ` in the manuscript, so a subscript `σ` (as
+in `g_σ`, `r_σ`, `H_{σ,r}`) stands for the manuscript's subscript `ξ`.
 -/
 
 namespace ChebyshevLinearSystem

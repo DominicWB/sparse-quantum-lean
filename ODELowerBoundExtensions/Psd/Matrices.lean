@@ -3,7 +3,7 @@ import ODELowerBoundExtensions.Psd.SpinAmp
 /-!
 # The PSD generators of Theorem `odel:thm:psd`
 
-Manuscript lines 4048-4077 and 4119-4121. On the index
+Manuscript: the proof of Theorem `odel:thm:psd`. On the index
 types of the Hamiltonian lower bound (`Hamiltonian.SearchIndex`, `Hamiltonian.ScalarIndex`,
 `FullIndex C s = C ⊕ (Fin 2 ⊕ Fin s)`) the PSD generators are
 
@@ -13,20 +13,19 @@ types of the Hamiltonian lower bound (`Hamiltonian.SearchIndex`, `Hamiltonian.Sc
   `Hamiltonian.searchChain` with the rounded weights `psdWeight n u` of `B_n` and one gadget
   `U_{j_k}` per edge (adjoints on reverse edges), on `ℂ^{n+1} ⊗ ℂ^m`;
 * scalar family (`psdScalarMat`): the gadgets replaced by the signs `(-1)^{x_k}`
-  (`Hamiltonian.scalarChain`), lines 4119-4121.
+  (`Hamiltonian.scalarChain`), proof of Theorem `odel:thm:psd`.
 
-The block `diag(0, 1)` is the isolated reference of eigenvalue zero and the isolated eigenvalue
-one of lines 4074-4075. The last block is the **known positive semidefinite dense padding** of lines
-4132-4134 (the padding block of `Hamiltonian.fullMatrix`, a nonnegative multiple of `𝟙𝟙ᵀ`): it
-makes the maximum row and column sparsity exactly `s`, and it is never occupied by the start
-vector. Properties (lines 4074-4077): real symmetric (so the generator is Hermitian, `H = 0`
-and `G = D_X`), positive semidefinite (`psdSearchMat_posSemidef`; the diagonal is `1/2` on the
-path block),
-operator norm exactly one, every row and column of Euclidean norm at most one with maximum
-exactly one (the eigenvalue-one vertex `refOne`), maximum row and column sparsity exactly `s`
-(core rows have at most `2m + 1`, resp. `3`, nonzeros; padding rows exactly `s`). The bundles
-`psdSearchMat_props`, `psdScalarMat_props` are `Hamiltonian.fullMatrix_props` applied to the
-core `psdCore H'_X`.
+The block `diag(0, 1)` is the isolated reference of eigenvalue zero and the isolated eigenvalue one
+of the proof. The last block is the **known positive semidefinite dense padding** of the end of the
+proof (the padding block of `Hamiltonian.fullMatrix`, a nonnegative multiple of `𝟙𝟙ᵀ`): it makes the
+maximum row and column sparsity exactly `s`, and it is never occupied by the start vector.
+Properties (proof of Theorem `odel:thm:psd`): real symmetric (so the generator is Hermitian, `H = 0`
+and `G = D_X`), positive semidefinite (`psdSearchMat_posSemidef`; the diagonal is `1/2` on the path
+block), operator norm exactly one, every row and column of Euclidean norm at most one with maximum
+exactly one (the eigenvalue-one vertex `refOne`), maximum row and column sparsity exactly `s` (core
+rows have at most `2m + 1`, resp. `3`, nonzeros; padding rows exactly `s`). The bundles
+`psdSearchMat_props`, `psdScalarMat_props` are `Hamiltonian.fullMatrix_props` applied to the core
+`psdCore H'_X`.
 -/
 
 set_option autoImplicit false
@@ -38,15 +37,15 @@ noncomputable section
 open SparseHamiltonian SparseLowerBounds SparseLowerBounds.Hamiltonian
 open scoped Matrix InnerProductSpace Matrix.Norms.L2Operator ComplexOrder
 
-/-- **The gadget-family generator** (lines 4048-4077): `(I - H'_X)/2` on the decorated path
-block with the rounded weights of `B_n`, the isolated eigenvalues `0` (reference) and `1`, and
-the dense PSD padding. Hidden input: `n` one-hot strings of length `2^μ`. -/
+/-- **The gadget-family generator** (proof of Theorem `odel:thm:psd`): `(I - H'_X)/2` on the
+decorated path block with the rounded weights of `B_n`, the isolated eigenvalues `0` (reference) and
+`1`, and the dense PSD padding. Hidden input: `n` one-hot strings of length `2^μ`. -/
 def psdSearchMat (n μ s : ℕ) (u : ℝ) (j : Fin n → Fin (2 ^ μ)) :
     Matrix (SearchIndex n μ s) (SearchIndex n μ s) ℂ :=
   fullMatrix (psdCore (searchChain n (2 ^ μ) (psdWeight n u) j)) s
 
-/-- **The scalar-family generator** (lines 4119-4121): the gadgets replaced by the signs
-`(-1)^{x_k}`. Hidden input: `n` bits. -/
+/-- **The scalar-family generator** (proof of Theorem `odel:thm:psd`): the gadgets replaced by the
+signs `(-1)^{x_k}`. Hidden input: `n` bits. -/
 def psdScalarMat (n s : ℕ) (u : ℝ) (x : Fin n → Bool) :
     Matrix (ScalarIndex n s) (ScalarIndex n s) ℂ :=
   fullMatrix (psdCore (scalarChain n (psdWeight n u) x)) s
@@ -71,7 +70,8 @@ theorem posSemidef_refBlock : refBlock.PosSemidef := by
   refine Matrix.PosSemidef.diagonal fun i => ?_
   fin_cases i <;> simp
 
-/-- The dense padding block `2^{-⌈log₂ s⌉} 𝟙𝟙ᵀ` is positive semidefinite (lines 4132-4134). -/
+/-- The dense padding block `2^{-⌈log₂ s⌉} 𝟙𝟙ᵀ` is positive semidefinite (proof of Theorem
+`odel:thm:psd`). -/
 theorem posSemidef_padBlock (s : ℕ) : (padBlock s).PosSemidef := by
   have h : padBlock s = ((2 : ℝ) ^ padExp s)⁻¹ •
       Matrix.vecMulVec (fun _ : Fin s => (1 : ℂ)) (star fun _ : Fin s => (1 : ℂ)) := by
@@ -142,14 +142,14 @@ end Full
 
 variable {n μ s : ℕ}
 
-/-- The gadget core `(I - H'_X)/2` has row sparsity at most `2m + 1` (lines 4076-4077: the two
-neighbouring register blocks and the diagonal). -/
+/-- The gadget core `(I - H'_X)/2` has row sparsity at most `2m + 1` (proof of Theorem
+`odel:thm:psd`: the two neighbouring register blocks and the diagonal). -/
 theorem card_row_psdSearchCore_le (u : ℝ) (j : Fin n → Fin (2 ^ μ)) (p : SearchCore n μ) :
     (Finset.univ.filter fun q =>
       psdCore (searchChain n (2 ^ μ) (psdWeight n u) j) p q ≠ 0).card ≤ 2 * 2 ^ μ + 1 :=
   (card_row_psdCore_le _ p).trans (Nat.add_le_add_right (card_row_searchChain_le _ j p) 1)
 
-/-- The scalar core `(I - H'_x)/2` is three-sparse (lines 4120-4121). -/
+/-- The scalar core `(I - H'_x)/2` is three-sparse (proof of Theorem `odel:thm:psd`). -/
 theorem card_row_psdScalarCore_le (u : ℝ) (x : Fin n → Bool) (i : Fin (n + 1)) :
     (Finset.univ.filter fun i' => psdCore (scalarChain n (psdWeight n u) x) i i' ≠ 0).card ≤ 3 :=
   (card_row_psdCore_le _ i).trans (Nat.add_le_add_right (card_row_scalarChain_le _ x i) 1)
@@ -168,14 +168,14 @@ theorem psdScalarMat_realSymmetric (u : ℝ) (x : Fin n → Bool) :
   ⟨fullMatrix_transpose (psdCore_transpose (scalarChain_transpose _ _ _)) s,
     star_fullMatrix_apply (star_psdCore_apply fun i i' => star_scalarChain_apply _ _ i i') s⟩
 
-/-- **`D_X ⪰ 0`** for the gadget family (lines 4074-4075). -/
+/-- **`D_X ⪰ 0`** for the gadget family (proof of Theorem `odel:thm:psd`). -/
 theorem psdSearchMat_posSemidef (u : ℝ) (j : Fin n → Fin (2 ^ μ)) :
     (psdSearchMat n μ s u j).PosSemidef := by
   refine posSemidef_fullMatrix (posSemidef_psdCore (isHermitian_searchChain _ _ _ _) ?_) s
   rw [norm_searchChain (by positivity)]
   exact norm_pathMatrix_psdWeight_le n u
 
-/-- **`D_X ⪰ 0`** for the scalar family (lines 4120-4121). -/
+/-- **`D_X ⪰ 0`** for the scalar family (proof of Theorem `odel:thm:psd`). -/
 theorem psdScalarMat_posSemidef (u : ℝ) (x : Fin n → Bool) :
     (psdScalarMat n s u x).PosSemidef := by
   refine posSemidef_fullMatrix (posSemidef_psdCore (isHermitian_scalarChain _ _ _) ?_) s
@@ -183,7 +183,7 @@ theorem psdScalarMat_posSemidef (u : ℝ) (x : Fin n → Bool) :
   exact norm_pathMatrix_psdWeight_le n u
 
 /-- **Norm exactly one, row/column norms at most one with maximum exactly one, sparsity
-exactly `s`** for the gadget family (lines 4074-4077, 4111-4112, 4132-4134), for
+exactly `s`** for the gadget family (proof of Theorem `odel:thm:psd`), for
 `2·2^μ + 1 ≤ s`. -/
 theorem psdSearchMat_props (hs : 2 * 2 ^ μ + 1 ≤ s) (u : ℝ) (j : Fin n → Fin (2 ^ μ)) :
     ‖SparseStateOverlap.matrixOperator (psdSearchMat n μ s u j)‖ = 1 ∧
@@ -210,7 +210,8 @@ theorem psdSearchMat_props (hs : 2 * 2 ^ μ + 1 ≤ s) (u : ℝ) (j : Fin n → 
     rw [norm_searchChain (by positivity)]
     exact norm_pathMatrix_psdWeight_le n u
 
-/-- The same properties for the scalar family (three-sparse core, lines 4120-4121), for `3 ≤ s`. -/
+/-- The same properties for the scalar family (three-sparse core, proof of Theorem `odel:thm:psd`),
+for `3 ≤ s`. -/
 theorem psdScalarMat_props (hs : 3 ≤ s) (u : ℝ) (x : Fin n → Bool) :
     ‖SparseStateOverlap.matrixOperator (psdScalarMat n s u x)‖ = 1 ∧
       (∀ i, ∑ i', ‖psdScalarMat n s u x i i'‖ ^ 2 ≤ 1) ∧

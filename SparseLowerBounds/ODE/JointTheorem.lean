@@ -6,13 +6,13 @@ section
 /-!
 # Theorem `odel:thm:joint`: joint time, sparsity and normalisation
 
-Manuscript lines 3860-3905 (statement 3860-3868, proof 3869-3905). For `s ≥ 4`,
+Manuscript: Theorem `odel:thm:joint` and its proof. For `s ≥ 4`,
 `τ ≥ 4`, `ḡ ≥ 2`, `0 < ε ≤ 1/64`, the ODE promise `g ≤ ḡ` requires
 `Q_A ≥ c_J ḡ √s τ` matrix queries, `c_J = 1/400` (`jointConst`), witnessed by
 the joint family of `ODE/JointInstance` with `D = 0` (`jointFamily_skew`),
 `η = 1`, `g = √M ≥ ḡ/√2` and dimension `O(ḡ² s)`.
 
-Route (lines 3887-3897). Run the solver; on success measure the half indicator
+Route (proof of Theorem `odel:thm:joint`). Run the solver; on success measure the half indicator
 (`halfObs`), on failure output a fair bit: by `Readout.heralded_correlation`
 with `sgn = halfSign(a_*)`, ideal value `1` and success `≥ 2/3`, the
 unconditional correlation is at least `β = (2/3)(1 - 2ε)` (`jointCorr`), no
@@ -36,7 +36,7 @@ set_option synthInstance.maxSize 1024
 /-- The explicit constant of Theorem `odel:thm:joint`: `c_J = 1/400`. -/
 def jointConst : ℝ := 1 / 400
 
-/-- The decision correlation `β = (2/3)(1 - 2ε)` (lines 3889-3894). -/
+/-- The decision correlation `β = (2/3)(1 - 2ε)` (proof of Theorem `odel:thm:joint`). -/
 def jointCorr (ε : ℝ) : ℝ := 2 / 3 * (1 - 2 * ε)
 
 /-- **Theorem `odel:thm:joint`, general form**: any labelled family whose labels
@@ -60,7 +60,7 @@ theorem joint_general {M n μ s : ℕ} (hM : 2 ≤ M) (hMe : Even M) (hn : 1 ≤
   obtain ⟨c, hcount, hc⟩ := Reduction.exists_boolean_program_inner E hE
     (fun x => P.isUnitary_phase (membership x)) hO w hw p
   have hm := two_le_two_pow hμ
-  -- Lines 3887-3894: heralded half measurement, correlation `β` with `halfSign(a_*)`.
+  -- Proof of Theorem `odel:thm:joint`: heralded half measurement, correlation `β` with `halfSign(a_*)`.
   have key : ∀ x, jointCorr ε ≤ halfSign M (oddCand x) *
         (⟪p.eval x φ₀, (herald ∘L outObs e (halfObs M μ s) ∘L herald) (p.eval x φ₀)⟫_ℂ).re ∧
       ‖herald ∘L outObs e (halfObs M μ s) ∘L herald‖ ≤ 1 := fun x =>
@@ -92,16 +92,16 @@ theorem joint_forces {M n μ s : ℕ} (hM : 2 ≤ M) (hMe : Even M) (hn : 1 ≤ 
       rwa [jointFamily_T, unitDirection_jointSol_T hT] at hx
   exact Hamiltonian.native_bound_of_cost A.prog (by linarith)
 
-/-- **The hard family at the parameters** `(s, τ, ḡ)` of lines 3870-3876:
+/-- **The hard family at the parameters** `(s, τ, ḡ)` of the proof of Theorem `odel:thm:joint`:
 `M = jointM ḡ`, `m = 2^{jointMu s}`, `n = jointN τ`, on `[0, τ]` (idle interval,
-lines 3883-3884). -/
+proof of Theorem `odel:thm:joint`). -/
 def jointFamilyAt (s : ℕ) (τ gbar : ℝ) (hs : 4 ≤ s) (hτ : 4 ≤ τ) :
     Family (Promised (jointM gbar) (jointN τ) (2 ^ jointMu s))
       (JointIndex (jointM gbar) (jointMu s) s) (Hamiltonian.Word (jointMu s)) (jointN τ + 2) s :=
   jointFamily (jointM gbar) (jointN τ) (jointMu s) s (one_le_jointMu (by omega))
     (two_pow_jointMu_le (by omega)) τ (jointN_time (by linarith))
 
-/-- **The instance size** (lines 3866-3867, 3876): for `s ≥ 4` and `ḡ ≥ 2`, the hard
+/-- **The instance size** (Theorem `odel:thm:joint`): for `s ≥ 4` and `ḡ ≥ 2`, the hard
 family has `g = √M ∈ [ḡ/√2, ḡ]` (`jointFamilyAt_g`) and dimension
 `|JointIndex| = 2Mm + s ≤ 3 ḡ² s`. -/
 theorem joint_instance_props {s : ℕ} {gbar : ℝ} (hs : 4 ≤ s) (hg : 2 ≤ gbar) :
@@ -118,8 +118,8 @@ theorem joint_instance_props {s : ℕ} {gbar : ℝ} (hs : 4 ≤ s) (hg : 2 ≤ g
   have h2 := mul_le_mul_of_nonneg_right hg2 hs0
   linarith
 
-/-- **`g = √M`** for the hard family at the parameters (lines 3845-3846, 3876): the mass
-`B = 2` equals `√M ‖x(T)‖`, since `‖x(T)‖ = 2/√M` on every input. -/
+/-- **`g = √M`** for the hard family at the parameters (eq. `odel:eq:cancel` and proof of Theorem
+`odel:thm:joint`): the mass `B = 2` equals `√M ‖x(T)‖`, since `‖x(T)‖ = 2/√M` on every input. -/
 theorem jointFamilyAt_g {s : ℕ} {τ gbar ε : ℝ} (h : JointRange s τ gbar ε)
     (x : Promised (jointM gbar) (jointN τ) (2 ^ jointMu s)) :
     (jointFamilyAt s τ gbar h.s_ge h.tau_ge).mass =
@@ -130,17 +130,17 @@ theorem jointFamilyAt_g {s : ℕ} {τ gbar ε : ℝ} (h : JointRange s τ gbar �
     show (jointFamilyAt s τ gbar h.s_ge h.tau_ge).mass = 2 from jointFamily_mass hM]
   field_simp
 
-/-- `β = jointCorr ε ≥ 31/48` for `ε ≤ 1/64` (lines 3889-3894). -/
+/-- `β = jointCorr ε ≥ 31/48` for `ε ≤ 1/64` (proof of Theorem `odel:thm:joint`). -/
 theorem jointCorr_ge {ε : ℝ} (hε : ε ≤ 1 / 64) : 31 / 48 ≤ jointCorr ε := corr_ge hε
 
-/-- **The constant `c_J = 1/400`** (lines 3895-3897): on `JointRange`,
+/-- **The constant `c_J = 1/400`** (proof of Theorem `odel:thm:joint`): on `JointRange`,
 `ḡ √s τ / 400 ≤ β² n √(M m) / 16` (`ODE/Parameters.joint_numeric`). -/
 theorem joint_bound_le {s : ℕ} {τ gbar ε : ℝ} (h : JointRange s τ gbar ε) :
     jointConst * gbar * Real.sqrt s * τ ≤
       jointCorr ε ^ 2 * jointN τ * Real.sqrt ((jointM gbar : ℝ) * 2 ^ jointMu s) / 16 :=
   joint_numeric h.tau_ge h.gbar_ge (jointCorr_ge h.eps_le)
 
-/-- **Theorem `odel:thm:joint`** (lines 3860-3905): for `s ≥ 4`, `τ ≥ 4`, `ḡ ≥ 2`,
+/-- **Theorem `odel:thm:joint`** (Theorem `odel:thm:joint`): for `s ≥ 4`, `τ ≥ 4`, `ḡ ≥ 2`,
 `0 < ε ≤ 1/64`, the joint family is in the class (`η = 1`, `T = τ`, `g ≤ ḡ`;
 `D = 0` is `jointFamily_skew`, `g = √M ∈ [ḡ/√2, ḡ]` is `jointFamilyAt_g` and
 `joint_instance_props`) and forces `ḡ √s τ / 400` matrix queries (explicit constant

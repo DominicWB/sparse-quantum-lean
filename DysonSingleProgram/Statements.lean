@@ -5,29 +5,30 @@ set_option autoImplicit false
 /-!
 # A single heralded program for the Dyson solver: paper-to-Lean entry point
 
-Lemma `odel:lem:dyson` of the manuscript (lines 4591-4604, eq. `odel:eq:dyson`, proof 4605-4690)
-gives a generic sparse-oracle solver with
-`Q_A = O(ḡ e^z [1 + z + L_g/log(e + L_g/z)])`, `z = s η T`, `L_g = log(C ḡ/ε)`; its proof ends with
-amplitude amplification and constant heralded success (lines 4687-4689). Eq. `odel:eq:fixed`
-(lines 4692-4697) and the following sentences (lines 4698-4701) conclude that at fixed `s, τ, ḡ`
-the query count is `O(log(1/ε)/log log(1/ε))`, so that a uniform worst-case lower bound
-proportional to `ḡ √s τ log(ḡ/ε)` is false under these access assumptions. The library
-`ODELowerBoundExtensions` proves the lemma as a public trial family with the released complete
-certificate (`ODELowerBoundExtensions.Dyson.dyson`, `Dyson.family_dyson`) and as a retry protocol
-(`Dyson.retrySolver_dyson`, `Dyson.retry_fixed`, `Dyson.no_retry_witnesses`). This library gives
-the single-program form: one heralded program in the solver class of the ODE lower bounds,
+Lemma `odel:lem:dyson` of the manuscript (eq. `odel:eq:dyson` and its proof) gives a generic
+sparse-oracle solver with `Q_A = O(ḡ e^z [1 + z + L_g/log(e + L_g/z)])`, `z = s η T`,
+`L_g = log(C ḡ/ε)`; its proof ends with amplitude amplification and constant heralded success. Eq.
+`odel:eq:fixed` and the following sentences conclude that at fixed `s, τ, ḡ` the query count is
+`O(log(1/ε)/log log(1/ε))`, so that a
+uniform worst-case lower bound proportional to `ḡ √s τ log(ḡ/ε)` is false under these access
+assumptions. The library `ODELowerBoundExtensions` proves the lemma (with the source access of the
+released time-dependent solver, a special case of the source interface used in the manuscript's
+proof; see the guide of `ODELowerBoundExtensions`) as a public trial family with the released
+complete certificate (`ODELowerBoundExtensions.Dyson.dyson`, `Dyson.family_dyson`) and as a retry
+protocol (`Dyson.retrySolver_dyson`, `Dyson.retry_fixed`, `Dyson.no_retry_witnesses`). This library
+gives the single-program form: one heralded program in the solver class of the ODE lower bounds,
 `SparseLowerBounds.ODE.Solver`, and the consequences of eq. `odel:eq:fixed` for that class. All
 declarations below are in the namespace `DysonSingleProgram`.
 
 * Lemma `odel:lem:dyson`, eq. `odel:eq:dyson`, single program: `solver_dyson`, from
   `exists_solver_of_shape` (the program is named: `fourAttempts`).
 * Non-vacuity: `solver_dyson_joint`.
-* Eq. `odel:eq:fixed` for single programs: `solver_fixed`; the consequence of lines 4698-4701:
+* Eq. `odel:eq:fixed` for single programs: `solver_fixed`; the consequence stated after it:
   `DysonSingleProgram.no_uniform_lower_bound` (the released
   `ODELowerBoundExtensions.Dyson.no_uniform_lower_bound` is its retry-protocol counterpart),
   `no_witnesses` (single-program witnesses `Family.Witnesses`) and `no_tree_witnesses`
   (adaptive-tree witnesses `AdaptiveODELowerBound.Model.TreeWitnesses`).
-* The amplification shape of the released Dyson trials (lines 4687-4689):
+* The amplification shape of the released Dyson trials (proof of Lemma `odel:lem:dyson`):
   `Explicit.dyson_grover`, `Explicit.family_dyson_grover`; the bound of eq. `odel:eq:dyson` on
   the released query shape, `Explicit.bound_le_dysonBound`; the released statements recovered as
   corollaries `Explicit.dyson_of_grover`, `Explicit.family_dyson_of_grover` (without
@@ -38,13 +39,12 @@ declarations below are in the namespace `DysonSingleProgram`.
 with `T = F.T > 0`, and its sampled-time access `F.access ι` (value oracle and row/column
 locators with a coherent time address, any branch register `ι`).
 
-**Algorithm model.** `SparseLowerBounds.ODE.Solver ι F G ε`: one program `prog` over
-`F.access ι`, an input-independent seed of norm at most one, an isometric readout onto system
-`ℂ^N` ⊗ garbage `G`, an input-independent herald projection with success probability at least
-`2/3` on every input and, for every solution, conditional accuracy `ε` for `x(T)/‖x(T)‖`
-(`Readout.HeraldedAccurate`, the observable form of conditional trace distance, lines
-4111-4113). The count is `prog.count`: all oracle calls, inverse calls included; it also bounds
-`prog.labelCount .value`.
+**Algorithm model.** `SparseLowerBounds.ODE.Solver ι F G ε`: one program `prog` over `F.access ι`,
+an input-independent seed of norm at most one, an isometric readout onto system `ℂ^N` ⊗ garbage `G`,
+an input-independent herald projection with success probability at least `2/3` on every input and,
+for every solution, conditional accuracy `ε` for `x(T)/‖x(T)‖` (`Readout.HeraldedAccurate`, the
+observable form of conditional trace distance, Section `odel:sec:main`). The count is `prog.count`:
+all oracle calls, inverse calls included; it also bounds `prog.labelCount .value`.
 
 **Guarantees.**
 
@@ -142,7 +142,7 @@ Every theorem of the library, and every `Prop`-valued field of `GroverShape` and
   conclusions, with the bound from `Explicit.bound_le_dysonBound` and without using
   `Dyson.dyson` or `Dyson.family_dyson`. The released files are unchanged.
 * The occupation-number configurations of the released proof are kept, not the manuscript's
-  literal sorted labels (lines 4636-4648).
+  literal sorted labels (proof of Lemma `odel:lem:dyson`).
 * `no_witnesses` refutes the uniform bound for the single-program class; through
   `ODELowerBoundExtensions.Release.retryWitnesses_witnesses` it implies
   `ODELowerBoundExtensions.Dyson.no_retry_witnesses`, which is not restated. `no_tree_witnesses`
@@ -154,7 +154,7 @@ Every theorem of the library, and every `Prop`-valued field of `GroverShape` and
 
 **Not formalised.**
 
-* Circuit size and time-register size of the single program (lines 4602-4603 and 4705-4707;
+* Circuit size and time-register size of the single program (Lemma `odel:lem:dyson`;
   the manuscript claims no bound on them).
 * A single-program form for the general certified-mesh class of Lemma `odel:lem:dyson`
   (time-indexed native input, mesh, cell-to-sample map, source interfaces): the package has no
@@ -162,12 +162,12 @@ Every theorem of the library, and every `Prop`-valued field of `GroverShape` and
 * An adaptive-tree statement of the upper bound (`AdaptiveODELowerBound.Model.TreeSolver`); it
   follows from `Dyson.retrySolver_dyson` through `AdaptiveODELowerBound.Model.retryToTree`, and
   only the negative consequence `no_tree_witnesses` is stated.
-* The literal sorted-label sampling of the manuscript's proof (lines 4636-4648).
+* The literal sorted-label sampling of the manuscript's proof (proof of Lemma `odel:lem:dyson`).
 * The remark that a constant-coefficient upper bound alone would not exclude the worst-case
-  assertion for the time-dependent class (lines 4702-4704).
-* A comparison with eq. `ode:eq:simple` in a joint large-parameter regime (lines 4705-4706; the
-  manuscript notes that the lemma's exponential `e^{sτ}` cost gives no improved comparison
-  there).
+  assertion for the time-dependent class (the text after eq. `odel:eq:fixed`).
+* A comparison with eq. `ode:eq:simple` in a joint large-parameter regime (the text after eq.
+  `odel:eq:fixed`; the manuscript notes that the lemma's exponential `e^{sτ}`
+  cost gives no improved comparison there).
 * Witnesses outside `SparseLowerBounds.ODE.Family` (generators that are not piecewise constant
   with public breakpoints): `no_witnesses` refutes the witness notion of the package's lower
   bounds.
@@ -177,15 +177,12 @@ Every theorem of the library, and every `Prop`-valued field of `GroverShape` and
 `AdaptiveODELowerBound` directly, and use declarations of `TimeDependentODE`,
 `TimeDependentExtensions`, `LinearSystemLowerBound` and `AdaptiveHamiltonianLowerBound` through
 them; these libraries are only imported, and no released module is changed.
-`ODELowerBoundExtensions/Statements.lean` predates this library: its notes that no
-single-program `Solver` form of the Dyson algorithm is given, and that the uniform bound is not
-refuted for the single-program `Family.Forces`/`Family.Witnesses` class alone, are superseded
-here (as is the scope remark of `ODELowerBoundExtensions/Dyson/Family/Retry.lean`).
-`AdaptiveODELowerBound/Statements.lean` notes that the adaptive-tree form of the consequence of
-eq. `odel:eq:fixed` follows from `Dyson.no_retry_witnesses` and
+`ODELowerBoundExtensions/Statements.lean` predates this library: its notes that no single-program
+`Solver` form of the Dyson algorithm is given, and that the uniform bound is not refuted for the
+single-program `Family.Forces`/`Family.Witnesses` class alone, are superseded here (as is the scope
+remark of `ODELowerBoundExtensions/Dyson/Family/Retry.lean`).
+`AdaptiveODELowerBound/Statements.lean` notes that the adaptive-tree form of the consequence of eq.
+`odel:eq:fixed` follows from `Dyson.no_retry_witnesses` and
 `AdaptiveODELowerBound.Model.treeWitnesses_retryWitnesses` but does not restate it; it is stated
-here as `no_tree_witnesses` (from `no_witnesses`). Line numbers in this guide and in the module
-docstrings refer to an earlier manuscript version (in Part `odel` they are about 550 lines lower
-than in the v15 manuscript accompanying this release); the paper labels are the stable
-references.
+here as `no_tree_witnesses` (from `no_witnesses`). References to the manuscript use its labels.
 -/

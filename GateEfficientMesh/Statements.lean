@@ -21,37 +21,39 @@ import GateEfficientMesh.NonVacuity
 /-!
 # Certified and nonuniform meshes at gate level: paper-to-Lean entry point
 
-Theorem `hs:thm:gates` of the accompanying paper (manuscript lines 2754-2799) states, for the
-time-dependent setting of Theorem `hs:thm:time` on a uniform mesh of `M = 2^m ≥ 2` slots, that
-the circuit with slot-selected private Cayley operations has full-output error at most `ε`
-relative to `U_H(T, 0)` (lines 2789-2797; proof lines 3022-3040). Theorem `ode:thm:gates`
-(lines 4335-4377) requires, for time-dependent generators, "the Lipschitz bounds and
-represented-sample certificates of Lemma `ode:lem:gate-select`; more generally, a certificate
-for the same uniform meshes suffices" (lines 4341-4343). The paragraph "Regularity and coherent
-parameters" after Theorem `hs:thm:time` (lines 2420-2434) covers piecewise Lipschitz paths with
-the breakpoints in the mesh and, for an integrable Hermitian path, a certified bound on
-`∑_r ∫_{t_r}^{t_{r+1}} ‖H(u) - H̃_r‖ du`. The released gate-level endpoints prove the
-time-dependent parts of both theorems for Lipschitz paths with uniform sample errors on uniform
-meshes (formalisation summary, lines 1380-1500); the gate analyses do not cover "nonuniform
-meshes" (lines 1628-1645), and the scope paragraph after the proof of `ode:thm:gates`
-(lines 4573-4587) notes that "an arbitrary nonuniform mesh obtained by inserting breakpoints does
-not automatically supply the equal-angle boundary circuit used here".
+Theorem `hs:thm:gates` of the accompanying paper is "a time-independent result". The package extends
+it by combining Theorem `hs:thm:time` with the circuit of Theorem `hs:thm:gates` (single-label case
+of Lemma `ode:lem:gate-select`): on a uniform mesh
+of `M = 2^m ≥ 2` slots, the circuit with slot-selected private Cayley operations has full-output
+error at most `ε` relative to `U_H(T, 0)`. Theorem `ode:thm:gates` requires, for time-dependent
+generators, "the Lipschitz bounds and represented-sample certificates of Lemma
+`ode:lem:gate-select`; more generally, a certificate for the same uniform meshes suffices". The
+paragraphs after the proof of Theorem `hs:thm:time` cover piecewise Lipschitz paths with the
+breakpoints in the mesh and, for an integrable Hermitian path, a certified bound on
+`∑_r ∫_{t_r}^{t_{r+1}} ‖H(u) - H̃_r‖ du`. The released gate-level endpoints prove this package
+extension and the time-dependent part of Theorem `ode:thm:gates` for Lipschitz paths with uniform
+sample errors on uniform meshes (for `ode:thm:gates`, the uniform-mesh conditions of Appendix
+`app:formalisation`), and the scope paragraph after the proof of `ode:thm:gates` notes that "an
+arbitrary nonuniform mesh obtained by inserting breakpoints does not automatically supply the
+equal-angle boundary circuit used here".
 
-This library proves the gate-level time-dependent theorems, for Hamiltonians and for
-dissipative equations, with exact gates, native implementations, binary sparse data and over
-finite gate sets, (1) under the integrated sample-error certificate on the uniform slots of the
-released circuits, against integral-sense and classical piecewise propagators (Hamiltonians)
-and classical piecewise solutions (dissipative equations), with the released circuits and
-counts and only the subdivision condition on the slot exponent, and (2) beyond the paper's gate
-theorems, which are stated on uniform meshes, on nonuniform meshes with breakpoints, as
-corollaries: the mesh is refined into the uniform clock of the released circuits (so the
-equal-angle boundary circuit is the released one), every slot uses the samples of the mesh
-interval containing it, and the counts are the released counts with this `m`, without a factor
-`M`. The certified error is the integrated certificate on the mesh plus a rounding term of
-order `M T Λ / 2^m` for Hamiltonians; for dissipative equations it also contains the
-left-endpoint source quadrature of the mesh (at most `2 Λ ∑_q Δ_q² ‖b̃_q‖`, independent of `m`).
-The released libraries are unchanged. No result from another paper is used. Manuscript lines
-refer to `sparse_quantum_algorithms.tex` (v15); the labels are the stable references.
+This library proves the gate-level time-dependent theorems, for Hamiltonians and for dissipative
+equations, with exact gates, native implementations, binary sparse data and over finite gate sets
+(for Hamiltonians the package extension above; for dissipative equations a partial formalisation,
+under this package's format hypotheses, of the finite-set statement of Theorem `ode:thm:gates`),
+(1) under the integrated sample-error certificate on the uniform slots of the
+released circuits, against integral-sense and classical piecewise propagators (Hamiltonians) and
+classical piecewise solutions (dissipative equations), with the released circuits and counts and
+only the subdivision condition on the slot exponent, and (2) beyond the uniform meshes of Theorem
+`ode:thm:gates` and of
+the Hamiltonian extension, on nonuniform meshes with breakpoints, as corollaries: the mesh is
+refined into the uniform clock of the released circuits (so the equal-angle boundary circuit is the
+released one), every slot uses the samples of the mesh interval containing it, and the counts are
+the released counts with this `m`, without a factor `M`. The certified error is the integrated
+certificate on the mesh plus a rounding term of order `M T Λ / 2^m` for Hamiltonians; for
+dissipative equations it also contains the left-endpoint source quadrature of the mesh (at most
+`2 Λ ∑_q Δ_q² ‖b̃_q‖`, independent of `m`). The released libraries are unchanged. No result from
+another paper is used. References to the manuscript use its labels.
 
 **Naming convention.** The Hamiltonian declarations are in the namespace
 `SparseHamiltonian.GateMesh`, the ODE declarations in `SparseHamiltonian.GateMesh.ODE`; they are
@@ -386,6 +388,15 @@ Every theorem of the library is axiom-audited in `GateEfficientMesh/Audit.lean`.
 
 **Formalisation choices.**
 
+* Sample positivity (a formal restriction): the time-dependent ODE solvers assume `L_r ≥ 0` (for
+  binary data: accretive dissipative parts) for every represented sample, the hypothesis of the
+  formal versions of Theorem `ode:thm:time`, which that theorem of the manuscript does not make (it
+  asks of the represented samples only the uniform moment and norm promises; see
+  `TimeDependentODE/Statements.lean`). `RepresentedSampleODE` lifts it for the query-level mesh
+  solvers and the common-mesh gate solver; the conformance endpoints
+  `ManuscriptConformance.ode_thm_time`, `ode_thm_gates_time_cert` and
+  `ode_thm_gates_time_decoder_cert` hold for represented samples of any sign. The manuscript's
+  theorems are not changed.
 * Nonuniform meshes are refined into the uniform clock of the released circuits through the
   slot-to-sample map `slotPiece`; all slots keep the released Cayley step `α T/2^m`, so the
   boundary circuit, the counts and the subdivision condition are the released ones, and the mesh

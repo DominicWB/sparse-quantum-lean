@@ -7,12 +7,13 @@ set_option synthInstance.maxSize 4096
 /-!
 # Call forms of the coherent-selection family
 
-The native access of the lower bound comes "with inverses and coherent controls" (the
-manuscript, lines 2078-2082). This module admits every call form
+The native access of the lower bound comes with inverses and the controls of Lemma
+`access:lem:control` (the manuscript, Section `hsl:sec:main`). This module admits every call form
 (`AdaptiveODELowerBound.Access.callFamily`: plain, inverse, controlled on a control qubit,
 controlled inverse) of every label of the released selection family
 `TimeDependentExtensions.MeshSelect.alignedOracle (ι := ι) (constData D M) N γ ρ T ε'` on the
-constant time, mixed and precision data (lines 1505-1516), each value call counted once:
+constant time, mixed and precision data (the paragraphs after the proof of Theorem `hs:thm:time`),
+each value call counted once:
 
 * `main_max_calls_select`, `main_max_calls_windows`: programs over the call forms with
   isometric encodings `E` of `ℂ^ι ⊗ ℂ^n` into `ℂ² ⊗ workspace`, meeting `SelectCriterion`

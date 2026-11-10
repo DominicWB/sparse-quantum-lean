@@ -6,10 +6,9 @@ set_option autoImplicit false
 /-!
 # Heralded accuracy of the single program
 
-Manuscript lines 4111-4113 (Section `odel:sec:main`): "The solver produces a success flag of
-probability at least `2/3` on
-every input. Conditional on success, its output density operator is within trace distance `ε` of
-the normalised solution." The single-program class `SparseLowerBounds.ODE.Solver` states this as
+Manuscript: Section `odel:sec:main`, "A solver must herald success with probability at least `2/3`
+on every input. Its conditional output density operator must be within trace distance `ε` of the
+normalised solution." The single-program class `SparseLowerBounds.ODE.Solver` states this as
 `Readout.HeraldedAccurate` (observable form, multiplied through by the success probability).
 
 * `outObs_endpointReadout_one`: the clean endpoint readout `endpointReadout 1 i₀` measures a

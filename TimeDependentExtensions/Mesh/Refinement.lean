@@ -5,14 +5,13 @@ set_option autoImplicit false
 /-!
 # Uniform refinement of a nonuniform mesh
 
-A mesh `0 = t₀ ≤ t₁ ≤ ⋯ ≤ t_M = T` (`IsMesh`) carries one represented sample per interval.
-The chronological clock of the released time-dependent simulation runs on a uniform grid of
-`N` slots of length `T / N`. Each slot `k` is assigned the interval containing its left
-endpoint (`slotPiece`; the manuscript uses such a "known map from each new time label to its
-original sample label" in the proof of `hs:cor:hybrid`): the slots
-`⌈t_r N / T⌉ ≤ k < ⌈t_{r+1} N / T⌉` belong to interval `r`
-(`slotPiece_eq`), so the ordered product over the slots splits into one block per interval
-(`evolution_blocks`, `refined_evolution_eq`).
+A mesh `0 = t₀ ≤ t₁ ≤ ⋯ ≤ t_M = T` (`IsMesh`) carries one represented sample per interval. The
+chronological clock of the released time-dependent simulation runs on a uniform grid of `N` slots of
+length `T / N`. Each slot `k` is assigned the interval containing its left endpoint (`slotPiece`;
+the proof of `hs:cor:hybrid` refines in the same way: "on each new interval choose the original
+sample containing its left endpoint"): the slots `⌈t_r N / T⌉ ≤ k < ⌈t_{r+1} N / T⌉` belong to
+interval `r` (`slotPiece_eq`), so the ordered product over the slots splits into one block per
+interval (`evolution_blocks`, `refined_evolution_eq`).
 
 On interval `r` the slots evolve under the sample `A_r` for `n_r T / N`, which differs from
 the interval length `t_{r+1} - t_r` by less than `T / N` (`blockLength_sub_lt`). Hence, for

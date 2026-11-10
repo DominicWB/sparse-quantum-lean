@@ -8,19 +8,16 @@ set_option autoImplicit false
 /-!
 # The lower half of `Θ(√N)` for adaptive algorithms and controlled calls
 
-Corollary `hs:cor:unitary` of the manuscript (lines 1647-1666) ends: "At fixed
-constant error, the worst-case query complexity is `Θ(√N)`." The lower half is
-stated with the reduction to unstructured search (lines 1711-1718), and the
-corollary counts inverse calls (line 1662). Controlled and controlled-inverse
-calls and adaptive algorithms follow the convention of the lower-bound sections
-of the manuscript (access "with inverses and coherent controls", line 2080;
-"Randomised or adaptive algorithms are covered by purification and deferred
-measurement", proof of Lemma `hsl:lem:precision`, lines 2363-2364). The
-non-adaptive lower half is `UnitaryImplementationExtensions.LowerBound`; this
-module proves it for the adaptive protocols `SparseLinearSystems.Protocol.Tree`
-over the released entry oracle of the search family,
-`UnitaryEntryOracle.oracle (searchData N) γ η t ε` (for all parameters), and
-for the controlled and controlled-inverse forms of its calls.
+Corollary `hs:cor:unitary` of the manuscript ends: "the constant-error worst-case complexity is
+`Θ(√N)`." The lower half is stated with the reduction to unstructured search, and the corollary
+counts inverse calls. Controlled and controlled-inverse calls and adaptive algorithms follow the
+convention of the lower-bound sections of the manuscript (access with inverses and the controls of
+Lemma `access:lem:control`, Section `hsl:sec:main`; "Purification and deferred measurement include
+adaptive and randomised algorithms", proof of Lemma `hsl:lem:precision`). The non-adaptive lower
+half is `UnitaryImplementationExtensions.LowerBound`; this module proves it for the adaptive
+protocols `SparseLinearSystems.Protocol.Tree` over the released entry oracle of the search family,
+`UnitaryEntryOracle.oracle (searchData N) γ η t ε` (for all parameters), and for the controlled and
+controlled-inverse forms of its calls.
 
 **Algorithms.** A labelled unitary family `O` on a workspace `W`, every label
 `l` implemented on an isometric encoding `Enc` by at most `w l` calls of the
@@ -39,7 +36,7 @@ through an isometry `e` into system ⊗ garbage, is `ε₀`-accurate
 `U_m |0⟩`, the action of the target unitary on the input `|0⟩` of the
 reduction. These bounds are positive for `ε₀ < 1/2` and empty at `ε₀ = 1/2`,
 where the pair-observable gap vanishes. The manuscript's error notion is the
-operator norm `‖A_U - U‖ ≤ ε` (lines 1652-1654). For a unitary program,
+operator norm `‖A_U - U‖ ≤ ε` (eq. `hs:eq:unitaryerror`). For a unitary program,
 operator-norm error `ε` gives `ε`-accuracy of the output on `|0⟩` by composing
 the endpoint readout `SparseLowerBounds.Hamiltonian.accurate_of_endpoint` with
 `AdaptiveHamiltonianLowerBound.densityAccurate_pure_iff` (a composition not

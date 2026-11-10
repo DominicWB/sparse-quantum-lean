@@ -6,15 +6,15 @@ import Mathlib.Analysis.SpecialFunctions.Log.Base
 
 The manuscript fixes the filter repetitions and the filter degree as
 
-`k = ⌈4W/Q + log₂(4096/ε)⌉`,   `d = k (b - 1)`,   `b = 32 Q`,
+`k = ⌈4W/Q + log₂(4096/ε)⌉`,   `d = k (b_av - 1)`,   `b_av = 32 Q`,
 
 and takes the filter accuracy `δ = ε/8` (equation `hs:eq:kchoice` with `δ = ε/8`). The released
 formal schedule is `k_Lean = 1 + ⌈4W/Q + 2 log(3/ε)⌉`, `d_Lean = k_Lean (⌈32Q⌉ - 1)`; neither
 dominates the other for all `ε`.
 
 * `depthMs`, `degreeMs`: the manuscript's `k` and `d = k (⌈32Q⌉ - 1)`; `degreeMs_of_nat`: when
-  `32 Q = b` is a natural number, `d = k (b - 1)`, the printed formula; `degreeMs_natCast`: at
-  the manuscript's integer `Q`, `d = k (32 Q - 1)`.
+  `32 Q = b` is a natural number (the manuscript's `b_av`), `d = k (b - 1)`, the printed formula;
+  `degreeMs_natCast`: at the manuscript's integer `Q`, `d = k (32 Q - 1)`.
 * `depthMs_admissible`: the manuscript's `k` is an admissible depth (`GateSchedule.Admissible`)
   at the filter accuracy `ε/8`, for every `Q ≥ 1`, `W ≥ 0` and `0 < ε ≤ 1`: `k ≥ 1`, the decay
   `prefactor(Q, W) (1/4)^k ≤ ε/8` (through `SharpFilterSchedule.log_prefactor_ratio_le` and
@@ -39,7 +39,8 @@ theorem length_of_nat (b : ℕ) : SharpFilterSchedule.length ((b : ℝ) / 32) = 
   change ⌈32 * ((b : ℝ) / 32)⌉₊ = b
   rw [show 32 * ((b : ℝ) / 32) = b by ring, Nat.ceil_natCast]
 
-/-- **The printed degree**: when `32 Q = b` is a natural number, `d = k (b - 1)`. -/
+/-- **The printed degree**: when `32 Q = b` is a natural number (the manuscript's `b_av`),
+`d = k (b - 1)`. -/
 theorem degreeMs_of_nat (b : ℕ) (W ε : ℝ) :
     degreeMs ((b : ℝ) / 32) W ε = depthMs ((b : ℝ) / 32) W ε * (b - 1) := by
   rw [degreeMs, length_of_nat]
@@ -50,7 +51,7 @@ theorem length_natCast (n : ℕ) : SharpFilterSchedule.length (n : ℝ) = 32 * n
   rw [show 32 * (n : ℝ) = ((32 * n : ℕ) : ℝ) by push_cast; ring, Nat.ceil_natCast]
 
 /-- **The printed degree at the manuscript's integer `Q`** (`Q = ⌈max{1, γ√s}⌉`,
-equation `hs:eq:params`): `d = k (32 Q - 1)`. -/
+eq. `ov:eq:Q`): `d = k (32 Q - 1)`. -/
 theorem degreeMs_natCast (n : ℕ) (W ε : ℝ) :
     degreeMs (n : ℝ) W ε = depthMs (n : ℝ) W ε * (32 * n - 1) := by
   rw [degreeMs, length_natCast]

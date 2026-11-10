@@ -7,9 +7,10 @@ set_option autoImplicit false
 /-!
 # Call forms of the spectated native primitives are admissible
 
-Manuscript lines 2388-2390 and 2594-2597 (Hamiltonian lower bound: "with inverses and coherent
-controls"; inverse and controlled location calls reveal no hidden information) and lines
-4105-4108 (the same access for the ODE class).
+Manuscript: Section `hsl:sec:main` and the chain construction of Section `part:hsl`
+(Hamiltonian lower bound: public in-place permutation locators, "their inverses and their
+controls"; the location calls carry no hidden information) and Section `odel:sec:main` (the same
+access for the ODE class).
 
 The adaptive Hamiltonian lower bound admits every label that is a native call
 (`AdaptiveHamiltonianLowerBound.Access.NativeCall`: in a fixed isometric layout of the workspace

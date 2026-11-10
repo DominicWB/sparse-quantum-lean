@@ -56,7 +56,8 @@ decomposition of controlled gates are hypotheses (`Synthesis`,
 #guard_msgs (whitespace := lax) in
 #print axioms SparseHamiltonian.GateSynth.gates_log_le
 
-/-! ### Theorem `ode:thm:gates` over a finite gate set -/
+/-! ### Theorem `ode:thm:gates` over a finite gate set (partial formalisation, under this package's
+format hypotheses, of its finite-set statement) -/
 
 /-- info: 'SparseHamiltonian.GateSynth.native_ode_solver_synth' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in

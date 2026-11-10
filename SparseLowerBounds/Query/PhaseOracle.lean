@@ -10,8 +10,8 @@ A Boolean oracle for a string `y : I → Bool` is
 `phase P y = 1 - 2 Σ_{i, y i} P i`, for a fixed family `P` of pairwise
 orthogonal orthogonal projections on an arbitrary Hilbert workspace `K`.
 
-This one form covers the usual Boolean access models (manuscript lines
-5132-5133 and 2143-2146). The XOR oracle `|i, z⟩ ↦ |i, z ⊕ y i⟩` equals
+This one form covers the usual Boolean access models (the oracles of Lemma
+`qlsl:lem:xor` and of Section `hsl:sec:main`). The XOR oracle `|i, z⟩ ↦ |i, z ⊕ y i⟩` equals
 `phase P y` with `P i = |i⟩⟨i| ⊗ |−⟩⟨−|`, because `X = 1 - 2 |−⟩⟨−|` on the
 response qubit (the Hadamard-basis form used by the manuscript); any other
 fixed basis change is a free gate of an `OracleCircuit.Program`. A controlled
@@ -163,7 +163,7 @@ def bitOracle (P : ProjFamily K (Fin n)) (x : Fin n → Bool) : K →L[ℂ] K :=
   P.phase x
 
 /-- The hidden parity `σ(j) = (-1)^{j_1 + ⋯ + j_n}` of `qlsl:lem:xor` and
-`hsl:lem:search` (lines 5125-5131 and 2143). -/
+`hsl:lem:search`. -/
 def parity (j : Fin n → Fin m) : ℝ := (-1) ^ (∑ k, (j k : ℕ))
 
 theorem parity_eq_prod (j : Fin n → Fin m) : parity j = ∏ k, (-1 : ℝ) ^ (j k : ℕ) :=

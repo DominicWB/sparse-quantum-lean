@@ -7,13 +7,13 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # Lemma `odel:lem:herald` for retry protocols: the `g = 1` families
 
-Manuscript lines 3954-3999. The `g = 1` families of `SparseLowerBounds/ODE/Precision`
-(`timeFamilyAt`, `mixedFamilyAt`, `precisionFamilyAt`: the hard Hamiltonian data read as
-homogeneous constant-coefficient ODEs with generator `iH`, `D = 0`, `‖x(T)‖ = 1`) force the
-per-family bounds of eqs. `hsl:eq:timelower`, `hsl:eq:mixrbound`, `hsl:eq:rbound` and
-`hsl:eq:failedmix` on retry protocols, with the constants of the Hamiltonian lower bound. The
-combined form `c₀ (√s τ + √(sτr) + r)` of eq. `odel:eq:hsbound` and the fourth sentence of
-`odel:thm:combined` are `herald_max_retry`, `herald_witness_retry` and
+Manuscript: eq. `odel:eq:hsbound` and Lemma `odel:lem:herald`. The `g = 1` families of
+`SparseLowerBounds/ODE/Precision` (`timeFamilyAt`, `mixedFamilyAt`, `precisionFamilyAt`: the hard
+Hamiltonian data read as homogeneous constant-coefficient ODEs with generator `iH`, `D = 0`,
+`‖x(T)‖ = 1`) force the per-family bounds of eqs. `hsl:eq:timelower`, `hsl:eq:mixrbound`,
+`hsl:eq:rbound` and `hsl:eq:failedmix` on retry protocols, with the constants of the Hamiltonian
+lower bound. The combined form `c₀ (√s τ + √(sτr) + r)` of eq. `odel:eq:hsbound` and the fourth
+sentence of `odel:thm:combined` are `herald_max_retry`, `herald_witness_retry` and
 `precision_terms_witness_retry` in `Release/Theorem` (they use `forces_or_of_max_retry`).
 
 Route. A retry protocol `p` is the adaptive protocol `Tree.final p` of
@@ -45,16 +45,16 @@ section Transfer
 variable {X N Z : Type*} [Fintype N] [DecidableEq N] [Fintype Z] [AddCommGroup Z] {s' : ℕ}
   (D : Data X N Z s') (T : ℝ) (hT : 0 ≤ T) (x₀ : EuclideanSpace ℂ N)
 
-/-- **Retry-protocol transfer** (the retry analogue of `SparseLowerBounds.ODE.forces_of_spec`,
-lines 3966-3998): if every adaptive protocol over an oracle family whose labels are admissible
-for `D` with the value-query weight, heralding success with probability `≥ 2/3` and
-`ε`-accurate for `e^{-iTH_x} x₀`, makes at least `b` value queries in the worst case, then
-`hamFamily D T x₀` retry-forces `b`. The sampled-time access is the spectated access
-`specOracles (ι × Fin 1) D` (`access_hamFamily`), admissible when the locators of `D` are
-input-independent (`Access.admissible_specOracles`); a retry protocol is the adaptive protocol
-`Tree.final` with the same success mass, conditional density and worst-case cost; accuracy for
-`x(T)/‖x(T)‖` is accuracy for the unit vector `x(T) = e^{-iTH_x} x₀`; and the total count is at
-least the value count (`worstCost_mono`). -/
+/-- **Retry-protocol transfer** (the retry analogue of `SparseLowerBounds.ODE.forces_of_spec`, Lemma
+`odel:lem:herald`): if every adaptive protocol over an oracle family whose labels are admissible for
+`D` with the value-query weight, heralding success with probability `≥ 2/3` and `ε`-accurate for
+`e^{-iTH_x} x₀`, makes at least `b` value queries in the worst case, then `hamFamily D T x₀`
+retry-forces `b`. The sampled-time access is the spectated access `specOracles (ι × Fin 1) D`
+(`access_hamFamily`), admissible when the locators of `D` are input-independent
+(`Access.admissible_specOracles`); a retry protocol is the adaptive protocol `Tree.final` with the
+same success mass, conditional density and worst-case cost; accuracy for `x(T)/‖x(T)‖` is accuracy
+for the unit vector `x(T) = e^{-iTH_x} x₀`; and the total count is at least the value count
+(`worstCost_mono`). -/
 theorem retryForces_of_tree {b : ℝ} (hH : ∀ x, (D.matrix x).IsHermitian) (hx₀ : ‖x₀‖ = 1)
     (hrow : ∀ x x', D.rowOracle x = D.rowOracle x')
     (hcol : ∀ x x', D.columnOracle x = D.columnOracle x')

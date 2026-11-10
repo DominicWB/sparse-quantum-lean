@@ -7,23 +7,24 @@ set_option synthInstance.maxSize 4096
 /-!
 # Theorem `hsl:thm:main` for gate-level circuits with private operations realised within `ξ`
 
-Theorem `hsl:thm:main` (the manuscript, line 2102, eq. `hsl:eq:main`) applies to the
-time-dependent classes with time-independent hard instances (lines 1513-1516). The manuscript's
-gate model (lines 1805-1812) realises each controlled private operation with error at most `ξ`
-in the ancilla convention (lines 511-533), at a primitive-oracle cost independent of `ξ`. The
-manuscript states this gate model for time-independent Hamiltonians (line 1849); its use for the
-package's slot-selected time-dependent circuits (`SparseHamiltonian.GateCircuit.SlotSim.runT`),
-as in `Gate.Bound`, extends lines 1513-1516, and the hard paths are constant in time. For these
+Theorem `hsl:thm:main` (the manuscript, eq. `hsl:eq:main`) applies to the time-dependent classes
+with time-independent hard instances (the paragraphs after the proof of Theorem `hs:thm:time`). The
+manuscript's gate model (Section `hs:sec:gates`) realises each controlled private operation with
+error at most `ξ` in the ancilla convention (the convention of eq. `access:eq:full-output`), at a
+primitive-oracle cost independent of `ξ`. The manuscript states this gate model for time-independent
+Hamiltonians (Theorem `hs:thm:gates`); its use for the package's slot-selected time-dependent
+circuits (`SparseHamiltonian.GateCircuit.SlotSim.runT`), as in `Gate.Bound`, extends the remark
+after the proof of Theorem `hs:thm:time`, and the hard paths are constant in time. For these
 circuits this module states Theorem `hsl:thm:main` under that model (`ApproxRealization`).
 
-The error hypothesis is placed on the ideal circuit, the one running the exact private
-operations, with endpoint error `ε₀`. The circuit actually executed runs the realised
-operations; by `exists_approxProgram` its endpoint error is at most `ε₀ + nPriv · ξ`, and the
-bound holds whenever this is at most an error `ε` in the range of Theorem `hsl:thm:main`. This is
-how the manuscript adds up its errors in Theorem `hs:thm:gates` (lines 1814-1851, accounting
-at lines 1823-1835: `ξ = ε/(24d)` for at most `6d` private operations, full output error at most
-`ε`). A form whose hypothesis bounds the endpoint error of the executed circuit directly is not
-stated here. Each of the three families has its own `ε₀` and `ξ`; only `q` and `ε` are shared.
+The error hypothesis is placed on the ideal circuit, the one running the exact private operations,
+with endpoint error `ε₀`. The circuit actually executed runs the realised operations; by
+`exists_approxProgram` its endpoint error is at most `ε₀ + nPriv · ξ`, and the bound holds whenever
+this is at most an error `ε` in the range of Theorem `hsl:thm:main`. This is how the manuscript adds
+up its errors in Theorem `hs:thm:gates` (accounting in Theorem `hs:thm:gates`: `ξ = ε/(24d)` for at
+most `6d` private operations, full output error at most `ε`). A form whose hypothesis bounds the
+endpoint error of the executed circuit directly is not stated here. Each of the three families has
+its own `ε₀` and `ξ`; only `q` and `ε` are shared.
 
 * `main_max_gate_tolerant`: for gate-level circuits on the time, mixed and precision families
   whose private operations are realised within `ξ_F` by at most `q` value calls, each with

@@ -4,14 +4,14 @@ import TimeDependentExtensions.Mesh.Refinement
 set_option autoImplicit false
 
 /-!
-# The slot schedule of a configuration (`odel:lem:dyson`, lines 4200-4206)
+# The slot schedule of a configuration (`odel:lem:dyson`)
 
-The SELECT circuit of the Dyson LCU has `K` factor slots, executed in the order `0, 1, …, K-1`.
-For a configuration `c` of degree `k ≤ K`, slot `j < k` applies the block-encoded matrix of the
-cell `cell c j` (the `j`-th entry of the sorted label sequence of `c`), and the slots `j ≥ k` are
-idle (identity). The cell of a slot is public and computed reversibly from the label (line 4202,
-"sort a working copy reversibly while retaining the original labels"); here it is a known
-function of the configuration register.
+The SELECT circuit of the Dyson LCU has `K` factor slots, executed in the order `0, 1, …, K-1`. For
+a configuration `c` of degree `k ≤ K`, slot `j < k` applies the block-encoded matrix of the cell
+`cell c j` (the `j`-th entry of the sorted label sequence of `c`), and the slots `j ≥ k` are idle
+(identity). The cell of a slot is public and computed reversibly from the label (proof of Lemma
+`odel:lem:dyson`, "sort a working copy reversibly while retaining the original labels"); here it is
+a known function of the configuration register.
 
 * `Cfg.start c r = ∑_{i<r} c i`: the first slot of cell `r`;
 * `Cfg.cell hM c j`: the cell `r` with `start r ≤ j < start (r+1)`;

@@ -195,7 +195,8 @@ theorem binary_ode_time_budget_poly_user_nonneg (bd : ℕ) (q : PubT) (hq : BTPu
     hA.trans (space_absorb 2 j (by norm_num) (by norm_num) hY hc hZ)⟩
 
 /-- **Source costs polynomial in `𝔟` over a finite gate set for every `T ≥ 0`, constant
-coefficients** (remark of Theorem `ode:thm:gates`). Under the hypotheses of
+coefficients** (partial formalisation, under this package's format hypotheses, of the finite-set
+form of the remark of Theorem `ode:thm:gates`). Under the hypotheses of
 `binary_ode_budget_trials_bits_nonneg`, with `𝔟 = bitB b_data (2^k_x) (2^m) (2^k) q* g ε`: if
 `G_src = |srcC 0| + |srcC 1|` and `|Zs|` are at most `c (𝔟+1)^j`, then in every history the
 protocol `nprotocol (synthPrep hS (ν/3) (bprepC q srcC)) g` uses at most
@@ -251,8 +252,9 @@ theorem binary_ode_budget_trials_poly_nonneg (hS : Synthesis 𝒢 Xa len) (hadj 
   refine ⟨(hW.trans hS').trans (le_of_eq (by ring)), by linarith⟩
 
 /-- **Source costs polynomial in `𝔟` over a finite gate set for every `T ≥ 0`, time-dependent
-coefficients** (remark of Theorem `ode:thm:gates`, time-dependent part). Under the hypotheses of
-`binary_ode_time_budget_trials_bits_nonneg`, with the internal
+coefficients** (partial formalisation, under this package's format hypotheses, of the finite-set
+form of the remark of Theorem `ode:thm:gates`, time-dependent part).
+Under the hypotheses of `binary_ode_time_budget_trials_bits_nonneg`, with the internal
 `q*' = qOf s T η_H η_D (2g) (ε/2)` and `𝔟' = bitB b_data (2^k_x) (2^m) (2^m) q*' g ε`: if
 `G_src = |loadC| + 2 |wpC|` and `|Zs|` are at most `c (𝔟'+1)^j`, then in every history the
 protocol `nprotocol (synthPrep hS (ν/3) (btprepC q loadC wpC)) (2g)` uses at most

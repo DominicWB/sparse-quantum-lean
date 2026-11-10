@@ -2,7 +2,7 @@ import GateEfficientSchedule.Selective
 import GateEfficientSchedule.TimeCircuit
 
 /-!
-# The time-dependent part of Theorem `hs:thm:gates` over a finite gate set with the manuscript's
+# The time-dependent gate-level simulation (Theorem `hs:thm:time` with the circuit of `hs:thm:gates`) over a finite gate set with the manuscript's
 schedule
 
 The selective finite-set compilation (`GateEfficientSelective`) of the slot-selected circuit with
@@ -53,14 +53,15 @@ def selSimTMs (hS : Synthesis 𝒢 X L) (a m : ℕ) (α t Q qbar ε : ℝ)
 
 set_option maxRecDepth 8192 in
 /-- **Gate-efficient time-dependent simulation over a finite gate set with the manuscript's
-schedule** (Theorem `hs:thm:gates`, time-dependent part, equations `hs:eq:gate-schedule`,
-`hs:eq:timegrid`, `hs:eq:gate-Gzero`, `hs:eq:gate-total`). The private Cayley operations `D j` at
-the slot words are implemented by one supplied valid circuit `pc` over `𝒢` within `ξ` of the
-enable-controlled slot-selected operation on clean work wires, with `24 d ξ ≤ ε`. Under the
-hypotheses of `gate_efficient_time_simulation_ms`, the synthesis hypothesis and an adjoint-closed
-`𝒢`: the selective circuit consists of valid gates of `𝒢` and primitive calls, makes exactly
-`6 d` times the primitive calls of `pc`, synthesises at most `G₀ = 200 (d+1)(a+m+r+1) + 84 d C_J`
-gate occurrences, has at most `6 d |pc| + G₀ (c₁ log((G₀+1)/(ε/4)) + c₀ + 1)` gates and
+schedule** (Theorem `hs:thm:time` with the circuit of `hs:thm:gates`, equations
+`hs:eq:gate-schedule`, `hs:eq:timegrid`, `hs:eq:gate-Gzero`, `hs:eq:gate-total`). The private Cayley
+operations `D j` at the slot words are implemented by one supplied valid circuit `pc` over `𝒢`
+within `ξ` of the enable-controlled slot-selected operation on clean work wires, with `24 d ξ ≤ ε`.
+Under the hypotheses of `gate_efficient_time_simulation_ms`, the synthesis hypothesis and an
+adjoint-closed `𝒢`: the selective circuit consists of valid gates of `𝒢` and primitive calls, makes
+exactly `6 d` times the primitive calls of `pc`, synthesises at most
+`G₀ = 200 (d+1)(a+m+r+1) + 84 d C_J` gate occurrences, has at most
+`6 d |pc| + G₀ (c₁ log((G₀+1)/(ε/4)) + c₀ + 1)` gates and
 `|S| + (2a + 3m + 6r + 3) + (|Z| + bT + bP + A + 3) + |X|` qubits, and for every propagator `U` of
 the path its full output on the clean system embedding is within `ε` of `U(t)`. -/
 theorem sel_time_simulation_ms (hS : Synthesis 𝒢 X L) (hadj : AdjClosed 𝒢) {c₀ c₁ : ℝ}

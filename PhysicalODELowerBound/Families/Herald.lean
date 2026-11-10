@@ -6,9 +6,9 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # The `g = 1` families against adaptive solvers over any oracle with search-weight growth
 
-Manuscript lines 4392-4400 (eq. `odel:eq:hsbound`: the families of Theorem `hsl:thm:main` read
-as constant-coefficient ODEs `A = -iH_X`, `b = 0`, `g = 1`), 4403-4435 (Lemma `odel:lem:herald`)
-and 4441-4442 ("Pad dimensions to a common known size if desired").
+Manuscript: eq. `odel:eq:hsbound` (the families of Theorem `hsl:thm:main` read as
+constant-coefficient ODEs `A = -iH_X`, `b = 0`, `g = 1`), Lemma `odel:lem:herald` and the proof
+of Theorem `odel:thm:combined` ("Pad dimensions to a common known size if desired").
 
 The bounds of Lemma `odel:lem:herald` for one adaptive solver
 (`AdaptiveODELowerBound.Model.TreeSolver`)

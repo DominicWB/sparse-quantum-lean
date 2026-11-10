@@ -6,7 +6,8 @@ section
 /-!
 # The explicit solution of the joint family
 
-Helper of `ODE/JointInstance` (manuscript lines 3826-3850, 3883-3884, eqs. `odel:eq:stages`,
+Helper of `ODE/JointInstance` (the construction before Theorem `odel:thm:joint` and its proof,
+eqs. `odel:eq:stages`,
 `odel:eq:beforeforce`, `odel:eq:force`, `odel:eq:cancel`). With the clamped ramps
 `clamp(t - c, 0, L)`, the phase `Φ_a` of `jointSol` is affine with slope
 `(-1)^{j_{ak}}` on the hidden stage `[kπ/2, (k+1)π/2]` and constant after `nπ/2`,
@@ -223,7 +224,7 @@ theorem solvesODE_hidden (hμ : 1 ≤ μ) {T : ℝ} (hT : (n : ℝ) * (Real.pi /
   push_cast
   ring
 
-/-- **Idle stage** (lines 3883-3884): on `[nπ/2, T - 1]` the path is constant. -/
+/-- **Idle stage** (proof of Theorem `odel:thm:joint`): on `[nπ/2, T - 1]` the path is constant. -/
 theorem solvesODE_idle {T : ℝ} (x : Promised M n (2 ^ μ)) (k : Fin (n + 2)) (hk : (k : ℕ) = n) :
     TimeDependentODE.SolvesODE
       (fun _ => SparseStateOverlap.matrixOperator (jointGen (s := s) x.1 k))

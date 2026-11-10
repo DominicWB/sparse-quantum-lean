@@ -6,7 +6,7 @@ import GateEfficientBinaryTime.Simulation
 
 The hypotheses of Lemma `hs:lem:abstract` are the interface `hs:eq:interface`, which the paper
 derives for sparse Hamiltonians with `ν = (1 + γ²)/2`, `Q = ⌈max(1, γ √s)⌉`, `α = η √s/γ`
-(equations `hs:eq:scaled`, `hs:eq:Ridentity`, `hs:eq:params`). This file checks that the
+(equations `hs:eq:scaled`, `ov:eq:response`, `ov:eq:Q`). This file checks that the
 hypotheses of `abstract_simulation` can be met:
 
 * `interface_binary`: the released gate-level operators of the binary-data construction

@@ -7,8 +7,8 @@ section
 /-!
 # The query–gate–unquery circuit for arbitrary Boolean strings
 
-Manuscript lines 2283-2289 (two Boolean queries per value call) and the QLS
-analogue, lines 5320-5331. This is the generic circuit behind every
+Manuscript: the chain construction of Section `part:hsl` (two Boolean queries per value call) and
+the QLS analogue, proof of Theorem `qlsl:thm:main`. This is the generic circuit behind every
 compilation of a native value oracle to Boolean queries, for the phase oracle
 `Q.phase y = 1 - 2 Σ_{i, y i} Q i` of an **arbitrary** string `y : I → Bool`
 (`Query/PhaseOracle`). It covers both Boolean oracles used by the lower bounds:
@@ -173,10 +173,10 @@ theorem circuit_intertwines (Q : ProjFamily K I) (y : I → Bool) (G : Fin 2 →
     rw [phase_withAncilla_apply_one, Joint.fiber_apply, Joint.fiber_apply, e0, e1,
       ancillaEmbed_apply_one, h1]
 
-/-- **Two Boolean queries per primitive** (lines 2287-2289): a family `V x`
-given, for every input, by the branch identities of `circuit_intertwines` for
-one fixed pair of unitary branch gates, is implemented on the clean-ancilla
-encoding with two queries to `x ↦ Q.withAncilla.phase (y x)`. -/
+/-- **Two Boolean queries per primitive** (the chain construction of Section `part:hsl`): a family
+`V x` given, for every input, by the branch identities of `circuit_intertwines` for one fixed pair
+of unitary branch gates, is implemented on the clean-ancilla encoding with two queries to
+`x ↦ Q.withAncilla.phase (y x)`. -/
 theorem implementsOn_circuit {X : Type*} (Q : ProjFamily K I) (y : X → I → Bool)
     (G : Fin 2 → K →L[ℂ] K) (hG : ∀ b, OracleCircuit.IsUnitary (G b)) (V : X → K →L[ℂ] K)
     (h0 : ∀ x v, G 0 (v - hitProj Q (y x) v) - hitProj Q (y x) (G 0 (v - hitProj Q (y x) v)) +

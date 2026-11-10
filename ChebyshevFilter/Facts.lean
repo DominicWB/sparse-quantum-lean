@@ -16,6 +16,9 @@ statements otherwise:
   `‖F(W_{σ,r}) J e‖²` lies in `[1/(2(1+q²)), 1/(1+q²) + 10⁻⁴]`, with `q = r_σ / r`;
 * `augmented_final_fact`: at `σ = 0` and `g = 1/κ`, the decoded filtered amplitude is
   within `δ` of `c A⁻¹ b`, where `1/(r (1+μ)(1+q²)) ≤ c ≤ 1/(r (1+q²))`.
+
+Notation: the regularization parameter is `σ` here and `ξ` in the manuscript, so a subscript `σ` (as
+in `g_σ`, `r_σ`, `H_{σ,r}`) stands for the manuscript's subscript `ξ`.
 -/
 
 namespace ChebyshevFilter

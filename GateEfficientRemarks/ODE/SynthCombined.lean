@@ -5,6 +5,10 @@ import GateEfficientSynthesis.ODESolver
 /-!
 # The native solvers over a finite gate set for every `T ≥ 0`, every trial synthesised
 
+The finite-gate-set forms of Theorem `ode:thm:gates` in this module are a partial formalisation of
+its finite-set statement, under this package's format hypotheses: the manuscript states Theorem
+`ode:thm:gates` over a finite gate set; the conformance endpoints count native gates.
+
 The released finite-gate-set solvers that synthesise every trial
 (`GateSynth.native_ode_solver_synth`, `GateSynth.native_ode_time_solver_synth`, Theorem
 `ode:thm:gates` with synthesis as a hypothesis) require `T > 0` and `λ_H + R λ_D > 0`. For every
@@ -46,8 +50,9 @@ variable {S Zs Z Y J X : Type*} [Fintype S] [DecidableEq S] [Fintype Zs] [Decida
 variable {𝒢 : Set Kind} {len : ℝ → ℕ}
 
 /-- **Native dissipative ODE solver over a finite gate set, every trial synthesised, for every
-`T ≥ 0`, constant coefficients** (Theorem `ode:thm:gates` with its remark on zero time and a
-known zero generator, finite-set synthesis as a hypothesis).
+`T ≥ 0`, constant coefficients** (partial formalisation, under this package's format hypotheses, of
+the finite-set statement of Theorem `ode:thm:gates` with its remark on
+zero time and a known zero generator, finite-set synthesis as a hypothesis).
 
 For public data `p` with `PublicOK0 p` and the released public native data (`U_J` gates, a
 public native private operation, arithmetic with `ArithOK` at accuracy `ζ`, valid source
@@ -130,8 +135,10 @@ theorem native_ode_solver_synth_nonneg (hS : Synthesis 𝒢 X len) (p : Params) 
     (hout prim D Jsrc H L x0 b ζs hprim hζs hsrc hcase)
 
 /-- **Native dissipative ODE solver over a finite gate set, every trial synthesised, for every
-`T ≥ 0`, time-dependent coefficients** (Theorem `ode:thm:gates`, time-dependent part, with its
-remark on zero time and a known zero generator, finite-set synthesis as a hypothesis).
+`T ≥ 0`, time-dependent coefficients** (partial formalisation, under this package's format
+hypotheses, of the finite-set statement of Theorem `ode:thm:gates`, time-dependent
+part, with its remark on zero time and a known zero generator, finite-set synthesis as a
+hypothesis).
 
 For public data `p` with `TPublicOK0 p` and the released public native data, the synthesised
 protocol `sprotocol hS (ε/200) (ctprepC p UJg nd ar loadC wpC) (2g)` on `TNW p ⊕ X`: every

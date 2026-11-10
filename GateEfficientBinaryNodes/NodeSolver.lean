@@ -269,8 +269,9 @@ theorem binary_nodes_synth_counts (hS : GateSynth.Synthesis 𝒢 Xa len) (q : Pu
   · rw [Fintype.card_sum, hcard]
 
 /-- **Gate-efficient dissipative ODE solver from binary data with computed nodes over a finite
-gate set** (Theorem `ode:thm:gates`, time-dependent part, with general source nodes and
-finite-set synthesis as a hypothesis): under the hypotheses of `binary_nodes_solver` the
+gate set** (partial formalisation, under this package's format hypotheses, of the finite-set
+statement of Theorem `ode:thm:gates`, time-dependent part, with general source
+nodes and finite-set synthesis as a hypothesis): under the hypotheses of `binary_nodes_solver` the
 synthesised protocol of `binary_nodes_synth_counts` succeeds with probability at least `2/3`, and
 its conditional output is within trace distance `ε` of `x(T)/‖x(T)‖` (`GateSynth.SOutcome`). -/
 theorem binary_nodes_solver_synth (hS : GateSynth.Synthesis 𝒢 Xa len) (q : PubT) (hq : q.OK)
@@ -382,9 +383,10 @@ theorem binary_nodes_trials_counts (hS : GateSynth.Synthesis 𝒢 Xa len)
   · rw [hcard, card_ZN, Fintype.card_fin]
 
 /-- **Gate-efficient dissipative ODE solver from binary data with computed nodes and the
-synthesised preparation** (Theorem `ode:thm:gates`, time-dependent part, with general source
-nodes and finite-set synthesis as a hypothesis, including the per-trial claim): under the
-hypotheses of `binary_nodes_solver` the protocol of `binary_nodes_trials_counts` has the
+synthesised preparation** (partial formalisation, under this package's format hypotheses, of the
+finite-set statement of Theorem `ode:thm:gates`, time-dependent part, with
+general source nodes and finite-set synthesis as a hypothesis, including the per-trial claim): under
+the hypotheses of `binary_nodes_solver` the protocol of `binary_nodes_trials_counts` has the
 guarantees `NOutcome` (no hypothesis on the gate set is needed for them): every successful trial
 is within `ε/500` of `x(T)/‖x(T)‖` up to a global phase, the success probability is at least
 `2/3`, and the conditional output is within trace distance `ε`. -/

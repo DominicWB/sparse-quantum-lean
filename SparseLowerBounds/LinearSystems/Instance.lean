@@ -6,7 +6,7 @@ section
 /-!
 # The hard linear systems `A_X x = b`
 
-Manuscript lines 5250-5318 and 5349-5388. For `n` hidden one-hot strings of
+Manuscript: the proof of Theorem `qlsl:thm:main`. For `n` hidden one-hot strings of
 length `m = 2^μ` with marked positions `j : Fin n → Fin m`, and `R = 2^ρ`,
 `r = 1 - 1/R` (`clockRatio ρ`):
 
@@ -35,7 +35,7 @@ noncomputable section
 open SparseHamiltonian
 open scoped Matrix Matrix.Norms.L2Operator InnerProductSpace
 
-/-- Sector × clock × register, `N = 4mn` (line 5302). -/
+/-- Sector × clock × register, `N = 4mn` (proof of Theorem `qlsl:thm:main`). -/
 abbrev HardIndex (n m : ℕ) : Type := Fin 2 × Fin (2 * n) × Fin m
 
 theorem card_hardIndex (n m : ℕ) : Fintype.card (HardIndex n m) = 4 * m * n := by
@@ -58,7 +58,7 @@ theorem norm_matrixOperator {ι : Type*} [Fintype ι] [DecidableEq ι] (M : Matr
 
 variable {n μ : ℕ}
 
-/-- The clock transitions `L_t` (line 5253). -/
+/-- The clock transitions `L_t` (proof of Theorem `qlsl:thm:main`). -/
 def hardTransition (n μ : ℕ) (j : Fin n → Fin (2 ^ μ)) :
     ℕ → Matrix (Fin (2 ^ μ)) (Fin (2 ^ μ)) ℂ :=
   fun t => if h : t < n then gadget (2 ^ μ) (j ⟨t, h⟩) else 1
@@ -81,7 +81,7 @@ def hardMatrix (n μ ρ : ℕ) (j : Fin n → Fin (2 ^ μ)) :
   dilation (hardC n μ ρ j)
 
 /-- The input-independent right-hand side `b = (b₀, 0)`, `b₀ = |0_L⟩ ⊗ |0⟩`
-(lines 5266 and 5296). -/
+(eq. `qlsl:eq:C` and eq. `qlsl:eq:hermitian`). -/
 def hardRHS (n μ : ℕ) : EuclideanSpace ℂ (HardIndex n (2 ^ μ)) :=
   WithLp.toLp 2 (sectorVec (atClock (2 * n) 0 (logical (2 ^ μ) false)) 0)
 
@@ -112,7 +112,7 @@ theorem star_hardC_apply (j : Fin n → Fin (2 ^ μ)) (x y : Fin (2 * n) × Fin 
     star (hardC n μ ρ j x y) = hardC n μ ρ j x y :=
   Helpers.InstanceDecoder.star_clockMatrix_apply _ _ _ (star_hardTransition_apply j) x y
 
-/-! ### Shape of the matrix (lines 5088, 5299-5309) -/
+/-! ### Shape of the matrix (Theorem `qlsl:thm:main`) -/
 
 /-- `A_X` is real. -/
 theorem star_hardMatrix_apply (j : Fin n → Fin (2 ^ μ)) (i i' : HardIndex n (2 ^ μ)) :
@@ -128,7 +128,7 @@ theorem hardMatrix_isHermitian (j : Fin n → Fin (2 ^ μ)) :
     Matrix.IsHermitian (hardMatrix n μ ρ j) := by
   exact isHermitian_dilation _
 
-/-- `A_X` is indefinite: its quadratic form takes both signs (line 5088). -/
+/-- `A_X` is indefinite: its quadratic form takes both signs (Theorem `qlsl:thm:main`). -/
 theorem hardMatrix_indefinite (hn : 0 < n) (j : Fin n → Fin (2 ^ μ)) :
     (∃ v : EuclideanSpace ℂ (HardIndex n (2 ^ μ)),
         0 < (⟪v, SparseStateOverlap.matrixOperator (hardMatrix n μ ρ j) v⟫_ℂ).re) ∧
@@ -155,7 +155,7 @@ theorem hardMatrix_indefinite (hn : 0 < n) (j : Fin n → Fin (2 ^ μ)) :
   · rw [key 1]; simp
   · rw [key (-1)]; simp
 
-/-- Row sparsity at most `m + 1` (lines 5306-5309). -/
+/-- Row sparsity at most `m + 1` (proof of Theorem `qlsl:thm:main`). -/
 theorem hardMatrix_row_sparse (j : Fin n → Fin (2 ^ μ)) (i : HardIndex n (2 ^ μ)) :
     (Finset.univ.filter fun i' => hardMatrix n μ ρ j i i' ≠ 0).card ≤ 2 ^ μ + 1 := by
   have h := Helpers.InstanceDecoder.dilation_clockMatrix_row_sparse (2 * n) (clockRatio ρ)
@@ -163,7 +163,7 @@ theorem hardMatrix_row_sparse (j : Fin n → Fin (2 ^ μ)) (i : HardIndex n (2 ^
   rw [Fintype.card_fin] at h
   exact h
 
-/-- Column sparsity at most `m + 1` (lines 5306-5309). -/
+/-- Column sparsity at most `m + 1` (proof of Theorem `qlsl:thm:main`). -/
 theorem hardMatrix_column_sparse (j : Fin n → Fin (2 ^ μ)) (i' : HardIndex n (2 ^ μ)) :
     (Finset.univ.filter fun i => hardMatrix n μ ρ j i i' ≠ 0).card ≤ 2 ^ μ + 1 := by
   have hsym : ∀ i, hardMatrix n μ ρ j i i' = hardMatrix n μ ρ j i' i := fun i => by
@@ -172,7 +172,7 @@ theorem hardMatrix_column_sparse (j : Fin n → Fin (2 ^ μ)) (i' : HardIndex n 
   simp only [hsym]
   exact hardMatrix_row_sparse j i'
 
-/-! ### The QLS promise (eq. `qlsl:eq:Cpromise`, lines 5270-5275 and 5350-5351) -/
+/-! ### The QLS promise (eq. `qlsl:eq:Cpromise`) -/
 
 /-- `‖A_X‖ ≤ (1 + r)/2 ≤ 1`. -/
 theorem norm_hardMatrix_le (j : Fin n → Fin (2 ^ μ)) :
@@ -205,7 +205,7 @@ theorem norm_inverse_hardMatrix_le (j : Fin n → Fin (2 ^ μ)) :
   rw [he] at h
   exact h
 
-/-- **Actual conditioning** (eq. `qlsl:eq:actualconditioning`, lines 5368-5388):
+/-- **Actual conditioning** (eq. `qlsl:eq:actualconditioning`):
 for `n ≥ R/2`, `‖C_X⁻¹‖ > R/2` and `‖C_X‖ ≥ 1/2`, so
 `R/4 < ‖A_X‖ ‖A_X⁻¹‖`. -/
 theorem quarter_lt_cond (hn : 2 ^ ρ ≤ 2 * n) (j : Fin n → Fin (2 ^ μ)) :

@@ -7,16 +7,16 @@ set_option autoImplicit false
 /-!
 # The unitary `Ω(√N)` lower bound for adaptive algorithms: paper-to-Lean entry point
 
-Corollary `hs:cor:unitary` of the manuscript (lines 1647-1666) ends: "At fixed constant error,
-the worst-case query complexity is `Θ(√N)`" (lines 1664-1665). Its lower half is stated with the
-reduction to unstructured search (proof, lines 1711-1718), and the corollary counts inverse calls
-(line 1662). The lower half is formalised in `UnitaryImplementationExtensions.LowerBound` for
-non-adaptive unitary query circuits. This library proves it for **adaptive algorithms** (the
-protocols `SparseLinearSystems.Protocol.Tree`, with heralded or unheralded output) and for
-**controlled and controlled-inverse calls**, the convention of the manuscript's lower-bound
-sections (access "with inverses and coherent controls", line 2080; "Randomised or adaptive
-algorithms are covered by purification and deferred measurement", lines 2363-2364). All
-declarations below are in the namespace `AdaptiveUnitaryLowerBound`.
+Corollary `hs:cor:unitary` of the manuscript ends: "the constant-error worst-case complexity is
+`Θ(√N)`". Its lower half is stated with the reduction to unstructured search (proof of Corollary
+`hs:cor:unitary`), and the corollary counts inverse calls (Corollary `hs:cor:unitary`). The lower
+half is formalised in `UnitaryImplementationExtensions.LowerBound` for non-adaptive unitary query
+circuits. This library proves it for **adaptive algorithms** (the protocols
+`SparseLinearSystems.Protocol.Tree`, with heralded or unheralded output) and for **controlled and
+controlled-inverse calls**, the convention of the manuscript's lower-bound sections (access with
+inverses and the controls of Lemma `access:lem:control`, Section `hsl:sec:main`; "Purification and
+deferred measurement include adaptive and randomised algorithms", proof of Lemma
+`hsl:lem:precision`). All declarations below are in the namespace `AdaptiveUnitaryLowerBound`.
 
 * Labels implemented by the released entry oracle of the search family:
   `Theorem.implementation_count_ge_tree` (adaptive),
@@ -24,7 +24,7 @@ declarations below are in the namespace `AdaptiveUnitaryLowerBound`.
   `Theorem.implementation_count_ge_program` (one program, trace-distance accuracy),
   `Theorem.implementation_count_ge_program_of_error` and
   `Theorem.implementation_count_ge_calls_program_of_error` (one program, the manuscript's
-  operator-norm error, eq. `hs:eq:unitaryerror`, lines 1652-1654).
+  operator-norm error, eq. `hs:eq:unitaryerror`).
 * The entry oracle itself as the only oracle: `Entry.heralded_tree`, `Entry.unheralded_tree`,
   `Entry.heralded_calls_tree`, `Entry.unheralded_calls_tree`, `Entry.calls_program_of_error`.
 * The ordinary entry lookup with any payload: `Lookup.entry_count_ge_tree`,
@@ -166,7 +166,5 @@ against adaptive or controlled-call algorithms as outside it; they are proved he
 with measurements inside a run are treated in `DeferredMeasurementLowerBounds`
 (`DeferredMeasurementLowerBounds.Corollaries.entry_count_ge_measured`,
 `DeferredMeasurementLowerBounds.Corollaries.implementation_count_ge_measured`; not imported
-here). Line numbers in this guide and in the module docstrings refer to an earlier manuscript
-version (in the v18 manuscript accompanying this release they are 1243 lines higher in Part `hs`
-and 1285 in Part `hsl`); the paper labels are the stable references.
+here). References to the manuscript use its labels.
 -/

@@ -6,13 +6,12 @@ section
 /-!
 # The hard families as release sparse-access data
 
-Manuscript lines 2254-2289 and 2476-2487. The hard Hamiltonians of
-`Hamiltonian/Instance` are packaged as `NativeSparseBlockEncoding.Data` by the
-one-bit builder `bitData`, so the release's native primitives are the oracles
-the lower bound is about. The shared locators (`padSlot`, `refLoc`, `fullLoc`)
-and the signed scalar family (`scalarData`) are in `Hamiltonian/HardDataScalar`;
-this module adds the search-decorated families and the data at the main
-parameters.
+Manuscript: the chain construction of Section `part:hsl` and the end of the proof of Theorem
+`hsl:thm:main`. The hard Hamiltonians of `Hamiltonian/Instance` are packaged as
+`NativeSparseBlockEncoding.Data` by the one-bit builder `bitData`, so the release's native
+primitives are the oracles the lower bound is about. The shared locators (`padSlot`, `refLoc`,
+`fullLoc`) and the signed scalar family (`scalarData`) are in `Hamiltonian/HardDataScalar`; this
+module adds the search-decorated families and the data at the main parameters.
 
 **Words.** With `F = chainBits n a τ` fractional bits for the rounded weights
 `b'_k = N_k/2^F` (`N_k < 2^F`), `m = 2^μ` and `σ = ⌈log₂ s⌉`:
@@ -28,11 +27,11 @@ position-independent decode `valMinAbs z/2^B` is exact. The address of each
 word is its one bit (`searchAddr`: string `k`, position `gadgetPos a b` of the
 `k`-th edge block); known entries make no query.
 
-**Locators** are input-independent (lines 2283-2285): the slots are the padding
-block; chain row `(k, a)` lists `((k+1) mod (n+1), b)` in slots `b < m`,
-`((k-1) mod (n+1), b)` in slots `m + b` (only if `n ≥ 2`), and padding indices
-otherwise (`searchLoc`); a reference row swaps itself with padding slot `0`;
-padding rows list the padding block. The search families need `s ≥ 2m`.
+**Locators** are input-independent (the chain construction of Section `part:hsl`): the slots are the
+padding block; chain row `(k, a)` lists `((k+1) mod (n+1), b)` in slots `b < m`,
+`((k-1) mod (n+1), b)` in slots `m + b` (only if `n ≥ 2`), and padding indices otherwise
+(`searchLoc`); a reference row swaps itself with padding slot `0`; padding rows list the padding
+block. The search families need `s ≥ 2m`.
 
 **Main parameters** (`timeData`, `mixedMainData`, `precisionMainData`): the
 time family at `n = timeN τ`, `a = timeC τ`; the mixed and precision families
@@ -375,7 +374,7 @@ theorem searchData_rowloc (hμ : 1 ≤ μ) (hs : 2 * 2 ^ μ ≤ s) (j : Fin n �
     (searchData n μ s a τ hμ hs).rowloc j i k =
       fullLoc (pos_of_two_mul_two_pow_le hs) (searchLoc n μ s) i k := rfl
 
-/-- **The search locators are input-independent** (lines 2283-2286). -/
+/-- **The search locators are input-independent** (the chain construction of Section `part:hsl`). -/
 theorem searchData_locators_const (hμ : 1 ≤ μ) (hs : 2 * 2 ^ μ ≤ s)
     (j j' : Fin n → Fin (2 ^ μ)) :
     (searchData n μ s a τ hμ hs).rowloc j = (searchData n μ s a τ hμ hs).rowloc j' ∧
@@ -386,21 +385,21 @@ theorem searchData_locators_const (hμ : 1 ≤ μ) (hs : 2 * 2 ^ μ ≤ s)
 
 /-! ### The families at the parameters of Theorem `hsl:thm:main` -/
 
-/-- **Time family** (lines 2379-2409): `n = timeN τ`, `a = timeC τ`,
+/-- **Time family** (Lemma `hsl:lem:time`): `n = timeN τ`, `a = timeC τ`,
 `m = 2^{hsMu s}`. -/
 def timeData (τ : ℝ) (s : ℕ) (hs : 32 ≤ s) :
     Data (Fin (timeN τ) → Fin (2 ^ hsMu s)) (SearchIndex (timeN τ) (hsMu s) s)
       (Word (searchBits (timeN τ) (hsMu s) s (timeC τ) τ)) s :=
   searchData (timeN τ) (hsMu s) s (timeC τ) τ (one_le_hsMu hs) (two_mul_hsM_le hs)
 
-/-- **Mixed family** at the main parameters (lines 2439-2444): `n = precN τ ε`,
+/-- **Mixed family** at the main parameters (proof of Theorem `hsl:thm:main`): `n = precN τ ε`,
 `a = 1`, `m = 2^{hsMu s}`. -/
 def mixedMainData (τ ε : ℝ) (s : ℕ) (hs : 32 ≤ s) :
     Data (Fin (precN τ ε) → Fin (2 ^ hsMu s)) (SearchIndex (precN τ ε) (hsMu s) s)
       (Word (searchBits (precN τ ε) (hsMu s) s 1 τ)) s :=
   searchData (precN τ ε) (hsMu s) s 1 τ (one_le_hsMu hs) (two_mul_hsM_le hs)
 
-/-- **Precision family** at the main parameters (lines 2435-2438):
+/-- **Precision family** at the main parameters (proof of Theorem `hsl:thm:main`):
 `n = precN τ ε`. -/
 def precisionMainData (τ ε : ℝ) (s : ℕ) (hs : 32 ≤ s) :
     Data (Fin (precN τ ε) → Bool) (ScalarIndex (precN τ ε) s) (Word (scalarBits (precN τ ε) s τ)) s :=

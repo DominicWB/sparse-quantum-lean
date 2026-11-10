@@ -4,14 +4,15 @@ import ODELowerBoundExtensions.Release.Refine
 /-!
 # Binary sparse data on a nonuniform mesh
 
-Theorem `hs:thm:gates`, time-dependent part, from time-indexed binary sparse oracles, extended by
-uniform refinement to nonuniform meshes with breakpoints (the paper states the gate theorem on
-uniform meshes). A mesh `0 = t_0 ≤ ⋯ ≤ t_M = T` carries one represented sample per interval,
-given by native sparse data `D_m : Data (X × Fin M)` in the released binary format. The uniform
-clock of the binary circuit has `2^m` slots; its time-indexed data are the re-indexed data
-`(x, k) ↦ D_m (x, σ k)` (`clockData`, the released `ODELowerBoundExtensions.Release.stageData`
-along the slot-to-sample map `σ = TimeDependentExtensions.pieceOf`), so slot `k` reads the
-sample of the interval containing `k T / 2^m`.
+Theorem `hs:thm:time` with the circuit of `hs:thm:gates`, from time-indexed binary sparse oracles,
+extended by uniform refinement to nonuniform meshes with breakpoints (a package extension; the
+released gate-level circuits use uniform meshes). A mesh `0 = t_0 ≤ ⋯ ≤ t_M = T` carries one
+represented sample per interval, given by native sparse data `D_m : Data (X × Fin M)` in the
+released binary format. The uniform clock of the binary circuit has `2^m` slots; its time-indexed
+data are the re-indexed data `(x, k) ↦ D_m (x, σ k)` (`clockData`, the released
+`ODELowerBoundExtensions.Release.stageData` along the slot-to-sample map
+`σ = TimeDependentExtensions.pieceOf`), so slot `k` reads the sample of the interval containing
+`k T / 2^m`.
 
 * `clockData_matrix`, `prims_reindexData`, `primsT_clockData`: the clock data have the mesh
   samples, the same slots and decoder, and their time-indexed primitive oracles are the
@@ -112,19 +113,18 @@ def meshSample (D : Data (X × Fin M) n (Cfg (VW b)) s) (en : Cfg (Fin k) ≃ n)
   else 0
 
 /-- **Gate-efficient time-dependent sparse simulation from binary data on a nonuniform mesh**
-(Theorem `hs:thm:gates`, time-dependent part, for binary sparse oracles, extended by uniform
-refinement to nonuniform meshes with breakpoints, with the integrated certificate, before
+(Theorem `hs:thm:time` with the circuit of `hs:thm:gates`, for binary sparse oracles, extended by
+uniform refinement to nonuniform meshes with breakpoints, with the integrated certificate, before
 finite-set synthesis). Let `0 = t_0 ≤ ⋯ ≤ t_M = T` be a mesh (`M ≥ 1`, `T > 0`) whose samples
-`H̃_r = D_m.matrix (x, r)` are given by native sparse data in the released binary format,
-Hermitian with row and column norms at most one. The circuit
-`binaryTimeSim` runs on the clock data `clockData D_m` (slot `k` reads the sample of the
-interval containing `k T / 2^m`, through the oracles of `primsT_clockData`). Under the
-subdivision condition `steps τ' (ε/12) ≤ 2^m` (`τ' = √s T/γ`), the rounding condition
-`8 M τ' ≤ ε 2^m` and `48 d ζ ≤ ε`, the circuit has the counts and qubits of the uniform theorem
-`binary_time_simulation_certified` and its full output is within `ε` of `U(T)` for every
-integral-sense propagator `U` of the lift of a matrix path that is Hermitian almost everywhere
-and interval integrable, and for every classical piecewise propagator of the lift of a
-piecewise matrix path with one piece per mesh interval, whenever the mesh certificate
+`H̃_r = D_m.matrix (x, r)` are given by native sparse data in the released binary format, Hermitian
+with row and column norms at most one. The circuit `binaryTimeSim` runs on the clock data
+`clockData D_m` (slot `k` reads the sample of the interval containing `k T / 2^m`, through the
+oracles of `primsT_clockData`). Under the subdivision condition `steps τ' (ε/12) ≤ 2^m`
+(`τ' = √s T/γ`), the rounding condition `8 M τ' ≤ ε 2^m` and `48 d ζ ≤ ε`, the circuit has the
+counts and qubits of the uniform theorem `binary_time_simulation_certified` and its full output is
+within `ε` of `U(T)` for every integral-sense propagator `U` of the lift of a matrix path that is
+Hermitian almost everywhere and interval integrable, and for every classical piecewise propagator of
+the lift of a piecewise matrix path with one piece per mesh interval, whenever the mesh certificate
 `∑_r ∫_{t_r}^{t_{r+1}} ‖H(u) - H̃_r‖ du` is at most `ε / 8`. -/
 theorem binary_time_simulation_mesh (D : Data (X × Fin M) n (Cfg (VW b)) s) (hM : 0 < M)
     (en : Cfg (Fin k) ≃ n) (σ : ℕ) (hσ : σ ≤ k) (hs : s = 2 ^ σ)
@@ -268,13 +268,13 @@ end Main
 universe u v w
 
 /-- **The budget of the time-dependent binary construction on a nonuniform mesh** (Theorem
-`hs:thm:gates`, time-dependent part, before finite-set synthesis, extended by uniform refinement
-to nonuniform meshes with breakpoints, with the rescaled sparse parameters). The rescaling
-`γ` of `binary_time_simulation_budget_certified` is chosen from `s`, `T` and `ε` before the mesh,
-the data, the path and the slot exponent; for every mesh of `M ≥ 1` intervals with mesh data in
-the released binary format, the subdivision condition, the rounding condition
-`8 M τ' ≤ ε 2^m` (`τ' = √s T/γ`) and `221184 q ζ ≤ ε`, the circuit run on the clock data has at
-most `55296 q` times `2 + 2 + 1` calls, at most `200 (4608 q + 1)(G_C + (σ+1) + (k+1) + m + r + 1)`
+`hs:thm:time` with the circuit of `hs:thm:gates`, before finite-set synthesis, extended by uniform
+refinement to nonuniform meshes with breakpoints, with the rescaled sparse parameters). The
+rescaling `γ` of `binary_time_simulation_budget_certified` is chosen from `s`, `T` and `ε` before
+the mesh, the data, the path and the slot exponent; for every mesh of `M ≥ 1` intervals with mesh
+data in the released binary format, the subdivision condition, the rounding condition
+`8 M τ' ≤ ε 2^m` (`τ' = √s T/γ`) and `221184 q ζ ≤ ε`, the circuit run on the clock data has at most
+`55296 q` times `2 + 2 + 1` calls, at most `200 (4608 q + 1)(G_C + (σ+1) + (k+1) + m + r + 1)`
 gates, `2^r ≤ 4 (4608 q + 1)`, and error `ε` against every integral-sense propagator of the lifted
 path with mesh certificate at most `ε/8`. -/
 theorem binary_time_simulation_budget_mesh (s : ℕ) (hs1 : 1 ≤ s) (T ε : ℝ) (hT : 0 < T)

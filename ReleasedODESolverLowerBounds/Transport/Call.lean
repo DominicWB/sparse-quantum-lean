@@ -6,9 +6,9 @@ set_option autoImplicit false
 /-!
 # Measured solvers over the call forms of a physical oracle
 
-Manuscript Section `odel:sec:main`, lines 3669-3681 (value oracle and locators, "their inverses
-and controls"; the lower bounds apply to Theorems `ode:thm:main` and `ode:thm:time`) and line
-2364 (deferred measurement).
+Manuscript Section `odel:sec:main` (value oracle and locators, "including inverses, controls and
+coherent time addresses where needed"; the lower bounds apply to Theorems `ode:thm:main` and
+`ode:thm:time`) and the end of the proof of Lemma `hsl:lem:precision` (deferred measurement).
 
 A measured solver over the call forms `callFamily B` (plain, inverse, controlled and
 controlled-inverse calls of every label on control ⊗ workspace) is deferred with every call form

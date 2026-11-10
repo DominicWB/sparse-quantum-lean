@@ -7,11 +7,11 @@ set_option autoImplicit false
 /-!
 # Time-dependent sparse Hamiltonian simulation for integrable Hermitian paths
 
-The paragraph "Regularity and coherent parameters" after the proof of Theorem `hs:thm:time`
-of the manuscript (lines 1618-1632), at lines 1622-1626: "More generally, for an integrable
-Hermitian path it suffices to have a certified bound on the sum of the integrated sample errors
-`∑_r ∫_{t_r}^{t_{r+1}} ‖H(u) - H̃_r‖ du`. All uses of regularity are confined to this
-classical error certificate."
+The paragraph after the proof of Theorem `hs:thm:time` of the manuscript: "More generally, for an
+integrable Hermitian path with the same uniform sparsity and norm promises, it suffices to supply a
+known error bound on" `∑_r ∫_{t_r}^{t_{r+1}} ‖H(u) - H̃_r‖ du`. "This directly replaces the
+Lipschitz and representation terms in Eq. `hs:eq:timedisc`; the Cayley error and conversion analysis
+are unchanged."
 
 `simulation` states this with the released oracle family, clean encoding and query bound of
 `TimeDependentExtensions.Hamiltonian.simulation` (the program is built as in the released

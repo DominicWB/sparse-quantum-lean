@@ -4,14 +4,16 @@ import GateEfficientTimeDependent.Theorem
 /-!
 # Exact gates: integrated certificates and nonuniform meshes
 
-Theorem `hs:thm:gates` (manuscript v15, lines 2754-2799) states, for the time-dependent setting
-of Theorem `hs:thm:time` on a uniform mesh of `M = 2^m ≥ 2` slots, that the circuit with
-slot-selected private Cayley operations has full-output error at most `ε` relative to
-`U_H(T, 0)`. The released theorem `GateCircuit.SlotSim.gate_efficient_time_simulation` proves
-this for Lipschitz paths with uniform sample errors. The paragraph "Regularity and coherent
-parameters" (lines 2420-2434) states that a certified bound on the integrated sample errors
-suffices. This module proves the gate-level statement in that generality, for the released
-circuit `simCircuitT` with the released counts:
+A package extension, Theorem `hs:thm:time` with the circuit of `hs:thm:gates`, states, for the
+time-dependent setting of Theorem `hs:thm:time` on a uniform mesh of `M = 2^m ≥ 2` slots, that the
+circuit with slot-selected private Cayley operations has full-output error at most `ε` relative to
+`U_H(T, 0)` (in the manuscript Theorem `hs:thm:gates` is "a time-independent result", and a circuit
+of this kind is the single-label case of Lemma `ode:lem:gate-select`). The released theorem
+`GateCircuit.SlotSim.gate_efficient_time_simulation`
+proves this for Lipschitz paths with uniform sample errors. The paragraphs after the proof of
+Theorem `hs:thm:time` state that a known bound on the integrated sample errors suffices. This module
+proves the gate-level statement in that generality, for the released circuit `simCircuitT` with the
+released counts:
 
 * `slot_product_error`: the released circuit is within `ε + ‖∏_k exp(-i (t/2^m) H̃_k) - U‖`
   of every operator `U` on clean inputs (from the released `simulationT`);
@@ -106,8 +108,8 @@ theorem slot_product_error (a m : ℕ) (UJ : Vsp a P →L[ℂ] Vsp a P)
 /-! ### Uniform slots -/
 
 /-- **Gate-efficient time-dependent simulation under the integrated certificate, exact gates**
-(Theorem `hs:thm:gates`, time-dependent part, with the certificate of the paragraph
-"Regularity and coherent parameters" after Theorem `hs:thm:time`).
+(Theorem `hs:thm:time` with the circuit of `hs:thm:gates`, with the certificate of the paragraphs
+after the proof of Theorem `hs:thm:time`).
 
 The released circuit `simCircuitT a (α t) Q qbar (ε/2) m` is fixed by the public numbers. Let
 `U_J` and the slot-selected private operations `D k` be unitaries such that every `D k`
@@ -247,8 +249,8 @@ theorem slotExponent_round_spec (N₁ : ℕ) (hN₁ : 1 ≤ N₁) (c ε : ℝ) (
   linarith
 
 /-- **Gate-efficient time-dependent simulation on a nonuniform mesh, exact gates** (Theorem
-`hs:thm:gates`, time-dependent part, extended by uniform refinement to nonuniform meshes with
-breakpoints, with the integrated certificate).
+`hs:thm:time` with the circuit of `hs:thm:gates`, extended by uniform refinement to nonuniform
+meshes with breakpoints, with the integrated certificate).
 
 Let `0 = t_0 ≤ ⋯ ≤ t_M = T` be a mesh with `M ≥ 1` intervals and `T > 0`, and let `U_J` and the
 private operations `D_r` (`r < M`) carry the clock promises of the released analysis for the

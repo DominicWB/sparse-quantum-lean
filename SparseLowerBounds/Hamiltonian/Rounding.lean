@@ -6,9 +6,9 @@ section
 /-!
 # Exact dyadic weights
 
-Manuscript lines 2254-2279 (eqs. `hsl:eq:round`, `hsl:eq:roundevolution`).
-Every positive public weight `a b_k` of a chain is rounded **down** to a dyadic
-`b'_k = N_k/2^F` with `0 ≤ a b_k - b'_k ≤ 2^{-F} ≤ δ`, where (eq. `hsl:eq:round`)
+Manuscript: the chain construction of Section `part:hsl` (eqs. `hsl:eq:round`,
+`hsl:eq:roundevolution`). Every positive public weight `a b_k` of a chain is rounded **down** to a
+dyadic `b'_k = N_k/2^F` with `0 ≤ a b_k - b'_k ≤ 2^{-F} ≤ δ`, where (eq. `hsl:eq:round`)
 
   `δ = min{a/(2√n), A/(16τ)}`,  `A = sin(aτ/n)^n` (`chainAmp`),
 
@@ -20,7 +20,7 @@ range of `Hamiltonian/DataBuilder`; the rounding error is still at most
 * `chainNum_lt`: `N_k < 2^F`;
 * `chainWeight_le`: `0 ≤ b'_k ≤ a b_k`, so the rounded path still has norm at
   most one (`norm_pathMatrix_le`);
-* `chainWeight_pos`: all edges remain nonzero (line 2277);
+* `chainWeight_pos`: all edges remain nonzero (the chain construction of Section `part:hsl`);
 * `norm_endAmp_chainWeight_sub_le`: Duhamel's inequality
   (`HamiltonianStability.evolution_error_le`) and row sums give
   `‖e^{-iτB} - e^{-iτB'}‖ ≤ 2τδ ≤ A/8` (eq. `hsl:eq:roundevolution`), applied to
@@ -124,8 +124,8 @@ theorem chainWeight_le {a : ℝ} (ha : 0 ≤ a) (τ : ℝ) (k : ℕ) :
   rw [div_le_iff₀ (by positivity)]
   exact roundNum_le_mul (mul_nonneg ha (spinWeight_nonneg n k)) _
 
-/-- The rounded path has norm at most one for `0 ≤ a ≤ 1` (lines 2263-2270:
-`0 ≤ b'_k ≤ a b_k ≤ b_k` and `norm_pathMatrix_le`). -/
+/-- The rounded path has norm at most one for `0 ≤ a ≤ 1` (the chain construction of Section
+`part:hsl`: `0 ≤ b'_k ≤ a b_k ≤ b_k` and `norm_pathMatrix_le`). -/
 theorem norm_pathMatrix_chainWeight_le {a : ℝ} (ha0 : 0 ≤ a) (ha1 : a ≤ 1) (τ : ℝ) :
     ‖pathMatrix n (chainWeight n a τ)‖ ≤ 1 := by
   exact norm_pathMatrix_le (fun k => (chainWeight_le ha0 τ k).1)
@@ -133,7 +133,7 @@ theorem norm_pathMatrix_chainWeight_le {a : ℝ} (ha0 : 0 ≤ a) (ha1 : a ≤ 1)
       (mul_le_of_le_one_left (spinWeight_nonneg n k) ha1))
 
 /-- **Eq. `hsl:eq:round`**: `a b_k - b'_k ≤ δ` and `b'_k ≥ a b_k/2 > 0`, so all
-edges remain nonzero (line 2277). -/
+edges remain nonzero. -/
 theorem chainWeight_pos (hn : 1 ≤ n) {a τ : ℝ} (ha : 0 < a) (ha1 : a ≤ 1) (hτ : 0 < τ)
     (hA : 0 < chainAmp n a τ) {k : ℕ} (hk : k < n) :
     a * spinWeight n k - chainWeight n a τ k ≤ chainDelta n a τ ∧ 0 < chainWeight n a τ k := by
@@ -184,7 +184,8 @@ theorem norm_endAmp_sub_le (n : ℕ) (c c' : ℕ → ℝ) (τ : ℝ) :
   refine (PiLp.norm_apply_le _ _).trans ((ContinuousLinearMap.le_opNorm _ _).trans_eq ?_)
   simp
 
-/-- Row sums (line 2271) for the rounded chain: `‖a B_n - B'_n‖ ≤ 2δ`. -/
+/-- Row sums (the chain construction of Section `part:hsl`) for the rounded chain:
+`‖a B_n - B'_n‖ ≤ 2δ`. -/
 theorem norm_pathMatrix_sub_chainWeight_le (hn : 1 ≤ n) {a τ : ℝ} (ha : 0 < a) (ha1 : a ≤ 1)
     (hτ : 0 < τ) (hA : 0 < chainAmp n a τ) :
     ‖pathMatrix n (fun k => a * spinWeight n k) - pathMatrix n (chainWeight n a τ)‖ ≤

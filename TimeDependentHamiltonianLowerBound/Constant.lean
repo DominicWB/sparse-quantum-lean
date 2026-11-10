@@ -8,11 +8,11 @@ set_option autoImplicit false
 /-!
 # Constant time-indexed data, constant paths and their propagators
 
-The paragraph "Regularity and coherent parameters" after Theorem `hs:thm:time` ends: "The
-lower bound in Theorem `hsl:thm:main` also applies to this class, since its time-independent
-hard instances satisfy the new assumptions with `β = δ_val = 0`." This module gives the
-embedding of time-independent native sparse data `D : Data X N Z s` into the time-dependent
-access model of `hs:thm:time` (equation `hs:eq:timeaccess`).
+The paragraphs after the proof of Theorem `hs:thm:time` end: "Finally, this input class contains the
+constant hard instances of Theorem `hsl:thm:main`, with `β = δ_val = 0`, so the lower bounds of that
+theorem continue to apply." This module gives the embedding of time-independent native sparse data
+`D : Data X N Z s` into the time-dependent access model of `hs:thm:time` (equation
+`hs:eq:timeaccess`).
 
 * `constData D M : Data (X × Fin M) N Z s`: every sample `r < M` is the instance itself (the
   fields of `D` read at the first component, as the released one-stage ODE data

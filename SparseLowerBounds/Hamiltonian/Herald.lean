@@ -6,14 +6,13 @@ section
 /-!
 # Lemma `odel:lem:herald`: the Hamiltonian-simulation bound with heralding
 
-Manuscript lines 3954-3999. The bound of Theorem `hsl:thm:main` remains
-valid, with the same constants, when the simulator heralds success with
-probability at least `2/3` on each input and has conditional trace error at
-most `ε` (`Readout.HeraldedAccurate`: the conditional statement multiplied
-through by the success probability, so no division occurs and the success
-probability may depend on the input).
+Manuscript: eq. `odel:eq:hsbound` and Lemma `odel:lem:herald`. The bound of Theorem `hsl:thm:main`
+remains valid, with the same constants, when the simulator heralds success with probability at least
+`2/3` on each input and has conditional trace error at most `ε` (`Readout.HeraldedAccurate`: the
+conditional statement multiplied through by the success probability, so no division occurs and the
+success probability may depend on the input).
 
-Route (lines 3972-3998). With the input-independent workspace observable
+Route (proof of Lemma `odel:lem:herald`). With the input-independent workspace observable
 `Π (e† (M ⊗ 1) e) Π` (`Π` the herald, `M` the family's readout observable of
 `Hamiltonian/Amplitude`), `Readout.heralded_correlation` turns the ideal
 parity-corrected expectation `≥ 7A/8` (`search_corr`, `scalar_corr`) into the
@@ -66,7 +65,7 @@ theorem norm_heraldObs_le {S : Type*} [Fintype S] [DecidableEq S] (e : K →L[�
 
 /-! ### Any 2-query-implementable family, main parameters -/
 
-/-- **Lemma `odel:lem:herald`, time family, general form** (lines 3985-3987):
+/-- **Lemma `odel:lem:herald`, time family, general form** (proof of Lemma `odel:lem:herald`):
 heralded success `≥ 2/3` and conditional accuracy `ε` give Boolean cost
 `p.cost w ≥ (log 2/48) n √m` (`n = timeN τ`, `m = 2^{hsMu s}`). -/
 theorem time_herald_general (h : HSRange τ s ε)
@@ -108,7 +107,7 @@ theorem time_herald_general (h : HSRange τ s ε)
         mul_le_mul_of_nonneg_left (quarter_root (timeN τ)) hc
     _ ≤ p.cost w := hb
 
-/-- **Lemma `odel:lem:herald`, mixed family, general form** (lines 3988-3994):
+/-- **Lemma `odel:lem:herald`, mixed family, general form** (proof of Lemma `odel:lem:herald`):
 at the main parameters with `L ≥ 64τ` and `s ≥ 64n/τ`, the heralded
 correlation is `≥ A/2`, so `p.cost w ≥ (log 2/48) √(m n τ)`. -/
 theorem mixed_herald_general (h : HSRange τ s ε) (hL : 64 * τ ≤ hsL ε)
@@ -178,9 +177,9 @@ theorem mixed_herald_general (h : HSRange τ s ε) (hL : 64 * τ ≤ hsL ε)
         mul_le_mul_of_nonneg_left (mixed_root hn2 hτ0 hτn) hc
     _ ≤ p.cost w := hb
 
-/-- **Lemma `odel:lem:herald`, precision family, general form** (lines
-3988-3996): at the main parameters with `L ≥ 64τ`, the heralded parity
-correlation is positive, so `p.cost w ≥ n/2` (`n = ⌊r/4⌋`). -/
+/-- **Lemma `odel:lem:herald`, precision family, general form** (proof of Lemma `odel:lem:herald`):
+at the main parameters with `L ≥ 64τ`, the heralded parity correlation is positive, so
+`p.cost w ≥ n/2` (`n = ⌊r/4⌋`). -/
 theorem precision_herald_general (h : HSRange τ s ε) (hL : 64 * τ ≤ hsL ε)
     (P : ProjFamily K' (Fin (precN τ ε))) (E : K →L[ℂ] K') (hE : E† ∘L E = 1)
     (O : L → (Fin (precN τ ε) → Bool) → K →L[ℂ] K) (hO : ∀ l x, IsUnitary (O l x))
@@ -352,10 +351,9 @@ theorem precision_herald_native (h : HSRange τ s ε) (hL : 64 * τ ≤ hsL ε)
 
 /-! ### Combined statement -/
 
-/-- **Lemma `odel:lem:herald`, combined max form** (lines
-3995-3998): with heralding, `max(Q_T, Q_M, Q_P) ≥ c₀ (√s τ + √(sτr) + r)`,
-`c₀ = log 2/(4096π)` unchanged (spectator form; as
-`main_max`). -/
+/-- **Lemma `odel:lem:herald`, combined max form** (proof of Lemma `odel:lem:herald`): with
+heralding, `max(Q_T, Q_M, Q_P) ≥ c₀ (√s τ + √(sτr) + r)`, `c₀ = log 2/(4096π)` unchanged (spectator
+form; as `main_max`). -/
 theorem main_max_herald (h : HSRange τ s ε) (ΩT ΩM ΩP : Type*)
     [Fintype ΩT] [Fintype ΩM] [Fintype ΩP] {GT GM GP : Type*}
     [NormedAddCommGroup GT] [InnerProductSpace ℂ GT] [CompleteSpace GT]

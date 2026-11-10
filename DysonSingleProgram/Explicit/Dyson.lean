@@ -7,10 +7,10 @@ set_option synthInstance.maxSize 4096
 /-!
 # Lemma `odel:lem:dyson` with the amplification shape of its trials
 
-Manuscript lines 4591-4690 (Lemma `odel:lem:dyson`, eq. `odel:eq:dyson`, proof). The released
+Manuscript: Lemma `odel:lem:dyson`, eq. `odel:eq:dyson` and the proof. The released
 statement `ODELowerBoundExtensions.Dyson.dyson` asserts the existence of one public trial family
 satisfying the complete certificate `ODECompleteTrial.Certificate`. Its trial family is the
-compiled counted amplification of the Dyson preparation (lines 4687-4689):
+compiled counted amplification of the Dyson preparation (proof of Lemma `odel:lem:dyson`):
 `ODECoordinateNativeControl.compile … (TimeDependentODE.SourceTD.publicLogicalTrials … j)`.
 
 `GroverOutcome` is the second half of `Dyson.Outcome` with, in addition, the amplification shape
@@ -80,7 +80,7 @@ def GroverOutcome (D : Data (X × Fin Ks) n Z s) {M : ℕ} (σ : Fin M → Fin K
 
 set_option maxHeartbeats 4000000 in
 set_option maxRecDepth 20000 in
-/-- **Lemma `odel:lem:dyson` with the amplification shape** (lines 4591-4690): under the
+/-- **Lemma `odel:lem:dyson` with the amplification shape** (Lemma `odel:lem:dyson`): under the
 hypotheses of `ODELowerBoundExtensions.Dyson.dyson`, the released Dyson trial family has the
 amplification shape and satisfies the released complete certificate on every valid instance. -/
 theorem dyson_grover (D : Data (X × Fin Ks) n Z s) {M : ℕ} (hM : 0 < M) (σ : Fin M → Fin Ks)

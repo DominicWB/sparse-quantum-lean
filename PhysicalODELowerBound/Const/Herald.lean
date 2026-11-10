@@ -7,12 +7,12 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # Eq. `odel:eq:hsbound` over the constant-coefficient physical oracle: controlled calls, padding
 
-Manuscript lines 4114-4115 ("The lower bounds thus apply to Theorems `ode:thm:main` and
-`ode:thm:time`"), 4392-4435 (eq. `odel:eq:hsbound`, Lemma `odel:lem:herald`) and 4441-4442 ("Pad
-dimensions to a common known size if desired"), for the time, mixed and precision families and
-their known zero paddings (one-stage, constant coefficient, `D = 0`, `g = 1`) and adaptive solvers
-over the physical oracle of the released constant-coefficient solver and over its call forms
-(`ConstForces`).
+Manuscript: Section `odel:sec:main` ("the lower bounds apply to the upper bounds of the preceding
+section"), eq. `odel:eq:hsbound`, Lemma `odel:lem:herald` and the proof of Theorem
+`odel:thm:combined` ("Pad dimensions to a common known size if desired"), for the time, mixed and
+precision families and their known zero paddings (one-stage, constant coefficient, `D = 0`, `g = 1`)
+and adaptive solvers over the physical oracle of the released constant-coefficient solver and over
+its call forms (`ConstForces`).
 
 * `time_forces_const`, `mixed_forces_const`, `precision_forces_const`,
   `precision_forces_sqrt_const`, `herald_max_cost_const`, `herald_witness_const`: the unpadded
@@ -26,11 +26,12 @@ over the physical oracle of the released constant-coefficient solver and over it
 * `time_forces_pad_const`, `mixed_forces_pad_const`, `precision_forces_pad_const`,
   `precision_forces_sqrt_pad_const`, `herald_max_cost_pad_const`, `herald_witness_pad_const`: the
   padded families, for any known paddings.
-* `herald_common_dimension_const`, `herald_qubit_register_const` (lines 2794-2796): the three
-  families padded by `PadTo S Nd` to one common dimension `Nd`, in particular `Nd = 2^q`.
+* `herald_common_dimension_const`, `herald_qubit_register_const` (the end of the proof of Theorem
+  `hsl:thm:main`): the three families padded by `PadTo S Nd` to one common dimension `Nd`, in
+  particular `Nd = 2^q`.
 * `precision_terms_witness_const`, `precision_terms_witness_pad_const`: the precision terms
   `c₀ (√(sτr) + r)` of Theorem `odel:thm:combined` are witnessed by one of the (padded) `g = 1`
-  families (lines 4143-4144).
+  families.
 
 All per-family bounds come from `Families.time_solver`, `mixed_solver`, `precision_solver` and
 their padded forms through `constForces_of_growth`, with the access conditions of the data
@@ -241,13 +242,13 @@ theorem herald_witness_pad_const (h : HSRange τ s ε) {gbar : ℝ} (hg : 1 ≤ 
   · exact Or.inr (Or.inl ⟨hI.2.1.1, hI.2.1.2.1, constForces_of_cost hf⟩)
   · exact Or.inr (Or.inr ⟨hI.2.2.1, hI.2.2.2.1, constForces_of_cost hf⟩)
 
-/-- **Eq. `odel:eq:hsbound` in one common dimension over the constant-coefficient oracle** (lines
-2794-2796, "append known zeros to equalise dimensions across families or to obtain a qubit
-register", and 4441-4442): for every `Nd` at least the dimensions of the three hard families, the
-time, mixed and precision families padded by `PadTo S Nd` have dimension exactly `Nd` and maximum
-sparsity exactly `s`, and for any `ḡ ≥ 1` one of them is in the class and forces
-`c₀ (√s τ + √(sτr) + r)` value calls (and as many matrix calls) on every adaptive solver over the
-constant-coefficient physical oracle or its call forms. -/
+/-- **Eq. `odel:eq:hsbound` in one common dimension over the constant-coefficient oracle** (the end
+of the proof of Theorem `hsl:thm:main`, "zero padding equalises dimensions or accommodates a qubit
+register", and the proof of Theorem `odel:thm:combined`): for every `Nd` at least the dimensions of
+the three hard families, the time, mixed and precision families padded by `PadTo S Nd` have
+dimension exactly `Nd` and maximum sparsity exactly `s`, and for any `ḡ ≥ 1` one of them is in the
+class and forces `c₀ (√s τ + √(sτr) + r)` value calls (and as many matrix calls) on every adaptive
+solver over the constant-coefficient physical oracle or its call forms. -/
 theorem herald_common_dimension_const (h : HSRange τ s ε) {gbar : ℝ} (hg : 1 ≤ gbar) (Nd : ℕ)
     (hT : Fintype.card (SearchIndex (timeN τ) (hsMu s) s) ≤ Nd)
     (hM : Fintype.card (SearchIndex (precN τ ε) (hsMu s) s) ≤ Nd)
@@ -280,12 +281,12 @@ theorem herald_common_dimension_const (h : HSRange τ s ε) {gbar : ℝ} (hg : 1
     LowerBoundRemarks.HamiltonianPadding.card_padTo hP, ⟨hI.1.2.2, hI.2.1.2.2, hI.2.2.2.2⟩,
     herald_witness_pad_const h hg _ _ _⟩
 
-/-- **Eq. `odel:eq:hsbound` on a qubit register over the constant-coefficient oracle** (lines
-2794-2796 and 4441-4442): for every `q` with `4 s (τ + r + 1) ≤ 2^q`, the time, mixed and
-precision families padded by `PadTo S (2^q)` have dimension exactly `2^q` and maximum sparsity
-exactly `s`, and for any `ḡ ≥ 1` one of them is in the class and forces `c₀ (√s τ + √(sτr) + r)`
-value calls (and as many matrix calls) on every adaptive solver over the constant-coefficient
-physical oracle or its call forms. -/
+/-- **Eq. `odel:eq:hsbound` on a qubit register over the constant-coefficient oracle** (the end of
+the proof of Theorem `hsl:thm:main` and proof of Theorem `odel:thm:combined`): for every `q` with
+`4 s (τ + r + 1) ≤ 2^q`, the time, mixed and precision families padded by `PadTo S (2^q)` have
+dimension exactly `2^q` and maximum sparsity exactly `s`, and for any `ḡ ≥ 1` one of them is in the
+class and forces `c₀ (√s τ + √(sτr) + r)` value calls (and as many matrix calls) on every adaptive
+solver over the constant-coefficient physical oracle or its call forms. -/
 theorem herald_qubit_register_const (h : HSRange τ s ε) {gbar : ℝ} (hg : 1 ≤ gbar) (q : ℕ)
     (hq : 4 * s * (τ + hsR τ ε + 1) ≤ (2 : ℝ) ^ q) :
     Fintype.card (SearchIndex (timeN τ) (hsMu s) s ⊕
@@ -360,10 +361,11 @@ theorem herald_max_const_tree_of_const (h : HSRange τ s ε) (ιT ιM ιP : Type
       (by exact_mod_cast AdaptiveODELowerBound.Release.worstCost_value_le_matrix_tree AP.tree)))⟩
 
 /-- **The precision terms of Theorem `odel:thm:combined` over the constant-coefficient physical
-oracle are witnessed by `g = 1` families** (fourth sentence of the theorem, lines 4143-4144): on
-`HSRange`, for any `ḡ ≥ 1`, one of the homogeneous constant-coefficient families with `D = 0` and
-`g = 1` (time, mixed, precision) witnesses `c₀ (√(sτr) + r)` on every adaptive solver over the
-physical oracle or its call forms. From `herald_witness_const` by `ConstWitnesses.mono`. -/
+oracle are witnessed by `g = 1` families** (fourth sentence of the theorem, Theorem
+`odel:thm:combined`): on `HSRange`, for any `ḡ ≥ 1`, one of the homogeneous constant-coefficient
+families with `D = 0` and `g = 1` (time, mixed, precision) witnesses `c₀ (√(sτr) + r)` on every
+adaptive solver over the physical oracle or its call forms. From `herald_witness_const` by
+`ConstWitnesses.mono`. -/
 theorem precision_terms_witness_const (h : HSRange τ s ε) {gbar : ℝ} (hg : 1 ≤ gbar) :
     ConstWitnesses (timeFamilyAt τ s h.s_ge (by linarith [h.one_le_tau])) τ gbar ε
         (c0 * (Real.sqrt (s * τ * hsR τ ε) + hsR τ ε)) ∨
@@ -381,11 +383,12 @@ theorem precision_terms_witness_const (h : HSRange τ s ε) {gbar : ℝ} (hg : 1
   · exact Or.inr (Or.inr (hw.mono hb))
 
 /-- **The precision terms of Theorem `odel:thm:combined` over the constant-coefficient physical
-oracle are witnessed by padded `g = 1` families** (fourth sentence of the theorem, lines 4143-4144,
-with the padding of line 4441): on `HSRange`, for any `ḡ ≥ 1` and any known paddings, one of the
-padded homogeneous constant-coefficient families with `D = 0` and `g = 1` (time, mixed, precision)
-witnesses `c₀ (√(sτr) + r)` on every adaptive solver over the physical oracle or its call forms.
-From `herald_witness_pad_const` by `ConstWitnesses.mono`. -/
+oracle are witnessed by padded `g = 1` families** (fourth sentence of the theorem, Theorem
+`odel:thm:combined`, with the padding of the proof of Theorem `odel:thm:combined`): on `HSRange`,
+for any `ḡ ≥ 1` and any known paddings, one of the padded homogeneous constant-coefficient families
+with `D = 0` and `g = 1` (time, mixed, precision) witnesses `c₀ (√(sτr) + r)` on every adaptive
+solver over the physical oracle or its call forms. From `herald_witness_pad_const` by
+`ConstWitnesses.mono`. -/
 theorem precision_terms_witness_pad_const (h : HSRange τ s ε) {gbar : ℝ} (hg : 1 ≤ gbar)
     (PT PM PP : Type) [Fintype PT] [DecidableEq PT] [Fintype PM] [DecidableEq PM]
     [Fintype PP] [DecidableEq PP] :

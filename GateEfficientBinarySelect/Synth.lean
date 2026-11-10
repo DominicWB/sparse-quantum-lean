@@ -5,6 +5,10 @@ import GateEfficientSynthesisTrials.Solver
 /-!
 # Theorem `ode:thm:gates` from binary data on branch-dependent meshes over a finite gate set
 
+The finite-gate-set forms of Theorem `ode:thm:gates` in this module are a partial formalisation of
+its finite-set statement, under this package's format hypotheses: the manuscript states Theorem
+`ode:thm:gates` over a finite gate set; the conformance endpoints count native gates.
+
 The native solver from time-indexed binary sparse data on the branch-dependent meshes
 (`binary_select_solver`, `binary_select_solverL`) with every trial, or the preparation,
 synthesised over a finite gate set. Two forms, as for the released common-mesh solvers:
@@ -168,9 +172,10 @@ variable {X n : Type*} [Fintype n] [DecidableEq n] {Zs : Type*} [Fintype Zs] [De
 variable {Xa : Type*} [Fintype Xa] [DecidableEq Xa] {𝒢 : Set GateSynth.Kind} {len : ℝ → ℕ}
 
 /-- **Gate-efficient dissipative ODE solver from time-indexed binary sparse data on
-branch-dependent meshes over a finite gate set** (Theorem `ode:thm:gates`, time-dependent part,
-with the branch-dependent meshes of Lemma `ode:lem:gate-select` and finite-set synthesis as a
-hypothesis).
+branch-dependent meshes over a finite gate set** (partial formalisation, under this package's
+format hypotheses, of the finite-set statement of Theorem `ode:thm:gates`,
+time-dependent part, with the branch-dependent meshes of Lemma `ode:lem:gate-select` and finite-set
+synthesis as a hypothesis).
 
 For the public data `q`, the binary data `D` and the source circuits `loadC`, `wpC` of
 `binary_select_solver`, the synthesised protocol `sprotocol hS (ε/200) (prepQ q loadC wpC) (2g)`
@@ -306,8 +311,9 @@ theorem binary_select_solverL_synth (hS : GateSynth.Synthesis 𝒢 Xa len) (q : 
       Wp fv G bf xs ys βG δG Λ L bs δb ζs hζs hload hwp hbud hR)
 
 /-- **Gate-efficient dissipative ODE solver from time-indexed binary sparse data on
-branch-dependent meshes over a finite gate set with exact reflections** (Theorem
-`ode:thm:gates`, time-dependent part, with the branch-dependent meshes of Lemma
+branch-dependent meshes over a finite gate set with exact reflections** (partial formalisation,
+under this package's format hypotheses, of the finite-set statement of Theorem `ode:thm:gates`,
+time-dependent part, with the branch-dependent meshes of Lemma
 `ode:lem:gate-select` and finite-set synthesis as a hypothesis, including the per-trial claim).
 
 For the public data `q`, the binary data `D` and the source circuits `loadC`, `wpC` of

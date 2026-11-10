@@ -20,7 +20,7 @@ through the formalised Theorem `hs:thm:main`
 of that theorem in place of `ℓ/log(e + ℓ/N)` (see **The precision term**). Nothing from outside
 the paper is used. Unqualified names below are in the namespace
 `SparseHamiltonian.UnitaryPrecision`; qualified names such as `UnitaryEntryData.Data` refer to
-`SparseHamiltonian.*`.
+`SparseHamiltonian.*`. References to the manuscript use its labels.
 
 * Exact entries: `implementation`, `implementation_with_reference`, `implementation_two_term`;
   also `native_implementation` (before the known locators are compiled away) and
@@ -101,7 +101,10 @@ operator of a matrix on `EuclideanSpace ℂ n`.
 `O(√(Nℓ) + ℓ/log(e + ℓ/N))`, is Corollary `hs:cor:hybrid` at `τ = π/2`: it chooses between the
 bound of Theorem `hs:thm:main` and optimal block-encoding simulation from other papers
 (qubitization with the joint time-precision dependence of QSVT). Corollary `hs:cor:hybrid` is
-not formalised, so neither is the additive term `ℓ/log(e + ℓ/N)`. The formalised counts are
+not formalised; the additive term `ℓ/log(e + ℓ/N)` is obtained instead from Corollary
+`hs:cor:unitary-optimal` in the later library `OptimalSparseSimulation`, whose circuits make at
+most `5·10¹³ (√(Nℓ) + ℓ/log(e + ℓ/N))` calls (`OptimalSparseSimulation.unitary_bound`,
+`unitary_bound_inexact`). The counts formalised in this library are
 those of Theorem `hs:thm:main` at `s = N`, `t = π/2` and `η = 1` (exact entries) or `η = 2`
 (inexact entries): `O(√N + √(Nℓ) + ℓ)`, with the additive `ℓ` in place of `ℓ/log(e + ℓ/N)`.
 Since `ℓ ≥ log 2 > 0`, `√N ≤ (log 2)^{-1/2} √(Nℓ)` (`sqrt_le_absorb`, with `(log 2)^{-1/2}`
@@ -182,8 +185,9 @@ Every theorem of the library is axiom-audited in `UnitaryImplementationPrecision
   `ImprovedSparseHamiltonian.simulation_with_reference_log_one`; `reference_error` and
   `reference_error_inexact` hold for every reference.
 
-**Not formalised.** The sharper additive term `ℓ/log(e + ℓ/N)` of `hs:eq:unitarybound` for
-`ℓ > N`, which needs Corollary `hs:cor:hybrid` (optimal block-encoding simulation from other
-papers); the lower bound `Ω(√N)` at constant error (the reduction from unstructured search in
-the proof of Corollary `hs:cor:unitary`); gate counts.
+**Not formalised.** Corollary `hs:cor:hybrid` (optimal block-encoding simulation from other papers),
+through which the manuscript obtains the additive term `ℓ/log(e + ℓ/N)` of `hs:eq:unitarybound` (the
+bound with that term is `OptimalSparseSimulation.unitary_bound`, from Corollary
+`hs:cor:unitary-optimal`); the lower bound `Ω(√N)` at constant error (the reduction from
+unstructured search in the proof of Corollary `hs:cor:unitary`); gate counts.
 -/

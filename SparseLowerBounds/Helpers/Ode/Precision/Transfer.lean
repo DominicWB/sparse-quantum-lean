@@ -6,13 +6,12 @@ section
 /-!
 # Hamiltonian data as single-stage constant-coefficient ODE families
 
-Helper of `ODE/Precision` (manuscript lines 3955-3964): the precision terms of
-`odel:thm:combined` are witnessed by the Hamiltonian-simulation families of
-`part:hsl`, read as constant-coefficient ODEs `A = -iH`, `b = 0`, `g = 1`.
-For native sparse Hamiltonian data `D` (`NativeSparseBlockEncoding.Data X N Z s`)
-this module builds the one-stage family `hamFamily D T x₀` of `ODE/Model`
-(generator `G = iH`, decode `i · decode`, the same words and locators) and
-proves the transfer:
+Helper of `ODE/Precision` (eq. `odel:eq:hsbound` and Lemma `odel:lem:herald`): the precision terms
+of `odel:thm:combined` are witnessed by the Hamiltonian-simulation families of `part:hsl`, read as
+constant-coefficient ODEs `A = -iH`, `b = 0`, `g = 1`. For native sparse Hamiltonian data `D`
+(`NativeSparseBlockEncoding.Data X N Z s`) this module builds the one-stage family
+`hamFamily D T x₀` of `ODE/Model` (generator `G = iH`, decode `i · decode`, the same words and
+locators) and proves the transfer:
 
 * **oracles** — the sampled-time oracle of `hamFamily D` is the spectated native
   oracle of `D`: `oracles (hamData D) l (x, r) = oracles D l x` by `rfl`
@@ -105,7 +104,7 @@ theorem oracles_hamData [Fintype Z] [AddCommGroup Z] (D : Data X N Z s) (l : Que
   cases l <;> rfl
 
 /-- **The constant-coefficient ODE family** `ẋ = -iH_x x`, `x(0) = x₀`, on
-`[0, T]` (one stage, no source; lines 3962-3964). -/
+`[0, T]` (one stage, no source; Lemma `odel:lem:herald`). -/
 def hamFamily (D : Data X N Z s) (T : ℝ) (hT : 0 ≤ T) (x₀ : EuclideanSpace ℂ N) :
     Family X N Z 1 s where
   data := hamData D

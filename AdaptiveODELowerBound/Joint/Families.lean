@@ -7,12 +7,11 @@ set_option autoImplicit false
 set_option synthInstance.maxHeartbeats 400000
 
 /-!
-# Theorem `odel:thm:joint` and Remark `odel:rem:homogeneous` for adaptive protocols
+# Theorem `odel:thm:joint` and Proposition `odel:rem:homogeneous` for adaptive protocols
 
-Manuscript lines 4296-4341 (Theorem `odel:thm:joint`) and 4343-4388 (Remark
-`odel:rem:homogeneous`), for adaptive solvers (`Model.TreeSolver`) over the sampled-time access
-and over its call forms (inverses, controls and controlled inverses), with the constants of the
-released single-program and retry statements.
+Manuscript: Theorem `odel:thm:joint` and Proposition `odel:rem:homogeneous`, for adaptive solvers
+(`Model.TreeSolver`) over the sampled-time access and over its call forms (inverses, controls and
+controlled inverses), with the constants of the released single-program and retry statements.
 
 * `joint_forces_tree` (`joint_forces`, `Release.joint_forces_retry` for trees): the joint family
   tree-forces `β² n √(M 2^μ) / 16` value calls, `β = jointCorr ε`. Route: `Joint.joint_general_tree`
@@ -87,9 +86,9 @@ theorem joint_forces_tree {M n μ s : ℕ} (hM : 2 ≤ M) (hMe : Even M) (hn : 1
     push_cast at h
     constructor <;> linarith
 
-/-- **Theorem `odel:thm:joint` for adaptive protocols** (lines 4296-4341): for `s ≥ 4`, `τ ≥ 4`,
-`ḡ ≥ 2`, `0 < ε ≤ 1/64`, the joint family at the parameters is in the class (`η = 1`, `T = τ`,
-`g ≤ ḡ`) and tree-forces `ḡ √s τ / 400` calls (`c_J = jointConst = 1/400`), for adaptive
+/-- **Theorem `odel:thm:joint` for adaptive protocols** (Theorem `odel:thm:joint`): for `s ≥ 4`,
+`τ ≥ 4`, `ḡ ≥ 2`, `0 < ε ≤ 1/64`, the joint family at the parameters is in the class (`η = 1`,
+`T = τ`, `g ≤ ḡ`) and tree-forces `ḡ √s τ / 400` calls (`c_J = jointConst = 1/400`), for adaptive
 solvers over the sampled-time access and over its call forms. The family has `D = 0`
 (`SparseLowerBounds.ODE.jointFamily_skew`), `g = √M` (`SparseLowerBounds.ODE.jointFamilyAt_g`),
 `ḡ/√2 ≤ √M ≤ ḡ` and dimension at most `3 ḡ² s` (`SparseLowerBounds.ODE.joint_instance_props`). -/
@@ -108,7 +107,7 @@ theorem joint_witness_tree {s : ℕ} {τ gbar ε : ℝ} (h : JointRange s τ gba
     fun ι _ Fl E G _ _ _ _ _ _ _ _ _ _ A => ⟨hb.trans (hf.2 ι Fl E G A).1,
       hb.trans (hf.2 ι Fl E G A).2⟩⟩
 
-/-- **Remark `odel:rem:homogeneous` for adaptive protocols, native form**: the homogeneous
+/-- **Proposition `odel:rem:homogeneous` for adaptive protocols, native form**: the homogeneous
 family tree-forces `β² n √(M 2^μ) / 16` value calls (and as many calls in total),
 `β = homCorr ε = (2/3)(15/17 - 2ε)`. -/
 theorem hom_forces_tree {M n μ s : ℕ} (hM : 2 ≤ M) (hMe : Even M) (hn : 1 ≤ n)
@@ -166,12 +165,12 @@ theorem hom_forces_tree {M n μ s : ℕ} (hM : 2 ≤ M) (hMe : Even M) (hn : 1 �
     unfold homCorr
     constructor <;> linarith
 
-/-- **Remark `odel:rem:homogeneous` for adaptive protocols** (lines 4343-4388): for `s ≥ 4`,
-`ḡ ≥ 2`, `τ ≥ 20(1 + log ḡ)` and `0 < ε ≤ 1/64`, the homogeneous (`b = 0`) time-dependent family
-is in the class (`η = 1`, `T = τ`, `g ≤ ḡ`) and tree-forces `ḡ √s τ / 500` calls
-(`c_H = homConst = 1/500`). The family has `(4/√17) √M ≤ g ≤ √M`
-(`ODELowerBoundExtensions.Homogeneous.homFamily_g`), `ḡ/√2 ≤ √M ≤ ḡ` and dimension at most
-`6 ḡ² s` (`ODELowerBoundExtensions.Homogeneous.hom_instance_props`). -/
+/-- **Proposition `odel:rem:homogeneous` for adaptive protocols** (Proposition
+`odel:rem:homogeneous`): for `s ≥ 4`, `ḡ ≥ 2`, `τ ≥ 20(1 + log ḡ)` and `0 < ε ≤ 1/64`, the
+homogeneous (`b = 0`) time-dependent family is in the class (`η = 1`, `T = τ`, `g ≤ ḡ`) and
+tree-forces `ḡ √s τ / 500` calls (`c_H = homConst = 1/500`). The family has `(4/√17) √M ≤ g ≤ √M`
+(`ODELowerBoundExtensions.Homogeneous.homFamily_g`), `ḡ/√2 ≤ √M ≤ ḡ` and dimension at most `6 ḡ² s`
+(`ODELowerBoundExtensions.Homogeneous.hom_instance_props`). -/
 theorem hom_witness_tree {s : ℕ} {τ gbar ε : ℝ} (h : HomRange s τ gbar ε) :
     TreeWitnesses (homFamilyAt s τ gbar h.s_ge h.gbar_ge h.tau_ge) τ gbar ε
       (homConst * gbar * Real.sqrt s * τ) := by

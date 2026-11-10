@@ -3,14 +3,14 @@ import ODELowerBoundExtensions.Psd.Family
 /-!
 # The gadget-family bound of Theorem `odel:thm:psd`
 
-Manuscript lines 4094-4117. Heralded output (success
-probability at least `2/3` on every input, conditional accuracy `ε`, the model of `ODE.Solver`),
-line 4029 ("the same heralded output as before").
+Manuscript: the proof of Theorem `odel:thm:psd`. Heralded output (success probability at least
+`2/3` on every input, conditional accuracy `ε`, the model of `ODE.Solver`), as in the theorem
+("The statement allows the same heralded output as before").
 
-* `psd_heralded_corr` (lines 4094-4095): an ideal parity-corrected expectation `≥ 7a/8` of a
-  Hermitian contraction becomes, through the input-independent observable `Π (e† (M ⊗ 1) e) Π`
-  (`Π` the herald), an unconditional correlation `≥ (2/3)(7a/8 - 2ε) ≥ a/4` for any amplitude
-  `a ≥ 8ε` (`Readout.heralded_correlation`, eq. `odel:eq:heraldcorr`).
+* `psd_heralded_corr` (proof of Theorem `odel:thm:psd`): an ideal parity-corrected expectation
+  `≥ 7a/8` of a Hermitian contraction becomes, through the input-independent observable
+  `Π (e† (M ⊗ 1) e) Π` (`Π` the herald), an unconditional correlation `≥ (2/3)(7a/8 - 2ε) ≥ a/4` for
+  any amplitude `a ≥ 8ε` (`Readout.heralded_correlation`, eq. `odel:eq:heraldcorr`).
 * `psd_search_cost` (eqs. `odel:eq:smallbias`, `odel:eq:psdmixedlocal`): with `β₀ = a/4`, the
   small-correlation search-parity lemma `hsl:lem:search` (`Hamiltonian.search_cost_of_corr`)
   gives Boolean cost `q ≥ (log 2/24) n √m β₀^{1/(2n)} ≥ (log 2/96) √(m n u)` once
@@ -19,7 +19,8 @@ line 4029 ("the same heralded output as before").
 * `psd_search_forces_local`: eq. `odel:eq:psdmixedlocal`, `Q_A ≥ (log 2/192) √(m n u)`, for
   the gadget family (two Boolean queries per value call, `implementsOn_psdSearchData_spec`,
   `Hamiltonian.native_bound_of_cost`; solver transfer `forces_of_spec_heat`).
-* `psd_search_forces`: for `s ≥ 512n/τ`, `Q_A ≥ (log 2/(1536√2)) √(sτr)` (line 4116).
+* `psd_search_forces`: for `s ≥ 512n/τ`, `Q_A ≥ (log 2/(1536√2)) √(sτr)` (proof of Theorem
+  `odel:thm:psd`).
 -/
 
 set_option autoImplicit false
@@ -40,11 +41,11 @@ variable {τ ε : ℝ} {s : ℕ} {K K' G L : Type*}
   [NormedAddCommGroup K'] [InnerProductSpace ℂ K'] [CompleteSpace K']
   [NormedAddCommGroup G] [InnerProductSpace ℂ G] [CompleteSpace G]
 
-/-- **Heralded correlation at the PSD amplitude** (lines 4094-4095): if the output `Φ` is
-heralded-accurate for `ψ` with success probability at least `2/3`, and a Hermitian contraction
-`M` has signed ideal expectation `≥ 7a/8` in `ψ` for an amplitude `a ≥ 8ε` (at the main
-parameters `a = psdAmp n (τ/2)`, `eight_eps_le_psdAmp`), then the heralded workspace observable
-has signed correlation `≥ (2/3)(7a/8 - 2ε) ≥ a/4`. -/
+/-- **Heralded correlation at the PSD amplitude** (proof of Theorem `odel:thm:psd`): if the output
+`Φ` is heralded-accurate for `ψ` with success probability at least `2/3`, and a Hermitian
+contraction `M` has signed ideal expectation `≥ 7a/8` in `ψ` for an amplitude `a ≥ 8ε` (at the main
+parameters `a = psdAmp n (τ/2)`, `eight_eps_le_psdAmp`), then the heralded workspace observable has
+signed correlation `≥ (2/3)(7a/8 - 2ε) ≥ a/4`. -/
 theorem psd_heralded_corr (hε : 0 ≤ ε) {a : ℝ} (ha : 8 * ε ≤ a) {S : Type*} [Fintype S]
     [DecidableEq S]
     (e : K →L[ℂ] SysGarb S G) (he : e† ∘L e = 1) (herald : K →L[ℂ] K)
@@ -58,11 +59,11 @@ theorem psd_heralded_corr (hε : 0 ≤ ε) {a : ℝ} (ha : 8 * ε ≤ a) {S : Ty
     hsgn hideal hεa).1
   linarith
 
-/-- **Eq. `odel:eq:psdmixedlocal`, Boolean-cost form** (lines 4097-4108): at the main
-parameters with `m = 2^{psdMu s} ≥ 64n/τ`, any heralded program over a labelled oracle family
-whose labels are implementable on a fixed isometric encoding with `w l` one-hot Boolean
-queries, heralded-accurate (success `≥ 2/3`, conditional error `ε`) for the normalised
-endpoints of the gadget family, has Boolean cost `p.cost w ≥ (log 2/96) √(m n u)`, `u = τ/2`. -/
+/-- **Eq. `odel:eq:psdmixedlocal`, Boolean-cost form** (proof of Theorem `odel:thm:psd`): at the
+main parameters with `m = 2^{psdMu s} ≥ 64n/τ`, any heralded program over a labelled oracle family
+whose labels are implementable on a fixed isometric encoding with `w l` one-hot Boolean queries,
+heralded-accurate (success `≥ 2/3`, conditional error `ε`) for the normalised endpoints of the
+gadget family, has Boolean cost `p.cost w ≥ (log 2/96) √(m n u)`, `u = τ/2`. -/
 theorem psd_search_cost (h : PsdRange τ s ε)
     (hm : 64 * (precN τ ε : ℝ) / τ ≤ (2 : ℝ) ^ psdMu s)
     (P : ProjFamily K' (Fin (precN τ ε) × Fin (2 ^ psdMu s))) (E : K →L[ℂ] K')
@@ -124,9 +125,9 @@ theorem psd_search_cost (h : PsdRange τ s ε)
         mul_le_mul_of_nonneg_left (psd_root h) hc
     _ ≤ p.cost w := hb
 
-/-- **Eq. `odel:eq:psdmixedlocal`** (line 4108): for `m ≥ 64n/τ = 32n/u`, every heralded
-solver of the gadget family makes at least `(log 2/192) √(m n u)` value queries (and as many
-matrix queries). -/
+/-- **Eq. `odel:eq:psdmixedlocal`** (eq. `odel:eq:psdmixedlocal`): for `m ≥ 64n/τ = 32n/u`, every
+heralded solver of the gadget family makes at least `(log 2/192) √(m n u)` value queries (and as
+many matrix queries). -/
 theorem psd_search_forces_local (h : PsdRange τ s ε)
     (hm : 64 * (precN τ ε : ℝ) / τ ≤ (2 : ℝ) ^ psdMu s) :
     (psdSearchFamilyAt h).Forces ε
@@ -142,9 +143,9 @@ theorem psd_search_forces_local (h : PsdRange τ s ε)
           (two_mul_psdM_add_one_le h.s_ge))
         p A.seed A.seed_norm_le A.out A.out_isometry A.herald A.herald_proj hsucc hacc])
 
-/-- **The gadget-family bound** (lines 4111-4117): for `s ≥ 512n/τ`, every heralded solver of
-the gadget family makes at least `(log 2/(1536√2)) √(sτr)` value queries (and as many matrix
-queries). -/
+/-- **The gadget-family bound** (proof of Theorem `odel:thm:psd`): for `s ≥ 512n/τ`, every heralded
+solver of the gadget family makes at least `(log 2/(1536√2)) √(sτr)` value queries (and as many
+matrix queries). -/
 theorem psd_search_forces (h : PsdRange τ s ε) (hs : 512 * (precN τ ε : ℝ) / τ ≤ s) :
     (psdSearchFamilyAt h).Forces ε (psdGadgetConst * Real.sqrt (s * τ * hsR τ ε)) := by
   intro ι _ G _ _ _ A

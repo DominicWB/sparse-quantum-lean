@@ -3,9 +3,9 @@ import ODELowerBoundExtensions.Psd.Matrices
 /-!
 # Parity amplitudes and the readout correlation of the PSD families
 
-Manuscript lines 4048-4053 (common gauge, endpoint
-amplitude `σ(X) a` on the alternating vector `v`), 4083-4084 (`a' ≥ 7a/8`) and 4086-4095 (start
-vector, `P ∈ [1/2, 1]`, observable `M_0`, parity-corrected expectation `a'/P ≥ 7a/8`).
+Manuscript: the proof of Theorem `odel:thm:psd` (common gauge, endpoint amplitude `σ(X) a` on
+the alternating vector `v`; `a' ≥ 7a/8`; start vector, `P ∈ [1/2, 1]`, observable `M_0`,
+parity-corrected expectation `a'/P ≥ 7a/8`).
 
 * `psd_searchChain_amp`, `psd_scalarChain_amp`: the gauge identities
   `Hamiltonian.searchChain_eq_conj` and `Hamiltonian.scalarChain_eq_conj` carried through
@@ -19,7 +19,7 @@ vector, `P ∈ [1/2, 1]`, observable `M_0`, parity-corrected expectation `a'/P �
   (`norm_sq_heat_readoutInput`, contraction) and `⟨x(T), M_0 x(T)⟩ = Re⟨n, v| e^{-T D} |0, v⟩`
   (`heat_readout_expectation`).
 * `psd_search_corr`, `psd_scalar_corr`: for the normalised solution `x(T)/‖x(T)‖` the
-  parity-corrected expectation of `M_0` is `a'/P ≥ a' ≥ 7a/8` (line 4093).
+  parity-corrected expectation of `M_0` is `a'/P ≥ a' ≥ 7a/8` (proof of Theorem `odel:thm:psd`).
 -/
 
 set_option autoImplicit false
@@ -31,10 +31,10 @@ noncomputable section
 open SparseHamiltonian SparseLowerBounds SparseLowerBounds.Hamiltonian
 open scoped Matrix InnerProductSpace Matrix.Norms.L2Operator
 
-/-! ### Parity amplitudes (lines 4048-4053) -/
+/-! ### Parity amplitudes (proof of Theorem `odel:thm:psd`) -/
 
-/-- **Gadget-family parity amplitude** (lines 4048-4053): for even `m > 0` and every real `t`,
-`⟨n, v| e^{-t(1-H_X)/2} |0, v⟩ = σ(X) ⟨n| e^{-t(1-B)/2} |0⟩`. -/
+/-- **Gadget-family parity amplitude** (proof of Theorem `odel:thm:psd`): for even `m > 0` and every
+real `t`, `⟨n, v| e^{-t(1-H_X)/2} |0, v⟩ = σ(X) ⟨n| e^{-t(1-B)/2} |0⟩`. -/
 theorem psd_searchChain_amp {n m : ℕ} (hm : Even m) (hm0 : 0 < m) (c : ℕ → ℝ)
     (j : Fin n → Fin m) (t : ℝ) :
     ⟪chainVec n m (Fin.last n), heat (psdCore (searchChain n m c j)) t (chainVec n m 0)⟫_ℂ =
@@ -58,7 +58,7 @@ theorem psd_searchChain_amp {n m : ℕ} (hm : Even m) (hm0 : 0 < m) (c : ℕ →
     gaugeSign_zero, one_mul, starRingEnd_apply, star_gaugeSign, gaugeSign_of_le j le_rfl]
   rfl
 
-/-- **Scalar-family parity amplitude** (lines 4120-4121, diagonal sign gauge):
+/-- **Scalar-family parity amplitude** (proof of Theorem `odel:thm:psd`, diagonal sign gauge):
 `⟨n| e^{-t(1-H_x)/2} |0⟩ = σ(x) ⟨n| e^{-t(1-B)/2} |0⟩` for every real `t`. -/
 theorem psd_scalarChain_amp {n : ℕ} (c : ℕ → ℝ) (x : Fin n → Bool) (t : ℝ) :
     heat (psdCore (scalarChain n c x)) t (EuclideanSpace.single 0 1) (Fin.last n) =
@@ -73,7 +73,7 @@ theorem psd_scalarChain_amp {n : ℕ} (c : ℕ → ℝ) (x : Fin n → Bool) (t 
     Helpers.Chains.mO_diagonal_apply, Fin.val_last, bitGaugeSign_of_le x le_rfl]
   rfl
 
-/-! ### The readout of the evolved start vector (lines 4086-4093) -/
+/-! ### The readout of the evolved start vector (proof of Theorem `odel:thm:psd`) -/
 
 section Readout
 
@@ -98,8 +98,9 @@ theorem norm_sq_heat_readoutInput (H : Matrix C C ℂ) (t : ℝ) (v₀ : Euclide
   rw [heat_readoutInput, norm_smul, mul_pow, hs, sq, h]
   ring
 
-/-- **The readout expectation** (lines 4089-4093): `⟨x(t), M_0 x(t)⟩ = Re⟨w| e^{-tH} |v₀⟩` for
-`M_0 = |r₀⟩⟨w| + |w⟩⟨r₀|` (`readoutObs 0 w`), every real `t`. -/
+/-- **The readout expectation** (proof of Theorem `odel:thm:psd`):
+`⟨x(t), M_0 x(t)⟩ = Re⟨w| e^{-tH} |v₀⟩` for `M_0 = |r₀⟩⟨w| + |w⟩⟨r₀|` (`readoutObs 0 w`), every real
+`t`. -/
 theorem heat_readout_expectation (H : Matrix C C ℂ) (v₀ w : EuclideanSpace ℂ C) (t : ℝ) :
     ⟪heat (fullMatrix H s) t (readoutInput v₀),
         readoutObs 0 w (heat (fullMatrix H s) t (readoutInput v₀))⟫_ℂ =
@@ -130,7 +131,7 @@ theorem heat_readout_expectation (H : Matrix C C ℂ) (v₀ w : EuclideanSpace �
 
 /-- **`P ∈ [1/2, 1]`** for a PSD core `(1 - H)/2` of a Hermitian contraction `H` and a unit
 start vector `v₀`: `x(t) = e^{-t fullMatrix ((1-H)/2) s} (|r₀⟩ + v₀)/√2` has
-`1/2 ≤ ‖x(t)‖²` and `‖x(t)‖ ≤ 1` for `t ≥ 0` (lines 4087-4088). -/
+`1/2 ≤ ‖x(t)‖²` and `‖x(t)‖ ≤ 1` for `t ≥ 0` (proof of Theorem `odel:thm:psd`). -/
 theorem endpoint_norm_psdCore {H : Matrix C C ℂ} (hH : H.IsHermitian) (h1 : ‖H‖ ≤ 1)
     {v₀ : EuclideanSpace ℂ C} (hv : ‖v₀‖ = 1) {t : ℝ} (ht : 0 ≤ t) :
     1 / 2 ≤ ‖heat (fullMatrix (psdCore H) s) t (readoutInput v₀)‖ ^ 2 ∧
@@ -153,7 +154,7 @@ theorem endpoint_norm_psdCore {H : Matrix C C ℂ} (hH : H.IsHermitian) (h1 : �
 
 end Readout
 
-/-- **The normalisation step** (line 4093): if `x ≠ 0` has `‖x‖ ≤ 1` and
+/-- **The normalisation step** (proof of Theorem `odel:thm:psd`): if `x ≠ 0` has `‖x‖ ≤ 1` and
 `⟨x, M x⟩ = σ R` with `σ² = 1` and `R ≥ 7a/8 > 0`, then the unit direction `ψ = x/‖x‖` has
 `σ ⟨ψ, M ψ⟩ = R/‖x‖² ≥ 7a/8`. -/
 theorem seven_eighths_le_corr_unitDirection {E : Type*} [NormedAddCommGroup E]
@@ -180,7 +181,8 @@ theorem seven_eighths_le_corr_unitDirection {E : Type*} [NormedAddCommGroup E]
 
 /-! ### The hard families -/
 
-/-- **The gadget-family observable** `M_0 = |r₀⟩⟨n, v| + |n, v⟩⟨r₀|` (lines 4089-4092). -/
+/-- **The gadget-family observable** `M_0 = |r₀⟩⟨n, v| + |n, v⟩⟨r₀|` (proof of Theorem
+`odel:thm:psd`). -/
 def psdSearchObs (n μ s : ℕ) :
     EuclideanSpace ℂ (SearchIndex n μ s) →L[ℂ] EuclideanSpace ℂ (SearchIndex n μ s) :=
   readoutObs 0 (chainVec n (2 ^ μ) (Fin.last n))
@@ -203,7 +205,8 @@ theorem psdScalarObs_contraction (n s : ℕ) :
 
 variable {n μ s : ℕ} {τ : ℝ}
 
-/-- **`P ∈ [1/2, 1]`** for the gadget family (lines 4087-4088), at `T = τ ≥ 0`, `u = τ/2`. -/
+/-- **`P ∈ [1/2, 1]`** for the gadget family (proof of Theorem `odel:thm:psd`), at `T = τ ≥ 0`,
+`u = τ/2`. -/
 theorem psdSearch_endpoint_norm (hτ : 0 ≤ τ) (j : Fin n → Fin (2 ^ μ)) :
     1 / 2 ≤ ‖heat (psdSearchMat n μ s (τ / 2) j) τ (searchInput n μ s)‖ ^ 2 ∧
       ‖heat (psdSearchMat n μ s (τ / 2) j) τ (searchInput n μ s)‖ ≤ 1 := by
@@ -220,8 +223,8 @@ theorem psdScalar_endpoint_norm (hτ : 0 ≤ τ) (x : Fin n → Bool) :
     ((norm_scalarChain _ x).trans_le (norm_pathMatrix_psdWeight_le n _))
     (by rw [PiLp.norm_single, norm_one]) hτ
 
-/-- **Gadget-family correlation** (lines 4083-4093): for `n ≥ 1`, `μ ≥ 1`, `τ > 0`, the
-normalised solution `x(T)/‖x(T)‖` has parity-corrected `M_0`-expectation `a'/P ≥ 7a/8`,
+/-- **Gadget-family correlation** (proof of Theorem `odel:thm:psd`): for `n ≥ 1`, `μ ≥ 1`, `τ > 0`,
+the normalised solution `x(T)/‖x(T)‖` has parity-corrected `M_0`-expectation `a'/P ≥ 7a/8`,
 `a = psdAmp n (τ/2)`. -/
 theorem psd_search_corr (hn : 1 ≤ n) (hμ : 1 ≤ μ) (hτ : 0 < τ) (j : Fin n → Fin (2 ^ μ)) :
     7 * psdAmp n (τ / 2) / 8 ≤ parity j *
@@ -247,8 +250,8 @@ theorem psd_search_corr (hn : 1 ≤ n) (hμ : 1 ≤ μ) (hτ : 0 < τ) (j : Fin 
   rw [psd_searchChain_amp hm hm0 _ j τ, Complex.re_ofReal_mul] at h
   exact h
 
-/-- **Scalar-family correlation** (lines 4119-4121): the same positive endpoint correlation
-`a'/P ≥ 7a/8` with the parity `σ(x) = (-1)^{Σ_k x_k}`. -/
+/-- **Scalar-family correlation** (proof of Theorem `odel:thm:psd`): the same positive endpoint
+correlation `a'/P ≥ 7a/8` with the parity `σ(x) = (-1)^{Σ_k x_k}`. -/
 theorem psd_scalar_corr (hn : 1 ≤ n) (hτ : 0 < τ) (x : Fin n → Bool) :
     7 * psdAmp n (τ / 2) / 8 ≤ BitDegree.bitParity x *
       (⟪ODEStateNormalization.unitDirection

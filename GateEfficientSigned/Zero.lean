@@ -4,7 +4,7 @@ import GateEfficientRemarks.ZeroSynthBinary
 /-!
 # Theorem `hs:thm:gates` from binary sparse data for every real time, with the identity at zero
 
-Theorem `hs:thm:main` ends with "If `t = 0` …, the identity circuit suffices." The library
+Theorem `hs:thm:main` ends with "For `t = 0` …, the identity circuit suffices." The library
 `GateEfficientRemarks` states this remark for the binary-data endpoints for every `τ ≥ 0`
 (`GateRemarks.binary_simulation_nonneg`, `GateRemarks.binary_simulation_budget_nonneg`,
 `GateRemarks.binary_simulation_synth_nonneg`, `GateRemarks.binary_simulation_budget_synth_nonneg`,

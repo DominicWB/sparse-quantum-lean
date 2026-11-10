@@ -1,12 +1,11 @@
 # Root-sparsity quantum algorithms in Lean
 
-[![Lean CI](https://github.com/DominicWB/sparse-quantum-lean/actions/workflows/lean.yml/badge.svg)](https://github.com/DominicWB/sparse-quantum-lean/actions/workflows/lean.yml)
+Formal proofs accompanying **Root-sparsity scaling for Hamiltonian simulation,
+differential equations and linear-system solvers**, by Dominic W. Berry,
+Abhishek S. Rawat, Sophia Simon and Guang Hao Low.
 
-Formal proofs accompanying [*Root-sparsity scaling for Hamiltonian simulation,
-differential equations and linear-system solvers*](https://arxiv.org/abs/2610.02939),
-by Dominic W. Berry, Abhishek Rawat, Sophia Simon and Guang Hao Low.
-
-**Toolchain:** Lean 4.32.1 and Mathlib v4.32.1. **Package:** 0.1.0-rc6.
+**Software authors:** Dominic W. Berry and Abhishek S. Rawat.  
+**Toolchain:** Lean 4.32.1 and Mathlib v4.32.1. **Package:** 0.1.0-rc30.
 
 ## Build
 
@@ -18,105 +17,66 @@ lake exe cache get
 lake build
 ```
 
-The first command downloads precompiled Mathlib dependencies. The default build
-checks all 55 libraries, including all 10,055 strict axiom audits. Keep `.lake`
-between builds to reuse compiled modules. Use the supplied dependency manifest;
-`lake update` is not needed.
+The default build includes all 79 libraries and their axiom audits. The
+supplied `lean-toolchain` and `lake-manifest.json` pin the toolchain and
+dependencies. Keep the manifest unchanged; `lake update` is not required.
+Keep `.lake` between builds to reuse compiled modules.
 
-To retain the build output and exit code in PowerShell:
+## Theorem coverage
 
-```powershell
-lake build 2>&1 | Tee-Object build.log
-$buildExit = $LASTEXITCODE
-"Lake exit code: $buildExit" | Tee-Object -FilePath build.log -Append
-```
+The project formalises results on:
 
-The maintainer confirmed successful compilation of this revised rc6 package
-on 9 October 2026, including the two latest proof modules and all 10,055
-axiom audits. The badge links to the separate GitHub CI results. This
-release-documentation update leaves all Lean sources and build settings unchanged.
+- Hamiltonian simulation, including time-dependent, optimal-precision and
+  two-norm query bounds, unitary implementation, and gate-efficient variants.
+- Dissipative differential equations, including source preparation, heralded
+  output guarantees, time-dependent and general-source variants, and gate
+  bounds under explicit arithmetic and synthesis assumptions.
+- Quantum linear-system solving and general constant-coefficient differential
+  equations, the latter using an external block-input linear-system solver;
+  separate matrix and preparation query bounds (Corollary `qls:cor:separate`)
+  conditional on a stated interface for the external solver of Gao, Ji and
+  Liu, which is not formalised here.
+- Query lower bounds, including adaptive algorithms and intermediate
+  measurements on the stated hard families.
 
-## Main results
+**[Detailed formalisation coverage](docs/FORMALISATION.md)** explains the
+correspondence with the manuscript, exact theorem names, oracle models,
+resource accounting, additional hypotheses and remaining restrictions. It
+is the extended companion to the manuscript's short Lean appendix.
 
-The links below lead to theorem guides or endpoint source files. Paper labels
-identify results independently of section numbering.
+The [manuscript correspondence table](ManuscriptConformance/Statements.lean)
+and each library's `Statements.lean` give the source-level statement guides.
+Coverage is subject to those explicit hypotheses; some formal schedules,
+constants and input formats differ from the manuscript.
 
-| Result | Lean entry point |
-|---|---|
-| Time-independent Hamiltonian queries (`hs:thm:main`) | [ManuscriptPrecision](SparseHamiltonian/ManuscriptPrecision.lean) |
-| Time-dependent Hamiltonian queries (`hs:thm:time`) | [TimeDependentHamiltonian](TimeDependentHamiltonian/Statements.lean) |
-| Dissipative ODE queries and complete success/output guarantee (`ode:thm:main`) | [ODECompleteSuccess](SparseODE/ODECompleteSuccess.lean) |
-| Time-dependent dissipative ODEs (`ode:thm:time`) | [TimeDependentODE](TimeDependentODE/Statements.lean) |
-| Hamiltonian gates, workspace and abstract simulation with the manuscript schedule (`hs:thm:gates`, `hs:lem:abstract`) | [GateEfficientSchedule](GateEfficientSchedule/Statements.lean) |
-| Hamiltonian and ODE finite-set gates with supplied circuit costs separated (`hs:thm:gates`, `ode:thm:gates`) | [GateEfficientSelective](GateEfficientSelective/Statements.lean) |
-| Linear-system queries with the manuscript's repetition schedule (`qls:thm:main`) | [QLSHoeffding](QLSHoeffding/Statements.lean) |
-| Hamiltonian and ODE query lower bounds (`hsl:thm:main`, `odel:thm:combined`) | [SparseLowerBounds](SparseLowerBounds/Statements.lean) |
-| Linear-system query lower bound (`qlsl:thm:main`) | [LinearSystemLowerBound](LinearSystemLowerBound/Statements.lean) |
-| Unitary implementation (`hs:cor:unitary`, precision qualification below) | [Upper bounds](UnitaryImplementationPrecision/Statements.lean), [constant-error lower bound](UnitaryImplementationExtensions/Statements.lean) |
-| General constant-coefficient ODEs, conditional (`ode:thm:general`) | [GeneralODE](GeneralODE/Statements.lean) |
+## Verification
 
-See the [formalisation guide](docs/FORMALISATION.md) for further variants,
-precise declarations, access models and links to the individual statement guides.
+The package contains 1,866 Lean source files and **14695 checked axiom audits**.
+The audit modules use strict `#guard_msgs` to check that the reported axioms
+are `propext`, `Classical.choice` and `Quot.sound`, or specified subsets.
+Warnings remain enabled.
 
-### Scope and assumptions
+The proofs and axiom audits, including the separate-query corollary and its
+writer form, have a recorded successful complete build. See the
+[validation details](docs/FORMALISATION.md#validation-and-audits) for the
+scope of that evidence.
 
-- The refined hybrid precision bound (`hs:cor:hybrid`) is not formalised.
-  General-precision unitary implementation has query bound
-  `O(sqrt(N ell) + ell)`, where `ell = log(1/epsilon)`, rather than the
-  manuscript's refined additive term. Exact and certified inexact entries
-  are covered, as is the constant-error `Theta(sqrt(N))` bound.
-- The positive-time general, possibly non-dissipative ODE theorem assumes
-  a block-input linear-system solver satisfying `BlockSolver`. Constructing
-  that solver remains outside this package.
-- Finite-gate-set results use an explicit synthesis hypothesis. Input and
-  source preparations are supplied interfaces with counted calls; their
-  gate and workspace costs remain explicit. Concrete binary-data libraries
-  construct and verify the relevant decoding, reversible arithmetic and
-  sparse-oracle routing. Generic interfaces permit other implementations.
-- The general Hamiltonian circuit endpoints and abstract simulation lemma
-  use the manuscript's explicit schedule. Binary-data and bit-budget
-  specialisations, and the ODE SELECT lemma (`ode:lem:gate-select`), retain
-  alternative schedules with the same asymptotic bounds. Their theorem
-  statements record the exact hypotheses and constants.
-
-## Access model and verification
-
-The native sparse model uses reversible value queries and injective in-place
-row/column locators with inverses. List slots embed in the matrix index
-register, so `s` is at most the dimension; the decoder is bounded on every
-word. Controlled sparse queries are constructed from these primitives.
-Time-dependent queries act coherently on a sampled-time register. ODE and
-linear-system inputs include the specified controlled source preparations
-and inverses; their calls are counted.
-
-The chosen algorithm is uniform over unknown inputs in a stated promise
-family. Circuit error includes work registers; the ODE and linear-system
-endpoints also prove heralded success, conditional mixed-output accuracy and
-worst-case query bounds. Gate costs exclude operations internal to the
-supplied matrix oracles and retain the costs of supplied source circuits.
-
-Lean checks the theorem statements under their explicit hypotheses. Strict
-`#guard_msgs (whitespace := lax)` assertions check the axiom reports against
-fixed expected lists, each a subset of `propext`, `Classical.choice` and
-`Quot.sound`. The package excludes `sorry`, new axioms, `native_decide`,
-`unsafe` and `implemented_by`.
-
-A separate optional packaging check verifies source hashes, dependency pins,
-audit coverage and version consistency:
+[GitHub Actions](.github/workflows/lean.yml) builds the proofs and runs the
+supplementary packaging check:
 
 ```sh
 python3 scripts/check_release.py
 ```
 
-Python is not required by `lake build`. The packaging check supplements Lean's
-proof checking. [CI](.github/workflows/lean.yml) runs both and retains build logs.
+That check validates source hashes, dependency pins, audit inventories and
+version consistency. It does not compile proofs. Python is not required for
+`lake build`.
 
 ## Citation and licence
 
-The repository is [DominicWB/sparse-quantum-lean](https://github.com/DominicWB/sparse-quantum-lean).
-Please cite the associated paper and identify the software version and commit
-used. Machine-readable software metadata is in [CITATION.cff](CITATION.cff).
-Source code is licensed under [Apache 2.0](LICENSE); dependencies retain their
-own licences, and the paper is distributed separately.
+Use [CITATION.cff](CITATION.cff) or the supplied
+[BibTeX entry](CITATION.bib), and identify the release or commit used.
+The repository is <https://github.com/DominicWB/sparse-quantum-lean>.
 
-See [CHANGELOG.md](CHANGELOG.md) for release changes.
+Source code is licensed under [Apache 2.0](LICENSE). Dependencies retain
+their own licences; the paper is distributed separately.

@@ -6,8 +6,9 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # The released constant-coefficient solver's physical oracle in normal form
 
-Manuscript lines 4105-4109 (access "through a reversible value oracle and in-place row/column
-locators, their inverses and controls"; known operations free). The released constant-coefficient
+Manuscript: Section `odel:sec:main` (the value oracle and in-place row and column locators with
+"the canonical reversible access, including inverses, controls and coherent time addresses
+where needed"; known operations free). The released constant-coefficient
 solver `SparseHamiltonian.ODECompleteEndpoint.solver` (Theorem `ode:thm:main`) queries the
 physical oracle family `ODEFinalNativeSource.physicalOracle D Nm Tsl d J₀ Jb` (with inverse
 calls). It does not use the controlled call forms of that family, and they are not treated

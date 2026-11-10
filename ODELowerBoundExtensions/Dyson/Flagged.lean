@@ -5,10 +5,12 @@ import TimeDependentHamiltonian.Chronology.Colligation
 set_option autoImplicit false
 
 /-!
-# Products of block encodings with fresh encoding ancillas (`odel:lem:dyson`, lines 4204-4205)
+# Products of block encodings with fresh encoding ancillas (`odel:lem:dyson`)
 
-"Fresh encoding ancillas make the compressed product equal to the product of the compressed
-matrices" (manuscript lines 4204-4205). On a payload space `H` with a public isometric encoding
+The proof of Lemma `odel:lem:dyson` says "apply each `U_{j_l}` with a fresh zero work register
+`a_l`";
+"Distinct work registers prevent a failed earlier factor from returning to the selected block
+through a later factor." On a payload space `H` with a public isometric encoding
 `e : P → H` (`e† e = 1`), a slot unitary `A` represents the compression `e† A e`. A product of
 `K` slots does not compress to the product of the compressions, because the unencoded part of
 one slot leaks into the next. A fresh flag bit per slot removes the leak: after slot `j` the
@@ -242,8 +244,9 @@ theorem flagged_invariant {K : ℕ} (e : P →L[ℂ] H)
       rfl
 
 omit [DecidableEq Λ] in
-/-- **Fresh encoding ancillas** (lines 4204-4205): the all-zero-flag compression of `K` flagged
-layers is the branchwise product of the slot compressions, for arbitrary slot operators. -/
+/-- **Fresh encoding ancillas** (proof of Lemma `odel:lem:dyson`): the all-zero-flag compression of
+`K` flagged layers is the branchwise product of the slot compressions, for arbitrary slot
+operators. -/
 theorem flagged_compression {K : ℕ} (e : P →L[ℂ] H) (he : e† ∘L e = 1)
     (A : ℕ → Λ → H →L[ℂ] H) :
     (zeroFlags (Λ := Λ) (K := K) e)† ∘L evolution (fun j => layer e (A j) j) K ∘L

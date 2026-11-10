@@ -4,28 +4,28 @@ import GateEfficientSigned.NonVacuity
 /-!
 # Theorem `hs:thm:gates` for every real time from binary sparse oracles: paper-to-Lean entry point
 
-Theorem `hs:thm:gates` of the accompanying paper (gate-efficient sparse simulation, manuscript
-line 3103) holds "under the assumptions of Theorem `hs:thm:main`", and Theorem `hs:thm:main`
-(line 2031) simulates `e^{-itH}` for every real `t`, with `τ = η|t|`; the proof of
-`hs:thm:gates` says "It is enough to consider `t = T > 0`; negative times use the inverse
-circuit" (lines 3152-3153). The released gate-level endpoints treat negative times for native
-implementations (`GateNative.native_simulation_signed`, with the literal inverse circuit) and,
-in the exact-gate model, through Lemma `hs:lem:abstract` (`GateRemarks.abstract_simulation`,
-exchanging `D` and `D†`); the time-independent endpoints for the circuits built from binary sparse
-oracles, with the entry decoding, the angle arithmetic, the compute circuit and `U_J`
-constructed, are stated for `τ ≥ 0`. This library states each of them for every real `t`: for
-`t < 0` the circuit is the literal inverse of the released circuit for `|t|`, which calls the
-inverse oracles, has the same counts and simulates `e^{-itĤ}` with the same full-output error.
+Theorem `hs:thm:gates` of the accompanying paper (gate-efficient sparse simulation) holds "under the
+assumptions of Theorem `hs:thm:main`", and Theorem `hs:thm:main` simulates `e^{-itH}` for every real
+`t`, with `τ = η|t|`; the construction before `hs:thm:gates` says "Negative time uses the adjoint of
+the constructed circuit". The released gate-level endpoints treat negative times for native
+implementations (`GateNative.native_simulation_signed`, with the literal inverse circuit) and, in
+the exact-gate model, through Lemma `hs:lem:abstract` (`GateRemarks.abstract_simulation`, exchanging
+`D` and `D†`); the time-independent endpoints for the circuits built from binary sparse oracles,
+with the entry decoding, the angle arithmetic, the compute circuit and `U_J` constructed, are stated
+for `τ ≥ 0`. This library states each of them for every real `t`: for `t < 0` the circuit is the
+literal inverse of the released circuit for `|t|`, which calls the inverse oracles, has the same
+counts and simulates `e^{-itĤ}` with the same full-output error.
 
-Theorem `hs:thm:time` (line 2565) is stated for `T ≥ 0` (the propagator `U_H(T, 0)`), and so is
-the time-dependent part of `hs:thm:gates`; the differential equations are posed on `0 ≤ t ≤ T`
-(equation `ode:eq:ode`, line 3859). Their endpoints need no signed form.
+Theorem `hs:thm:time` is stated for `T ≥ 0` (the propagator `U_H(T, 0)`), and so is the
+time-dependent gate-level simulation (package extension: Theorem `hs:thm:time` with the circuit of
+`hs:thm:gates` (single-label case of Lemma `ode:lem:gate-select`)); the
+differential equations are posed on `0 ≤ t ≤ T` (equation `ode:eq:ode`). Their endpoints need no
+signed form.
 
 No result from another paper is used, except single-qubit synthesis and the decomposition of
-controlled gates through the released hypothesis `GateSynth.Synthesis` of the finite-gate-set
-forms. The released libraries are unchanged. Manuscript lines refer to
-`sparse_quantum_algorithms.tex` (v19); the labels are the stable references. Every theorem of the
-library is axiom-audited in `GateEfficientSigned/Audit.lean`.
+controlled gates through the released hypothesis `GateSynth.Synthesis` of the finite-gate-set forms.
+The released libraries are unchanged. References to the manuscript use its labels.
+Every theorem of the library is axiom-audited in `GateEfficientSigned/Audit.lean`.
 
 **Naming convention.** All declarations of this library are in the namespace
 `SparseHamiltonian.GateSigned` and are named relative to it below. Released declarations are

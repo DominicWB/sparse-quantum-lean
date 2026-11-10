@@ -9,14 +9,12 @@ set_option synthInstance.maxSize 4096
 /-!
 # The coherent-selection oracle family on constant data
 
-The paragraph "Regularity and coherent parameters" (the manuscript, lines 1505-1510) permits
-coherent selection of known durations and start times, "provided the corresponding coherent
-sampled-time oracle is supplied". The released selection theorems
-(`TimeDependentExtensions.Coherent.coherent_select` and `coherent_windows`) run on the physical
-family
-`TimeDependentExtensions.MeshSelect.alignedOracle (ι := ι) D N γ ρ T ε`: the coherent
-sampled-time native Cayley query `∑_{(i,r)} |i,r⟩⟨i,r| ⊗ C_l(x, r)` with a branch register `ι`
-(`SparseHamiltonian.TimeDependentODE.cayleyOracle`), in the chronological cells and with the
+The paragraphs after the proof of Theorem `hs:thm:time` permit coherent selection of known durations
+and start times, "provided the corresponding coherent sampled-time access is supplied". The released
+selection theorems (`TimeDependentExtensions.Coherent.coherent_select` and `coherent_windows`) run
+on the physical family `TimeDependentExtensions.MeshSelect.alignedOracle (ι := ι) D N γ ρ T ε`: the
+coherent sampled-time native Cayley query `∑_{(i,r)} |i,r⟩⟨i,r| ⊗ C_l(x, r)` with a branch register
+`ι` (`SparseHamiltonian.TimeDependentODE.cayleyOracle`), in the chronological cells and with the
 clean-output alignment spectator.
 
 On constant data (`TimeDependentHamiltonianLowerBound.constData`) every sample is the instance,

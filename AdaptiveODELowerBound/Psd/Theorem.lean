@@ -6,7 +6,7 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # Theorem `odel:thm:psd` for adaptive protocols
 
-Manuscript lines 4453-4571 (Theorem `odel:thm:psd`, eq. `odel:eq:psd`): for `s ≥ 32`, `τ ≥ 1`
+Manuscript: Theorem `odel:thm:psd` and eq. `odel:eq:psd`: for `s ≥ 32`, `τ ≥ 1`
 and `L ≥ 64τ` (`PsdRange`, which contains the manuscript's `τ ≥ 2`), the homogeneous
 constant-coefficient families `ẋ = -D_X x` with `D_X ⪰ 0`, `‖D_X‖ = 1`, `T = τ`, `1 ≤ g ≤ √2`
 (`ODELowerBoundExtensions.Psd.psdSearchFamilyAt`, `psdScalarFamilyAt`) force
@@ -23,12 +23,12 @@ value-call bounds derived from them.
   family with search-weight growth; the heralded correlation `(2/3)(7a/8 - 2ε) ≥ a/4`
   (`AdaptiveHamiltonianLowerBound.tree_correlation`, `psd_search_corr`, `a ≥ 8ε`) and the weight
   `β₀ = a/4` give `worstCost ≥ (log 2/96) √(m n u)`, `u = τ/2`, once `m ≥ 64n/τ`.
-* `psd_scalar_tree_general` (lines 4555-4563): inputs read through `toBits`; a positive parity
-  correlation gives `worstCost ≥ n/2`.
+* `psd_scalar_tree_general` (proof of Theorem `odel:thm:psd`): inputs read through `toBits`; a
+  positive parity correlation gives `worstCost ≥ n/2`.
 * `psd_search_forces_local_tree` (eq. `odel:eq:psdmixedlocal`, `(log 2/192) √(m n u)` for
-  `m ≥ 64n/τ`), `psd_search_forces_tree` (`s ≥ 512n/τ`: `psdGadgetConst √(sτr)`, lines 4547-4553),
-  `psd_scalar_forces_tree` (`r/32`, lines 4555-4562), `psd_scalar_forces_sqrt_tree`
-  (`√(sτr)/256` for `s < 512n/τ`, lines 4565-4568), and the witnesses.
+  `m ≥ 64n/τ`), `psd_search_forces_tree` (`s ≥ 512n/τ`: `psdGadgetConst √(sτr)`),
+  `psd_scalar_forces_tree` (`r/32`), `psd_scalar_forces_sqrt_tree`
+  (`√(sτr)/256` for `s < 512n/τ`), and the witnesses.
 * `psd_max_tree`, `psd_max_cost_tree` (max forms), `psd_tree` (family form, eq. `odel:eq:psd`).
 -/
 
@@ -74,10 +74,10 @@ theorem psdAmp_le_one {n : ℕ} (hn : 1 ≤ n) {u : ℝ} (hu : 0 ≤ u) : psdAmp
 
 variable {τ ε : ℝ} {s : ℕ}
 
-/-- **Eq. `odel:eq:psdmixedlocal` for adaptive protocols, general form** (lines 4532-4545): at
-the main parameters with `m = 2^{psdMu s} ≥ 64n/τ`, an adaptive protocol over any oracle family
-with search-weight growth, heralded-accurate (success `≥ 2/3`, conditional error `ε`) for the
-normalised endpoints of the gadget family, has worst-case cost at least
+/-- **Eq. `odel:eq:psdmixedlocal` for adaptive protocols, general form** (proof of Theorem
+`odel:thm:psd`): at the main parameters with `m = 2^{psdMu s} ≥ 64n/τ`, an adaptive protocol over
+any oracle family with search-weight growth, heralded-accurate (success `≥ 2/3`, conditional error
+`ε`) for the normalised endpoints of the gadget family, has worst-case cost at least
 `(log 2/96) √(m n u)`, `u = τ/2`. -/
 theorem psd_search_tree_general (h : PsdRange τ s ε)
     (hm : 64 * (precN τ ε : ℝ) / τ ≤ (2 : ℝ) ^ psdMu s) {L K Fl E G : Type*}
@@ -148,9 +148,9 @@ theorem psd_search_tree_general (h : PsdRange τ s ε)
         mul_le_mul_of_nonneg_left (psd_root h) hc
     _ ≤ T.worstCost w := hb
 
-/-- **The scalar family for adaptive protocols, general form** (lines 4555-4563): inputs
-`x : Fin n → Bool`, labels with search-weight growth along `toBits`, heralded-accurate for the
-normalised endpoints of the scalar family; `worstCost ≥ n/2` (`n = ⌊r/4⌋`). -/
+/-- **The scalar family for adaptive protocols, general form** (proof of Theorem `odel:thm:psd`):
+inputs `x : Fin n → Bool`, labels with search-weight growth along `toBits`, heralded-accurate for
+the normalised endpoints of the scalar family; `worstCost ≥ n/2` (`n = ⌊r/4⌋`). -/
 theorem psd_scalar_tree_general (h : PsdRange τ s ε) {L K Fl E G : Type*}
     [NormedAddCommGroup K] [InnerProductSpace ℂ K] [CompleteSpace K]
     [NormedAddCommGroup Fl] [InnerProductSpace ℂ Fl] [CompleteSpace Fl]
@@ -190,9 +190,9 @@ theorem psd_scalar_tree_general (h : PsdRange τ s ε) {L K Fl E G : Type*}
     hsum
   rwa [AdaptiveHamiltonianLowerBound.Reindex.worstCost_tree] at hb
 
-/-- **The scalar family tree-forces `n/2`** (lines 4555-4562, `n = ⌊r/4⌋`): the sampled-time
-access and its call forms are admissible for the scalar data, which have one-bit entries along
-`toBits`, so `psd_scalar_tree_general` applies. -/
+/-- **The scalar family tree-forces `n/2`** (proof of Theorem `odel:thm:psd`, `n = ⌊r/4⌋`): the
+sampled-time access and its call forms are admissible for the scalar data, which have one-bit
+entries along `toBits`, so `psd_scalar_tree_general` applies. -/
 theorem psd_scalar_forces_half_tree (h : PsdRange τ s ε) :
     TreeForces (psdScalarFamilyAt h) ε ((precN τ ε : ℝ) / 2) := by
   have hD := hardAccess_psdScalarData (precN τ ε) s (τ / 2) h.one_le_precN
@@ -203,7 +203,7 @@ theorem psd_scalar_forces_half_tree (h : PsdRange τ s ε) :
   exact psd_scalar_tree_general h (O := O) (fun l x => admissible_unitary _ _ _ (hO l) x) w
     (searchGrowth_admissible even_two _ _ hD O w hO) P e he hsucc hacc
 
-/-- **Eq. `odel:eq:psdmixedlocal` for adaptive protocols** (lines 4542-4545; as
+/-- **Eq. `odel:eq:psdmixedlocal` for adaptive protocols** (proof of Theorem `odel:thm:psd`; as
 `ODELowerBoundExtensions.Psd.psd_search_forces_local`): for `m = 2^{psdMu s} ≥ 64n/τ`, the gadget
 family tree-forces `(log 2/192) √(m n u)` value calls (and as many calls in total), `u = τ/2`. -/
 theorem psd_search_forces_local_tree (h : PsdRange τ s ε)
@@ -225,23 +225,24 @@ theorem psd_search_forces_local_tree (h : PsdRange τ s ε)
     (searchGrowth_admissible heven _ _ hD O w hO) P e he hsucc hacc
   linarith
 
-/-- **The gadget-family bound for adaptive protocols** (lines 4547-4553): for `s ≥ 512n/τ`, the
-gadget family tree-forces `(log 2/(1536√2)) √(sτr)` value calls (and as many calls in total). -/
+/-- **The gadget-family bound for adaptive protocols** (proof of Theorem `odel:thm:psd`): for
+`s ≥ 512n/τ`, the gadget family tree-forces `(log 2/(1536√2)) √(sτr)` value calls (and as many calls
+in total). -/
 theorem psd_search_forces_tree (h : PsdRange τ s ε) (hs : 512 * (precN τ ε : ℝ) / τ ≤ s) :
     TreeForces (psdSearchFamilyAt h) ε (psdGadgetConst * Real.sqrt (s * τ * hsR τ ε)) := by
   exact treeForces_of_cost fun _ hq => (psd_gadget_arith h).trans
     ((psd_search_forces_local_tree h (psd_m_cond h hs)).le_cost hq)
 
-/-- **The scalar-family bound for adaptive protocols** (lines 4555-4562): the scalar family
-tree-forces `r/32` value calls (and as many calls in total). -/
+/-- **The scalar-family bound for adaptive protocols** (proof of Theorem `odel:thm:psd`): the scalar
+family tree-forces `r/32` value calls (and as many calls in total). -/
 theorem psd_scalar_forces_tree (h : PsdRange τ s ε) :
     TreeForces (psdScalarFamilyAt h) ε (hsR τ ε / 32) := by
   have hn : (0 : ℝ) ≤ precN τ ε := Nat.cast_nonneg _
   have hb : hsR τ ε / 32 ≤ (precN τ ε : ℝ) / 2 := by linarith [rbound h.toHSRange h.hL]
   exact treeForces_of_cost fun _ hq => hb.trans ((psd_scalar_forces_half_tree h).le_cost hq)
 
-/-- **The scalar family for small sparsity, adaptive protocols** (lines 4565-4568): for
-`s < 512n/τ`, the scalar family tree-forces `√(sτr)/256` value calls. -/
+/-- **The scalar family for small sparsity, adaptive protocols** (proof of Theorem `odel:thm:psd`):
+for `s < 512n/τ`, the scalar family tree-forces `√(sτr)/256` value calls. -/
 theorem psd_scalar_forces_sqrt_tree (h : PsdRange τ s ε) (hs : (s : ℝ) < 512 * precN τ ε / τ) :
     TreeForces (psdScalarFamilyAt h) ε (Real.sqrt (s * τ * hsR τ ε) / 256) := by
   have hn : (0 : ℝ) ≤ precN τ ε := Nat.cast_nonneg _
@@ -293,7 +294,7 @@ theorem psd_max_cost_tree (h : PsdRange τ s ε) {qG qS : ℝ}
     (fun hs => (psd_scalar_forces_sqrt_tree h hs).le_cost hS)
     (fun hs => (psd_search_forces_tree h hs).le_cost hG)
 
-/-- **Theorem `odel:thm:psd` for adaptive protocols** (eq. `odel:eq:psd`, lines 4453-4466): for
+/-- **Theorem `odel:thm:psd` for adaptive protocols** (eq. `odel:eq:psd`): for
 `s ≥ 32`, `τ ≥ 1`, `L ≥ 64τ` (`PsdRange`) and any `ḡ ≥ √2`, one of the two homogeneous
 constant-coefficient PSD families (`D_X ⪰ 0`, `‖D_X‖ = 1`, `T = τ`, `1 ≤ g ≤ √2`) is in the class
 (`η = 1`, `T = τ`, `g ≤ ḡ`) and forces `psdConst (√(sτr) + r)` value calls (and as many calls in

@@ -6,16 +6,17 @@ section
 /-!
 # Hard data, part 1: shared locators and the signed scalar family
 
-Manuscript lines 2254-2289 (exact dyadic entries, reference vertices, public
-locators, two Boolean queries per value call), 2340-2346 (the signed scalar
-chain of the precision family) and 2476-2487 (padding). Split off from
+Manuscript: the chain construction of Section `part:hsl` (exact dyadic entries, reference
+vertices, public locators, two Boolean queries per value call), Lemma `hsl:lem:precision` (the
+signed scalar chain of the precision family) and the end of the proof of Theorem
+`hsl:thm:main` (padding). Split off from
 `Hamiltonian/HardData`, which imports this module; the search families and the
 data at the main parameters are there.
 
-**Locators shared by both families** (input-independent, lines 2283-2285): the
-slots are the padding block (`padSlot`); a reference row swaps itself with
-padding slot `0` (`refLoc`); padding rows list the padding block; core rows use
-a family-specific list (`fullLoc`).
+**Locators shared by both families** (input-independent, the chain construction of Section
+`part:hsl`): the slots are the padding block (`padSlot`); a reference row swaps itself with padding
+slot `0` (`refLoc`); padding rows list the padding block; core rows use a family-specific list
+(`fullLoc`).
 
 **Scalar locators**: row `k` lists `k ± 1` in slots `0, 1` (`scalarLoc`; for
 `n = 1` the predecessor is the cyclic successor). The family needs `s ≥ 2`.
@@ -353,7 +354,7 @@ theorem scalarData_table (hs : 2 ≤ s) (x : Fin n → Bool)
 theorem scalarData_rowloc (hs : 2 ≤ s) (x : Fin n → Bool) (i : ScalarIndex n s) (k : Fin s) :
     (scalarData n s τ hs).rowloc x i k = fullLoc (by omega) (scalarLoc n s) i k := rfl
 
-/-- **The scalar locators are input-independent** (lines 2283-2286). -/
+/-- **The scalar locators are input-independent** (the chain construction of Section `part:hsl`). -/
 theorem scalarData_locators_const (hs : 2 ≤ s) (x x' : Fin n → Bool) :
     (scalarData n s τ hs).rowloc x = (scalarData n s τ hs).rowloc x' ∧
       (scalarData n s τ hs).colloc x = (scalarData n s τ hs).colloc x' ∧

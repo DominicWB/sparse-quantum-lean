@@ -12,8 +12,8 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # The released general-mesh ODE solver on a family of the class
 
-Manuscript lines 3710-3730 (eqs. `odel:eq:upper`, `odel:eq:refined`: the upper bounds compared
-with Theorem `odel:thm:combined`) and the released Theorem `ode:thm:time` on general meshes,
+Manuscript: eqs. `odel:eq:upper` and `odel:eq:refined` (the upper bounds compared with Theorem
+`odel:thm:combined`) and the released Theorem `ode:thm:time` on general meshes,
 `TimeDependentExtensions.ODE.solver`. This module runs the released solver on a family of the
 class with `D = 0` (generators `iH`, `H` Hermitian) and shows that its output is a retry solver of
 the family, with the released query bound.
@@ -123,7 +123,7 @@ def releaseLog (gbar ε : ℝ) : ℝ :=
   ImprovedODEQueryBudget.logBudget (TimeDependentODE.ratio gbar) (TimeDependentODE.accuracy ε)
 
 /-- `ℓ = log(40000 ḡ/ε)`: the released solver (`ImprovedODEQueryBudget.logBudget`) instantiates
-the absolute constant `C > 1` of eq. `odel:eq:precision` (lines 3691-3694, unspecified in the
+the absolute constant `C > 1` of eq. `odel:eq:precision` (unspecified in the
 paper) as `C = 40000`. -/
 theorem releaseLog_eq (gbar ε : ℝ) : releaseLog gbar ε = Real.log (40000 * gbar / ε) := by
   unfold releaseLog ImprovedODEQueryBudget.logBudget TimeDependentODE.ratio

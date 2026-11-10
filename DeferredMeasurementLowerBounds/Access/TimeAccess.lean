@@ -13,11 +13,11 @@ set_option synthInstance.maxSize 8192
 /-!
 # Record-selected calls of the sampled-time ODE access
 
-Manuscript Section `odel:sec:main`, lines 3669-3673 (a reversible value oracle and in-place
-locators, "their inverses and controls, with a coherent time address"). The adaptive ODE lower
-bounds (`AdaptiveODELowerBound.Model.TreeForces`) quantify over protocols over the sampled-time
-access `F.access ι` (any branch register `ι`) and over its call forms
-`callFamily (F.access ι)` (plain, inverse, controlled, controlled-inverse calls).
+Manuscript Section `odel:sec:main` (a reversible value oracle and in-place locators, "including
+inverses, controls and coherent time addresses where needed"). The adaptive ODE lower bounds
+(`AdaptiveODELowerBound.Model.TreeForces`) quantify over protocols over the sampled-time access
+`F.access ι` (any branch register `ι`) and over its call forms `callFamily (F.access ι)` (plain,
+inverse, controlled, controlled-inverse calls).
 
 * `accessEquiv ι`: `F.access ι` is the spectator lift `1_ι ⊗ F.access Unit` of the
   one-branch access (`access_eq_conj`).

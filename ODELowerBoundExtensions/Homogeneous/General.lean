@@ -6,8 +6,8 @@ set_option autoImplicit false
 /-!
 # The joint reduction for an arbitrary readout target
 
-Manuscript lines 3887-3897 (proof of Theorem `odel:thm:joint`) as used by Remark
-`odel:rem:homogeneous` (lines 3935-3937, 3947-3949: "the same oracle simulation and adversary
+Manuscript: the proof of Theorem `odel:thm:joint` as used by Proposition
+`odel:rem:homogeneous` ("the same oracle simulation and adversary
 reduction prove eq. `odel:eq:joint`"). `SparseLowerBounds.ODE.joint_general` is stated for the
 basis targets `jointTarget` and the ideal correlation `1`. In the homogeneous variant the
 normalised solution is not a basis state: it has probability at least `16/17` on the odd
@@ -27,13 +27,13 @@ open SparseLowerBounds SparseLowerBounds.ODE SparseLowerBounds.Readout
 open SparseHamiltonian OracleCircuit
 open scoped InnerProduct InnerProductSpace
 
-/-- **The joint reduction for an arbitrary target** (lines 3887-3897, 3935-3937): any labelled
-family whose labels are implementable with costs `w` by membership programs; a heralded solver
-(success `≥ 2/3`, conditional accuracy `ε`) for targets `ψ x` on which a Hermitian contraction
-`D` has ideal signed correlation at least `a ≥ 2ε` with the half answer `halfSign(a_*)`. Then
-the Boolean cost is at least `((2/3)(a - 2ε))² n √(M 2^μ) / 8`.
-`SparseLowerBounds.ODE.joint_general` is the instance `S = JointIndex M μ s`,
-`ψ = jointTarget`, `D = halfObs`, `a = 1`. -/
+/-- **The joint reduction for an arbitrary target** (proof of Theorem `odel:thm:joint` and
+Proposition `odel:rem:homogeneous`): any labelled family whose labels are implementable with costs
+`w` by membership programs; a heralded solver (success `≥ 2/3`, conditional accuracy `ε`) for
+targets `ψ x` on which a Hermitian contraction `D` has ideal signed correlation at least `a ≥ 2ε`
+with the half answer `halfSign(a_*)`. Then the Boolean cost is at least
+`((2/3)(a - 2ε))² n √(M 2^μ) / 8`. `SparseLowerBounds.ODE.joint_general` is the instance
+`S = JointIndex M μ s`, `ψ = jointTarget`, `D = halfObs`, `a = 1`. -/
 theorem outer_general {M n μ : ℕ} (hM : 2 ≤ M) (hMe : Even M) (hn : 1 ≤ n) (hμ : 1 ≤ μ)
     {S : Type*} [Fintype S] [DecidableEq S] {ε a : ℝ} (hεa : 2 * ε ≤ a) {W B L G : Type*}
     [NormedAddCommGroup W] [InnerProductSpace ℂ W] [CompleteSpace W]
@@ -54,7 +54,7 @@ theorem outer_general {M n μ : ℕ} (hM : 2 ≤ M) (hMe : Even M) (hn : 1 ≤ n
   obtain ⟨c, hcount, hc⟩ := Reduction.exists_boolean_program_inner E hE
     (fun x => P.isUnitary_phase (membership x)) hO w hw p
   have hm := two_le_two_pow hμ
-  -- Lines 3935-3937: heralded half measurement, correlation `(2/3)(a - 2ε)`.
+  -- Proof of Proposition `odel:rem:homogeneous`: heralded half measurement, correlation `(2/3)(a - 2ε)`.
   have key : ∀ x, 2 / 3 * (a - 2 * ε) ≤ halfSign M (oddCand x) *
         (⟪p.eval x φ₀, (herald ∘L outObs e D ∘L herald) (p.eval x φ₀)⟫_ℂ).re ∧
       ‖herald ∘L outObs e D ∘L herald‖ ≤ 1 := fun x =>

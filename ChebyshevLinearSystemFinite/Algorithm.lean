@@ -29,6 +29,9 @@ with the classical control of the released estimator and arbitrary implemented r
 Semantics of the ideal runs (from the released `ChebyshevLinearSystem` run layer):
 `testRunF_amp` (the success vector is `F_{b,d}(W_{σ_j,r}) J e`), `finalRunF_amp` (the decoded
 amplitude is `S† J† F_{b,d}(W_{0,r}) J e`), and their costs.
+
+Notation: the regularization parameter is `σ` here and `ξ` in the manuscript, so a subscript `σ` (as
+in `g_σ`, `r_σ`, `H_{σ,r}`) stands for the manuscript's subscript `ξ`.
 -/
 
 namespace ChebyshevLinearSystemFinite

@@ -10,6 +10,9 @@ the regularized dilation (equation `qls:eq:regularizedsquare`).  For
 at most a factor two under halving (`gap_halving`).  The operator statements
 are in `Foundations.HilbertRegularization` and
 `Foundations.HilbertAugmentationGap`.
+
+Notation: the regularization parameter is `σ` here and `ξ` in the manuscript, so a subscript `σ` (as
+in `g_σ`, `r_σ`, `H_{σ,r}`) stands for the manuscript's subscript `ξ`.
 -/
 
 namespace SparseLinearSystems.RegularizationGap

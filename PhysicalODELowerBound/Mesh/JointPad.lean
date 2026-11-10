@@ -7,11 +7,11 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # The padded joint families over the general-mesh physical oracle, with controlled calls
 
-Manuscript lines 4335-4340 (the dense block `2^{-⌈log₂ s⌉} 𝟙𝟙ᵀ` for maximum sparsity exactly `s`;
-"Known zero padding permits any sufficiently large qubit register"), for the padded joint
-families `ODELowerBoundExtensions.Padding.jointPadFamilyAt` (time dependent, `n + 2` stages) and
-adaptive solvers over the physical oracle of the released general-mesh solver and over its call
-forms (`MeshForces`).
+Manuscript: the end of the proof of Theorem `odel:thm:joint` (the dense block `2^{-⌈log₂ s⌉} 𝟙𝟙ᵀ`
+for maximum sparsity exactly `s`; "Known zero padding permits any sufficiently large qubit
+register"), for the padded joint families `ODELowerBoundExtensions.Padding.jointPadFamilyAt` (time
+dependent, `n + 2` stages) and adaptive solvers over the physical oracle of the released
+general-mesh solver and over its call forms (`MeshForces`).
 
 * `joint_forces_pad_mesh`, `joint_witness_pad_mesh`: `ḡ √s τ / 400` for every dense flag and known
   padding `P`, and maximum sparsity exactly `s` with the dense block, from
@@ -60,11 +60,11 @@ theorem joint_forces_pad_mesh (h : JointRange s τ gbar ε) (dense : Bool) (P : 
   intro L W Fl E G B _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ Q Enc hEnc O hU w hw A
   exact Families.joint_pad_solver h dense P Q Enc hEnc hU w hw A
 
-/-- **Theorem `odel:thm:joint` after known padding over the general-mesh physical oracle** (line
-4340): for every finite known register `P`, with or without the dense block, the padded joint
-family is in the class and forces `ḡ √s τ / 400` value calls (and as many matrix calls) on every
-adaptive solver over the physical oracle or its call forms; with the dense block it has maximum
-sparsity exactly `s`. -/
+/-- **Theorem `odel:thm:joint` after known padding over the general-mesh physical oracle** (proof of
+Theorem `odel:thm:joint`): for every finite known register `P`, with or without the dense block, the
+padded joint family is in the class and forces `ḡ √s τ / 400` value calls (and as many matrix calls)
+on every adaptive solver over the physical oracle or its call forms; with the dense block it has
+maximum sparsity exactly `s`. -/
 theorem joint_witness_pad_mesh (h : JointRange s τ gbar ε) (dense : Bool) (P : Type) [Fintype P]
     [DecidableEq P] :
     MeshWitnesses (jointPadFamilyAt s τ gbar dense h.s_ge h.tau_ge P) τ gbar ε
@@ -73,11 +73,11 @@ theorem joint_witness_pad_mesh (h : JointRange s τ gbar ε) (dense : Bool) (P :
   have hW := AdaptiveODELowerBound.Padding.joint_witness_pad_tree h dense P
   exact ⟨⟨hW.1.inClass, hW.1.time_eq, joint_forces_pad_mesh h dense P⟩, hW.2⟩
 
-/-- **Theorem `odel:thm:joint` in any sufficiently large common dimension over the physical
-oracle** (lines 4335-4340): for every `Nd` at least the dimension of `jointFamilyAt`, the joint
-family padded by `PadTo JointIndex Nd`, with or without the dense block, has dimension exactly
-`Nd`, is in the class and mesh-forces `ḡ √s τ / 400`; with the dense block it has maximum
-sparsity exactly `s`. -/
+/-- **Theorem `odel:thm:joint` in any sufficiently large common dimension over the physical oracle**
+(proof of Theorem `odel:thm:joint`): for every `Nd` at least the dimension of `jointFamilyAt`, the
+joint family padded by `PadTo JointIndex Nd`, with or without the dense block, has dimension exactly
+`Nd`, is in the class and mesh-forces `ḡ √s τ / 400`; with the dense block it has maximum sparsity
+exactly `s`. -/
 theorem joint_common_dimension_mesh (h : JointRange s τ gbar ε) (dense : Bool) (Nd : ℕ)
     (hJ : Fintype.card (JointIndex (jointM gbar) (jointMu s) s) ≤ Nd) :
     Fintype.card (JointIndex (jointM gbar) (jointMu s) s ⊕
@@ -89,8 +89,8 @@ theorem joint_common_dimension_mesh (h : JointRange s τ gbar ε) (dense : Bool)
           (PadTo (JointIndex (jointM gbar) (jointMu s) s) Nd))) := by
   exact ⟨LowerBoundRemarks.HamiltonianPadding.card_padTo hJ, joint_witness_pad_mesh h dense _⟩
 
-/-- **Theorem `odel:thm:joint` on any sufficiently large qubit register over the physical
-oracle** (line 4340): for every `q` with `3 ḡ² s ≤ 2^q`, the joint family padded by
+/-- **Theorem `odel:thm:joint` on any sufficiently large qubit register over the physical oracle**
+(proof of Theorem `odel:thm:joint`): for every `q` with `3 ḡ² s ≤ 2^q`, the joint family padded by
 `PadTo JointIndex (2^q)`, with or without the dense block, has dimension exactly `2^q`, is in the
 class and mesh-forces `ḡ √s τ / 400`; with the dense block it has maximum sparsity exactly `s`. -/
 theorem joint_qubit_register_mesh (h : JointRange s τ gbar ε) (dense : Bool) (q : ℕ)

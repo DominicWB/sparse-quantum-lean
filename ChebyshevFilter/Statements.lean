@@ -9,6 +9,7 @@ the linear-system algorithm, equations `qls:eq:chebdegree` to `qls:eq:chebpositi
 proof of Theorem `qls:thm:main` (library `SparseLinearSystems`) uses the averaging filter of
 Remark `qls:rem:averaging` with forward walk steps instead, and is unchanged. No result from
 another paper is used. All declarations below are in the namespace `ChebyshevFilter`.
+References to the manuscript use its labels.
 
 * Proposition `qls:prop:chebyshev`: `chebyshev_filter`.
 * Eq. `qls:eq:chebpositive`: `shifted_taylor`, and positivity `shifted_mem_cone`.
@@ -140,4 +141,7 @@ Every theorem of the library is axiom-audited in `ChebyshevFilter/Audit.lean`.
 * The finite-gate allowance of eq. `qls:eq:finitedegree`, the explicit constants of Remark
   `qls:rem:constants`, and the centred implementation of positive polynomials in Remark
   `qls:rem:averaging`.
+
+Notation: the regularization parameter is `σ` here and `ξ` in the manuscript, so a subscript `σ` (as
+in `g_σ`, `r_σ`, `H_{σ,r}`) stands for the manuscript's subscript `ξ`.
 -/

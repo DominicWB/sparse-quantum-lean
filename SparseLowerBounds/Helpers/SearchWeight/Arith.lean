@@ -6,8 +6,8 @@ section
 /-!
 # Real arithmetic for `SparseLowerBounds.Query.SearchWeight`
 
-Helper module of group search-weight: the scalar inequalities of lines
-2183-2203 of the manuscript. The weight parameter `a = 2 β₀^{-1/(2n)}` is
+Helper module of group search-weight: the scalar inequalities of the proof
+of Lemma `hsl:lem:search`. The weight parameter `a = 2 β₀^{-1/(2n)}` is
 written out as `2 * β₀ ^ (-(1 : ℝ) / (2 * (n : ℝ)))` (the term of
 `SearchWeight.searchA`).
 -/
@@ -84,7 +84,7 @@ theorem searchA_sq_inv_pow {n : ℕ} (hn : 1 ≤ n) {β₀ : ℝ} (hβ₀ : 0 < 
   rw [searchA_sq hβ₀, mul_inv, mul_pow, inv_pow, neg_div, Real.rpow_neg hβ₀.le, inv_inv,
     one_div, Real.rpow_inv_natCast_pow hβ₀.le (by omega)]
 
-/-- The logarithm step (lines 2200-2203). -/
+/-- The logarithm step (proof of Lemma `hsl:lem:search`). -/
 theorem search_final {n m : ℕ} (hn : 1 ≤ n) {β₀ t : ℝ} (hβ₀ : 0 < β₀)
     (h : β₀ ≤ (((2 * β₀ ^ (-(1 : ℝ) / (2 * (n : ℝ)))) ^ 2)⁻¹) ^ n *
       Real.exp (24 * (2 * β₀ ^ (-(1 : ℝ) / (2 * (n : ℝ)))) * t / Real.sqrt m)) :

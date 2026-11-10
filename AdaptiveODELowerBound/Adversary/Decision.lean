@@ -6,10 +6,11 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # The positive-weight adversary for adaptive protocols
 
-Manuscript lines 4181-4234 (Lemma `odel:lem:outer` and its use of the bounded-error spectral
-adversary) and lines 2672-2673, for the adaptive protocols `SparseLinearSystems.Protocol.Tree`. This
-is `SparseLowerBounds.PositiveAdversary.decision_count_ge` with the program replaced by an
-adaptive protocol and its count by the worst-case weighted cost `Tree.worstCost w`, and
+Manuscript: Lemma `odel:lem:outer` and its use of the bounded-error spectral adversary, and the end
+of the proof of Lemma `hsl:lem:precision` (purification and deferred measurement), for the adaptive
+protocols `SparseLinearSystems.Protocol.Tree`. This is
+`SparseLowerBounds.PositiveAdversary.decision_count_ge` with the program replaced by an adaptive
+protocol and its count by the worst-case weighted cost `Tree.worstCost w`, and
 `Release.retry_decision_count_ge` with the retry protocol replaced by a tree; the constants are
 unchanged.
 

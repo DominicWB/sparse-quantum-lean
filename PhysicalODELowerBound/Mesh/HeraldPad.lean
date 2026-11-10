@@ -7,12 +7,12 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # The padded `g = 1` families over the general-mesh physical oracle, with controlled calls
 
-Manuscript lines 4392-4435 (eq. `odel:eq:hsbound`, Lemma `odel:lem:herald`) and 4441-4442 ("Pad
-dimensions to a common known size if desired"), for the known zero paddings of the time, mixed
-and precision families (`ODELowerBoundExtensions.Padding.timePadFamilyAt`, `mixedPadFamilyAt`,
-`precisionPadFamilyAt`: `ẋ = -i(H ⊕ 0) x`, `x(0) = ψ_in ⊕ 0`, one stage) and adaptive solvers
-over the physical oracle of the released general-mesh solver and over its call forms
-(`MeshForces`).
+Manuscript: eq. `odel:eq:hsbound`, Lemma `odel:lem:herald` and the proof of Theorem
+`odel:thm:combined` ("Pad dimensions to a common known size if desired"), for the known zero
+paddings of the time, mixed and precision families
+(`ODELowerBoundExtensions.Padding.timePadFamilyAt`, `mixedPadFamilyAt`, `precisionPadFamilyAt`:
+`ẋ = -i(H ⊕ 0) x`, `x(0) = ψ_in ⊕ 0`, one stage) and adaptive solvers over the physical oracle of
+the released general-mesh solver and over its call forms (`MeshForces`).
 
 * `time_forces_pad_mesh`, `mixed_forces_pad_mesh`, `precision_forces_pad_mesh`,
   `precision_forces_sqrt_pad_mesh`: from `Families.time_pad_solver`, `mixed_pad_solver`,
@@ -22,7 +22,7 @@ over the physical oracle of the released general-mesh solver and over its call f
 * `herald_max_cost_pad_mesh` (max form over realised counts) and `herald_witness_pad_mesh`
   (family form, the instance facts `ODELowerBoundExtensions.Padding.herald_instances_pad`).
 * `precision_terms_witness_pad_mesh`: the precision terms `c₀ (√(sτr) + r)` of Theorem
-  `odel:thm:combined` are witnessed by one of the padded `g = 1` families (lines 4143-4144).
+  `odel:thm:combined` are witnessed by one of the padded `g = 1` families.
 
 Known padding registers range over `Type`, the universe of the families in `MeshForces` and
 `ConstForces` and of the released normal-form lemma
@@ -139,11 +139,11 @@ theorem herald_witness_pad_mesh (h : HSRange τ s ε) {gbar : ℝ} (hg : 1 ≤ g
   · exact Or.inr (Or.inr ⟨hI.2.2.1, hI.2.2.2.1, meshForces_of_cost hf⟩)
 
 /-- **The precision terms of Theorem `odel:thm:combined` over the general-mesh physical oracle are
-witnessed by padded `g = 1` families** (fourth sentence of the theorem, lines 4143-4144, with the
-padding of line 4441): on `HSRange`, for any `ḡ ≥ 1` and any known paddings, one of the padded
-homogeneous constant-coefficient families with `D = 0` and `g = 1` (time, mixed, precision)
-witnesses `c₀ (√(sτr) + r)` on every adaptive solver over the physical oracle or its call forms.
-From `herald_witness_pad_mesh` by `MeshWitnesses.mono`. -/
+witnessed by padded `g = 1` families** (fourth sentence of the theorem, Theorem `odel:thm:combined`,
+with the padding of the proof of Theorem `odel:thm:combined`): on `HSRange`, for any `ḡ ≥ 1` and any
+known paddings, one of the padded homogeneous constant-coefficient families with `D = 0` and `g = 1`
+(time, mixed, precision) witnesses `c₀ (√(sτr) + r)` on every adaptive solver over the physical
+oracle or its call forms. From `herald_witness_pad_mesh` by `MeshWitnesses.mono`. -/
 theorem precision_terms_witness_pad_mesh (h : HSRange τ s ε) {gbar : ℝ} (hg : 1 ≤ gbar)
     (PT PM PP : Type) [Fintype PT] [DecidableEq PT] [Fintype PM] [DecidableEq PM]
     [Fintype PP] [DecidableEq PP] :

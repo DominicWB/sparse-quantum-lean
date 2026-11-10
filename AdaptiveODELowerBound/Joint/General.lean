@@ -7,9 +7,9 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # Lemma `odel:lem:outer` and Theorem `odel:thm:joint` for adaptive protocols, general form
 
-Manuscript lines 4181-4234 (Lemma `odel:lem:outer`), 4296-4341 (Theorem `odel:thm:joint`, proof:
-the heralded half measurement and the at most two membership queries per matrix query) and
-4343-4388 (Remark `odel:rem:homogeneous`: the same reduction with another decision observable).
+Manuscript: Lemma `odel:lem:outer`, Theorem `odel:thm:joint` (proof: the heralded half
+measurement and the at most two membership queries per matrix query) and Proposition
+`odel:rem:homogeneous` (the same reduction with another decision observable).
 
 * `outer_count_ge_tree` (`SparseLowerBounds.ODE.outer_count_ge` and
   `Release.outer_count_ge_retry` for trees): an adaptive protocol over any labelled family
@@ -46,7 +46,7 @@ variable {W B L Fl E G : Type*}
   [NormedAddCommGroup G] [InnerProductSpace ℂ G] [CompleteSpace G]
 
 omit [NormedAddCommGroup G] [InnerProductSpace ℂ G] [CompleteSpace G] in
-/-- **Lemma `odel:lem:outer` for adaptive protocols** (lines 4181-4234): an adaptive protocol
+/-- **Lemma `odel:lem:outer` for adaptive protocols** (Lemma `odel:lem:outer`): an adaptive protocol
 over any labelled family implemented with costs `w` by membership programs, whose heralded
 output has signed correlation at least `β ≥ 0` with the half answer `halfSign M (oddCand x)`,
 measured by a contraction `A`, has worst-case cost at least `β² n √(M m) / 8`. -/
@@ -84,11 +84,11 @@ theorem outer_count_ge_tree {M n m : ℕ} (hM : 2 ≤ M) (hMe : Even M) (hn : 1 
   rw [hsq]
   exact outer_arith hsa hsb (by positivity) hcount
 
-/-- **The joint reduction for an arbitrary target, adaptive protocols** (lines 4323-4331,
-4372-4388): an adaptive protocol over any labelled family implemented with costs `w` by
-membership programs, with success mass at least `2/3` and conditional output `ε`-accurate for
-targets `ψ x` on which a Hermitian contraction `D` has ideal signed correlation at least
-`a ≥ 2ε` with the half answer, has worst-case cost at least
+/-- **The joint reduction for an arbitrary target, adaptive protocols** (proof of Theorem
+`odel:thm:joint` and Proposition `odel:rem:homogeneous`): an adaptive protocol over any labelled
+family implemented with costs `w` by membership programs, with success mass at least `2/3` and
+conditional output `ε`-accurate for targets `ψ x` on which a Hermitian contraction `D` has ideal
+signed correlation at least `a ≥ 2ε` with the half answer, has worst-case cost at least
 `((2/3)(a - 2ε))² n √(M 2^μ) / 8`. -/
 theorem outer_general_tree {M n μ : ℕ} (hM : 2 ≤ M) (hMe : Even M) (hn : 1 ≤ n) (hμ : 1 ≤ μ)
     {S : Type*} [Fintype S] [DecidableEq S] {ε a : ℝ} (hεa : 2 * ε ≤ a)
@@ -113,7 +113,7 @@ theorem outer_general_tree {M n μ : ℕ} (hM : 2 ≤ M) (hMe : Even M) (hn : 1 
   push_cast at h
   exact h
 
-/-- **Theorem `odel:thm:joint` for adaptive protocols, general form** (lines 4305-4331): an
+/-- **Theorem `odel:thm:joint` for adaptive protocols, general form** (Theorem `odel:thm:joint`): an
 adaptive protocol over any labelled family implemented with costs `w` by membership programs,
 with success mass at least `2/3` and conditional output `ε`-accurate for
 `x(T)/‖x(T)‖ = jointTarget` (`2ε ≤ 1`), has worst-case cost at least

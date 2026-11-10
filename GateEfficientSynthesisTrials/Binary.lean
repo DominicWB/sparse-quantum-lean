@@ -5,6 +5,10 @@ import GateEfficientBinaryODETime.Solver
 /-!
 # Theorem `ode:thm:gates` from binary data over a finite gate set, trial by trial
 
+The finite-gate-set forms of Theorem `ode:thm:gates` in this module are a partial formalisation of
+its finite-set statement, under this package's format hypotheses: the manuscript states Theorem
+`ode:thm:gates` over a finite gate set; the conformance endpoints count native gates.
+
 The dissipative solvers from binary sparse data (`GateBinaryODE.binary_ode_solver`, constant
 coefficients) and from time-indexed binary sparse data (`GateBinaryODETime.binary_ode_time_solver`,
 time-dependent coefficients) with the preparation synthesised over a finite gate set and the
@@ -35,8 +39,9 @@ variable {X n : Type*} [Fintype n] [DecidableEq n] {Zs : Type*} [Fintype Zs] [De
 variable {Xa : Type*} [Fintype Xa] [DecidableEq Xa] {𝒢 : Set Kind} {len : ℝ → ℕ}
 
 /-- **Gate-efficient dissipative ODE solver from binary sparse data over a finite gate set with
-exact reflections, constant coefficients** (Theorem `ode:thm:gates`, constant coefficients, with
-finite-set synthesis as a hypothesis, including the per-trial claim).
+exact reflections, constant coefficients** (partial formalisation, under this package's format
+hypotheses, of the finite-set statement of Theorem `ode:thm:gates`, constant
+coefficients, with finite-set synthesis as a hypothesis, including the per-trial claim).
 
 For the public data `q`, the binary sparse data `D` and the source circuits `srcC` of
 `binary_ode_solver`, the synthesised protocol `nprotocol (synthPrep hS (ν/3) (q.prep srcC)) g`
@@ -138,8 +143,10 @@ theorem binary_ode_solver_trials (hS : Synthesis 𝒢 Xa len) (hadj : AdjClosed 
     exact h
 
 /-- **Gate-efficient dissipative ODE solver from time-indexed binary sparse data over a finite
-gate set with exact reflections, time-dependent coefficients** (Theorem `ode:thm:gates`,
-time-dependent part, with finite-set synthesis as a hypothesis, including the per-trial claim).
+gate set with exact reflections, time-dependent coefficients** (partial formalisation, under this
+package's format hypotheses, of the finite-set statement of Theorem `ode:thm:gates`, time-dependent
+part, with finite-set synthesis as a hypothesis, including the
+per-trial claim).
 
 For the public data `q`, the time-indexed binary sparse data `D` and the source circuits
 `loadC`, `wpC` of `binary_ode_time_solver`, the synthesised protocol

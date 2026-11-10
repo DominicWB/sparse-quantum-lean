@@ -116,7 +116,7 @@ section Transfer
 variable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℂ E] [CompleteSpace E]
 
 /-- **The resolvent at one of a unitary**: if `D` is unitary and `R₁` is the two-sided inverse
-of `1 - D`, then `R₁† = 1 - R₁` (`hs:lem:abstract`, `hs:eq:Ridentity`). -/
+of `1 - D`, then `R₁† = 1 - R₁` (`hs:lem:abstract`, `ov:eq:response`). -/
 theorem resolvent_adjoint (D R1 : E →L[ℂ] E) (hD : IsUnitary D)
     (hRight : (1 - D) ∘L R1 = 1) (hLeft : R1 ∘L (1 - D) = 1) : R1† = 1 - R1 := by
   have hR : (1 - D) * R1 = 1 := by rw [mul_def]; exact hRight

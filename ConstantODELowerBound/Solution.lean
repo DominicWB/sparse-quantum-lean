@@ -7,8 +7,8 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # One-stage families as constant-coefficient equations of Theorem `ode:thm:main`
 
-Manuscript lines 4094-4097 (eq. `odel:eq:ode`, `-A = D + iH`, `D ⪰ 0`) and 3013-3033 (Theorem
-`ode:thm:main`: `A`, `b` time independent, `B = ‖x₀‖ + T‖b‖`, `g = B/‖x(T)‖`, split bounds
+Manuscript: eq. `odel:eq:ode` (`-A = D + iH`, `D ⪰ 0`) and Theorem `ode:thm:main` (`A`, `b` time
+independent, `B = ‖x₀‖ + T‖b‖`, `g = B/‖x(T)‖`, split bounds
 `η_H`, `η_D` on the Hermitian and dissipative parts). A one-stage family of the ODE model
 (`SparseLowerBounds.ODE.Family X N Z 1 s`) is a constant-coefficient equation: on input `x` the
 released solver's generator `ODEPublicSourceMesh.generator (constData F) x = -G_0(x)` and the

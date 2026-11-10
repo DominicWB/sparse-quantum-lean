@@ -6,7 +6,8 @@ section
 /-!
 # Dilation stages, candidate states and the half indicator
 
-Helper of `ODE/JointInstance` (manuscript lines 3800-3824, 3849-3850, 3887-3888).
+Helper of `ODE/JointInstance` (the construction before Theorem `odel:thm:joint` and its
+proof).
 `H_k` is a direct sum of reindexed copies of the dilation
 `LinearSystems.dilation` (sector index `Bool`, see `stageHam`).
 

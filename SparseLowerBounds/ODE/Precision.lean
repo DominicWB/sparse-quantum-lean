@@ -6,13 +6,12 @@ section
 /-!
 # Lemma `odel:lem:herald` in the ODE model: the `g = 1` families
 
-Manuscript lines 3954-3999. Theorem `hsl:thm:main` bounds the cost of
-producing `e^{-iτH_X}|ψ_in⟩` on a known input by eq. `odel:eq:hsbound`,
-`Q = Ω(√s τ + √(sτr) + r)`; with `A = -iH_X` and `b = 0` this is a homogeneous
-constant-coefficient ODE with `D = 0` and `g = 1` (lines 3962-3964). Lemma
-`odel:lem:herald` (heralded transfer, lines 3967-3999) says the bound survives a
-success flag (probability `≥ 2/3` on each input, conditional error `ε`); the
-Hamiltonian lower bound proves it as `Hamiltonian.time_herald`, `Hamiltonian.mixed_herald` and
+Manuscript: eq. `odel:eq:hsbound` and Lemma `odel:lem:herald`. Theorem `hsl:thm:main` bounds the
+cost of producing `e^{-iτH_X}|ψ_in⟩` on a known input by eq. `odel:eq:hsbound`,
+`Q = Ω(√s τ + √(sτr) + r)`; with `A = -iH_X` and `b = 0` this is a homogeneous constant-coefficient
+ODE with `D = 0` and `g = 1` (Lemma `odel:lem:herald`). Lemma `odel:lem:herald` (heralded transfer)
+says the bound survives a success flag (probability `≥ 2/3` on each input, conditional error `ε`);
+the Hamiltonian lower bound proves it as `Hamiltonian.time_herald`, `Hamiltonian.mixed_herald` and
 `Hamiltonian.precision_herald` (spectator form).
 
 This module reads the three hard data of the Hamiltonian lower bound (`Hamiltonian.timeData`,
@@ -41,10 +40,10 @@ families of `ODE/Model` through the transfer helper
   form and in family form (one of the three `g = 1` families witnesses
   `c₀ (√s τ + √(sτr) + r)`), on the whole range `HSRange`, including
   `L < 64τ`, where the proof takes the bound from the time family alone
-  (line 3996);
+  (proof of Lemma `odel:lem:herald`);
 * `precision_terms_witness`: hence the last two terms `√(sτr) + r` of
   Theorem `odel:thm:combined` are witnessed by homogeneous constant-coefficient
-  families with `D = 0` and `g = 1` (lines 3707-3708);
+  families with `D = 0` and `g = 1`;
 * `forces_or_of_max`: the classical step from a max form over three families
   to the family form, shared with `ODE/Theorem`.
 -/
@@ -65,7 +64,7 @@ variable {X N Z : Type*} [Fintype N] [DecidableEq N] [Fintype Z] [AddCommGroup Z
 
 omit [Fintype Z] [AddCommGroup Z] in
 /-- **The precision families are homogeneous constant-coefficient ODEs with
-`D = 0` and `g = 1`** (lines 3962-3964): one stage (`K = 1`, by type), no
+`D = 0` and `g = 1`** (Lemma `odel:lem:herald`): one stage (`K = 1`, by type), no
 source, generator `iH_x` (`A = -iH_x`), mass `B = ‖x₀‖ = 1`, `T = τ`, and the
 solution has `‖x(T)‖ = 1`, so `g = B/‖x(T)‖ = 1`. -/
 theorem hamFamily_props (hH : ∀ x, (D.matrix x).IsHermitian) (hx₀ : ‖x₀‖ = 1) (x : X) :
@@ -76,13 +75,11 @@ theorem hamFamily_props (hH : ∀ x, (D.matrix x).IsHermitian) (hx₀ : ‖x₀�
   refine ⟨fun _ => rfl, fun _ => rfl, by rw [hamFamily_mass, hx₀], hamFamily_T D T hT x₀, ?_⟩
   rw [Hamiltonian.norm_evolve_apply (hH x), hx₀]
 
-/-- **Solver transfer** (Lemma `odel:lem:herald` in the ODE model, lines
-3966-3998): if every program over the spectated native primitives
-`specOracles (ι × Fin 1) D` that succeeds with probability `≥ 2/3` and is
-`ε`-accurate for `e^{-iTH_x} x₀` makes at least `b` value queries and `b`
-queries in total, then every solver of the family `hamFamily D T x₀` does.
-The solver's accuracy for `x(T)/‖x(T)‖` is accuracy for `x(T) = e^{-iTH_x} x₀`
-since `‖x(T)‖ = 1`. -/
+/-- **Solver transfer** (Lemma `odel:lem:herald` in the ODE model): if every program over the
+spectated native primitives `specOracles (ι × Fin 1) D` that succeeds with probability `≥ 2/3` and
+is `ε`-accurate for `e^{-iTH_x} x₀` makes at least `b` value queries and `b` queries in total, then
+every solver of the family `hamFamily D T x₀` does. The solver's accuracy for `x(T)/‖x(T)‖` is
+accuracy for `x(T) = e^{-iTH_x} x₀` since `‖x(T)‖ = 1`. -/
 theorem forces_of_spec {ι G : Type*} [Fintype ι] [NormedAddCommGroup G] [InnerProductSpace ℂ G]
     [CompleteSpace G] {ε b : ℝ} (hH : ∀ x, (D.matrix x).IsHermitian) (hx₀ : ‖x₀‖ = 1)
     (A : Solver ι (hamFamily D T hT x₀) G ε)
@@ -152,7 +149,7 @@ theorem forces_or_of_max {X₁ N₁ Z₁ X₂ N₂ Z₂ X₃ N₃ Z₃ : Type*}
   linarith
 
 open Hamiltonian in
-/-- **The time family as an ODE family** (lines 2379-2409, 3954-3964):
+/-- **The time family as an ODE family** (Lemma `hsl:lem:time` and Lemma `odel:lem:herald`):
 `ẋ = -iH_j x` on `[0, τ]`, `x(0) = searchInput`, with the time data
 (`n = timeN τ`, amplitude `timeC τ`, `m = 2^{hsMu s}`); it does not depend on `ε`. -/
 def timeFamilyAt (τ : ℝ) (s : ℕ) (hs : 32 ≤ s) (hτ : 0 ≤ τ) :
@@ -161,18 +158,18 @@ def timeFamilyAt (τ : ℝ) (s : ℕ) (hs : 32 ≤ s) (hτ : 0 ≤ τ) :
   hamFamily (timeData τ s hs) τ hτ (searchInput (timeN τ) (hsMu s) s)
 
 open Hamiltonian in
-/-- **The mixed family as an ODE family** (lines 2439-2444, 3955-3964):
-`ẋ = -iH_j x` on `[0, τ]`, `x(0) = searchInput`, with the
-main-parameter mixed data (`n = precN τ ε`, `a = 1`, `m = 2^{hsMu s}`). -/
+/-- **The mixed family as an ODE family** (proof of Theorem `hsl:thm:main` and Lemma
+`odel:lem:herald`): `ẋ = -iH_j x` on `[0, τ]`, `x(0) = searchInput`, with the main-parameter mixed
+data (`n = precN τ ε`, `a = 1`, `m = 2^{hsMu s}`). -/
 def mixedFamilyAt (τ ε : ℝ) (s : ℕ) (hs : 32 ≤ s) (hτ : 0 ≤ τ) :
     Family (Fin (precN τ ε) → Fin (2 ^ hsMu s)) (SearchIndex (precN τ ε) (hsMu s) s)
       (Word (searchBits (precN τ ε) (hsMu s) s 1 τ)) 1 s :=
   hamFamily (mixedMainData τ ε s hs) τ hτ (searchInput (precN τ ε) (hsMu s) s)
 
 open Hamiltonian in
-/-- **The precision family as an ODE family** (lines 2435-2438, 3955-3964):
-`ẋ = -iH_x x` on `[0, τ]`, `x(0) = scalarInput`, with the
-main-parameter precision data (`n = precN τ ε`). -/
+/-- **The precision family as an ODE family** (proof of Theorem `hsl:thm:main` and Lemma
+`odel:lem:herald`): `ẋ = -iH_x x` on `[0, τ]`, `x(0) = scalarInput`, with the main-parameter
+precision data (`n = precN τ ε`). -/
 def precisionFamilyAt (τ ε : ℝ) (s : ℕ) (hs : 32 ≤ s) (hτ : 0 ≤ τ) :
     Family (Fin (precN τ ε) → Bool) (ScalarIndex (precN τ ε) s)
       (Word (scalarBits (precN τ ε) s τ)) 1 s :=
@@ -218,7 +215,7 @@ theorem precisionFamilyAt_T (h : HSRange τ s ε) :
     (precisionFamilyAt τ ε s h.s_ge (by linarith [h.one_le_tau])).T = τ :=
   hamFamily_T _ _ _ _
 
-/-- **Lemma `odel:lem:herald`, time family** (lines 3985-3987;
+/-- **Lemma `odel:lem:herald`, time family** (proof of Lemma `odel:lem:herald`;
 `Hamiltonian.time_herald`): on the whole range `HSRange`, every heralded solver of the time
 family makes at least `c_T √s τ` value queries (and as many matrix queries),
 `c_T = log 2/(192π)`. -/
@@ -230,7 +227,7 @@ theorem time_forces (h : HSRange τ s ε) :
     time_herald h (ι × Fin 1) p A.seed A.seed_norm_le A.out A.out_isometry A.herald
       A.herald_proj hsucc hacc
 
-/-- **Lemma `odel:lem:herald`, mixed family** (lines 3966-3998;
+/-- **Lemma `odel:lem:herald`, mixed family** (Lemma `odel:lem:herald`;
 `Hamiltonian.mixed_herald`): for `L ≥ 64τ` and `s ≥ 64n/τ`, every heralded solver of the
 mixed family makes at least `(log 2/(384√2)) √(sτr)` value queries (and as
 many matrix queries). -/
@@ -244,7 +241,7 @@ theorem mixed_forces (h : HSRange τ s ε) (hL : 64 * τ ≤ hsL ε)
     mixed_herald h hL hs (ι × Fin 1) p A.seed A.seed_norm_le A.out A.out_isometry A.herald
       A.herald_proj hsucc hacc
 
-/-- **Lemma `odel:lem:herald`, precision family** (lines 3966-3998;
+/-- **Lemma `odel:lem:herald`, precision family** (Lemma `odel:lem:herald`;
 `Hamiltonian.precision_herald`): for `L ≥ 64τ`, every heralded solver of the precision
 family makes at least `r/32` value queries (and as many matrix queries). -/
 theorem precision_forces (h : HSRange τ s ε) (hL : 64 * τ ≤ hsL ε) :
@@ -256,10 +253,9 @@ theorem precision_forces (h : HSRange τ s ε) (hL : 64 * τ ≤ hsL ε) :
       A.herald_proj hsucc hacc
     ⟨hp.1, hp.2.1⟩
 
-/-- **Lemma `odel:lem:herald`, precision family, small sparsity** (lines
-3966-3998; `Hamiltonian.precision_herald`): for `L ≥ 64τ` and `s < 64n/τ`, every
-heralded solver of the precision family makes at least `√(sτr)/(64√2)` value
-queries (and as many matrix queries). -/
+/-- **Lemma `odel:lem:herald`, precision family, small sparsity** (Lemma `odel:lem:herald`;
+`Hamiltonian.precision_herald`): for `L ≥ 64τ` and `s < 64n/τ`, every heralded solver of the
+precision family makes at least `√(sτr)/(64√2)` value queries (and as many matrix queries). -/
 theorem precision_forces_sqrt (h : HSRange τ s ε) (hL : 64 * τ ≤ hsL ε)
     (hs' : (s : ℝ) < 64 * precN τ ε / τ) :
     (precisionFamilyAt τ ε s h.s_ge (by linarith [h.one_le_tau])).Forces ε
@@ -274,11 +270,11 @@ theorem precision_forces_sqrt (h : HSRange τ s ε) (hL : 64 * τ ≤ hsL ε)
   exact ⟨hp, hp.trans hc⟩
 
 
-/-- **Eq. `odel:eq:hsbound` in the ODE model, max form** (lines 3954-3999;
+/-- **Eq. `odel:eq:hsbound` in the ODE model, max form** (Lemma `odel:lem:herald`;
 `Hamiltonian.assembly`): for one solver of each of the three `g = 1` families
 (time, mixed, precision) at `(s, τ, ε)`, the largest value-query count is at
 least `c₀ (√s τ + √(sτr) + r)`, `c₀ = log 2/(4096π)`. For `L < 64τ` the time
-bound alone carries it (line 3996). -/
+bound alone carries it (proof of Lemma `odel:lem:herald`). -/
 theorem herald_max (h : HSRange τ s ε) {ιT ιM ιP GT GM GP : Type}
     [Fintype ιT] [Fintype ιM] [Fintype ιP]
     [NormedAddCommGroup GT] [InnerProductSpace ℂ GT] [CompleteSpace GT]
@@ -296,7 +292,7 @@ theorem herald_max (h : HSRange τ s ε) {ιT ιM ιP GT GM GP : Type}
     (fun hL hs => (mixed_forces h hL hs ιM GM AM).1)
 
 /-- **Eq. `odel:eq:hsbound` in the ODE model, family form** (Lemma
-`odel:lem:herald`, lines 3954-3999): for `τ ≥ 1`, `s ≥ 32`, `0 < ε ≤ 1/64`
+`odel:lem:herald`): for `τ ≥ 1`, `s ≥ 32`, `0 < ε ≤ 1/64`
 (`HSRange`) and any `ḡ ≥ 1`, one of the time, mixed and precision families
 (homogeneous, constant-coefficient, `D = 0`, `g = 1`; `hamFamily_props`) is in
 the class (`η = 1`, `T = τ`, `g ≤ ḡ`) and forces `c₀ (√s τ + √(sτr) + r)` value
@@ -321,13 +317,13 @@ theorem herald_witness (h : HSRange τ s ε) {gbar : ℝ} (hg : 1 ≤ gbar) :
   · exact Or.inr (Or.inr ⟨precisionFamilyAt_inClass h hg, precisionFamilyAt_T h, hf⟩)
 
 /-- **The precision terms of Theorem `odel:thm:combined` are witnessed by `g = 1`
-families** (fourth sentence of the theorem, lines 3707-3708): on the whole range
+families** (fourth sentence of the theorem, Theorem `odel:thm:combined`): on the whole range
 `HSRange` and for any `ḡ ≥ 1`, one of the homogeneous constant-coefficient
 families with `D = 0` and `g = 1` (time, mixed, precision; `hamFamily_props`)
 witnesses `c₀ (√(sτr) + r)`. The statement is a disjunction and does not name
 the family; the proof (`Hamiltonian.assembly`) obtains these terms from the mixed and
 precision bounds when `L ≥ 64τ` (`mixed_forces`, `precision_forces`) and from
-the time bound alone when `L < 64τ` (line 3996). -/
+the time bound alone when `L < 64τ` (proof of Lemma `odel:lem:herald`). -/
 theorem precision_terms_witness (h : HSRange τ s ε) {gbar : ℝ} (hg : 1 ≤ gbar) :
     (timeFamilyAt τ s h.s_ge (by linarith [h.one_le_tau])).Witnesses τ gbar ε
         (c0 * (Real.sqrt (s * τ * hsR τ ε) + hsR τ ε)) ∨

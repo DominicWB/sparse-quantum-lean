@@ -6,8 +6,8 @@ set_option synthInstance.maxSize 4096
 /-!
 # A single heralded program from an amplified trial family
 
-Manuscript lines 4111-4113 (Section `odel:sec:main`, output model) and 4687-4689 (proof of Lemma
-`odel:lem:dyson`). The single-program class of the ODE lower
+Manuscript: Section `odel:sec:main` (output model) and the proof of Lemma
+`odel:lem:dyson`. The single-program class of the ODE lower
 bounds is `SparseLowerBounds.ODE.Solver`: one program over the sampled-time access
 `Family.access ι` (any branch register `ι`), a seed of norm at most one, an isometric readout
 onto system ⊗ garbage, and a herald projection with success at least `2/3` and conditional
@@ -215,12 +215,12 @@ def fourAttempts (F : Family X N Z K s) (ι : Type) [Fintype ι] (M : ℕ)
     (out : EuclideanSpace ℂ N →L[ℂ] Workspace ι N Z K) (i₀ : N) : Stage (F.access ι) M N :=
   Stage.four (Coherent.trial M a h₁ h₂ h₃) (Coherent.labelSeed M ψ) out i₀
 
-/-- **The single heralded program of an amplified trial family** (lines 4687-4689 and
-4111-4113): for a trial family `q` over the lower-bound access (idle source vocabulary) with the
-amplification shape of a preparation `a` over `F.access ι` and the released complete certificate
-for every instance, provided every input has a solution, the four-attempt program
-`fourAttempts` (branch register `ι × (I × Fin M)`) is the program of a single-program `Solver`
-and makes at most `1274019840 g' queryShape s' Θ ℓ` calls. -/
+/-- **The single heralded program of an amplified trial family** (proof of Lemma `odel:lem:dyson`
+and Section `odel:sec:main`): for a trial family `q` over the lower-bound access (idle source
+vocabulary) with the amplification shape of a preparation `a` over `F.access ι` and the released
+complete certificate for every instance, provided every input has a solution, the four-attempt
+program `fourAttempts` (branch register `ι × (I × Fin M)`) is the program of a single-program
+`Solver` and makes at most `1274019840 g' queryShape s' Θ ℓ` calls. -/
 theorem exists_solver_of_shape (F : Family X N Z K s) (ε : ℝ) (ι : Type) [Fintype ι]
     (q : ℕ → MultiOracleCircuit.Program (ODESourceQueryBudget.oracle (F.access ι) (fun _ _ => 1)))
     (M : ℕ) (ψ : Workspace ι N Z K) (out : EuclideanSpace ℂ N →L[ℂ] Workspace ι N Z K)

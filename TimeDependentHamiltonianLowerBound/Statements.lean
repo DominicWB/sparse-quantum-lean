@@ -5,18 +5,17 @@ set_option autoImplicit false
 /-!
 # The lower bound of `hsl:thm:main` for the time-dependent classes: paper-to-Lean entry point
 
-The paragraph "Regularity and coherent parameters" after Theorem `hs:thm:time` of the
-manuscript ends (lines 2267-2270): "The lower bound in Theorem `hsl:thm:main` also applies to
-this class, since its time-independent hard instances satisfy the new assumptions with
-`β = δ_val = 0`." The class is that of Theorem `hs:thm:time` (lines 2044-2075: coherent
-sampled-time access, eq. `hs:eq:timeaccess`, lines 2028-2031; error against the propagator,
-eq. `hs:eq:timeerror`) and of its generalisations in that paragraph (piecewise paths on general
-meshes, integrable paths with an integrated sample-error certificate). This library formalises
-the remark for the released time-dependent theorems, without results from other papers. All
-declarations below are in the namespace `TimeDependentHamiltonianLowerBound`; the hard families
-`timeData`, `mixedMainData`, `precisionMainData`, the range `HSRange τ s ε`, `c0`, `hsL`, `hsH`,
-`hsR` and `hardCost` are those of `SparseLowerBounds.Hamiltonian` (`SparseLowerBounds` for
-`hardCost`), and `TimeDependent.*` abbreviates `SparseHamiltonian.TimeDependent.*`.
+The paragraphs after the proof of Theorem `hs:thm:time` of the manuscript end: "Finally, this input
+class contains the constant hard instances of Theorem `hsl:thm:main`, with `β = δ_val = 0`, so the
+lower bounds of that theorem continue to apply." The class is that of Theorem `hs:thm:time`
+(coherent sampled-time access, eq. `hs:eq:timeaccess`; error against the propagator, eq.
+`hs:eq:timeerror`) and of its generalisations in that paragraph (piecewise paths on general meshes,
+integrable paths with an integrated sample-error certificate). This library formalises the remark
+for the released time-dependent theorems, without results from other papers. All declarations below
+are in the namespace `TimeDependentHamiltonianLowerBound`; the hard families `timeData`,
+`mixedMainData`, `precisionMainData`, the range `HSRange τ s ε`, `c0`, `hsL`, `hsH`, `hsR` and
+`hardCost` are those of `SparseLowerBounds.Hamiltonian` (`SparseLowerBounds` for `hardCost`), and
+`TimeDependent.*` abbreviates `SparseHamiltonian.TimeDependent.*`.
 
 * **Class statements** (the remark): `uniform_class_max` (uniform meshes,
   `SparseHamiltonian.TimeDependent.simulation`), `mesh_class_max` (general meshes,
@@ -41,7 +40,7 @@ declarations below are in the namespace `TimeDependentHamiltonianLowerBound`; th
   `coherentAccess_constData`, and the normal forms `sampled_normal_form`,
   `aligned_normal_form`, `uniform_normal_form`, `mesh_normal_form`; the Boolean certificates
   `time_sampled_implementsOn`, `mixed_sampled_implementsOn`, `precision_sampled_implementsOn`.
-* **Bracket** with the released upper bound (eq. `hsl:eq:upper`, line 2923): `uniform_theta`,
+* **Bracket** with the released upper bound (eq. `hsl:eq:upper`): `uniform_theta`,
   `uniform_theta_bracket` (uniform-mesh simulator), `mesh_theta`, `mesh_theta_bracket`
   (general-mesh simulator).
 * **Embedding**: `constData`, `constPath`, `constProp`; `solvesOn_constProp`,
@@ -52,22 +51,21 @@ declarations below are in the namespace `TimeDependentHamiltonianLowerBound`; th
   `mesh_class_nonvacuous`, `integrable_class_nonvacuous`; for adaptive algorithms
   `single_tree_hyps`, `access_of_uniform`, `calls_of_access`.
 
-**Hard instances and their embedding.** The hard families of Theorem `hsl:thm:main` (lines
-2898-2915) are the released native sparse data `timeData τ s _`, `mixedMainData τ ε s _`,
-`precisionMainData τ ε s _` (`SparseHamiltonian.NativeSparseBlockEncoding.Data X N (Word B) s`,
-real symmetric, operator norm and row and column norms one, sparsity `s`, input-independent
-locators: `SparseLowerBounds.Hamiltonian.hard_instances`). For data `D : Data X N Z s` and any
-number `M` of samples, `constData D M : Data (X × Fin M) N Z s` has every sample equal to the
-instance (`constData_matrix`), and `constPath D x u = D.matrix x` is the constant path. Its
-propagator is `constProp H u = exp(-iuH)`: it solves `U' = -iHU` on every interval
-(`solvesOn_constProp`, the propagator notion `SparseHamiltonian.TimeDependent.SolvesOn` of the
-uniform and general-mesh theorems) and is an integral-sense propagator
-(`isPropagator_constProp`, the notion `IntegrablePathSimulation.Propagator.IsPropagator` of the
-integrable-path theorem); every propagator of a constant path on `[0, T]` equals it at `T`
-(`propagator_eq_constProp`, `isPropagator_eq_constProp`, from the released uniqueness
+**Hard instances and their embedding.** The hard families of Theorem `hsl:thm:main` are the released
+native sparse data `timeData τ s _`, `mixedMainData τ ε s _`, `precisionMainData τ ε s _`
+(`SparseHamiltonian.NativeSparseBlockEncoding.Data X N (Word B) s`, real symmetric, operator norm
+and row and column norms one, sparsity `s`, input-independent locators:
+`SparseLowerBounds.Hamiltonian.hard_instances`). For data `D : Data X N Z s` and any number `M` of
+samples, `constData D M : Data (X × Fin M) N Z s` has every sample equal to the instance
+(`constData_matrix`), and `constPath D x u = D.matrix x` is the constant path. Its propagator is
+`constProp H u = exp(-iuH)`: it solves `U' = -iHU` on every interval (`solvesOn_constProp`, the
+propagator notion `SparseHamiltonian.TimeDependent.SolvesOn` of the uniform and general-mesh
+theorems) and is an integral-sense propagator (`isPropagator_constProp`, the notion
+`IntegrablePathSimulation.Propagator.IsPropagator` of the integrable-path theorem); every propagator
+of a constant path on `[0, T]` equals it at `T` (`propagator_eq_constProp`,
+`isPropagator_eq_constProp`, from the released uniqueness
 `IntegrablePathSimulation.Propagator.IsPropagator.eqOn`). The time-independent target
-`SparseLowerBounds.Hamiltonian.evolve H τ` is `constProp` by definition
-(`evolve_eq_constProp`).
+`SparseLowerBounds.Hamiltonian.evolve H τ` is `constProp` by definition (`evolve_eq_constProp`).
 
 **Access model.** The coherent sampled-time oracle `∑_r |r⟩⟨r| ⊗ O_r` (eq.
 `hs:eq:timeaccess`), one call per invocation with `r` in superposition, inverse calls counted,
@@ -128,16 +126,16 @@ conditional output is `ε`-accurate (`AdaptiveHamiltonianLowerBound.DensityAccur
 `MeshHyp.simulation_integrable`); `MeshPath` and `IntegrablePath` their path conditions, and
 `MeshGuarantee`, `IntegrableGuarantee` their guarantees for every path of the class.
 
-**Hypotheses.** `HSRange τ s ε` (`τ ≥ 1`, `s ≥ 32`, `0 < ε ≤ 1/64`), `η = 1` and evolution time
-`τ` (normalised units, lines 2881-2883). The class statements fix the public parameters of the
-class: for `uniform_class_max` and `uniform_class_members`, `β, δ ≥ 0` and a number `M` of
-samples with the mesh conditions `4 s τ ≤ M`, `9 β τ² ≤ ε M`, `9 (√s τ)³ ≤ ε M²` and
-`τ δ ≤ ε/12` of `TimeDependent.simulation` (with `β = δ = 0` only the first and third remain);
-for `mesh_class_max` and `integrable_class_max` a mesh `t` with `M` intervals (the bound holds
-for every `t`, and its hypotheses can be met when `t` is a mesh; `mesh_class_members` adds
-`0 < M`, `0 < N`, `TimeDependentExtensions.IsMesh t M τ` and the slot conditions `4 s τ ≤ N`,
-`9 (√s τ)³ ≤ ε N²`, `9 M √s τ ≤ ε N`). The mixed and precision families are used only for
-`L ≥ 64τ` (and the mixed one for `s ≥ 64n/τ`), as in `SparseLowerBounds.Hamiltonian.main_max`.
+**Hypotheses.** `HSRange τ s ε` (`τ ≥ 1`, `s ≥ 32`, `0 < ε ≤ 1/64`), `η = 1` and evolution time `τ`
+(normalised units, Section `hsl:sec:main`). The class statements fix the public parameters of the
+class: for `uniform_class_max` and `uniform_class_members`, `β, δ ≥ 0` and a number `M` of samples
+with the mesh conditions `4 s τ ≤ M`, `9 β τ² ≤ ε M`, `9 (√s τ)³ ≤ ε M²` and `τ δ ≤ ε/12` of
+`TimeDependent.simulation` (with `β = δ = 0` only the first and third remain); for `mesh_class_max`
+and `integrable_class_max` a mesh `t` with `M` intervals (the bound holds for every `t`, and its
+hypotheses can be met when `t` is a mesh; `mesh_class_members` adds `0 < M`, `0 < N`,
+`TimeDependentExtensions.IsMesh t M τ` and the slot conditions `4 s τ ≤ N`, `9 (√s τ)³ ≤ ε N²`,
+`9 M √s τ ≤ ε N`). The mixed and precision families are used only for `L ≥ 64τ` (and the mixed one
+for `s ≥ 64n/τ`), as in `SparseLowerBounds.Hamiltonian.main_max`.
 
 **Guarantees** (`S = √s τ + √(sτr) + r`, `L = log(1/ε)`, `h = log(e + L/τ)`, `r = L/h`,
 `c₀ = log 2/(4096π)`).
@@ -230,19 +228,20 @@ for every `t`, and its hypotheses can be met when `t` is a mesh; `mesh_class_mem
   `4 s τ ≤ M`; `mesh_class_members` assumes `0 < M` and `0 < N`; `mesh_class_max` and
   `integrable_class_max` need neither).
 * Normalised units: `η = 1` and evolution time `t = τ`, as Theorem `hsl:thm:main` is stated
-  (`‖H‖ = 1`, `τ = η |t|`, lines 2881-2883). The schedule of the algorithm's physical workspace
+  (`‖H‖ = 1`, `τ = η |t|`). The schedule of the algorithm's physical workspace
   (`γ η t ε'` of the oracle family, slot count, degree) is arbitrary; only the error criterion
   fixes the time `τ` and the accuracy `ε`.
 * Error criteria are those of the released theorems on the constant path; by uniqueness of
   propagators of constant paths they are equivalent to the endpoint form, so nothing is lost
   against the released endpoint lower bounds.
-* Class statements: an algorithm for a class is given, on each hard family, by a program over
-  the released oracle family of that family's constant data; it meets the released guarantee
-  for every path of the class compatible with its data (for the uniform mesh every `Hpath` with
-  `UniformHyp`, for the general mesh every family of pieces with `MeshPath`, for integrable
-  paths every path with `IntegrablePath`), and the membership of the constant hard paths is
-  proved inside the proofs. The three terms are witnessed by different families, so the bound
-  is in max form ("on one of the three families"), as `SparseLowerBounds.Hamiltonian.main_max`.
+* Class statements: an algorithm for a class is given, on each hard family, by a program over the
+  released oracle family of that family's constant data; it meets the released guarantee for every
+  path of the class compatible with its data (for the uniform mesh every `Hpath` with `UniformHyp`,
+  for the general mesh every family of pieces with `MeshPath`, for integrable paths every path with
+  `IntegrablePath`), and the membership of the constant hard paths is proved inside the proofs. The
+  three terms are witnessed by different families, so the bound is in max form ("We need not find
+  one matrix on which all three mechanisms are simultaneously difficult"), as
+  `SparseLowerBounds.Hamiltonian.main_max`.
 * For the uniform mesh the released theorem chooses the program after the path
   (`∀ Hpath, ∃ γ p`), so its conclusion does not give the path-uniform hypothesis of
   `uniform_class_max` (the paper's reading, in which the circuit depends on public data only);
@@ -297,9 +296,8 @@ for every `t`, and its hypotheses can be met when `t` is a mesh; `mesh_class_mem
 imported; no released module is changed. The statement guides
 `TimeDependentHamiltonian/Statements.lean`, `TimeDependentExtensions/Statements.lean` and
 `IntegrablePathSimulation/Statements.lean` predate this library and list lower bounds for these
-classes as not formalised; this is superseded here for the classes of `hs:thm:time` on uniform
-and general meshes and of integrable paths. Line numbers refer to the manuscript
-`sparse_quantum_algorithms.tex` (v13); the labels are the stable references.
+classes as not formalised; this is superseded here for the classes of `hs:thm:time` on uniform and
+general meshes and of integrable paths. References to the manuscript use its labels.
 
 **Audits.** `TimeDependentHamiltonianLowerBound/Audit.lean` fixes the exact axiom report of
 every theorem of the library and of every `Prop`-valued field of `UniformHyp`, `MeshHyp`,

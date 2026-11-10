@@ -4,8 +4,8 @@ import GateEfficientBitBudget.HamiltonianGates
 # The registers of the binary constructions in the bit lengths
 
 Theorem `hs:thm:gates` of the accompanying paper (equation `hs:eq:gate-total`) counts
-`O(A_C(ξ) + a + m + r)` auxiliary qubits, where `A_C` counts the clean work qubits of the
-private operation (entry decoding and rotation arithmetic). The released binary-data theorems
+`O(A_C(ξ) + a + m_slot + r_reuse)` auxiliary qubits, where `A_C` counts the clean work qubits of
+the private operation (entry decoding and rotation arithmetic). The released binary-data theorems
 state the register sizes exactly:
 
 * `GateBinary.binary_simulation`: `binarySim` has
@@ -58,7 +58,9 @@ theorem card_binary_register (k b bT bP A : ℕ) (Q τ qbar ε : ℝ) :
   simp only [Fintype.card_empty, add_zero]
   ring
 
-/-- **The register of `binaryTimeSim`** (`hs:eq:gate-total`, time-dependent part): the wires
+/-- **The register of `binaryTimeSim`** (`hs:eq:gate-total` in the package extension: Theorem
+`hs:thm:time` with the circuit of `hs:thm:gates` (single-label case of Lemma
+`ode:lem:gate-select`)): the wires
 `HW (Wire (k+1) m r (k+1+m+2r)) (Fin k) Empty (SZ k b) bT bP A` number
 `k + (2(k+1) + 3m + 6r + 3) + (6k + 2b + bT + bP + A + 3)`, for all parameters; this is the
 formula stated by `GateBinary.binary_time_simulation`. -/
@@ -221,7 +223,9 @@ theorem binary_register_le (s k b σ bd : ℕ) {γ c0 τ ε ζ : ℝ} (hs : s = 
   nlinarith
 
 /-- **The register of the time-dependent binary construction in the bit lengths**
-(`hs:eq:gate-total`, time-dependent part): under the hypotheses of `GateBitBudget.hs_gatesT_le`
+(`hs:eq:gate-total` in the package extension: Theorem `hs:thm:time` with the circuit of
+`hs:thm:gates` (single-label case of Lemma `ode:lem:gate-select`)): under the hypotheses of
+`GateBitBudget.hs_gatesT_le`
 (`γ ≤ 1 ≤ γ √s`, the released bound `2^r ≤ 4 (4608 q + 1)`, `s = 2^σ`, `σ ≤ k`, `b ≤ b_data`,
 `c₀ > 0` of bit length `b_data`, `ζ ≥ ε/(442368 q)`, `q = √s t + √(st log(2/ε)) + log(2/ε)`,
 `0 < ε ≤ 1`), the register of `binaryTimeSim` on `M = 2^m` time slots,

@@ -16,6 +16,9 @@ Hamiltonian on the public space.  The concrete walk is treated in
 * `branchHam_*`: the kernel, normalization, gap and solution coordinates of
   `H_{σ,r} = a H₀ + σ T₁ + r⁻¹ T₂` (equations `qls:eq:u`, `qls:eq:augmented`);
 * `filter_bounds`: equation `qls:eq:filterprobability` for the averaging filter.
+
+Notation: the regularization parameter is `σ` here and `ξ` in the manuscript, so a subscript `σ` (as
+in `g_σ`, `r_σ`, `H_{σ,r}`) stands for the manuscript's subscript `ξ`.
 -/
 
 namespace SparseLinearSystems.Augmented

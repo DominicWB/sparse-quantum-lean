@@ -7,8 +7,8 @@ section
 /-!
 # The search-decorated families: time and mixed lower bounds
 
-Manuscript lines 2308-2338 (Lemma `hsl:lem:mixed`, eq. `hsl:eq:mixedlower`)
-and 2372-2409 (the time bound, eq. `hsl:eq:timelower`), for **any** labelled
+Manuscript: Lemma `hsl:lem:mixed` (eq. `hsl:eq:mixedlower`) and Lemma `hsl:lem:time` (the time
+bound, eq. `hsl:eq:timelower`), for **any** labelled
 oracle family whose labels are implementable on a fixed isometric encoding
 with `w l` Boolean one-hot queries (`EncodedOracle.ImplementsOn`, packaged as
 `Adaptive.Access.BooleanAccess`). The bound is on the Boolean cost `p.cost w`;
@@ -36,13 +36,13 @@ use them directly):
 * `outObs_searchObs_contraction`: the workspace readout `e† (M ⊗ 1) e` of the
   search observable `M` of eq. `hsl:eq:readout` is a contraction.
 * `time_corr`: an `ε`-accurate output (`ε ≤ 1/64`) of the time family has
-  parity correlation `≥ 7/16 - 2/64 = 13/32` (lines 2392-2398).
+  parity correlation `≥ 7/16 - 2/64 = 13/32` (Lemma `hsl:lem:time`).
 * `mixed_corr`: an `ε`-accurate output (`ε ≤ (τ/(2n))^n/8`) of the mixed
   family has parity correlation `≥ 5A/8 ≥ A/2 = β₀`, `A = sin(τ/n)^n`
-  (lines 2321-2323).
+  (proof of Lemma `hsl:lem:mixed`).
 * `mixed_one_le_mu`, `mixed_cost_arith`: the side condition `μ ≥ 1` (implied
   by `m ≥ 16n/τ ≥ 16`) and the final identity
-  `(log 2/24) n √m · ½√(τ/n) = (log 2/48) √(m n τ)` (lines 2330-2337).
+  `(log 2/24) n √m · ½√(τ/n) = (log 2/48) √(m n τ)` (proof of Lemma `hsl:lem:mixed`).
 -/
 
 namespace SparseLowerBounds.Hamiltonian
@@ -57,7 +57,7 @@ variable {K K' G L : Type*}
   [NormedAddCommGroup G] [InnerProductSpace ℂ G] [CompleteSpace G]
 
 /-- **Correlation form of the search bound** (Lemma `hsl:lem:search` through
-the reduction `q ≤ Σ_l w l · Q_l`, line 2336). -/
+the reduction `q ≤ Σ_l w l · Q_l`, proof of Lemma `hsl:lem:mixed`). -/
 theorem search_cost_of_corr {n μ : ℕ} (hμ : 1 ≤ μ) (P : ProjFamily K' (Fin n × Fin (2 ^ μ)))
     (E : K →L[ℂ] K') (hE : E† ∘L E = 1)
     (O : L → (Fin n → Fin (2 ^ μ)) → K →L[ℂ] K) (hO : ∀ l x, IsUnitary (O l x)) (w : L → ℕ)
@@ -94,7 +94,7 @@ theorem outObs_searchObs_contraction (n μ s : ℕ) (e : K →L[ℂ] SysGarb (Se
     (he : e† ∘L e = 1) : ‖outObs e (searchObs n μ s)‖ ≤ 1 :=
   (norm_outObs_le e he _).trans (searchObs_contraction n μ s).2
 
-/-- **Time-family correlation** (lines 2392-2398): an `ε`-accurate output
+/-- **Time-family correlation** (Lemma `hsl:lem:time`): an `ε`-accurate output
 (`ε ≤ 1/64`) of the time family on hidden input `j` has parity correlation at
 least `(7/8)(1/2) - 2/64 = 13/32` (`> 1/4 = β₀`, by `norm_num`) with the readout
 of eq. `hsl:eq:readout`.
@@ -119,7 +119,7 @@ theorem time_corr {τ ε : ℝ} {s : ℕ} (hτ : 1 ≤ τ) (hs : 32 ≤ s) (hε 
     (searchObs_contraction _ _ _).1 (searchObs_contraction _ _ _).2 (abs_parity j).le hcorr
   linarith
 
-/-- **Mixed-family correlation** (lines 2321-2323): for `n ≥ 1`, `0 < τ ≤ n`
+/-- **Mixed-family correlation** (proof of Lemma `hsl:lem:mixed`): for `n ≥ 1`, `0 < τ ≤ n`
 and `ε ≤ (τ/(2n))^n/8` (eq. `hsl:eq:mixepsilon`), an `ε`-accurate output of the
 mixed family on hidden input `j` has parity correlation at least
 `β₀ = A/2`, `A = sin(τ/n)^n`.
@@ -157,7 +157,7 @@ theorem mixed_one_le_mu {n μ : ℕ} {τ : ℝ} (hn : 1 ≤ n) (hτ : 0 < τ) (h
     nlinarith
   linarith
 
-/-- The final identity of Lemma `hsl:lem:mixed` (lines 2330-2337):
+/-- The final identity of Lemma `hsl:lem:mixed`:
 `(log 2/24) n √m · ½ √(τ/n) = (log 2/48) √(m n τ)`, since
 `n √(τ/n) = √(n τ)`. -/
 theorem mixed_cost_arith {n : ℕ} {τ m : ℝ} (hn : 1 ≤ n) (hτ : 0 < τ) (hm : 0 ≤ m) :
@@ -174,7 +174,7 @@ theorem mixed_cost_arith {n : ℕ} {τ m : ℝ} (hn : 1 ≤ n) (hτ : 0 < τ) (h
 
 /-! ### The family bounds -/
 
-/-- **The time lower bound, general form** (lines 2379-2409). Any algorithm
+/-- **The time lower bound, general form** (Lemma `hsl:lem:time`). Any algorithm
 over a 2-query-implementable labelled family that is `ε`-accurate
 (`ε ≤ 1/64`) on every input of the time family has Boolean cost
 `p.cost w ≥ (log 2/48) n √m ≥ 2 c_T √s τ`. -/
@@ -214,7 +214,7 @@ theorem time_general {τ ε : ℝ} {s : ℕ} (hτ : 1 ≤ τ) (hs : 32 ≤ s) (h
   have ht := time_final hτ hs
   linarith
 
-/-- **Lemma `hsl:lem:mixed`, general form** (lines 2308-2338). For `n ≥ 2`,
+/-- **Lemma `hsl:lem:mixed`, general form** (Lemma `hsl:lem:mixed`). For `n ≥ 2`,
 `0 < τ ≤ n`, `m = 2^μ ≥ 16n/τ` and `ε ≤ (τ/(2n))^n/8`
 (eq. `hsl:eq:mixepsilon`), any algorithm over a 2-query-implementable
 labelled family that is `ε`-accurate on every input of the mixed family has

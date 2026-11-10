@@ -6,12 +6,12 @@ set_option synthInstance.maxSize 4096
 /-!
 # Theorem `hsl:thm:main` for calls of time-indexed block encodings
 
-The lower bound of Theorem `hsl:thm:main` applies to the time-dependent class with
-time-independent hard instances (the manuscript, lines 1512-1516). The paragraph "Relation to
-time-indexed block encodings" (lines 1518-1538, eqs. `hs:eq:blockspecial`,
-`hs:eq:blockadditive`) derives only an upper bound in calls of a supplied block encoding, and
-lines 1552-1561 compare the two access models through their normalisations: a standard sparse
-block encoding has `α_BE = sη`. The manuscript states no lower bound in block-encoding calls.
+The lower bound of Theorem `hsl:thm:main` applies to the time-dependent class with time-independent
+hard instances (the manuscript, the paragraphs after the proof of Theorem `hs:thm:time`). Eqs.
+`hs:eq:blockspecial` and `hs:eq:blockadditive` give only an upper bound in calls of a supplied
+block encoding, and the text after eq. `hs:eq:blockadditive` compares the two access models
+through their normalisations: a standard sparse block encoding has `α_BE = sη`. The manuscript
+states no lower bound in block-encoding calls.
 
 This module transfers Theorem `hsl:thm:main` to calls of the Hermitian dilation of the
 released six-query sparse block encoding (`beOp`, normalisation `beAlpha = s·scale`, matching
@@ -34,9 +34,9 @@ of this dilation are properties of the reduction, not constants of the manuscrip
 * `main_max_block_endpoint`, `main_max_block`:
   `c₀ (√s τ + √(sτr) + r) ≤ 8 · max(Q_T, Q_M, Q_P)`,
   `Q` the number of block-encoding calls (inverses included);
-* `main_max_block_primitive`: the same bound for programs over the controlled time-indexed
-  oracle `TimeDependentExtensions.BlockEncoding.primitive` itself (coherent and controlled
-  access to the `O_r`, lines 1518-1523), endpoint form;
+* `main_max_block_primitive`: the same bound for programs over the controlled time-indexed oracle
+  `TimeDependentExtensions.BlockEncoding.primitive` itself (coherent and controlled access to the
+  `O_r`, eqs. `hs:eq:blockspecial` and `hs:eq:blockadditive`), endpoint form;
 * `main_max_calls_block`: the same bound for programs over all call forms (plain, inverse,
   controlled, controlled inverse; `AdaptiveODELowerBound.Access.callFamily`) of the released
   aligned family, endpoint form.
@@ -186,16 +186,15 @@ theorem main_max_block_endpoint (h : HSRange τ s ε) (MT MM MP NT NM NP : ℕ)
   push_cast at key
   linarith
 
-/-- **Theorem `hsl:thm:main` for calls of time-indexed block encodings** (eq. `hsl:eq:main`):
-an extension of the manuscript's lines 1512-1516 (time-independent hard instances) to calls of a
-Hermitian block encoding of the hard instances, which the manuscript does not state; the
-normalisation `beAlpha = s·scale` matches `α_BE = sη` (lines 1552-1561) and the factor `8` comes
-from the reduction. For any three
-programs over the released aligned block-encoding families of the constant Hermitian block
-encodings of the time, mixed and precision families (any numbers of samples, slot counts and
-schedules) and isometric encodings, each meeting the error criterion of
-`TimeDependentExtensions.BlockEncoding.simulation` (`BECriterion`, boundary `beJ`,
-normalisation `beAlpha`, any mesh `t`, final time `τ`, error `ε`),
+/-- **Theorem `hsl:thm:main` for calls of time-indexed block encodings** (eq. `hsl:eq:main`): an
+extension of the remark after the proof of Theorem `hs:thm:time` (time-independent hard instances)
+to calls of a Hermitian block encoding of the hard instances, which the manuscript does not state;
+the normalisation `beAlpha = s·scale` matches `α_BE = sη` (the text after eq.
+`hs:eq:blockadditive`) and the factor `8` comes from the reduction. For any three programs
+over the released aligned block-encoding families of the constant Hermitian block encodings of the
+time, mixed and precision families (any numbers of samples, slot counts and schedules) and isometric
+encodings, each meeting the error criterion of `TimeDependentExtensions.BlockEncoding.simulation`
+(`BECriterion`, boundary `beJ`, normalisation `beAlpha`, any mesh `t`, final time `τ`, error `ε`),
 `c₀ (√s τ + √(sτr) + r) ≤ 8 · max(Q_T, Q_M, Q_P)`. -/
 theorem main_max_block (h : HSRange τ s ε) (MT MM MP NT NM NP : ℕ)
     (αT TT εT αM TM εM αP TP εP : ℝ)
@@ -248,13 +247,13 @@ abbrev BEPrecisionPrim (τ ε : ℝ) (s M : ℕ) : Type :=
     (BEBasis (ScalarIndex (precN τ ε) s) (Word (scalarBits (precN τ ε) s τ))) M)
 
 /-- **Theorem `hsl:thm:main` for the controlled time-indexed oracle, endpoint form** (eq.
-`hsl:eq:main`; an extension of the manuscript's lines 1512-1516 to the access model of lines
-1518-1523, coherent and controlled access to Hermitian unitaries `O_r`): for any three programs
-over `TimeDependentExtensions.BlockEncoding.primitive (beConst D M)`
-(`|c, r⟩ ⊗ v ↦ |c, r⟩ ⊗ O_r^c v`, any number `M` of samples) on the time, mixed and precision
-families and isometric encodings, each with endpoint error `ε` against `exp(-iτH_x)`,
-`c₀ (√s τ + √(sτr) + r) ≤ 8 · max(Q_T, Q_M, Q_P)`, `Q = p.count`, inverses included. The
-factor `8` comes from the reduction. -/
+`hsl:eq:main`; an extension of the remark after the proof of Theorem `hs:thm:time` to the access
+model of eqs. `hs:eq:blockspecial` and `hs:eq:blockadditive`, coherent and
+controlled access to Hermitian unitaries `O_r`): for any three programs over
+`TimeDependentExtensions.BlockEncoding.primitive (beConst D M)` (`|c, r⟩ ⊗ v ↦ |c, r⟩ ⊗ O_r^c v`,
+any number `M` of samples) on the time, mixed and precision families and isometric encodings, each
+with endpoint error `ε` against `exp(-iτH_x)`, `c₀ (√s τ + √(sτr) + r) ≤ 8 · max(Q_T, Q_M, Q_P)`,
+`Q = p.count`, inverses included. The factor `8` comes from the reduction. -/
 theorem main_max_block_primitive (h : HSRange τ s ε) (MT MM MP : ℕ)
     (pT : MultiOracleCircuit.Program
       (TimeDependentExtensions.BlockEncoding.primitive (beConst (timeData τ s h.s_ge) MT)))
@@ -300,13 +299,13 @@ theorem main_max_block_primitive (h : HSRange τ s ε) (MT MM MP : ℕ)
   linarith
 
 /-- **Theorem `hsl:thm:main` for all call forms of the aligned block-encoding family, endpoint
-form** (eq. `hsl:eq:main`; an extension of the manuscript's lines 1512-1516): for any three
-programs over the plain, inverse, controlled and controlled-inverse calls
-(`AdaptiveODELowerBound.Access.callFamily`) of the released aligned block-encoding families of
-`beConst D M` on the time, mixed and precision families (any numbers of samples, slot counts and
-schedules) and isometric encodings, each with endpoint error `ε` against `exp(-iτH_x)`,
-`c₀ (√s τ + √(sτr) + r) ≤ 8 · max(Q_T, Q_M, Q_P)`, `Q = p.count`, every call form counted
-once. The factor `8` comes from the reduction. -/
+form** (eq. `hsl:eq:main`; an extension of the manuscript's the paragraphs after the proof of
+Theorem `hs:thm:time`): for any three programs over the plain, inverse, controlled and
+controlled-inverse calls (`AdaptiveODELowerBound.Access.callFamily`) of the released aligned
+block-encoding families of `beConst D M` on the time, mixed and precision families (any numbers of
+samples, slot counts and schedules) and isometric encodings, each with endpoint error `ε` against
+`exp(-iτH_x)`, `c₀ (√s τ + √(sτr) + r) ≤ 8 · max(Q_T, Q_M, Q_P)`, `Q = p.count`, every call form
+counted once. The factor `8` comes from the reduction. -/
 theorem main_max_calls_block (h : HSRange τ s ε) (MT MM MP NT NM NP : ℕ)
     (αT TT εT αM TM εM αP TP εP : ℝ)
     (pT : MultiOracleCircuit.Program (AdaptiveODELowerBound.Access.callFamily

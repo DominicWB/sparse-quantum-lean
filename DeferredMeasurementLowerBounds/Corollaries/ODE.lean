@@ -6,8 +6,9 @@ set_option autoImplicit false
 /-!
 # Theorem `odel:thm:combined` for measured algorithms
 
-Manuscript Theorem `odel:thm:combined` (lines 3697-3709, eq. `odel:eq:combined`) and the solver
-class of lines 3669-3680, with line 2364 (purification and deferred measurement).
+Manuscript Theorem `odel:thm:combined` (eq. `odel:eq:combined`) and the solver
+class of Section `odel:sec:main`, with the end of the proof of Lemma `hsl:lem:precision`
+(purification and deferred measurement).
 
 * `combined_measured`: for `s ≥ 32`, `τ ≥ 4`, `ḡ ≥ 2`, `0 < ε ≤ 1/64`, one of the joint, mixed
   and precision families is in the class (`η = 1`, `T = τ`, `g ≤ ḡ`) and forces every measured
@@ -17,11 +18,11 @@ class of lines 3669-3680, with line 2364 (purification and deferred measurement)
   `AdaptiveODELowerBound.combined_tree`.
 * `combined_max_measured`: the max form for one measured solver of each family over the
   sampled-time access.
-* The witnesses of the third and fourth sentences of the theorem (lines 3705-3708):
+* The witnesses of the third and fourth sentences of the theorem (Theorem `odel:thm:combined`):
   `joint_witness_measured` (the first term, by the inhomogeneous time-dependent joint family of
-  Theorem `odel:thm:joint`, lines 3860-3868, with `D = 0` and `g = Θ(ḡ)`) and
+  Theorem `odel:thm:joint`, with `D = 0` and `g = Θ(ḡ)`) and
   `precision_terms_witness_measured` (the last two terms, by one of the homogeneous
-  constant-coefficient families of Lemma `odel:lem:herald`, line 3967, with `D = 0` and
+  constant-coefficient families of Lemma `odel:lem:herald`, with `D = 0` and
   `g = 1`).
 
 The instance facts are those of the released families: for the joint family `g = √M`
@@ -90,7 +91,7 @@ theorem combined_max_measured (h : CombinedRange s τ gbar ε)
   · exact le_max_of_le_right (le_max_of_le_right (hw.forces.1 ιP EP GP AP).1)
 
 /-- **The first term of Theorem `odel:thm:combined` for measured algorithms** (third sentence of
-the theorem, lines 3705-3707; Theorem `odel:thm:joint`): for `s ≥ 4`, `τ ≥ 4`, `ḡ ≥ 2`,
+the theorem, Theorem `odel:thm:combined`; Theorem `odel:thm:joint`): for `s ≥ 4`, `τ ≥ 4`, `ḡ ≥ 2`,
 `0 < ε ≤ 1/64` (`JointRange`), the inhomogeneous time-dependent joint family with `D = 0` and
 `g = √M = Θ(ḡ)` is in the class and forces `ḡ √s τ / 400` value calls (and as many calls in
 total) on every measured solver, over the sampled-time access and over its call forms. -/
@@ -100,7 +101,7 @@ theorem joint_witness_measured (h : JointRange s τ gbar ε) :
   measuredWitnesses_of_treeWitnesses (Joint.joint_witness_tree h)
 
 /-- **The last two terms of Theorem `odel:thm:combined` for measured algorithms** (fourth
-sentence of the theorem, lines 3707-3708): on `HSRange` and for any `ḡ ≥ 1`, one of the
+sentence of the theorem, Theorem `odel:thm:combined`): on `HSRange` and for any `ḡ ≥ 1`, one of the
 homogeneous constant-coefficient families with `D = 0` and `g = 1` (time, mixed, precision) is
 in the class and forces `c₀ (√(sτr) + r)` value calls on every measured solver,
 `c₀ = log 2/(4096π)`. -/

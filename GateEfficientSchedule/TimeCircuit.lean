@@ -5,13 +5,16 @@ import GateEfficientSchedule.Manuscript
 import GateEfficientTimeDependent.Theorem
 
 /-!
-# The time-dependent part of Theorem `hs:thm:gates` with the manuscript's schedule (exact gates)
+# The time-dependent gate-level simulation (Theorem `hs:thm:time` with the circuit of `hs:thm:gates`) with the manuscript's schedule (exact gates)
 
-Theorem `hs:thm:gates` states that, for the time-dependent setting of `hs:thm:time` on a uniform
-mesh of `M = 2^m ≥ 2` slots satisfying `hs:eq:timegrid`, *the same circuit* with slot-selected
-private Cayley operations has full-output error at most `ε` relative to `U_H(T, 0)`. The released
-formal version (`SlotSim.gate_efficient_time_simulation`) uses the released filter depth and
-the released constants of the discretisation estimate. Here:
+A package extension, Theorem `hs:thm:time` with the circuit of `hs:thm:gates`, states that, for the
+time-dependent setting of `hs:thm:time` on a uniform mesh of `M = 2^m ≥ 2` slots satisfying
+`hs:eq:timegrid`, *the same circuit* with slot-selected private Cayley operations has full-output
+error at most `ε` relative to `U_H(T, 0)`; in the manuscript Theorem `hs:thm:gates` is "a
+time-independent result", and a circuit of this kind is the single-label case of Lemma
+`ode:lem:gate-select`. The released formal version
+(`SlotSim.gate_efficient_time_simulation`) uses the released filter depth and the released constants
+of the discretisation estimate. Here:
 
 * `simCircuitTK a m τ Q k`: the released slot circuit (`ampI`) with `2^m` slots and the filter of
   depth `k`;
@@ -413,17 +416,17 @@ def simCircuitTMs (a m : ℕ) (α t Q qbar ε : ℝ) :
 
 set_option maxRecDepth 8192 in
 /-- **Gate-efficient time-dependent simulation with the manuscript's schedule, exact gates**
-(the time-dependent part of Theorem `hs:thm:gates`). The circuit `simCircuitTMs a m α t Q q̄ ε`
-is fixed by the public data. Let `U_J` and the slot-selected private operations `D j` be
-unitaries such that every `D j` (`j < 2^m`) carries the clock promise for `H̃_j/α` and
-`J = U_J ι₀`, with `‖H̃_j‖ ≤ Λ ≤ α`. For a Hermitian path `H(u)` with Lipschitz bound `β` and
-`‖H(j t/2^m) - H̃_j‖ ≤ δ`, under the manuscript's mesh condition `2^m ≥ max{1, 4αt, 6βt²/ε,
-√((Λt)³/ε)}` and the sample budget `12 t δ ≤ ε`: the circuit consists of valid elementary
-instructions, makes exactly `6d` private calls and `12d` calls of `U_J` or `U_J†`
-(`d = k (⌈32Q⌉ - 1)`, `k = ⌈4αtq̄/Q + log₂(4096/ε)⌉`), uses at most `200 (d+1)(a+m+r+1)`
-elementary gates on `2a + 3m + 6r + 3` qubits, `d ≤ 128 αtq̄ + 32 Q (log₂(4096/ε) + 1)`, a
-propagator exists, and the full output on clean inputs is within `ε/2` of `U(t)` for every
-propagator `U` (filter `ε/4`, Cayley `ε/12`, freezing `ε/12`, samples `ε/12`). -/
+(Theorem `hs:thm:time` with the circuit of `hs:thm:gates`). The circuit
+`simCircuitTMs a m α t Q q̄ ε` is fixed by the public data. Let `U_J` and the slot-selected private
+operations `D j` be unitaries such that every `D j` (`j < 2^m`) carries the clock promise for
+`H̃_j/α` and `J = U_J ι₀`, with `‖H̃_j‖ ≤ Λ ≤ α`. For a Hermitian path `H(u)` with Lipschitz bound
+`β` and `‖H(j t/2^m) - H̃_j‖ ≤ δ`, under the manuscript's mesh condition
+`2^m ≥ max{1, 4αt, 6βt²/ε, √((Λt)³/ε)}` and the sample budget `12 t δ ≤ ε`: the circuit consists of
+valid elementary instructions, makes exactly `6d` private calls and `12d` calls of `U_J` or `U_J†`
+(`d = k (⌈32Q⌉ - 1)`, `k = ⌈4αtq̄/Q + log₂(4096/ε)⌉`), uses at most `200 (d+1)(a+m+r+1)` elementary
+gates on `2a + 3m + 6r + 3` qubits, `d ≤ 128 αtq̄ + 32 Q (log₂(4096/ε) + 1)`, a propagator exists,
+and the full output on clean inputs is within `ε/2` of `U(t)` for every propagator `U` (filter
+`ε/4`, Cayley `ε/12`, freezing `ε/12`, samples `ε/12`). -/
 theorem gate_efficient_time_simulation_ms (a m : ℕ) (UJ : Vsp a P →L[ℂ] Vsp a P)
     (D R1 : ℕ → Vsp a P →L[ℂ] Vsp a P) (Hpath : ℝ → P →L[ℂ] P) (Hs : ℕ → P →L[ℂ] P)
     (t α Λ β δ Q b qbar ε : ℝ) (ht : 0 ≤ t) (hα : 0 < α) (hΛ : 0 ≤ Λ) (hΛα : Λ ≤ α)

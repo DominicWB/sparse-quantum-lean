@@ -8,18 +8,17 @@ set_option autoImplicit false
 /-!
 # Measured solvers over the released ODE solvers' oracles: paper-to-Lean entry point
 
-Section `odel:sec:main` of the manuscript (lines 3669-3681) fixes the access of the ODE lower
-bounds (a reversible value oracle and in-place row/column locators, their inverses and controls,
-lines 3669-3673), the output requirement (success flag of probability at least `2/3` on every
-input, conditional trace distance `ε`, lines 3675-3677) and concludes "The lower bounds thus apply
-to Theorems `ode:thm:main` and `ode:thm:time`" (lines 3678-3679). Randomised or adaptive
-algorithms are covered by purification and deferred measurement (lines 2363-2364, proof of Lemma
-`hsl:lem:precision`). The library `PhysicalODELowerBound` proves the ODE lower bounds for adaptive
-solvers over the physical oracles of the released solvers of Theorems `ode:thm:main` (line 2584)
-and `ode:thm:time` (line 2879); this library proves them for algorithms with measurements inside
-a run over the same oracles, and gives runs of the released `ode:thm:time` solver on the families
-of Theorem `odel:thm:psd` (line 4016) and Remark `odel:rem:homogeneous` (lines 3907-3952).
-All declarations below are in the namespace `ReleasedODESolverLowerBounds`.
+Section `odel:sec:main` of the manuscript fixes the access of the ODE lower bounds (a reversible
+value oracle and in-place row/column locators, their inverses and controls), the output requirement
+(success flag of probability at least `2/3` on every input, conditional trace distance `ε`) and
+concludes "the lower bounds apply to the upper bounds of the preceding section". Randomised or
+adaptive algorithms are covered by purification and deferred measurement (proof of Lemma
+`hsl:lem:precision`). The library `PhysicalODELowerBound` proves
+the ODE lower bounds for adaptive solvers over the physical oracles of the released solvers of
+Theorems `ode:thm:main` and `ode:thm:time`; this library proves them for algorithms with
+measurements inside a run over the same oracles, and gives runs of the released `ode:thm:time`
+solver on the families of Theorem `odel:thm:psd` and Proposition `odel:rem:homogeneous`. All
+declarations below are in the namespace `ReleasedODESolverLowerBounds`.
 
 * Access: `Access.SpectatorForm`, `Access.exists_absorb` (absorption of a spectator register by an
   isometry), `Access.meshOracle_absorb`, `Access.constOracle_absorb`, and the inverse value call as
@@ -33,28 +32,28 @@ All declarations below are in the namespace `ReleasedODESolverLowerBounds`.
 * General-mesh oracle (`ode:thm:time`): `Mesh.MeasuredMeshForces`, `Mesh.MeasuredMeshWitnesses`,
   `Mesh.MeasuredMeshCost`; `Mesh.measuredMeshForces_of_meshForces`,
   `Mesh.meshForces_of_measuredMeshForces`, `Mesh.measuredMeshWitnesses_of_meshWitnesses`,
-  `Mesh.MeasuredMeshCost.exists_meshCost_le`. Theorem `odel:thm:combined` (lines 3697-3709):
+  `Mesh.MeasuredMeshCost.exists_meshCost_le`. Theorem `odel:thm:combined`:
   `Mesh.combined_measured_mesh`, `Mesh.combined_max_measured_mesh`,
   `Mesh.combined_max_release_measured_mesh`; at one measured solver over the released oracle,
-  `Mesh.joint_release_measured_mesh`, `Mesh.mixed_release_measured_mesh` (eq. `hsl:eq:mixrbound`,
-  line 2441), `Mesh.precision_release_measured_mesh` (eqs. `hsl:eq:rbound`, `hsl:eq:failedmix`,
-  lines 2436, 2450); Theorem `odel:thm:joint` (line 3860):
-  `Mesh.joint_witness_measured_mesh`; Remark `odel:rem:homogeneous`:
-  `Mesh.hom_witness_measured_mesh`; Lemma `odel:lem:herald` (line 3967), eq. `odel:eq:hsbound`:
+  `Mesh.joint_release_measured_mesh`, `Mesh.mixed_release_measured_mesh` (eq. `hsl:eq:mixrbound`),
+  `Mesh.precision_release_measured_mesh` (eqs. `hsl:eq:rbound`, `hsl:eq:failedmix`); Theorem
+  `odel:thm:joint`: `Mesh.joint_witness_measured_mesh`; Proposition `odel:rem:homogeneous`:
+  `Mesh.hom_witness_measured_mesh`; Lemma `odel:lem:herald`, eq. `odel:eq:hsbound`:
   `Mesh.herald_witness_measured_mesh`, `Mesh.herald_max_measured_mesh`,
-  `Mesh.precision_terms_witness_measured_mesh`; Theorem `odel:thm:psd`:
-  `Mesh.psd_measured_mesh`, `Mesh.psd_max_measured_mesh`. Padded forms, a common dimension and a
-  qubit register (lines 3899-3904, 4005-4006): the `*_pad_*`, `*_common_dimension_*` and
-  `*_qubit_register_*` declarations of `Mesh.Padded` and `Mesh.Corollaries`.
+  `Mesh.precision_terms_witness_measured_mesh`; Theorem `odel:thm:psd`: `Mesh.psd_measured_mesh`,
+  `Mesh.psd_max_measured_mesh`. Padded forms, a common dimension and a qubit register (proof of
+  Theorem `odel:thm:joint` and proof of Theorem `odel:thm:combined`): the `*_pad_*`,
+  `*_common_dimension_*` and `*_qubit_register_*` declarations of `Mesh.Padded` and
+  `Mesh.Corollaries`.
 * Constant-coefficient oracle (`ode:thm:main`): `Const.MeasuredConstForces`,
   `Const.MeasuredConstWitnesses`, `Const.MeasuredConstCost`,
   `Const.measuredConstForces_of_constForces`, `Const.constForces_of_measuredConstForces`,
   `Const.measuredConstWitnesses_of_constWitnesses`; eq. `odel:eq:hsbound`:
   `Const.herald_witness_measured_const`, `Const.herald_max_measured_const`,
-  `Const.herald_max_release_measured_const`, `Const.precision_terms_witness_measured_const`;
-  Theorem `odel:thm:psd`: `Const.psd_measured_const`, `Const.psd_max_measured_const`,
-  `Const.psd_max_release_measured_const`; padded, common-dimension and qubit-register forms
-  (lines 2485-2486, 4005-4006): `Const.Padded`.
+  `Const.herald_max_release_measured_const`, `Const.precision_terms_witness_measured_const`; Theorem
+  `odel:thm:psd`: `Const.psd_measured_const`, `Const.psd_max_measured_const`,
+  `Const.psd_max_release_measured_const`; padded, common-dimension and qubit-register forms (the end
+  of the proof of Theorem `hsl:thm:main` and proof of Theorem `odel:thm:combined`): `Const.Padded`.
 * Runs: `Runs.exists_meshProtocol` (with `Runs.exists_releaseProtocol_of_meshProtocol`),
   `Runs.MeshRun` (`Runs.MeshRun.ofReleaseRun`, `Runs.MeshRun.toReleaseRun`),
   `Runs.meshForces_meshRun`, `Runs.meshCost_meshRun`; on the positive semidefinite families
@@ -74,15 +73,14 @@ controlled and controlled-inverse calls); it bounds the worst-case value count
 `matrixWeight valueWeight` and matrix count `matrixWeight (fun _ => 1)` over all transcripts.
 `MeasuredConstForces` is the same over `ConstantODELowerBound.Oracle.constOracle`.
 
-**Hypotheses.** Those of the lifted statements: `HSRange τ s ε` (`τ ≥ 1`, `s ≥ 32`,
-`0 < ε ≤ 1/64`), with `ḡ ≥ 1` for the `g = 1` families; `PsdRange τ s ε` (`s ≥ 32`, `τ ≥ 1`,
-`0 < ε`, `64 τ ≤ L`, where the manuscript has `τ ≥ 2` at line 4018), with `ḡ ≥ √2`;
-`JointRange s τ ḡ ε` (`s ≥ 4`, `τ ≥ 4`, `ḡ ≥ 2`, `0 < ε ≤ 1/64`); `HomRange s τ ḡ ε` (`s ≥ 4`,
-`ḡ ≥ 2`, `τ ≥ 20 (1 + log ḡ)`, `0 < ε ≤ 1/64`); `CombinedRange s τ ḡ ε` (`s ≥ 32`, `τ ≥ 4`,
-`ḡ ≥ 2`, `0 < ε ≤ 1/64`); `[DecidableEq Z]` on the constant-coefficient side. The per-family
-named forms keep the package's sub-range conditions: `64 τ ≤ L` (`hL`) for
-`Mesh.mixed_release_measured_mesh` and `Mesh.precision_release_measured_mesh`, and `64 n/τ ≤ s` (`hs`,
-`n = precN τ ε`) for
+**Hypotheses.** Those of the lifted statements: `HSRange τ s ε` (`τ ≥ 1`, `s ≥ 32`, `0 < ε ≤ 1/64`),
+with `ḡ ≥ 1` for the `g = 1` families; `PsdRange τ s ε` (`s ≥ 32`, `τ ≥ 1`, `0 < ε`, `64 τ ≤ L`,
+where the manuscript has `τ ≥ 2` in Theorem `odel:thm:psd`), with `ḡ ≥ √2`; `JointRange s τ ḡ ε`
+(`s ≥ 4`, `τ ≥ 4`, `ḡ ≥ 2`, `0 < ε ≤ 1/64`); `HomRange s τ ḡ ε` (`s ≥ 4`, `ḡ ≥ 2`,
+`τ ≥ 20 (1 + log ḡ)`, `0 < ε ≤ 1/64`); `CombinedRange s τ ḡ ε` (`s ≥ 32`, `τ ≥ 4`, `ḡ ≥ 2`,
+`0 < ε ≤ 1/64`); `[DecidableEq Z]` on the constant-coefficient side. The per-family named forms keep
+the package's sub-range conditions: `64 τ ≤ L` (`hL`) for `Mesh.mixed_release_measured_mesh` and
+`Mesh.precision_release_measured_mesh`, and `64 n/τ ≤ s` (`hs`, `n = precN τ ε`) for
 `Mesh.mixed_release_measured_mesh`.
 
 **Guarantees** (`r = hsR τ ε`, `n = precN τ ε`, `L = hsL ε`; each bound holds for the worst-case
@@ -126,8 +124,8 @@ of a released oracle, to which `PhysicalODELowerBound` applies.
   register), so the value count is transported without loss of a constant. Locators have no such
   conjugation and weigh 0 in the value count; the matrix-count bounds follow from the value-count
   bounds, the matrix count being at least the value count.
-* Source-interface calls are compiled as known gates (public sources, lines 3685-3686) and weigh
-  0 in both counts, as in the package.
+* Source-interface calls are compiled as known gates (public sources, Section `odel:sec:main`) and
+  weigh 0 in both counts, as in the package.
 * Max forms are stated over realised measured counts, and at named measured solvers
   (`Mesh.combined_max_release_measured_mesh`, `Const.herald_max_release_measured_const`,
   `Const.psd_max_release_measured_const`).
@@ -141,9 +139,9 @@ of a released oracle, to which `PhysicalODELowerBound` applies.
   `Const.measuredConstForces_of_constForces`, with the same hypotheses and constants; they are
   not restated.
 * The hypotheses are those of the lifted statements (see **Hypotheses**); in particular
-  `PsdRange` has `τ ≥ 1` where the manuscript has `τ ≥ 2` (line 4018).
+  `PsdRange` has `τ ≥ 1` where the manuscript has `τ ≥ 2` (Theorem `odel:thm:psd`).
 * The constant-coefficient oracle carries the `g = 1` and positive semidefinite families only;
-  the joint and homogeneous families are time dependent (lines 3717-3719).
+  the joint and homogeneous families are time dependent (Section `odel:sec:main`).
 * Runs on the positive semidefinite and homogeneous families are `Runs.MeshRun F τ ḡ ε η_H η_D`,
   not `ODELowerBoundExtensions.Release.ReleaseRun`: `ReleaseRun` fixes `Θ = τ`; the package
   obtains such runs from the solver only for `D = 0`
@@ -174,17 +172,15 @@ of a released oracle, to which `PhysicalODELowerBound` applies.
   package's forms at the labels `Query`.
 
 **Not formalised.** The joint and homogeneous lower bounds for the constant-coefficient solver of
-Theorem `ode:thm:main` (the manuscript disclaims them, lines 3717-3719); runs of the
+Theorem `ode:thm:main` (the manuscript disclaims them, Section `odel:sec:main`); runs of the
 constant-coefficient solver on time-dependent families. Common-dimension and qubit-register forms
 of the padded `g = 1` families alone over the general-mesh oracle: `PhysicalODELowerBound` has
 them only on the constant-coefficient side, so they have no measured counterpart here.
 
-**Provenance.** No result from another paper is used. The modules use declarations of the
-libraries they import (`PhysicalODELowerBound`, `DeferredMeasurementLowerBounds`,
-`AdaptiveODELowerBound`, `ODELowerBoundExtensions`, `ConstantODELowerBound`,
-`TimeDependentExtensions`); no released module is changed. Line numbers in this guide refer to
-the manuscript version accompanying this library; the guides of the imported libraries cite an
-earlier numbering, and the paper labels are the stable references.
+**Provenance.** No result from another paper is used. The modules use declarations of the libraries
+they import (`PhysicalODELowerBound`, `DeferredMeasurementLowerBounds`, `AdaptiveODELowerBound`,
+`ODELowerBoundExtensions`, `ConstantODELowerBound`, `TimeDependentExtensions`); no released module
+is changed. References to the manuscript use its labels.
 
 **Audits.** `ReleasedODESolverLowerBounds/Audit.lean` fixes the exact axiom report of every
 theorem of the library and of every `Prop`-valued structure field (142 audits).

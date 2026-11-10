@@ -140,18 +140,17 @@ theorem binary_simulation_budget_synth_bits_qubits (s : ℕ) (hs1 : 1 ≤ s) (τ
     linarith
   · rw [Fintype.card_sum, hcard]
 
-/-- **The qubits and gates of the time-dependent part of `hs:thm:gates` over a finite gate set for
-time-indexed binary sparse data in the bit lengths.** For `s ≥ 1`, `t ≥ 0`, `0 < ε ≤ 1` and
-`q = √s t + √(s t log(2/ε)) + log(2/ε)`, there is a rescaling `γ`, chosen before the gate set,
-the synthesis budget, the data, the path and the mesh, with every property that
-`GateBitBudget.binary_time_simulation_budget_synth_bits` states, such that: under
-`Synthesis 𝒢 Xa L` with
-`L ζ ≤ c₁ log(1/ζ) + c₀`, for every `ε' ∈ (0, 1]` and all data, paths, meshes and accuracies as in
-`binary_time_simulation_bits` (`M = 2^m` time slots), the synthesised circuit uses at most
-`10¹⁵ q (𝔟+1)³ (c₁ (36 (𝔟+1) + log(1/ε')) + c₀)` gates of `𝒢`, `𝔟 = 𝔟_H + log₂(M+1)`, on at
-most `4·10⁶ (𝔟 + 1)³ + |Xa|` qubits; its register has exactly
-`k + (2(k+1) + 3m + 6r + 3) + (6k + 2b + bT + bP + A + 3) + |Xa|` qubits; and every other
-conclusion of `binary_time_simulation_budget_synth_bits` holds. -/
+/-- **The qubits and gates of the time-dependent gate-level simulation (Theorem `hs:thm:time` with
+the circuit of `hs:thm:gates`) over a finite gate set for time-indexed binary sparse data in the bit
+lengths.** For `s ≥ 1`, `t ≥ 0`, `0 < ε ≤ 1` and `q = √s t + √(s t log(2/ε)) + log(2/ε)`, there is a
+rescaling `γ`, chosen before the gate set, the synthesis budget, the data, the path and the mesh,
+with every property that `GateBitBudget.binary_time_simulation_budget_synth_bits` states, such that:
+under `Synthesis 𝒢 Xa L` with `L ζ ≤ c₁ log(1/ζ) + c₀`, for every `ε' ∈ (0, 1]` and all data, paths,
+meshes and accuracies as in `binary_time_simulation_bits` (`M = 2^m` time slots), the synthesised
+circuit uses at most `10¹⁵ q (𝔟+1)³ (c₁ (36 (𝔟+1) + log(1/ε')) + c₀)` gates of `𝒢`,
+`𝔟 = 𝔟_H + log₂(M+1)`, on at most `4·10⁶ (𝔟 + 1)³ + |Xa|` qubits; its register has exactly
+`k + (2(k+1) + 3m + 6r + 3) + (6k + 2b + bT + bP + A + 3) + |Xa|` qubits; and every other conclusion
+of `binary_time_simulation_budget_synth_bits` holds. -/
 theorem binary_time_simulation_budget_synth_bits_qubits (s : ℕ) (hs1 : 1 ≤ s) (t ε : ℝ)
     (ht : 0 ≤ t) (hε : 0 < ε) (hε1 : ε ≤ 1) :
     ∃ γ : ℝ, 0 < γ ∧ γ ≤ 1 ∧ 1 ≤ γ * Real.sqrt s ∧

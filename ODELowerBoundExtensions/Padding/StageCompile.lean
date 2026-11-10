@@ -3,11 +3,12 @@ import ODELowerBoundExtensions.Padding.StageData
 /-!
 # The sampled-time access of stage-table data from membership queries
 
-Manuscript lines 3852-3858: "A matrix value query is
-implemented using at most two Boolean membership queries, by computing the relevant bit, writing
-the known entry, and uncomputing the bit"; and lines 3899-3903: the dense padding block "requires
-no membership queries". This is `SparseLowerBounds.ODE.implementsOn_joint` for every data built by
-`stageData` (`Padding/StageData`), in particular for the dense and the zero-padded joint families.
+Manuscript: the construction before Theorem `odel:thm:joint`, "A value query computes one relevant
+membership bit, writes the known entry and uncomputes the bit. It therefore uses at most two
+membership queries"; and the end of the proof of Theorem `odel:thm:joint`: the dense padding block
+"requires no membership queries". This is `SparseLowerBounds.ODE.implementsOn_joint` for every data
+built by `stageData` (`Padding/StageData`), in particular for the dense and the zero-padded joint
+families.
 
 Every label of the coherent sampled-time oracle `TimeDependentODE.labelOracle (oracles D) sample`
 (branch register `ι`, time address `Fin (n + 2)`) is `EncodedOracle.ImplementsOn` the membership
@@ -222,9 +223,9 @@ theorem stageData_value_apply {s : ℕ} (hs : 0 < s)
       v b (a, z - ((stageWord n T W₀ (x, b.2) a : ℤ) : Word B)) :=
   rfl
 
-/-- **Every sampled-time label of stage-table data is a `hardCost`-query membership program**
-(lines 3852-3858, 3899-3903): `0` for the locators, `2` for the value oracle (the known words of
-`T` and the idle words `W₀`, in particular a dense padding block, cost nothing). -/
+/-- **Every sampled-time label of stage-table data is a `hardCost`-query membership program** (the
+construction before Theorem `odel:thm:joint`): `0` for the locators, `2` for the value oracle (the
+known words of `T` and the idle words `W₀`, in particular a dense padding block, cost nothing). -/
 theorem implementsOn_stageData (ι : Type*) [Fintype ι] {s : ℕ} (hs : 0 < s)
     (slot : Fin s ↪ N) (loc : N → Fin s ↪ N) (T : BitTable (Fin M × Fin (2 ^ μ)) (N × N))
     (W₀ : N × N → ℤ) (H : Promised M n (2 ^ μ) × Fin (n + 2) → Matrix N N ℂ)

@@ -4,6 +4,10 @@ import GateEfficientSynthesisTrials.Solver
 /-!
 # Zero time or a known zero generator over a finite gate set, with the per-trial claim
 
+The finite-gate-set forms of Theorem `ode:thm:gates` in this module are a partial formalisation of
+its finite-set statement, under this package's format hypotheses: the manuscript states Theorem
+`ode:thm:gates` over a finite gate set; the conformance endpoints count native gates.
+
 The finite-gate-set forms of Theorem `ode:thm:gates` with its per-trial claim
 (`GateSynthTrials.native_ode_solver_trials`, `native_ode_time_solver_trials`) synthesise only the
 native preparation, keep its exact adjoint as the inverse and the zero tests exact, on the trial
@@ -45,7 +49,8 @@ variable {S Zs Z Y J X : Type*} [Fintype S] [DecidableEq S] [Fintype Zs] [Decida
 variable {𝒢 : Set Kind} {len : ℝ → ℕ}
 
 /-- **Zero time or a known zero generator over a finite gate set, with the per-trial claim,
-constant coefficients** (remark of Theorem `ode:thm:gates`).
+constant coefficients** (partial formalisation, under this package's format hypotheses, of the
+finite-set form of the remark of Theorem `ode:thm:gates`).
 
 With the synthesis hypothesis `Synthesis 𝒢 X len`, an adjoint-closed `𝒢` containing the four
 kinds of the exact zero tests, and `ν = ε / (10000 g)`, the protocol
@@ -165,7 +170,9 @@ theorem native_ode_solver_zero_trials (hS : Synthesis 𝒢 X len) (hadj : AdjClo
       hbud hrel (by linarith)
 
 /-- **Zero time or a known zero generator over a finite gate set, with the per-trial claim,
-time-dependent coefficients** (remark of Theorem `ode:thm:gates`, time-dependent part).
+time-dependent coefficients** (partial formalisation, under this package's format hypotheses, of
+the finite-set form of the remark of Theorem `ode:thm:gates`,
+time-dependent part).
 
 With the synthesis hypotheses and `ν = (ε/2) / (10000 · 2g)`, the protocol
 `nprotocol (synthPrep hS (ν/3) (tzprepC loadC wpC)) (2g)` on the trial register of

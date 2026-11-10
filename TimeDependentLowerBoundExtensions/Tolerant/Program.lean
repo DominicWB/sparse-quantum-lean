@@ -16,7 +16,7 @@ the circuit with every private call replaced by the masked call of `R_x` is a pr
 family of these realised calls (`realFamily`), and it implements the ideal circuit within
 `nPriv gs · ξ` on the encoding `jointMap e ∘ L` (`realEncoding`): errors of the private calls add
 up, the other instructions are lifted exactly. This is the error accounting of the manuscript's
-gate model (lines 1805-1812) and of Theorem `hs:thm:gates` (lines 1814-1851), in which the
+gate model (Section `hs:sec:gates`) and of Theorem `hs:thm:gates`, in which the
 errors of the private calls add up to `nPriv · ξ`.
 
 * `realFamily`: the masked calls `masked m_cs R_x`, one label per list of literal controls;

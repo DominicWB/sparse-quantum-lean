@@ -4,6 +4,10 @@ import GateEfficientODEBudget.Synth
 /-!
 # The ODE endpoints over a finite gate set with exact reflections
 
+The finite-gate-set forms of Theorem `ode:thm:gates` in this module are a partial formalisation of
+its finite-set statement, under this package's format hypotheses: the manuscript states Theorem
+`ode:thm:gates` over a finite gate set; the conformance endpoints count native gates.
+
 The released per-trial finite-set forms of Theorem `ode:thm:gates`, time-dependent part
 (`GateSynthTrials.native_ode_time_solver_trials`,
 `GateSynthTrials.binary_ode_time_solver_trials`, `GateODEBudget.binary_ode_time_budget_trials`),
@@ -142,10 +146,11 @@ theorem trials_outcome_of (hS : Synthesis 𝒢 X len) (p : TParams) (hp : p.Publ
   linarith only [hd, hdirY', e]
 
 /-- **Native dissipative ODE solver under the integrated certificate on the uniform slots over a
-finite gate set with exact reflections** (Theorem `ode:thm:gates`, time-dependent part, with
-finite-set synthesis as a hypothesis, including the per-trial claim). The protocol
-`nprotocol (synthPrep hS (ν/3) (tnprepC p UJg nd ar loadC wpC)) (2g)` has the released counts
-of `GateSynthTrials.native_ode_time_solver_trials`; for every instance as in
+finite gate set with exact reflections** (partial formalisation, under this package's format
+hypotheses, of the finite-set statement of Theorem `ode:thm:gates`,
+time-dependent part, with finite-set synthesis as a hypothesis, including the per-trial claim). The
+protocol `nprotocol (synthPrep hS (ν/3) (tnprepC p UJg nd ar loadC wpC)) (2g)` has the released
+counts of `GateSynthTrials.native_ode_time_solver_trials`; for every instance as in
 `native_ode_time_solver_certified` it has the guarantees `NOutcome`: every successful trial
 within `ε/500` of `x(T)/‖x(T)‖` up to a phase, success probability at least `2/3`, conditional
 output within trace distance `ε`. -/
@@ -231,9 +236,10 @@ theorem native_ode_time_solver_certified_trials (hS : Synthesis 𝒢 X len) (had
     ⟨hne, hbud, herr.trans hcert⟩
 
 /-- **Native dissipative ODE solver on a nonuniform mesh over a finite gate set with exact
-reflections** (Theorem `ode:thm:gates`, time-dependent part, extended by uniform refinement to
-nonuniform meshes with breakpoints, with finite-set synthesis as a hypothesis, including the
-per-trial claim). The protocol has the counts of
+reflections** (partial formalisation, under this package's format hypotheses, of the finite-set
+statement of Theorem `ode:thm:gates`, time-dependent part, extended by
+uniform refinement to nonuniform meshes with breakpoints, with finite-set synthesis as a hypothesis,
+including the per-trial claim). The protocol has the counts of
 `native_ode_time_solver_certified_trials`; for every mesh and instance as in
 `native_ode_time_solver_mesh` it has the guarantees `NOutcome`. -/
 theorem native_ode_time_solver_mesh_trials (hS : Synthesis 𝒢 X len) (hadj : AdjClosed 𝒢)
@@ -331,11 +337,13 @@ variable {X n : Type*} [Fintype n] [DecidableEq n] {Zs : Type*} [Fintype Zs] [De
 variable {Xa : Type*} [Fintype Xa] [DecidableEq Xa] {𝒢 : Set Kind} {len : ℝ → ℕ}
 
 /-- **Dissipative ODE solver from time-indexed binary sparse data under the integrated
-certificate on the uniform slots over a finite gate set with exact reflections** (Theorem
-`ode:thm:gates`, time-dependent part, with finite-set synthesis as a hypothesis, including the
-per-trial claim). The protocol `nprotocol (synthPrep hS (ν/3) (q.prep loadC wpC)) (2g)` has the
-released counts of `GateSynthTrials.binary_ode_time_solver_trials`; for every input and
-instance as in `binary_ode_time_solver_certified` it has the guarantees `NOutcome`. -/
+certificate on the uniform slots over a finite gate set with exact reflections** (partial
+formalisation, under this package's format hypotheses, of the finite-set statement of Theorem
+`ode:thm:gates`, time-dependent part, with finite-set synthesis as a hypothesis,
+including the per-trial claim). The protocol
+`nprotocol (synthPrep hS (ν/3) (q.prep loadC wpC)) (2g)` has the released counts of
+`GateSynthTrials.binary_ode_time_solver_trials`; for every input and instance as in
+`binary_ode_time_solver_certified` it has the guarantees `NOutcome`. -/
 theorem binary_ode_time_solver_certified_trials (hS : Synthesis 𝒢 Xa len) (hadj : AdjClosed 𝒢)
     (hzt : zeroTestKinds ⊆ 𝒢) (q : PubT) (hq : q.OK)
     (D : Data (X × Fin (2 ^ q.m)) n (Cfg (VW q.b)) q.s) (en : Cfg (Fin q.kx) ≃ n)
@@ -436,9 +444,10 @@ theorem binary_ode_time_solver_certified_trials (hS : Synthesis 𝒢 Xa len) (ha
     ⟨hne, hB, herr.trans hcert⟩
 
 /-- **Dissipative ODE solver from binary sparse data on a nonuniform mesh over a finite gate set
-with exact reflections** (Theorem `ode:thm:gates`, time-dependent part, extended by uniform
-refinement to nonuniform meshes with breakpoints, with finite-set synthesis as a hypothesis,
-including the per-trial claim). The protocol has the counts of
+with exact reflections** (partial formalisation, under this package's format hypotheses, of the
+finite-set statement of Theorem `ode:thm:gates`, time-dependent part,
+extended by uniform refinement to nonuniform meshes with breakpoints, with finite-set synthesis as a
+hypothesis, including the per-trial claim). The protocol has the counts of
 `binary_ode_time_solver_certified_trials`; it runs on the clock data `clockData D_m`,
 and for every input and instance as in `binary_ode_time_solver_mesh` it has the guarantees
 `NOutcome`. -/
@@ -548,8 +557,9 @@ theorem binary_ode_time_solver_mesh_trials (hS : Synthesis 𝒢 Xa len) (hadj : 
     hTarget
 
 /-- **The gate, call and qubit budget over a finite gate set under the integrated certificate on
-the uniform slots** (Theorem `ode:thm:gates`, time-dependent part, equations `ode:eq:gate-main`
-and `ode:eq:gate-space` over a finite gate set). Under `Synthesis 𝒢 Xa len` with
+the uniform slots** (partial formalisation, under this package's format hypotheses, of the
+finite-set statement of Theorem `ode:thm:gates`, time-dependent part, equations
+`ode:eq:gate-main` and `ode:eq:gate-space` over a finite gate set). Under `Synthesis 𝒢 Xa len` with
 `len ζ ≤ c₁ log(1/ζ) + c₀` on `(0, 1]`, `AdjClosed 𝒢` and `zeroTestKinds ⊆ 𝒢`, for the public
 data `q` with `γ = gammaOf T η_H η_D (2g) (ε/2)` and `q* = qOf s T η_H η_D (2g) (ε/2)`, the
 protocol `nprotocol (synthPrep hS (ν/3) (q.prep loadC wpC)) (2g)` has the released budget of
@@ -637,10 +647,11 @@ theorem binary_ode_time_budget_certified_trials (hS : Synthesis 𝒢 Xa len) (ha
   have := mul_le_mul_of_nonneg_right hd hζ
   linarith
 
-/-- **The gate, call and qubit budget over a finite gate set on a nonuniform mesh** (Theorem
-`ode:thm:gates`, time-dependent part, equations `ode:eq:gate-main` and `ode:eq:gate-space` over
-a finite gate set, extended by uniform refinement to nonuniform meshes with breakpoints). The
-protocol has the budget of
+/-- **The gate, call and qubit budget over a finite gate set on a nonuniform mesh** (partial
+formalisation, under this package's format hypotheses, of the finite-set statement of Theorem
+`ode:thm:gates`, time-dependent part, equations `ode:eq:gate-main` and
+`ode:eq:gate-space` over a finite gate set, extended by uniform refinement to nonuniform meshes with
+breakpoints). The protocol has the budget of
 `binary_ode_time_budget_certified_trials` (the mesh enters only through `m`); it runs on the
 clock data `clockData D_m`, and for every input and instance as in
 `binary_ode_time_solver_mesh` with `98304 q* ζ + 3 ζs ≤ ν` it has the guarantees `NOutcome`. -/

@@ -4,15 +4,16 @@ import ZeroTimeRemarks.Hamiltonian
 /-!
 # Theorem `ode:thm:main` at zero time or with a known zero generator
 
-Theorem `ode:thm:main` of the accompanying paper is followed by "Zero time or a known zero
-generator can be handled directly without matrix queries". The released endpoint
-`SparseHamiltonian.ODECompleteEndpoint.solver` already treats both cases, by source-only
-circuit families whose matrix oracle is a placeholder (`ZeroTimeOutcome`: one initial-state
-call per trial; `ZeroEnergyOutcome`: `ODEDegenerateSource`). This file states both cases in
-the native sparse oracle family of the positive branch (`ODECompleteEndpoint.PositiveOutcome`:
+Theorem `ode:thm:main` of the accompanying paper is followed (after eq. `ode:eq:simple`) by "At
+zero time or for a known zero generator, the solver assembles the initial and source terms directly.
+It makes no matrix queries outside the supplied input and source preparations." The released
+endpoint `SparseHamiltonian.ODECompleteEndpoint.solver` already treats both cases, by source-only
+circuit families whose matrix oracle is a placeholder (`ZeroTimeOutcome`: one initial-state call per
+trial; `ZeroEnergyOutcome`: `ODEDegenerateSource`). This file states both cases in the native sparse
+oracle family of the positive branch (`ODECompleteEndpoint.PositiveOutcome`:
 `ODEFinalNativeSource.physicalOracle`, with the same public seed, output flag, trial family and
-complete certificate), with worst-case matrix-query count `0`, and gives one native statement
-for every `T ≥ 0` and every pair of energy bounds.
+complete certificate), with worst-case matrix-query count `0`, and gives one native statement for
+every `T ≥ 0` and every pair of energy bounds.
 
 **Direct source assembly.** The released positive branch loads the two sources, runs the
 native SELECT program `p` of the LCHS branch evolutions and unloads the coefficients. If every

@@ -4,6 +4,10 @@ import ZeroTimeGateODE.Binary
 /-!
 # Binary sparse data over a finite gate set, every trial synthesised, for every `T ≥ 0`
 
+The finite-gate-set forms of Theorem `ode:thm:gates` in this module are a partial formalisation of
+its finite-set statement, under this package's format hypotheses: the manuscript states Theorem
+`ode:thm:gates` over a finite gate set; the conformance endpoints count native gates.
+
 The released solver from binary sparse data with every trial synthesised
 (`GateBinaryODE.binary_ode_solver_synth`, Theorem `ode:thm:gates` with finite-set synthesis as a
 hypothesis) requires `T > 0` and `η_H + η_D > 0` (`GateBinaryODE.Pub.OK`). The released library
@@ -47,7 +51,9 @@ variable {X n : Type*} [Fintype n] [DecidableEq n] {Zs : Type*} [Fintype Zs] [De
 variable {Xa : Type*} [Fintype Xa] [DecidableEq Xa] {𝒢 : Set Kind} {len : ℝ → ℕ}
 
 /-- **Zero time or a known zero generator from binary sparse data over a finite gate set, every
-trial synthesised** (remark of Theorem `ode:thm:gates`: direct source assembly, no matrix calls).
+trial synthesised** (partial formalisation, under this package's format hypotheses, of the
+finite-set form of the remark of Theorem `ode:thm:gates`: direct source
+assembly, no matrix calls).
 
 For binary public data with `BPublicOK0 q` in the zero case `T = 0 ∨ η_H + η_D = 0`, with the
 synthesis hypothesis `Synthesis 𝒢 Xa len`, the synthesised protocol
@@ -134,8 +140,9 @@ theorem binary_ode_solver_synth_zero (hS : Synthesis 𝒢 Xa len) (q : Pub) (hq 
       hx0 hv hpx hpv hne hB
 
 /-- **Dissipative ODE from binary sparse data over a finite gate set, every trial synthesised,
-for every `T ≥ 0`, constant coefficients** (Theorem `ode:thm:gates` with its remark on zero time
-and a known zero generator, finite-set synthesis as a hypothesis).
+for every `T ≥ 0`, constant coefficients** (partial formalisation, under this package's format
+hypotheses, of the finite-set statement of Theorem `ode:thm:gates` with its
+remark on zero time and a known zero generator, finite-set synthesis as a hypothesis).
 
 For binary public data with `BPublicOK0 q` and the binary data and source circuits of the
 released `GateBinaryODE.binary_ode_solver_synth`, the synthesised protocol

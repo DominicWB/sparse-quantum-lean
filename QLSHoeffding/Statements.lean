@@ -7,13 +7,12 @@ set_option autoImplicit false
 # Theorem `qls:thm:main` with Hoeffding's inequality and the repetition count of equation
 `qls:eq:hoeffding`: paper-to-Lean entry point
 
-The probability tests of the linear-system algorithm (Section `qls`) use Hoeffding's
-inequality: "independent repetitions and Hoeffding's inequality give an empirical frequency
-`p̂` with `|p̂ - p_F| ≤ 0.0099`, except with probability `ζ`, after
-`n_rep = ⌈log(2/ζ)/(2(0.0099)²)⌉` repetitions" (equation `qls:eq:hoeffding`, manuscript line
-6517), and "give the five tests at stage `j` a combined failure budget
-`ζ_j = (ε/1000) 2^{j-m}`" (line 6579); Remark `qls:rem:constants` (line 6646) quotes "the
-remaining repetition count of about `5102 log(10/ζ_j)` per stage test".
+The probability tests of the linear-system algorithm (Section `qls`) use Hoeffding's inequality:
+"independent repetitions and Hoeffding's inequality give an empirical frequency `p̂` with
+`|p̂ - p_F| ≤ 0.0099`, except with probability `ζ`, after `n_rep = ⌈log(2/ζ)/(2(0.0099)²)⌉`
+repetitions" (equation `qls:eq:hoeffding`), and "give the five tests at stage `j` a combined failure
+budget `ζ_j = (ε/1000) 2^{j-m}`"; Remark `qls:rem:constants` quotes "the remaining repetition count
+of about `5102 log(10/ζ_j)` per stage test".
 
 The released proofs of Theorem `qls:thm:main` (`SparseLinearSystems.Endpoint.main`,
 `ChebyshevLinearSystem.main`, `ChebyshevLinearSystemFinite.main`) use the elementary binomial
@@ -24,9 +23,9 @@ eight times the count of
 proves Hoeffding's inequality for the binomial law and the third (finite-degree) proof of the
 theorem with the manuscript's count; the released proofs are unchanged.
 
-No result from another paper is used. The released libraries are unchanged. Manuscript lines
-refer to `sparse_quantum_algorithms.tex` (v24); the labels are the stable references. Every
-theorem of the library is axiom-audited in `QLSHoeffding/Audit.lean`.
+No result from another paper is used. The released libraries are unchanged. References to the
+manuscript use its labels. Every theorem of the library is axiom-audited in
+`QLSHoeffding/Audit.lean`.
 
 **Naming convention.** All declarations of this library are in the namespace `QLSHoeffding` and
 are named relative to it below. `Endpoint`, `Protocol` and `BinomialTail` refer to the
@@ -67,7 +66,7 @@ with `TailOK` in place of the count.
 * `repsH_tailOK`: the counts meet the tail budgets; `repsH_le`:
   `n_j ≤ 25509 log(1/ε) + 3537 (m - j)` for `0 < ε ≤ 1/10`.
 * `repsH_bracket` (module `Constants`): `5101 log(10/ζ_j) ≤ n_j ≤ 5102 log(10/ζ_j)` for
-  `0 < ε ≤ 1` and every stage `j`, the count quoted in Remark `qls:rem:constants`, line 6675
+  `0 < ε ≤ 1` and every stage `j`, the count quoted in Remark `qls:rem:constants`
   (`zetaMs_le`: `ζ_j ≤ ε/1000`; `four_log_two_le_log_ten_div_zetaMs`: `log(10/ζ_j) ≥ 4 log 2`, so
   the ceiling adds less than `0.48 log(10/ζ_j)`).
 

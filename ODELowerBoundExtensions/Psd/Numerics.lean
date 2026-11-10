@@ -3,9 +3,9 @@ import ODELowerBoundExtensions.Psd.Params
 /-!
 # Numerics of Theorem `odel:thm:psd` at the main parameters
 
-Manuscript lines 4032-4037 (eq. `odel:eq:nrange`), 4055-4061 (eq. `odel:eq:alower`),
-4097-4108 (eqs. `odel:eq:smallbias`, `odel:eq:psdmixedlocal`), 4111-4132 (choice of `m`, the
-cases `s ≥ 512n/τ` and `s < 512n/τ`, the assembly). Real analysis only; no quantum objects.
+Manuscript: the proof of Theorem `odel:thm:psd`: eqs. `odel:eq:nrange`, `odel:eq:alower`,
+`odel:eq:smallbias`, `odel:eq:psdmixedlocal`, the choice of `m`, the cases `s ≥ 512n/τ` and
+`s < 512n/τ`, and the assembly. Real analysis only; no quantum objects.
 Main parameters: `n = ⌊r/4⌋` (`Hamiltonian.precN`), `u = τ/2`, `a = psdAmp n u`, `β₀ = a/4`,
 `m = 2^{psdMu s}`.
 
@@ -33,14 +33,15 @@ variable {τ ε : ℝ} {s : ℕ}
 
 /-! ### Numerics at the main parameters `n = ⌊r/4⌋`, `u = τ/2` -/
 
-/-- **Eq. `odel:eq:nrange`, the new part** (lines 4035-4036): `n ≥ r/8 ≥ τ ≥ u = τ/2`. The
+/-- **Eq. `odel:eq:nrange`, the new part** (eq. `odel:eq:nrange`): `n ≥ r/8 ≥ τ ≥ u = τ/2`. The
 rest of eq. `odel:eq:nrange` is `Hamiltonian.precN_range h.toHSRange h.hL`. -/
 theorem half_tau_le_precN (h : PsdRange τ s ε) : τ / 2 ≤ precN τ ε := by
   obtain ⟨-, hrn, hτr, -⟩ := precN_range h.toHSRange h.hL
   have hτ := h.toHSRange.tau_pos
   linarith
 
-/-- `h = log(e + L/τ) ≥ 2` when `L ≥ 64τ` (`e² < 9 ≤ e + 64`; line 4059 uses `h > e/2`). -/
+/-- `h = log(e + L/τ) ≥ 2` when `L ≥ 64τ` (`e² < 9 ≤ e + 64`; proof of Theorem `odel:thm:psd` uses
+`h > e/2`). -/
 theorem psd_two_le_hsH (h : PsdRange τ s ε) : 2 ≤ hsH τ ε := by
   have hτ := h.toHSRange.tau_pos
   have hz : 64 ≤ hsL ε / τ := by rw [le_div_iff₀ hτ]; exact h.hL
@@ -52,7 +53,7 @@ theorem psd_two_le_hsH (h : PsdRange τ s ε) : 2 ≤ hsH τ ε := by
   rw [e2]
   nlinarith
 
-/-- `en/u ≤ e + L/τ` at `u = τ/2` (lines 4057-4059: `en/u ≤ e z/(2h) ≤ e + z`). -/
+/-- `en/u ≤ e + L/τ` at `u = τ/2` (proof of Theorem `odel:thm:psd`: `en/u ≤ e z/(2h) ≤ e + z`). -/
 theorem psd_en_div_le (h : PsdRange τ s ε) :
     Real.exp 1 * precN τ ε / (τ / 2) ≤ Real.exp 1 + hsL ε / τ := by
   have H := h.toHSRange
@@ -74,7 +75,8 @@ theorem psd_en_div_le (h : PsdRange τ s ε) :
   have : 0 < hsL ε / τ := by positivity
   linarith
 
-/-- **Eq. `odel:eq:alower`** (lines 4055-4061): `a ≥ (u/(en))^n ≥ e^{-L/4}` at `u = τ/2`. -/
+/-- **Eq. `odel:eq:alower`** (proof of Theorem `odel:thm:psd`): `a ≥ (u/(en))^n ≥ e^{-L/4}` at
+`u = τ/2`. -/
 theorem exp_neg_quarter_le_psdAmp (h : PsdRange τ s ε) :
     Real.exp (-(hsL ε / 4)) ≤ psdAmp (precN τ ε) (τ / 2) := by
   have H := h.toHSRange
@@ -96,7 +98,7 @@ theorem exp_neg_quarter_le_psdAmp (h : PsdRange τ s ε) :
   apply Real.exp_le_exp.mpr
   nlinarith [mul_le_mul_of_nonneg_left hlog hn.le]
 
-/-- `a ≥ 8ε` (line 4061). -/
+/-- `a ≥ 8ε` (proof of Theorem `odel:thm:psd`). -/
 theorem eight_eps_le_psdAmp (h : PsdRange τ s ε) : 8 * ε ≤ psdAmp (precN τ ε) (τ / 2) := by
   have H := h.toHSRange
   have h1 := exp_neg_quarter_ge H.four_le_hsL
@@ -104,7 +106,7 @@ theorem eight_eps_le_psdAmp (h : PsdRange τ s ε) : 8 * ε ≤ psdAmp (precN τ
   have := exp_neg_quarter_le_psdAmp h
   linarith [h.eps_pos]
 
-/-- `(x^n/4)^{-1/n} = 4^{1/n}/x` for `x > 0`, `n ≥ 1` (line 4102). -/
+/-- `(x^n/4)^{-1/n} = 4^{1/n}/x` for `x > 0`, `n ≥ 1` (eq. `odel:eq:smallbias`). -/
 theorem psd_pow_div_four_rpow_neg_inv {n : ℕ} (hn : 1 ≤ n) {x : ℝ} (hx : 0 < x) :
     (x ^ n / 4) ^ (-(1 : ℝ) / n) = (4 : ℝ) ^ (1 / (n : ℝ)) / x := by
   have hn0 : (n : ℝ) ≠ 0 := Nat.cast_ne_zero.mpr (by omega)
@@ -114,7 +116,7 @@ theorem psd_pow_div_four_rpow_neg_inv {n : ℕ} (hn : 1 ≤ n) {x : ℝ} (hx : 0
   rw [e, Real.rpow_neg_one, neg_div, Real.rpow_neg (by norm_num), div_inv_eq_mul,
     inv_mul_eq_div]
 
-/-- `4^{1/n} ≤ 2` for `n ≥ 2` (line 4103). -/
+/-- `4^{1/n} ≤ 2` for `n ≥ 2` (proof of Theorem `odel:thm:psd`). -/
 theorem psd_four_rpow_inv_le_two {n : ℕ} (hn : 2 ≤ n) : (4 : ℝ) ^ (1 / (n : ℝ)) ≤ 2 := by
   have hn' : (2 : ℝ) ≤ n := by exact_mod_cast hn
   have h1 : 1 / (n : ℝ) ≤ 1 / 2 := one_div_le_one_div_of_le (by norm_num) hn'
@@ -124,7 +126,7 @@ theorem psd_four_rpow_inv_le_two {n : ℕ} (hn : 2 ≤ n) : (4 : ℝ) ^ (1 / (n 
         Real.rpow_le_rpow_of_exponent_le (by norm_num) h1
     _ = 2 := h2
 
-/-- **Side condition of eq. `odel:eq:smallbias`** at `β₀ = a/4` (lines 4101-4104):
+/-- **Side condition of eq. `odel:eq:smallbias`** at `β₀ = a/4` (proof of Theorem `odel:thm:psd`):
 `4 β₀^{-1/n} ≤ 8en/u < 32n/u = 64n/τ`. -/
 theorem psd_hyp (h : PsdRange τ s ε) :
     4 * (psdAmp (precN τ ε) (τ / 2) / 4) ^ (-(1 : ℝ) / precN τ ε) ≤ 64 * precN τ ε / τ := by
@@ -153,7 +155,7 @@ theorem psd_hyp (h : PsdRange τ s ε) :
     nlinarith
   linarith
 
-/-- **Root bound** (line 4105): `β₀^{1/(2n)} ≥ ¼ √(u/n)` at `β₀ = a/4`. -/
+/-- **Root bound** (proof of Theorem `odel:thm:psd`): `β₀^{1/(2n)} ≥ ¼ √(u/n)` at `β₀ = a/4`. -/
 theorem psd_root (h : PsdRange τ s ε) :
     1 / 4 * Real.sqrt (τ / 2 / precN τ ε) ≤
       (psdAmp (precN τ ε) (τ / 2) / 4) ^ (1 / (2 * (precN τ ε : ℝ))) := by
@@ -192,7 +194,8 @@ theorem psd_root (h : PsdRange τ s ε) :
   rw [e2]
   nlinarith [mul_le_mul_of_nonneg_left h2 hsx, mul_le_mul_of_nonneg_right hse hsx]
 
-/-- **The choice of `m`** (lines 4111-4113): for `s ≥ 512n/τ`, `m > s/8 ≥ 64n/τ = 32n/u`. -/
+/-- **The choice of `m`** (proof of Theorem `odel:thm:psd`): for `s ≥ 512n/τ`,
+`m > s/8 ≥ 64n/τ = 32n/u`. -/
 theorem psd_m_cond (h : PsdRange τ s ε) (hs : 512 * (precN τ ε : ℝ) / τ ≤ s) :
     64 * (precN τ ε : ℝ) / τ ≤ (2 : ℝ) ^ psdMu s := by
   have hm := psdM_gt h.s_ge
@@ -200,7 +203,7 @@ theorem psd_m_cond (h : PsdRange τ s ε) (hs : 512 * (precN τ ε : ℝ) / τ �
   rw [e]
   linarith
 
-/-- The constant of the gadget family, `log 2/(1536√2)` (line 4116). -/
+/-- The constant of the gadget family, `log 2/(1536√2)` (proof of Theorem `odel:thm:psd`). -/
 def psdGadgetConst : ℝ := Real.log 2 / (1536 * Real.sqrt 2)
 
 /-- **The explicit constant of eq. `odel:eq:psd`**, `log 2/(3072√2) = psdGadgetConst/2`. -/
@@ -212,7 +215,7 @@ theorem psdConst_pos : 0 < psdConst := by
   have := Real.log_pos one_lt_two
   positivity
 
-/-- **From eq. `odel:eq:psdmixedlocal` to the gadget bound** (lines 4112-4117):
+/-- **From eq. `odel:eq:psdmixedlocal` to the gadget bound** (proof of Theorem `odel:thm:psd`):
 `(log 2/192) √(m n u) ≥ (log 2/(1536√2)) √(sτr)` since `m > s/8`, `n ≥ r/8`, `u = τ/2`. -/
 theorem psd_gadget_arith (h : PsdRange τ s ε) :
     psdGadgetConst * Real.sqrt (s * τ * hsR τ ε) ≤
@@ -250,7 +253,7 @@ theorem psd_gadget_arith (h : PsdRange τ s ε) :
     _ = Real.log 2 / 192 * Real.sqrt ((2 : ℝ) ^ psdMu s * precN τ ε * (τ / 2)) := by
         field_simp; ring
 
-/-- **Small sparsity** (lines 4129-4131): if `s < 512n/τ` then `r ≤ 8n` gives
+/-- **Small sparsity** (proof of Theorem `odel:thm:psd`): if `s < 512n/τ` then `r ≤ 8n` gives
 `√(sτr) < 64n`, so `n/4 > √(sτr)/256`. -/
 theorem psd_scalar_sqrt (h : PsdRange τ s ε) (hs : (s : ℝ) < 512 * precN τ ε / τ) :
     Real.sqrt (s * τ * hsR τ ε) / 256 ≤ (precN τ ε : ℝ) / 4 := by
@@ -270,7 +273,7 @@ theorem psd_scalar_sqrt (h : PsdRange τ s ε) (hs : (s : ℝ) < 512 * precN τ 
     exact Real.sqrt_le_sqrt hlt
   linarith
 
-/-- **Assembly of eq. `odel:eq:psd`** (lines 4131-4132): from the gadget bound (for
+/-- **Assembly of eq. `odel:eq:psd`** (proof of Theorem `odel:thm:psd`): from the gadget bound (for
 `s ≥ 512n/τ`) and the scalar bounds `r/32` and (for `s < 512n/τ`) `√(sτr)/256`, the larger of
 the two query counts is at least `psdConst (√(sτr) + r)`. -/
 theorem psd_assembly (h : PsdRange τ s ε) {QG QS : ℝ} (hS : hsR τ ε / 32 ≤ QS)

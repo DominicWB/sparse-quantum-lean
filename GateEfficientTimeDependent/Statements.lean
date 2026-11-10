@@ -12,6 +12,7 @@ the circuit here is the released circuit of `hs:thm:gates` with a
 slot-selected private Cayley operation, the single-label case of the coherent
 selection `ode:lem:gate-select`.  The library also supplies the slot-selected
 simulator used by the time-dependent part of `GateEfficientODE`.
+References to the manuscript use its labels.
 
 **Access model.** As in `GateEfficientHamiltonian`: the system is an
 arbitrary complex Hilbert space `P` (which may include an untouched

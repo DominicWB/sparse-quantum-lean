@@ -6,8 +6,9 @@ import GateEfficientBitBudget.SynthHamiltonian
 # The auxiliary qubits of `hs:eq:gate-total` in the bit-length parameter
 
 Theorem `hs:thm:gates` of the accompanying paper counts, besides the gates of
-`hs:eq:gate-total`, `O(A_C(ξ) + a + m + r)` auxiliary qubits, and for binary or fixed-point data
-of bit lengths at most `b_data` states the gate count `q poly(b_data, log(N+1), log((q+1)/ε))`
+`hs:eq:gate-total`, `O(A_C(ξ) + a + m_slot + r_reuse)` auxiliary qubits, and for binary or
+fixed-point data of bit lengths at most `b_data` states the gate count
+`Q_base poly(b_data, log(N+1), log((Q_base+1)/ε))`
 (equation `hs:eq:gate-binary`). The released library `GateEfficientBitBudget` proves the gate
 count in this form (`GateBitBudget.binary_simulation_bits` and its time-dependent and
 finite-gate-set forms) and lists the qubit count in `𝔟` as not formalised. This file adds it,
@@ -137,16 +138,16 @@ theorem binary_simulation_bits_qubits (s : ℕ) (hs1 : 1 ≤ s) (τ ε : ℝ) (h
   rw [hcard]
   exact hq
 
-/-- **The qubits and gates of the time-dependent part of `hs:thm:gates` for time-indexed binary
-sparse data in the bit lengths** (before finite-set synthesis). For `s ≥ 1`, `t ≥ 0`,
-`0 < ε ≤ 1` and `q = √s t + √(s t log(2/ε)) + log(2/ε)`, there is a rescaling `γ ∈ (0, 1]`,
-chosen before the data, the input, the path and the mesh, with every property that
-`GateBitBudget.binary_time_simulation_bits` states (`γ √s ≥ 1` and `d ≤ 4608 q`), such that: for
-all data, paths, meshes and accuracies as
-in `binary_time_simulation_bits` (`M = 2^m` time slots, `b ≤ b_data`, `c₀` of bit length
-`b_data`, `ε/(442368 q) ≤ ζ ≤ ε/(221184 q)`), the circuit `binaryTimeSim` uses at most
-`10¹⁵ q (𝔟_H + log₂(M+1) + 1)³` elementary gates on at most `4·10⁶ (𝔟_H + log₂(M+1) + 1)³`
-qubits, `𝔟_H = bitH b_data (2^k) q ε`; its register has exactly
+/-- **The qubits and gates of the time-dependent gate-level simulation (Theorem `hs:thm:time` with
+the circuit of `hs:thm:gates`) for time-indexed binary sparse data in the bit lengths** (before
+finite-set synthesis). For `s ≥ 1`, `t ≥ 0`, `0 < ε ≤ 1` and
+`q = √s t + √(s t log(2/ε)) + log(2/ε)`, there is a rescaling `γ ∈ (0, 1]`, chosen before the data,
+the input, the path and the mesh, with every property that
+`GateBitBudget.binary_time_simulation_bits` states (`γ √s ≥ 1` and `d ≤ 4608 q`), such that: for all
+data, paths, meshes and accuracies as in `binary_time_simulation_bits` (`M = 2^m` time slots,
+`b ≤ b_data`, `c₀` of bit length `b_data`, `ε/(442368 q) ≤ ζ ≤ ε/(221184 q)`), the circuit
+`binaryTimeSim` uses at most `10¹⁵ q (𝔟_H + log₂(M+1) + 1)³` elementary gates on at most
+`4·10⁶ (𝔟_H + log₂(M+1) + 1)³` qubits, `𝔟_H = bitH b_data (2^k) q ε`; its register has exactly
 `k + (2(k+1) + 3m + 6r + 3) + (6k + 2b + bT + bP + A + 3)` qubits; and every other conclusion of
 `binary_time_simulation_bits` holds. -/
 theorem binary_time_simulation_bits_qubits (s : ℕ) (hs1 : 1 ≤ s) (t ε : ℝ) (ht : 0 ≤ t)

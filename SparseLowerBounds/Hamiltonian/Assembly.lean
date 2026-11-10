@@ -6,8 +6,7 @@ section
 /-!
 # Assembly of the three family bounds
 
-Manuscript lines 2456-2474: the numerical part of the proof of Theorem
-`hsl:thm:main`. Real analysis only.
+Manuscript: the numerical part of the proof of Theorem `hsl:thm:main`. Real analysis only.
 
 * If `L < 64τ`: `√(sτr) ≤ 8 √s τ` and `r ≤ 64τ ≤ 12 √s τ` (`s ≥ 32`), so the
   sum in eq. `hsl:eq:main` is at most `21 √s τ` (`sum_le_of_small_L`).
@@ -19,11 +18,10 @@ Manuscript lines 2456-2474: the numerical part of the proof of Theorem
   `three_mul_c0_le`); `c0_le` is tight to about 1.6% (`21/4096` against
   `1/192`, i.e. `4032 ≤ 4096`).
 
-`assembly` packages this for three arbitrary real quantities `Q_T, Q_M, Q_P`
-(the query counts of algorithms for the time, mixed and precision families):
-it is the step "the maximum of three lower bounds is at least one third of
-their sum" (lines 2121-2123), and contains no claim about how one algorithm
-relates to the three families.
+`assembly` packages this for three arbitrary real quantities `Q_T, Q_M, Q_P` (the query counts of
+algorithms for the time, mixed and precision families): it is the step "For three nonnegative
+numbers, that maximum is at least one third of their sum" (Section `hsl:sec:main`), and contains no
+claim about how one algorithm relates to the three families.
 -/
 
 namespace SparseLowerBounds.Hamiltonian
@@ -32,9 +30,9 @@ noncomputable section
 
 variable {τ ε : ℝ} {s : ℕ}
 
-/-! ### Constants (lines 2456-2457 and 2473-2474) -/
+/-! ### Constants (proof of Theorem `hsl:thm:main`) -/
 
-/-- `c₀ ≤ c_T/21` (hence `c₀ ≤ c_T/3`), lines 2473-2474. -/
+/-- `c₀ ≤ c_T/21` (hence `c₀ ≤ c_T/3`), proof of Theorem `hsl:thm:main`. -/
 theorem c0_le : 21 * c0 ≤ cT := by
   unfold c0 cT
   have hl : 0 < Real.log 2 := Real.log_pos one_lt_two
@@ -42,7 +40,7 @@ theorem c0_le : 21 * c0 ≤ cT := by
   rw [mul_div_assoc', div_le_div_iff₀ (by positivity) (by positivity)]
   nlinarith [mul_pos hl hp]
 
-/-- `c₀ ≤ c_T/3` (lines 2473-2474). -/
+/-- `c₀ ≤ c_T/3` (proof of Theorem `hsl:thm:main`). -/
 theorem three_mul_c0_le : 3 * c0 ≤ cT := by
   have h1 := c0_le
   have h2 := c0_pos
@@ -73,7 +71,7 @@ theorem two_mul_sqrt_two_lt_pi : 2 * Real.sqrt 2 < Real.pi := by
   have := Real.cos_nonpos_of_pi_div_two_le_of_le h1 h2
   linarith
 
-/-- `1/32` in eq. `hsl:eq:rbound` is at least `c_T` (line 2457). -/
+/-- `1/32` in eq. `hsl:eq:rbound` is at least `c_T`. -/
 theorem cT_le_inv_32 : cT ≤ 1 / 32 := by
   unfold cT
   have hl := log_two_le_one
@@ -81,8 +79,7 @@ theorem cT_le_inv_32 : cT ≤ 1 / 32 := by
   rw [div_le_div_iff₀ (by positivity) (by norm_num)]
   linarith
 
-/-- The constant of eq. `hsl:eq:mixrbound` is at least `c_T` (line 2456;
-equivalent to `π ≥ 2√2`). -/
+/-- The constant of eq. `hsl:eq:mixrbound` is at least `c_T` (equivalent to `π ≥ 2√2`). -/
 theorem cT_le_mixConst : cT ≤ Real.log 2 / (384 * Real.sqrt 2) := by
   unfold cT
   have hl0 : 0 < Real.log 2 := Real.log_pos one_lt_two
@@ -91,7 +88,7 @@ theorem cT_le_mixConst : cT ≤ Real.log 2 / (384 * Real.sqrt 2) := by
   apply div_le_div_of_nonneg_left hl0.le (by positivity)
   linarith
 
-/-- The constant of eq. `hsl:eq:failedmix` is at least `c_T` (line 2456). -/
+/-- The constant of eq. `hsl:eq:failedmix` is at least `c_T`. -/
 theorem cT_le_failedConst : cT ≤ 1 / (64 * Real.sqrt 2) := by
   unfold cT
   have hl := log_two_le_one
@@ -104,19 +101,19 @@ theorem cT_le_failedConst : cT ≤ 1 / (64 * Real.sqrt 2) := by
   rw [div_le_div_iff₀ (by positivity) (by positivity)]
   nlinarith
 
-/-! ### The case `L < 64τ` (lines 2465-2472) -/
+/-! ### The case `L < 64τ` (proof of Theorem `hsl:thm:main`) -/
 
-/-- `64 ≤ 12 √s` for `s ≥ 32` (line 2469). -/
+/-- `64 ≤ 12 √s` for `s ≥ 32` (proof of Theorem `hsl:thm:main`). -/
 theorem sixtyfour_le_twelve_sqrt (hs : 32 ≤ s) : 64 ≤ 12 * Real.sqrt s := by
   have hs' : (32 : ℝ) ≤ s := by exact_mod_cast hs
   have hsq := Real.sq_sqrt (Nat.cast_nonneg (α := ℝ) s)
   nlinarith [Real.sqrt_nonneg (s : ℝ)]
 
-/-- `r ≤ L < 64τ` (line 2465). -/
+/-- `r ≤ L < 64τ` (proof of Theorem `hsl:thm:main`). -/
 theorem hsR_lt_of_small_L (h : HSRange τ s ε) (hL : hsL ε < 64 * τ) : hsR τ ε < 64 * τ := by
   exact lt_of_le_of_lt h.hsR_le_hsL hL
 
-/-- `√(sτr) ≤ 8 √s τ` (line 2468). -/
+/-- `√(sτr) ≤ 8 √s τ` (proof of Theorem `hsl:thm:main`). -/
 theorem sqrt_mul_hsR_le_of_small_L (h : HSRange τ s ε) (hL : hsL ε < 64 * τ) :
     Real.sqrt (s * τ * hsR τ ε) ≤ 8 * (Real.sqrt s * τ) := by
   have hτ := h.tau_pos
@@ -132,7 +129,7 @@ theorem sqrt_mul_hsR_le_of_small_L (h : HSRange τ s ε) (hL : hsL ε < 64 * τ)
     _ = 8 * (Real.sqrt s * τ) :=
         Real.sqrt_sq (mul_nonneg (by norm_num) (mul_nonneg (Real.sqrt_nonneg _) hτ.le))
 
-/-- `r ≤ 64τ ≤ 12 √s τ` (line 2469). -/
+/-- `r ≤ 64τ ≤ 12 √s τ` (proof of Theorem `hsl:thm:main`). -/
 theorem hsR_le_of_small_L (h : HSRange τ s ε) (hL : hsL ε < 64 * τ) :
     hsR τ ε ≤ 12 * (Real.sqrt s * τ) := by
   have hτ := h.tau_pos
@@ -141,7 +138,7 @@ theorem hsR_le_of_small_L (h : HSRange τ s ε) (hL : hsL ε < 64 * τ) :
   have : 64 * τ ≤ 12 * Real.sqrt s * τ := mul_le_mul_of_nonneg_right h64 hτ.le
   nlinarith
 
-/-- The small-`L` case (lines 2465-2471). -/
+/-- The small-`L` case (proof of Theorem `hsl:thm:main`). -/
 theorem sum_le_of_small_L (h : HSRange τ s ε) (hL : hsL ε < 64 * τ) :
     Real.sqrt s * τ + Real.sqrt (s * τ * hsR τ ε) + hsR τ ε ≤ 21 * (Real.sqrt s * τ) := by
   have h1 := sqrt_mul_hsR_le_of_small_L h hL
@@ -149,7 +146,7 @@ theorem sum_le_of_small_L (h : HSRange τ s ε) (hL : hsL ε < 64 * τ) :
   linarith
 
 /-- The small-`L` case with the time bound alone: coefficient `c_T/21 ≥ c₀`
-(lines 2471-2474). -/
+(proof of Theorem `hsl:thm:main`). -/
 theorem assembly_small_L (h : HSRange τ s ε) (hL : hsL ε < 64 * τ) {QT : ℝ}
     (hT : cT * Real.sqrt s * τ ≤ QT) :
     c0 * (Real.sqrt s * τ + Real.sqrt (s * τ * hsR τ ε) + hsR τ ε) ≤ QT := by
@@ -162,9 +159,9 @@ theorem assembly_small_L (h : HSRange τ s ε) (hL : hsL ε < 64 * τ) {QT : ℝ
     _ = cT * Real.sqrt s * τ := by ring
     _ ≤ QT := hT
 
-/-! ### The case `L ≥ 64τ` (lines 2456-2463) -/
+/-! ### The case `L ≥ 64τ` (proof of Theorem `hsl:thm:main`) -/
 
-/-- The three-family step (lines 2456-2463): given the time bound, the precision
+/-- The three-family step (proof of Theorem `hsl:thm:main`): given the time bound, the precision
 bound `r/32` and, according to whether `s < 64n/τ`, either the precision bound
 `√(sτr)/(64√2)` or the mixed bound `(log 2/(384√2))√(sτr)`, the maximum of the
 three quantities is at least `(c_T/3)(√s τ + √(sτr) + r)`. The hypotheses are
@@ -203,7 +200,7 @@ theorem third_cT_mul_sum_le (h : HSRange τ s ε) {QT QM QP : ℝ}
         _ ≤ max QT (max QM QP) := hMX
   linarith
 
-/-- **The numerical bound of Theorem `hsl:thm:main`** (lines 2456-2474), as the
+/-- **The numerical bound of Theorem `hsl:thm:main`** (proof of Theorem `hsl:thm:main`), as the
 maximum of the three family bounds: the time bound always, and for `L ≥ 64τ`
 the precision bound `r/32` (and `√(sτr)/(64√2)` when `s < 64n/τ`) and the
 mixed bound `(log 2/(384√2))√(sτr)` (when `s ≥ 64n/τ`). -/

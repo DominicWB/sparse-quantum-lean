@@ -8,7 +8,7 @@ set_option autoImplicit false
 
 Two facts behind the search lower bound for measured algorithms
 (`DeferredMeasurementLowerBounds.Corollaries.search_count_ge_measured_sharp`, manuscript
-Corollary `hs:cor:unitary`, lines 1647-1666).
+Corollary `hs:cor:unitary`).
 
 * `norm_inner_le_of_reads`: two unit vectors `Ψ, Ψ'` whose decoded parts `L (D† Ψ)`, `L (D† Ψ')`
   (isometries `D`, `L`) have weight at least `1 - δ` in the ranges of two projections `R`, `R'`

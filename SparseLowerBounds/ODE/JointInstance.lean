@@ -6,7 +6,7 @@ section
 /-!
 # Encoding the joint problem as a piecewise-constant ODE
 
-Manuscript lines 3800-3858 (Section "Encoding the joint problem as an ODE").
+Manuscript: the construction before Theorem `odel:thm:joint`.
 For `m = 2^μ`, the gadget `U_j = 2|u⟩⟨u| - S^{j+1}`, `(U_j)_{bc} = 2/m - [b - c - 1 = j]`
 (`LinearSystems.gadget`, eq. `odel:eq:gadget`), its dilation
 `S_j = [[0, U_j], [U_j†, 0]]` (eq. `odel:eq:dilation`) with `S_j² = 1`,
@@ -17,7 +17,7 @@ For `m = 2^μ`, the gadget `U_j = 2|u⟩⟨u| - S^{j+1}`, `(U_j)_{bc} = 2/m - [b
 
 * stage `k < n` (length `π/2`): `H_k = ⊕_a S_{j_{ak}}` (`stageHam`), generator
   `G_k = i H_k`, no source (eq. `odel:eq:stages`);
-* stage `n` (idle, length `T - 1 - nπ/2 ≥ 0`): `G = 0`, `b = 0` (lines 3883-3884);
+* stage `n` (idle, length `T - 1 - nπ/2 ≥ 0`): `G = 0`, `b = 0` (proof of Theorem `odel:thm:joint`);
 * stage `n + 1` (length `1`): `G = 0`, `b = -(-i)^n |u_M, ω⟩` (eq. `odel:eq:force`);
 * `x₀ = u_M ⊗ ω`, `u_M = M^{-1/2} Σ_a |a⟩` (`jointInit`).
 
@@ -108,7 +108,8 @@ theorem stageHam_inl (j : Positions M n (2 ^ μ)) (k : Fin n) (a a' : Fin M) (β
       else 0 := by
   cases β <;> rfl
 
-/-- The stage-`k` words decode to `H_k` (`decoded`, lines 3852-3856). -/
+/-- The stage-`k` words decode to `H_k` (`decoded`, the construction before Theorem
+`odel:thm:joint`). -/
 theorem wordDecode_stage (hμ : 1 ≤ μ) (x : Promised M n (2 ^ μ)) (k : Fin n)
     (i j : JointIndex M μ s) :
     Hamiltonian.wordDecode μ
@@ -160,10 +161,10 @@ theorem jointGen_col_covers (hμs : 2 ^ μ ≤ s) (j : Positions M n (2 ^ μ)) (
   refine Finset.mem_image.mpr ⟨⟨b, lt_of_lt_of_le b.2 hμs⟩, Finset.mem_univ _, ?_⟩
   rw [jointLoc_inl hμs, Bool.not_not]
 
-/-- **The hard sampled-time data** (lines 3852-3858): matrix `jointGen`,
-exact words `Word μ` with decode `i · valMinAbs/2^μ` (scale `1`), the stage
-table of `jointTable` (`0` on the idle and source stages), input- and
-stage-independent locators with fixed permutation extensions. -/
+/-- **The hard sampled-time data** (the construction before Theorem `odel:thm:joint`): matrix
+`jointGen`, exact words `Word μ` with decode `i · valMinAbs/2^μ` (scale `1`), the stage table of
+`jointTable` (`0` on the idle and source stages), input- and stage-independent locators with fixed
+permutation extensions. -/
 def jointData (M n μ s : ℕ) (hμ : 1 ≤ μ) (hμs : 2 ^ μ ≤ s) :
     Data (Promised M n (2 ^ μ) × Fin (n + 2)) (JointIndex M μ s) (Hamiltonian.Word μ) s where
   slot := jointSlot M μ s
@@ -193,8 +194,9 @@ def jointData (M n μ s : ℕ) (hμ : 1 ≤ μ) (hμs : 2 ^ μ ≤ s) :
   column_valid _ j k :=
     (Hamiltonian.permCLM_single _ _ _).trans (by rw [Hamiltonian.colEquiv_slot])
 
-/-- **The locators are public** (lines 3852-3854, 3683-3684): the location lists and the
-location oracles of `jointData` do not depend on the input or the stage. -/
+/-- **The locators are public** (the construction before Theorem `odel:thm:joint` and Section
+`odel:sec:main`): the location lists and the location oracles of `jointData` do not depend on the
+input or the stage. -/
 theorem jointData_locators_const (hμ : 1 ≤ μ) (hμs : 2 ^ μ ≤ s)
     (p p' : Promised M n (2 ^ μ) × Fin (n + 2)) :
     (jointData M n μ s hμ hμs).rowloc p = (jointData M n μ s hμ hμs).rowloc p' ∧
@@ -203,8 +205,8 @@ theorem jointData_locators_const (hμ : 1 ≤ μ) (hμs : 2 ^ μ ≤ s)
       (jointData M n μ s hμ hμs).columnOracle p = (jointData M n μ s hμ hμs).columnOracle p' :=
   ⟨rfl, rfl, rfl, rfl⟩
 
-/-- **Exact dyadic entries** (line 3852): every sampled entry is
-`i · v/2^μ` with an integer `-2^μ < v ≤ 2^μ`, the word stored in the table. -/
+/-- **Exact dyadic entries** (the construction before Theorem `odel:thm:joint`): every sampled entry
+is `i · v/2^μ` with an integer `-2^μ < v ≤ 2^μ`, the word stored in the table. -/
 theorem jointData_dyadic (hμ : 1 ≤ μ) (hμs : 2 ^ μ ≤ s)
     (p : Promised M n (2 ^ μ) × Fin (n + 2)) (i j : JointIndex M μ s) :
     ∃ v : ℤ, -(2 : ℤ) ^ μ < v ∧ v ≤ 2 ^ μ ∧
@@ -223,12 +225,12 @@ theorem jointData_dyadic (hμ : 1 ≤ μ) (hμs : 2 ^ μ ≤ s)
     simp [Hamiltonian.wordDecode]
 
 /-- The stage durations: `π/2` for the hidden stages, `T - 1 - nπ/2` for the idle
-stage, `1` for the source stage (lines 3826, 3838, 3883-3884). -/
+stage, `1` for the source stage (Section `odel:sec:main` and proof of Theorem `odel:thm:joint`). -/
 def jointLen (n : ℕ) (T : ℝ) (k : Fin (n + 2)) : ℝ :=
   if (k : ℕ) < n then Real.pi / 2 else if (k : ℕ) = n then T - 1 - n * (Real.pi / 2) else 1
 
-/-- **The joint ODE family** (lines 3826-3841, 3883-3884): `n` hidden stages, an idle stage
-and the source stage, on `[0, T]`. -/
+/-- **The joint ODE family** (Section `odel:sec:main` and proof of Theorem `odel:thm:joint`): `n`
+hidden stages, an idle stage and the source stage, on `[0, T]`. -/
 def jointFamily (M n μ s : ℕ) (hμ : 1 ≤ μ) (hμs : 2 ^ μ ≤ s) (T : ℝ)
     (hT : (n : ℝ) * (Real.pi / 2) + 1 ≤ T) :
     Family (Promised M n (2 ^ μ)) (JointIndex M μ s) (Hamiltonian.Word μ) (n + 2) s where
@@ -328,9 +330,9 @@ theorem unitDirection_jointSol_T (hT : (n : ℝ) * (Real.pi / 2) + 1 ≤ T)
   push_cast
   field_simp
 
-/-- **The joint family is in the class** with `η = 1`, `D = 0` and `g = √M ≤ ḡ`
-(lines 3823-3824, 3846, 3849-3850, 3884-3885). `InClass` certifies `D ⪰ 0`
-(accretive generators); `D = 0` itself is `jointFamily_skew`. -/
+/-- **The joint family is in the class** with `η = 1`, `D = 0` and `g = √M ≤ ḡ` (Section
+`odel:sec:main`, eq. `odel:eq:cancel` and proof of Theorem `odel:thm:joint`). `InClass` certifies
+`D ⪰ 0` (accretive generators); `D = 0` itself is `jointFamily_skew`. -/
 theorem jointFamily_inClass {gbar : ℝ} (hg : Real.sqrt M ≤ gbar) :
     (jointFamily M n μ s hμ hμs T hT).InClass 1 gbar where
   accretive x k := accretive_jointGen x.1 k
@@ -349,7 +351,7 @@ theorem jointFamily_inClass {gbar : ℝ} (hg : Real.sqrt M ≤ gbar) :
         le_div_iff₀ hs]
       nlinarith
 
-/-- **`D = 0`** (lines 3849-3850): every stage generator of the joint family is
+/-- **`D = 0`** (Section `odel:sec:main`): every stage generator of the joint family is
 `i H` with `H` Hermitian (`H = H_k` on the hidden stages, `H = 0` on the idle
 and source stages), so `-A = D + iH` has `D = 0`, not only `D ⪰ 0`. -/
 theorem jointFamily_skew (x : Promised M n (2 ^ μ)) (k : Fin (n + 2)) :

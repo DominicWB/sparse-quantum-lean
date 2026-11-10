@@ -3,7 +3,7 @@ import ODELowerBoundExtensions.Psd.Readout
 /-!
 # Scalar-family words and locators
 
-Manuscript lines 4063-4077 and 4119-4121 (the gadgets
+Manuscript: the proof of Theorem `odel:thm:psd` (the gadgets
 replaced by scalar signs; the PSD matrix is three-sparse). Word table and location lists of
 `psdScalarMat`, packaged by `Hamiltonian.bitData` in the next module.
 

@@ -6,23 +6,24 @@ set_option autoImplicit false
 set_option synthInstance.maxSize 1024
 
 /-!
-# Remark `odel:rem:homogeneous`: the final state, its norm and `g`
+# Proposition `odel:rem:homogeneous`: the final state, its norm and `g`
 
-Manuscript lines 3914-3937. After the hidden stages the flag-one coefficient of candidate `a`
-is `(-i)^n σ_a` (`exp_candPhase_final`); the merged pulse multiplies it by
-`e^{i((n+2) mod 4)π/2} = -i^n`, giving `-σ_a`; the `Y` rotation by `π/4` sends
-`(1, -σ_a)/√(2M)` to `((1+σ_a), (1-σ_a))/(2√M)`, so even candidates (`σ_a = 1`) end with flag
-zero and the odd candidate `a_*` with flag one (lines 3921-3922); the dissipation multiplies
-flag zero by `e^{-d} = 1/(4√M)`. Hence (`homSol_of_busy_le`)
+Manuscript: the proof of Proposition `odel:rem:homogeneous`. After the hidden stages the flag-one
+coefficient of candidate `a` is `(-i)^n σ_a` (`exp_candPhase_final`); the merged pulse multiplies it
+by `e^{i((n+2) mod 4)π/2} = -i^n`, giving `-σ_a`; the `Y` rotation by `π/4` sends `(1, -σ_a)/√(2M)`
+to `((1+σ_a), (1-σ_a))/(2√M)`, so even candidates (`σ_a = 1`) end with flag zero and the odd
+candidate `a_*` with flag one (Proposition `odel:rem:homogeneous`); the dissipation multiplies flag
+zero by `e^{-d} = 1/(4√M)`. Hence (`homSol_of_busy_le`)
 `x(T) = M^{-1/2} (e^{-d} Σ_{a ≠ a_*} |0, a, ω⟩ + |1, a_*, ω⟩)` (`homEnd`), and
 
-* `‖x(T)‖² = (1 + (M-1)e^{-2d})/M` (`norm_sq_homEnd`, line 3932);
-* with `B = ‖x₀‖ = 1` (`norm_homInit`), `(4/√17)√M ≤ g ≤ √M` (`homEnd_g_bounds`, line 3933);
+* `‖x(T)‖² = (1 + (M-1)e^{-2d})/M` (`norm_sq_homEnd`, Proposition `odel:rem:homogeneous`);
+* with `B = ‖x₀‖ = 1` (`norm_homInit`), `(4/√17)√M ≤ g ≤ √M` (`homEnd_g_bounds`, Proposition
+  `odel:rem:homogeneous`);
 * the normalised solution has probability at least `16/17` on `a_*` (`homEnd_prob_ge`,
-  line 3935);
+  Proposition `odel:rem:homogeneous`);
 * the half indicator has ideal signed correlation at least `2·(16/17) - 1 = 15/17` with
-  `halfSign(a_*)` (`homEnd_ideal_corr` in `ODELowerBoundExtensions.Homogeneous.Readout`,
-  lines 3935-3937; equivalently decision success `(2/3)(16/17 - ε) + 1/6`).
+  `halfSign(a_*)` (`homEnd_ideal_corr` in `ODELowerBoundExtensions.Homogeneous.Readout`;
+  equivalently decision success `(2/3)(16/17 - ε) + 1/6`).
 
 The computations go through `flagComb`, the combination `Σ_a (p_a |0,a,ω⟩ + q_a |1,a,ω⟩)`
 of the orthonormal candidate states; the final state is the combination with the real
@@ -160,7 +161,7 @@ theorem endPQ_facts (hM : 1 ≤ M) (b : Fin M) :
     have h2 : 0 ≤ (M : ℝ)⁻¹ := by positivity
     nlinarith
 
-/-- `‖x₀‖ = 1` (line 3929), hence `B = 1`. -/
+/-- `‖x₀‖ = 1` (Proposition `odel:rem:homogeneous`), hence `B = 1`. -/
 theorem norm_homInit (hM : 1 ≤ M) : ‖homInit M μ s‖ = 1 := by
   have hm : (1 : ℝ) ≤ M := by exact_mod_cast hM
   have hx : homInit M μ s = (((Real.sqrt (2 * (M : ℝ)))⁻¹ : ℝ) : ℂ) •
@@ -219,8 +220,8 @@ theorem homAlpha_homBeta_of_busy_le (j : Positions M n (2 ^ μ)) (a : Fin M)
   rw [hdamp, hy, hph, Real.cos_pi_div_four, Real.sin_pi_div_four]
   constructor <;> push_cast <;> ring
 
-/-- **The final state** (lines 3914-3927): after the busy time the solution is `homEnd` at
-the odd candidate. -/
+/-- **The final state** (Proposition `odel:rem:homogeneous`): after the busy time the solution is
+`homEnd` at the odd candidate. -/
 theorem homSol_of_busy_le (hM : 1 ≤ M) (x : Promised M n (2 ^ μ)) {t : ℝ}
     (ht : homBusy M n ≤ t) : homSol M n μ s x t = homEnd M μ s (oddCand x) := by
   have hm : (1 : ℝ) ≤ M := by exact_mod_cast hM
@@ -253,7 +254,7 @@ theorem homSol_of_busy_le (hM : 1 ≤ M) (x : Promised M n (2 ^ μ)) {t : ℝ}
 
 /-! ### Norm, normalisation and the readout -/
 
-/-- **The final norm** `‖x(T)‖² = (1 + (M-1)e^{-2d})/M` (line 3932). -/
+/-- **The final norm** `‖x(T)‖² = (1 + (M-1)e^{-2d})/M` (Proposition `odel:rem:homogeneous`). -/
 theorem norm_sq_homEnd (hM : 1 ≤ M) (b : Fin M) :
     ‖homEnd M μ s b‖ ^ 2 = (1 + ((M : ℝ) - 1) * Real.exp (-2 * homD M)) / M := by
   have hm : (1 : ℝ) ≤ M := by exact_mod_cast hM
@@ -277,7 +278,7 @@ theorem homEnd_ne_zero (hM : 1 ≤ M) (b : Fin M) : homEnd M μ s b ≠ 0 := by
   rw [hq, zero_mul] at hQ
   exact zero_ne_one hQ
 
-/-- **The normalisation parameter** (line 3933): with `B = 1`,
+/-- **The normalisation parameter** (Proposition `odel:rem:homogeneous`): with `B = 1`,
 `(4/√17)√M ≤ g = 1/‖x(T)‖ ≤ √M`. -/
 theorem homEnd_g_bounds (hM : 1 ≤ M) (b : Fin M) :
     4 / Real.sqrt 17 * Real.sqrt M ≤ 1 / ‖homEnd M μ s b‖ ∧
@@ -311,8 +312,9 @@ theorem unitDirection_homEnd (b : Fin M) :
   conv_lhs => arg 2; rw [homEnd_eq_flagComb]
   rw [smul_flagComb_ofReal]
 
-/-- **Probability at least `16/17` on the odd candidate** (line 3935): the normalised final
-state has squared overlap at least `16/17` with `|1, a_*, ω⟩`, its whole component on `a_*`. -/
+/-- **Probability at least `16/17` on the odd candidate** (Proposition `odel:rem:homogeneous`): the
+normalised final state has squared overlap at least `16/17` with `|1, a_*, ω⟩`, its whole component
+on `a_*`. -/
 theorem homEnd_prob_ge (hM : 1 ≤ M) (b : Fin M) :
     16 / 17 ≤ ‖⟪flagCand M μ s true b,
       ODEStateNormalization.unitDirection (homEnd M μ s b)⟫_ℂ‖ ^ 2 := by

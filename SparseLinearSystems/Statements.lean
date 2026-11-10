@@ -1,4 +1,5 @@
 import SparseLinearSystems.Endpoint.Main
+import SparseLinearSystems.Separate.Main
 
 /-!
 # Sparse linear systems: paper-to-Lean entry point
@@ -7,6 +8,7 @@ Theorem 8.1 (`qls:thm:main`) of the accompanying paper is formalized by
 `SparseLinearSystems.Endpoint.main`, with the existential form
 `SparseLinearSystems.Endpoint.main_exists`; both are in
 `SparseLinearSystems/Endpoint/Main.lean`.
+References to the manuscript use its labels.
 
 **Access model.** The sparse data are those of the Hamiltonian and ODE
 libraries: `SparseHamiltonian.NativeSparseBlockEncoding.Data X n Z s` supplies,
@@ -99,6 +101,29 @@ are named within their namespaces.
   succeeds with probability at least `0.0349`, and the leaf with at least
   `97/100`.
 
+**Corollary `qls:cor:separate`** (conditional). `Separate.main` gives, for
+the same access model, a public `κ ≥ 1`, `0 < ε ≤ 1/10` and a public scalar
+`ν̂` with `ν/2 ≤ ν̂ ≤ 2ν` (`ν = ‖A⁻¹ b‖`), one protocol over
+`Separate.sepOracle` with worst-case matrix cost at most `C_A √s κ log(1/ε)`
+on every input and, on every valid input, worst-case `U_b` cost at most
+`C_b κ/ν`, success at least `2/3` and conditional trace distance at most `ε`.
+It is conditional on the hypothesis `Separate.SeparateSolver cM cb q₀`, a
+uniform single-trial block-input solver interface representing the solver of
+Gao, Ji and Liu; it is stronger than the statement of their theorem, is
+intended to follow from its proof, and is not formalised here. Proof map:
+`Separate.Algebra` (walk identity `(I - W) R₀ J u = (i/α) J H u`, trivial
+fixed space, `‖B v‖ ≥ t*/√(1 + t*²) ‖v‖`), `Separate.Bounds` (`κ_B = 4√s κ`,
+the enlarged solution and its norm, the transferred estimate
+`ν̂_B = (9/8) √s ν̂` in `[3/8, 5/2] ‖y‖`, the decoder `T`),
+`Separate.Registers` and `Separate.Native` (the exact block encoding
+`lcu (R̃ D̃₀)` of `B`, the preparation of `J (b, 0)`, separate costs `54/0`
+and `0/1`), `Separate.Decode` (herald routing, selected vector `T (out† ψ)`,
+success and error transfer), `Separate.Main` (repetition and costs).
+
 Outside this formalization: the matching lower bound (`qlsl:thm:main`), gate
-and workspace counts, and classical circuit-generation costs.
+and workspace counts, classical circuit-generation costs, and the external
+solver theorem used by Corollary `qls:cor:separate`.
+
+Notation: the regularization parameter is `σ` here and `ξ` in the manuscript, so a subscript `σ` (as
+in `g_σ`, `r_σ`, `H_{σ,r}`) stands for the manuscript's subscript `ξ`.
 -/

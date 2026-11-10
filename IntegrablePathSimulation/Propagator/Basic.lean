@@ -6,12 +6,10 @@ set_option autoImplicit false
 /-!
 # Propagators of integrable paths
 
-Theorem `hs:thm:time` of the manuscript (lines 1414-1445) compares the circuit with the
-time-ordered exponential `U_H(T, 0) = 𝒯 exp (-i ∫_0^T H(u) du)` (equation `hs:eq:timeerror`,
-lines 1431-1435). The paragraph "Regularity and coherent parameters" after its proof
-(lines 1618-1632) extends the theorem to integrable Hermitian paths. For such a path we read
-`U_H(·, 0)` as the solution of the Schrödinger equation in the sense of Carathéodory, that is
-of the integral equation
+Theorem `hs:thm:time` of the manuscript compares the circuit with the time-ordered exponential
+`U_H(T, 0) = 𝒯 exp (-i ∫_0^T H(u) du)` (equation `hs:eq:timeerror`). The paragraphs after its proof
+extend the theorem to integrable Hermitian paths. For such a path we read `U_H(·, 0)` as the
+solution of the Schrödinger equation in the sense of Carathéodory, that is of the integral equation
 
   `U(s) = 1 + ∫_0^s (-i) H(u) U(u) du`,  `0 ≤ s ≤ T`,
 

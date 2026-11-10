@@ -23,6 +23,9 @@ public `0 < g ≤ g_σ`, the gap `|z - 1| ≥ 2 b` for every eigenvalue `z ≠ 1
   of `Facts.gapO`, the filter of degree `d_σ(δ)` is within `δ` of the eigenvalue-one projector
   in operator norm, the LCU circuit with `d_σ(δ)` signed steps has exactly this success block,
   and the degree obeys the bound above.
+
+Notation: the regularization parameter is `σ` here and `ξ` in the manuscript, so a subscript `σ` (as
+in `g_σ`, `r_σ`, `H_{σ,r}`) stands for the manuscript's subscript `ξ`.
 -/
 
 namespace ChebyshevFilter

@@ -6,7 +6,7 @@ set_option autoImplicit false
 # The pair observable of two marked elements
 
 The reduction of the lower half of corollary `hs:cor:unitary` of the manuscript
-(lines 1711-1718: `U_m |0⟩ = |m⟩`, so a constant-error implementation solves
+(`U_m |0⟩ = |m⟩`, so a constant-error implementation solves
 unstructured search) distinguishes the outputs of two instances `m ≠ m'` with
 the system observable `D_{m,m'} = |m⟩⟨m| - |m'⟩⟨m'|` on `ℂ^N`
 (`pairObs`). It is self-adjoint (`isSelfAdjoint_pairObs`), a contraction

@@ -9,10 +9,10 @@ set_option autoImplicit false
 /-!
 # Eq. `odel:eq:fixed` and its consequence for single heralded programs
 
-Manuscript lines 4692-4701: "At fixed positive `s, τ, ḡ`, this gives
+Manuscript: eq. `odel:eq:fixed` and the next sentence, "At fixed positive `s, τ, ḡ`, this gives
 `Q_A = O(log(1/ε)/log log(1/ε))` (`ε → 0`). Consequently a uniform worst-case lower bound
 proportional to `ḡ √s τ log(ḡ/ε)` is false under these access assumptions: fixing any admissible
-positive `s, τ, ḡ` makes the auxiliary upper bound sublinear in `log(1/ε)`."
+positive `s, τ, ḡ` makes this comparison upper bound sublinear in `log(1/ε)`."
 
 In the single-program class of the ODE lower bounds (`SparseLowerBounds.ODE.Solver`,
 `Family.Forces`, `Family.Witnesses`), with the single heralded Dyson program of `solver_dyson`:
@@ -47,10 +47,10 @@ noncomputable section
 open SparseHamiltonian SparseLowerBounds SparseLowerBounds.ODE
 open ODELowerBoundExtensions.Dyson (dysonBound)
 
-/-- **Eq. `odel:eq:fixed` for single heralded programs** (lines 4692-4697): at fixed `s`, `τ > 0`
-and `ḡ ≥ 1` there are `C` and `ε₀ ∈ (0, 1)` such that for every `ε ≤ ε₀`, uniformly in `η > 0`,
-every family of the class `InClass η ḡ` with `T η = τ` has a single-program solver over its own
-access with at most `C log(1/ε)/log log(1/ε)` calls. -/
+/-- **Eq. `odel:eq:fixed` for single heralded programs**: at fixed `s`, `τ > 0` and `ḡ ≥ 1` there
+are `C` and `ε₀ ∈ (0, 1)` such that
+for every `ε ≤ ε₀`, uniformly in `η > 0`, every family of the class `InClass η ḡ` with `T η = τ` has
+a single-program solver over its own access with at most `C log(1/ε)/log log(1/ε)` calls. -/
 theorem solver_fixed (s : ℕ) (τ gbar : ℝ) (hτ : 0 < τ) (hg : 1 ≤ gbar) :
     ∃ C ε₀ : ℝ, 0 < ε₀ ∧ ε₀ < 1 ∧ ∀ ε, 0 < ε → ε ≤ ε₀ → ∀ η : ℝ, 0 < η →
       ∀ {X N Z : Type} [Fintype N] [DecidableEq N] [Fintype Z] [AddCommGroup Z] {K : ℕ}
@@ -73,10 +73,10 @@ theorem solver_fixed (s : ℕ) (τ gbar : ℝ) (hτ : 0 < τ) (hg : 1 ≤ gbar) 
     rw [hz] at hA
     exact ⟨ι, hι, G, i1, i2, i3, A, hA.trans (hC ε hε hεle)⟩
 
-/-- **Single heralded programs beat `c ḡ √s τ log(ḡ/ε)`** (lines 4698-4701): at fixed `s`,
-`τ > 0`, `ḡ ≥ 1` and every `c > 0`, for all sufficiently small `ε` (threshold independent of
-`η`), every family of the class `InClass η ḡ` with `T η = τ`, for every `η > 0`, has a
-single-program solver with fewer than `c ḡ √s τ log(ḡ/ε)` calls. -/
+/-- **Single heralded programs beat `c ḡ √s τ log(ḡ/ε)`** (the text after eq. `odel:eq:fixed`):
+at fixed `s`, `τ > 0`, `ḡ ≥ 1` and every `c > 0`, for all sufficiently small
+`ε` (threshold independent of `η`), every family of the class `InClass η ḡ` with `T η = τ`, for
+every `η > 0`, has a single-program solver with fewer than `c ḡ √s τ log(ḡ/ε)` calls. -/
 theorem no_uniform_lower_bound (s : ℕ) (τ gbar c : ℝ) (hτ : 0 < τ) (hg : 1 ≤ gbar)
     (hc : 0 < c) :
     ∃ ε₀ : ℝ, 0 < ε₀ ∧ ∀ ε, 0 < ε → ε ≤ ε₀ → ∀ η : ℝ, 0 < η →
@@ -100,9 +100,9 @@ theorem no_uniform_lower_bound (s : ℕ) (τ gbar c : ℝ) (hτ : 0 < τ) (hg : 
     rw [hz] at hA
     exact ⟨ι, hι, G, i1, i2, i3, A, hA.trans_lt (h₁ ε hε (hεle.trans (min_le_left _ _)))⟩
 
-/-- **No uniform `ḡ √s τ log(ḡ/ε)` lower bound for single heralded programs** (lines
-4698-4701): for fixed `s`, `τ > 0`, `ḡ ≥ 1` and every `c > 0`, for all sufficiently small `ε` no
-family witnesses the bound `c ḡ √s τ log(ḡ/ε)` (`Family.Witnesses`). -/
+/-- **No uniform `ḡ √s τ log(ḡ/ε)` lower bound for single heralded programs** (the text after
+eq. `odel:eq:fixed`): for fixed `s`, `τ > 0`, `ḡ ≥ 1` and every `c > 0`, for all
+sufficiently small `ε` no family witnesses the bound `c ḡ √s τ log(ḡ/ε)` (`Family.Witnesses`). -/
 theorem no_witnesses (s : ℕ) (τ gbar c : ℝ) (hτ : 0 < τ) (hg : 1 ≤ gbar) (hc : 0 < c) :
     ∃ ε₀ : ℝ, 0 < ε₀ ∧ ∀ ε, 0 < ε → ε ≤ ε₀ →
       ∀ {X N Z : Type} [Fintype N] [DecidableEq N] [Fintype Z] [AddCommGroup Z] {K : ℕ}
@@ -116,11 +116,12 @@ theorem no_witnesses (s : ℕ) (τ gbar c : ℝ) (hτ : 0 < τ) (hg : 1 ≤ gbar
   have hb := (hW.forces ι G A).2
   linarith
 
-/-- **No uniform `ḡ √s τ log(ḡ/ε)` lower bound for adaptive protocols** (lines 4698-4701): for
-fixed `s`, `τ > 0`, `ḡ ≥ 1` and every `c > 0`, for all sufficiently small `ε` no family
-tree-witnesses the bound `c ḡ √s τ log(ḡ/ε)` (`AdaptiveODELowerBound.Model.TreeWitnesses`: in the
-class with `η = 1`, `T = τ`, `g ≤ ḡ`, and every adaptive protocol over `F.access ι` and over its
-call forms `Access.callFamily (F.access ι)` needs that many queries); a tree witness is a witness
+/-- **No uniform `ḡ √s τ log(ḡ/ε)` lower bound for adaptive protocols** (the text after eq.
+`odel:eq:fixed`): for fixed `s`, `τ > 0`, `ḡ ≥ 1` and every `c > 0`, for all
+sufficiently small `ε` no family tree-witnesses the bound `c ḡ √s τ log(ḡ/ε)`
+(`AdaptiveODELowerBound.Model.TreeWitnesses`: in the class with `η = 1`, `T = τ`, `g ≤ ḡ`, and every
+adaptive protocol over `F.access ι` and over its call forms `Access.callFamily (F.access ι)` needs
+that many queries); a tree witness is a witness
 (`AdaptiveODELowerBound.Model.treeWitnesses_witnesses`). The statement also follows from
 `ODELowerBoundExtensions.Dyson.no_retry_witnesses` and
 `AdaptiveODELowerBound.Model.treeWitnesses_retryWitnesses`. -/

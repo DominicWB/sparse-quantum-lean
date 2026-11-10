@@ -3,16 +3,19 @@ import SparseLowerBounds.Hamiltonian.Theorem
 /-!
 # Padding the hard Hamiltonian-simulation families to a common dimension
 
-This file formalises the remark that follows Theorem `hsl:thm:main` (the Hamiltonian-simulation
-query lower bound) of *Root-sparsity scaling for Hamiltonian simulation, differential equations
-and linear-system solvers* (manuscript `sparse_quantum_algorithms.tex`, Part `hsl`):
+This file formalises the padding claims of Theorem `hsl:thm:main` (the Hamiltonian-simulation query
+lower bound) of *Root-sparsity scaling for Hamiltonian simulation, differential equations and
+linear-system solvers* (Section `part:hsl`): the remark that follows the theorem,
 
-> The three terms can be witnessed by different families. The theorem is a worst-case
-> statement: the maximum of three lower bounds is at least one third of their sum. Their
-> dimensions can be padded to a common known size without affecting their hardness.
+> We need not find one matrix on which all three mechanisms are simultaneously difficult. An
+> algorithm that works on the whole promise class must work on each of our three families. Its
+> worst-case query count is consequently at least the largest of their separate lower bounds. For
+> three nonnegative numbers, that maximum is at least one third of their sum, which is enough for
+> the stated joint bound.
 
-together with the last clause of the theorem, "A dimension `O(s(τ+r+1))` suffices, with further
-known padding allowed". The theorem is `SparseLowerBounds.Hamiltonian.main_max` (max form),
+the last clause of the theorem, "Dimension `O(s(τ+r+1))` suffices, with further known padding
+allowed", and the end of its proof, "Further known zero padding equalises dimensions or accommodates
+a qubit register". The theorem is `SparseLowerBounds.Hamiltonian.main_max` (max form),
 assembled from the per-family bounds `time_main`, `mixed_main` and `precision_main` for the
 families `timeData`, `mixedMainData` and `precisionMainData` on the index types
 `SearchIndex (timeN τ) (hsMu s) s`, `SearchIndex (precN τ ε) (hsMu s) s` and
@@ -74,7 +77,8 @@ system `ℂ^{N ⊕ P}` ⊗ garbage and is `ε`-accurate (`Readout.Accurate`) for
 
 ## Worst case and one common dimension
 
-* `third_sum_le_max`: the maximum of three lower bounds is at least one third of their sum.
+* `third_sum_le_max`: the maximum of three nonnegative lower bounds is at least a third of their
+  sum.
 * `PadTo S Nd = Fin (Nd - |S|)` pads an index type `S` to dimension exactly `Nd` when `|S| ≤ Nd`
   (`card_padTo`); every `Nd ≥ 4 s (τ + r + 1)` is at least the dimension of each family
   (`card_le_of_dim`).
@@ -845,8 +849,8 @@ theorem precision_main_pad (h : HSRange τ s ε) (hL : 64 * τ ≤ hsL ε) (Ω :
   have hrb := rbound h hL
   exact ⟨hrb.trans hP.1, hrb.trans hP.2, fun hs' => (failedmix h hL hs').trans hP.1⟩
 
-/-- **"The maximum of three lower bounds is at least one third of their sum"** (the remark after
-Theorem `hsl:thm:main`): if `A ≤ Q_T`, `B ≤ Q_M` and `C ≤ Q_P`, then
+/-- **"For three nonnegative numbers, that maximum is at least one third of their sum"** (the remark
+after Theorem `hsl:thm:main`): if `A ≤ Q_T`, `B ≤ Q_M` and `C ≤ Q_P`, then
 `(A + B + C)/3 ≤ max(Q_T, Q_M, Q_P)`. The three terms of eq. `hsl:eq:main` are witnessed by
 different families; this is the step that combines them (`assembly` is its quantitative form). -/
 theorem third_sum_le_max {A B C QT QM QP : ℝ} (hA : A ≤ QT) (hB : B ≤ QM) (hC : C ≤ QP) :
@@ -925,12 +929,12 @@ theorem card_le_of_dim (h : HSRange τ s ε) {Nd : ℕ} (hNd : 4 * s * (τ + hsR
 -- The nested spectator spaces over the search index exceed the default instance size.
 set_option synthInstance.maxSize 1024
 
-/-- **The three families in one common dimension** (the remark after Theorem `hsl:thm:main`).
-Let `Nd` be at least the dimension of each family (for instance any `Nd ≥ 4 s (τ + r + 1)`,
-`card_le_of_dim`), and pad family `X` by `PadTo N_X Nd = Fin (Nd - |N_X|)`. Then all three
-padded index types have exactly `Nd` elements, and for any three algorithms (spectator form),
-accurate for the padded targets of the time, mixed and precision families respectively,
-`c₀ (√s τ + √(sτr) + r) ≤ max(Q_T, Q_M, Q_P)`. -/
+/-- **The three families in one common dimension** (the last clause of Theorem `hsl:thm:main` and
+the end of its proof). Let `Nd` be at least the dimension of each family (for instance any
+`Nd ≥ 4 s (τ + r + 1)`, `card_le_of_dim`), and pad family `X` by `PadTo N_X Nd = Fin (Nd - |N_X|)`.
+Then all three padded index types have exactly `Nd` elements, and for any three algorithms
+(spectator form), accurate for the padded targets of the time, mixed and precision families
+respectively, `c₀ (√s τ + √(sτr) + r) ≤ max(Q_T, Q_M, Q_P)`. -/
 theorem main_max_common_dimension (h : HSRange τ s ε) (Nd : ℕ)
     (hT : Fintype.card (SearchIndex (timeN τ) (hsMu s) s) ≤ Nd)
     (hM : Fintype.card (SearchIndex (precN τ ε) (hsMu s) s) ≤ Nd)
@@ -1023,7 +1027,7 @@ theorem main_exists_pad (h : HSRange τ s ε) (PT PM PP : Type*) [Fintype PT] [D
   rw [mainBound] at this
   linarith
 
-/-- **The worst case in one common dimension** (the remark after Theorem `hsl:thm:main`, family
+/-- **The worst case in one common dimension** (the last clause of Theorem `hsl:thm:main`, family
 form): for every `Nd` at least the dimension of each family (e.g. `Nd ≥ 4 s (τ + r + 1)`,
 `card_le_of_dim`), the three families padded by `PadTo N_X Nd` all have dimension exactly `Nd`,
 and one of them forces every accurate algorithm to make at least `c₀ (√s τ + √(sτr) + r)` value

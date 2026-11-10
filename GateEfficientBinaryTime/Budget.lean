@@ -32,21 +32,20 @@ open scoped InnerProduct
 
 universe u v w
 
-/-- **The budget of the time-dependent binary construction** (Theorem `hs:thm:gates`,
-time-dependent part, before finite-set synthesis, with the rescaled sparse parameters of
+/-- **The budget of the time-dependent binary construction** (Theorem `hs:thm:time` with the circuit
+of `hs:thm:gates`, before finite-set synthesis, with the rescaled sparse parameters of
 `hs:thm:time`). For `s ≥ 1` slots, a time `t ≥ 0` and `0 < ε ≤ 1`, put
-`q = √s t + √(s t log(2/ε)) + log(2/ε)`. There is one rescaling `γ ∈ (0, 1]` with `γ √s ≥ 1`,
-chosen from `s`, `t` and `ε` before the data, the input and the path, whose filter degree is
-`d ≤ 4608 q`, such that for all time-indexed binary sparse data with `s = 2^σ` slots and `2^m`
-time slots, every input with Hermitian samples of row and column norms at most one, every
-Hermitian `β`-Lipschitz path within `δ` of the samples with `8 t δ ≤ ε`, the mesh conditions
-`steps τ' (ε/12) ≤ 2^m` and `8 β t² ≤ ε 2^m` (`τ' = √s t/γ`), and every arithmetic accuracy
-`0 < ζ ≤ 1` with `221184 q ζ ≤ ε`, the circuit `binaryTimeSim` makes at most `55296 q` times `2`
-row-location, `2` column-location and `1` value calls, uses at most
-`200 (4608 q + 1) (G_C + (σ + 1) + (k + 1) + m + r + 1)` elementary gates with
-`G_C = privGates` of the time-indexed compute circuit and the CORDIC arithmetic and
-`2^r ≤ 4 (4608 q + 1)`, the propagator of the lifted path exists, and the full output is within
-`ε` of `U(t)` for every propagator `U` of the lifted path. -/
+`q = √s t + √(s t log(2/ε)) + log(2/ε)`. There is one rescaling `γ ∈ (0, 1]` with `γ √s ≥ 1`, chosen
+from `s`, `t` and `ε` before the data, the input and the path, whose filter degree is `d ≤ 4608 q`,
+such that for all time-indexed binary sparse data with `s = 2^σ` slots and `2^m` time slots, every
+input with Hermitian samples of row and column norms at most one, every Hermitian `β`-Lipschitz path
+within `δ` of the samples with `8 t δ ≤ ε`, the mesh conditions `steps τ' (ε/12) ≤ 2^m` and
+`8 β t² ≤ ε 2^m` (`τ' = √s t/γ`), and every arithmetic accuracy `0 < ζ ≤ 1` with `221184 q ζ ≤ ε`,
+the circuit `binaryTimeSim` makes at most `55296 q` times `2` row-location, `2` column-location and
+`1` value calls, uses at most `200 (4608 q + 1) (G_C + (σ + 1) + (k + 1) + m + r + 1)` elementary
+gates with `G_C = privGates` of the time-indexed compute circuit and the CORDIC arithmetic and
+`2^r ≤ 4 (4608 q + 1)`, the propagator of the lifted path exists, and the full output is within `ε`
+of `U(t)` for every propagator `U` of the lifted path. -/
 theorem binary_time_simulation_budget (s : ℕ) (hs1 : 1 ≤ s) (t ε : ℝ) (ht : 0 ≤ t)
     (hε : 0 < ε) (hε1 : ε ≤ 1) :
     ∃ γ : ℝ, 0 < γ ∧ γ ≤ 1 ∧ 1 ≤ γ * Real.sqrt s ∧

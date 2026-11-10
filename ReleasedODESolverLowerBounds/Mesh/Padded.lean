@@ -7,13 +7,12 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # Padded forms of the ODE lower bounds for measured solvers over the general-mesh physical oracle
 
-Manuscript Section `odel:sec:main`, lines 3669-3681 ("The lower bounds thus apply to Theorems
-`ode:thm:main` and `ode:thm:time`"), with measurements inside a run (lines 2363-2364): the
-padding claims of the proof of Theorem `odel:thm:joint` (lines 3899-3904: an unoccupied known
-block gives maximum sparsity exactly `s`; "Known zero padding permits any sufficiently large
-qubit register") and of the proof of Theorem `odel:thm:combined` (lines 4005-4006, "Pad
-dimensions to a common known size if desired"), over the physical oracle of the released
-general-mesh solver of Theorem `ode:thm:time` (line 2879) and over its call forms.
+Manuscript Section `odel:sec:main` ("the lower bounds apply to the upper bounds of the preceding
+section"), with measurements inside a run (proof of Lemma `hsl:lem:precision`): the padding claims
+of the proof of Theorem `odel:thm:joint` (an unoccupied known block gives maximum sparsity exactly
+`s`; "Known zero padding permits any sufficiently large qubit register") and of the proof of Theorem
+`odel:thm:combined` ("Pad dimensions to a common known size if desired"), over the physical oracle
+of the released general-mesh solver of Theorem `ode:thm:time` and over its call forms.
 
 Every statement is the corresponding statement of `PhysicalODELowerBound.Mesh` (`JointPad`,
 `HeraldPad`, `Combined`) with `MeasuredMeshWitnesses` in place of `MeshWitnesses`

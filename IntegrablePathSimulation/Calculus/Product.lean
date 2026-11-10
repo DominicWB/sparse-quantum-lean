@@ -5,12 +5,11 @@ set_option autoImplicit false
 /-!
 # The product rule for integral equations
 
-If `F s = F a + ∫_a^s f` and `G s = G a + ∫_a^s g` on `[a, b]`, with `f` and `g` interval
-integrable and values in a complete normed `ℝ`-algebra, then
-`F s G s = F a G a + ∫_a^s (f G + F g)` on `[a, b]` (`mul_eq_add_integral`). This is the
-product rule for absolutely continuous functions, in the form used for propagators of
-integrable paths (the paragraph after Theorem `hs:thm:time` of the manuscript, lines
-1618-1632): the unitary Duhamel formula and the unitarity of the propagator follow from it.
+If `F s = F a + ∫_a^s f` and `G s = G a + ∫_a^s g` on `[a, b]`, with `f` and `g` interval integrable
+and values in a complete normed `ℝ`-algebra, then `F s G s = F a G a + ∫_a^s (f G + F g)` on
+`[a, b]` (`mul_eq_add_integral`). This is the product rule for absolutely continuous functions, in
+the form used for propagators of integrable paths (the paragraph after Theorem `hs:thm:time` of the
+manuscript): the unitary Duhamel formula and the unitarity of the propagator follow from it.
 
 For real functions it gives the power identity
 `∫_a^s k(u) K(u)^n du = K(s)^{n+1} / (n + 1)`, `K(s) = ∫_a^s k`

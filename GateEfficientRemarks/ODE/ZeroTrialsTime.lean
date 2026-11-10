@@ -3,6 +3,10 @@ import GateEfficientRemarks.ODE.ZeroBudgetTime
 /-!
 # Zero time or a known zero generator over a finite gate set, time-dependent coefficients
 
+The finite-gate-set forms of Theorem `ode:thm:gates` in this module are a partial formalisation of
+its finite-set statement, under this package's format hypotheses: the manuscript states Theorem
+`ode:thm:gates` over a finite gate set; the conformance endpoints count native gates.
+
 The finite-gate-set form of `binary_ode_time_budget_bits_zero` (equations `ode:eq:gate-main` and
 `ode:eq:gate-space` of Theorem `ode:thm:gates`, time-dependent part, with its remark on zero time
 and a known zero generator) with the per-trial claim (only the preparation synthesised,
@@ -45,7 +49,8 @@ variable {Xa : Type*} [Fintype Xa] [DecidableEq Xa] {𝒢 : Set Kind} {len : ℝ
 
 /-- **Equations `ode:eq:gate-main` and `ode:eq:gate-space` in `𝔟` over a finite gate set, with
 the per-trial claim, for zero time or a known zero generator, time-dependent coefficients**
-(Theorem `ode:thm:gates`, time-dependent part, with its remark).
+(partial formalisation, under this package's format hypotheses, of the finite-set statement of
+Theorem `ode:thm:gates`, time-dependent part, with its remark).
 
 Under the synthesis hypotheses of `binary_ode_budget_trials_bits_zero`, for time-indexed binary
 public data with `BTPublicOK0 q` in the zero case, valid loading and weight-preparation circuits

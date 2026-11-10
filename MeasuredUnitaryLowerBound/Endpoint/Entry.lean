@@ -6,12 +6,12 @@ set_option autoImplicit false
 /-!
 # Entry-call counts at trace-distance error `1/2`
 
-The trace-distance form of the endpoint `ε = 1/2`
-of the error range `0 < ε ≤ 1/2` of Corollary `hs:cor:unitary` of the
-manuscript (lines 1647-1666), for adaptive protocols whose only oracle is the released entry
-oracle of the search family (`AdaptiveUnitaryLowerBound.Entry.entryOracles`), with plain calls
-or with the four call forms (`AdaptiveODELowerBound.Access.callFamily`, line 2080: "with
-inverses and coherent controls"); the cost is the number of entry calls in the worst case.
+The trace-distance form of the endpoint `ε = 1/2` of the error range `0 < ε ≤ 1/2` of Corollary
+`hs:cor:unitary` of the manuscript, for adaptive protocols whose only oracle is the released entry
+oracle of the search family (`AdaptiveUnitaryLowerBound.Entry.entryOracles`), with plain calls or
+with the four call forms (`AdaptiveODELowerBound.Access.callFamily`, Section `hsl:sec:main`: with
+inverses and the controls of Lemma `access:lem:control`); the cost is the number of entry calls in
+the worst case.
 
 * `unheralded_tree_half`, `unheralded_calls_tree_half`: success probability one,
   `(N - 2)² ≤ 16 (N - 1) √(N - 1) Q`;

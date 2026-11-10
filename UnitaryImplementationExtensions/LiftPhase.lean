@@ -7,7 +7,7 @@ set_option autoImplicit false
 /-!
 # The released entry oracle of one-bit data is a Boolean phase oracle
 
-Corollary `hs:cor:unitary` of the manuscript (line 1837: the entry oracle of
+Corollary `hs:cor:unitary` of the manuscript (the entry oracle of
 the search family uses one query to the search oracle). The entry oracle of the
 unitary-implementation corollary,
 `SparseHamiltonian.UnitaryEntryOracle.oracle D γ η t ε x`, is one ordinary

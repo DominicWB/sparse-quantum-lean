@@ -24,12 +24,12 @@ Each audit fixes the exact axiom report of its declaration and fails to compile
 if the declaration depends on any other axiom. Every report lists `propext`,
 `Classical.choice` and `Quot.sound`. The audits cover every theorem of the library
 of the gate-level time-dependent theorems under integrated sample-error certificates and
-on nonuniform meshes (98 theorems, in module order), beginning with Theorem `hs:thm:gates`
-(time-dependent part) under the integrated certificate (`time_simulation_certified`) and on a
+on nonuniform meshes (98 theorems, in module order), beginning with Theorem `hs:thm:time` with the circuit of
+`hs:thm:gates` under the integrated certificate (`time_simulation_certified`) and on a
 nonuniform mesh (`time_simulation_mesh`).
 -/
 
-/-! ### Theorem `hs:thm:gates`, time-dependent part, exact gates: slots, certificates, meshes -/
+/-! ### Theorem `hs:thm:time` with the circuit of `hs:thm:gates`, exact gates: slots, certificates, meshes -/
 
 /-- info: 'SparseHamiltonian.GateMesh.time_simulation_certified' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
@@ -107,7 +107,7 @@ nonuniform mesh (`time_simulation_mesh`).
 #guard_msgs (whitespace := lax) in
 #print axioms SparseHamiltonian.GateMesh.time_simulation_lipschitz
 
-/-! ### Theorem `hs:thm:gates`, time-dependent part, native gates -/
+/-! ### Theorem `hs:thm:time` with the circuit of `hs:thm:gates`, native gates -/
 
 /-- info: 'SparseHamiltonian.GateMesh.native_slot_bounds' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
@@ -121,7 +121,7 @@ nonuniform mesh (`time_simulation_mesh`).
 #guard_msgs (whitespace := lax) in
 #print axioms SparseHamiltonian.GateMesh.native_time_simulation_mesh
 
-/-! ### Theorem `hs:thm:gates`, time-dependent part, binary sparse data -/
+/-! ### Theorem `hs:thm:time` with the circuit of `hs:thm:gates`, binary sparse data -/
 
 /-- info: 'SparseHamiltonian.GateMesh.intervalIntegrable_map' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
@@ -191,7 +191,7 @@ nonuniform mesh (`time_simulation_mesh`).
 #guard_msgs (whitespace := lax) in
 #print axioms SparseHamiltonian.GateMesh.binary_time_simulation_budget_mesh
 
-/-! ### Theorem `hs:thm:gates`, time-dependent part, over a finite gate set -/
+/-! ### Theorem `hs:thm:time` with the circuit of `hs:thm:gates`, over a finite gate set -/
 
 /-- info: 'SparseHamiltonian.GateMesh.native_time_simulation_certified_synth' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
@@ -351,7 +351,8 @@ nonuniform mesh (`time_simulation_mesh`).
 #guard_msgs (whitespace := lax) in
 #print axioms SparseHamiltonian.GateMesh.ODE.binary_ode_time_solver_mesh
 
-/-! ### Theorem `ode:thm:gates`, time-dependent part, over a finite gate set -/
+/-! ### Theorem `ode:thm:gates`, time-dependent part, over a finite gate set (partial formalisation,
+under this package's format hypotheses, of its finite-set statement) -/
 
 /-- info: 'SparseHamiltonian.GateMesh.ODE.native_ode_time_solver_certified_synth' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
@@ -397,7 +398,7 @@ nonuniform mesh (`time_simulation_mesh`).
 #guard_msgs (whitespace := lax) in
 #print axioms SparseHamiltonian.GateMesh.ODE.binary_ode_time_budget_mesh_trials
 
-/-! ### Theorems `hs:thm:gates` and `ode:thm:gates`, time-dependent parts: non-vacuity -/
+/-! ### Theorem `hs:thm:time` with the circuit of `hs:thm:gates`, and the time-dependent part of Theorem `ode:thm:gates`: non-vacuity -/
 
 /-- info: 'SparseHamiltonian.GateMesh.time_simulation_mesh_piecewise_constant' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in

@@ -6,9 +6,9 @@ section
 /-!
 # The three family bounds for the release's native primitives
 
-Manuscript lines 2283-2289 (two Boolean queries per value call, location calls
-free), 2308-2338 (Lemma `hsl:lem:mixed`), 2348-2365 (Lemma
-`hsl:lem:precision`) and 2372-2409 (eq. `hsl:eq:timelower`), for programs over
+Manuscript: the chain construction of Section `part:hsl` (two Boolean queries per value call,
+location calls free), Lemmas `hsl:lem:mixed`, `hsl:lem:precision` and `hsl:lem:time`
+(eq. `hsl:eq:timelower`), for programs over
 the release's native primitives of the hard data
 (`NativeSparseBlockEncoding.oracles`: in-place row and column location oracles
 and the value oracle, inverses included), without or with an untouched
@@ -68,8 +68,8 @@ abbrev scalarSpecBoolean (Ω : Type*) [Fintype Ω] (n s : ℕ) (τ : ℝ) :=
 variable {n μ s : ℕ} {a τ ε : ℝ}
 
 /-- The native primitives of the search data are `hardCost`-query programs over
-`oneHotOracle (searchBoolean …)` (lines 2283-2289): `implementsOn_bitData` with
-`y = oneHotBits`, whose phase oracle is `oneHotOracle` by definition. -/
+`oneHotOracle (searchBoolean …)` (the chain construction of Section `part:hsl`):
+`implementsOn_bitData` with `y = oneHotBits`, whose phase oracle is `oneHotOracle` by definition. -/
 theorem implementsOn_searchData (hμ : 1 ≤ μ) (hs : 2 * 2 ^ μ ≤ s) (l : Query) :
     EncodedOracle.ImplementsOn (oneHotOracle (searchBoolean n μ s a τ))
       (oracles (searchData n μ s a τ hμ hs) l) (ancillaEmbed (SearchSpace n μ s a τ))
@@ -85,8 +85,8 @@ theorem implementsOn_searchData_spec (Ω : Type*) [Fintype Ω] (hμ : 1 ≤ μ) 
   implementsOn_bitData_spec Ω _ _ _ _ _ _ _ _ _ _ l
 
 /-- The native primitives of the scalar data are `hardCost`-query programs over
-`bitOracle (scalarBoolean …)` (lines 2283-2289): `implementsOn_bitData` with
-`y x = x`, whose phase oracle is `bitOracle` by definition. -/
+`bitOracle (scalarBoolean …)` (the chain construction of Section `part:hsl`): `implementsOn_bitData`
+with `y x = x`, whose phase oracle is `bitOracle` by definition. -/
 theorem implementsOn_scalarData (hs : 2 ≤ s) (l : Query) :
     EncodedOracle.ImplementsOn (bitOracle (scalarBoolean n s τ))
       (oracles (scalarData n s τ hs) l) (ancillaEmbed (ScalarSpace n s τ)) (hardCost l) :=
@@ -101,9 +101,9 @@ theorem implementsOn_scalarData_spec (Ω : Type*) [Fintype Ω] (hs : 2 ≤ s) (l
 
 /-! ### From Boolean cost to value queries -/
 
-/-- **Two Boolean queries per value call** (lines 2283-2289): a Boolean-cost
-bound `2 b ≤ p.cost hardCost` is a bound `b` on the number of value queries,
-and hence on the total count (`cost_hardCost`, `labelCount_le_count`). -/
+/-- **Two Boolean queries per value call** (the chain construction of Section `part:hsl`): a
+Boolean-cost bound `2 b ≤ p.cost hardCost` is a bound `b` on the number of value queries, and hence
+on the total count (`cost_hardCost`, `labelCount_le_count`). -/
 theorem native_bound_of_cost {X W : Type*} [NormedAddCommGroup W] [InnerProductSpace ℂ W]
     [CompleteSpace W] {O : Query → X → W →L[ℂ] W} (p : MultiOracleCircuit.Program O) {b : ℝ}
     (h : 2 * b ≤ p.cost hardCost) : b ≤ p.labelCount .value ∧ b ≤ p.count := by
@@ -117,7 +117,7 @@ variable {G : Type*} [NormedAddCommGroup G] [InnerProductSpace ℂ G] [CompleteS
 
 /-! ### Time family (eq. `hsl:eq:timelower`) -/
 
-/-- **The time lower bound** (lines 2372-2409) for the native primitives of the
+/-- **The time lower bound** (Lemma `hsl:lem:time`) for the native primitives of the
 time family: an `ε`-accurate algorithm (`ε ≤ 1/64`) makes at least
 `c_T √s τ` value queries, `c_T = log 2/(192π)`. -/
 theorem time_native (hτ : 1 ≤ τ) (hs : 32 ≤ s) (hε : ε ≤ 1 / 64)
@@ -152,7 +152,7 @@ theorem time_spec (Ω : Type*) [Fintype Ω] (hτ : 1 ≤ τ) (hs : 32 ≤ s) (h�
 
 /-! ### Mixed family (Lemma `hsl:lem:mixed`) -/
 
-/-- **Lemma `hsl:lem:mixed`** (lines 2308-2338) for the native primitives: for
+/-- **Lemma `hsl:lem:mixed`** (Lemma `hsl:lem:mixed`) for the native primitives: for
 `n ≥ 2`, `0 < τ ≤ n`, `m = 2^μ ≥ 16n/τ`, `2m ≤ s` and
 `ε ≤ (τ/(2n))^n/8`, an `ε`-accurate algorithm makes at least
 `(log 2/96) √(m n τ)` value queries (eq. `hsl:eq:mixedlower`). -/
@@ -189,7 +189,7 @@ theorem mixed_spec (Ω : Type*) [Fintype Ω] (hn : 2 ≤ n) (hτ : 0 < τ) (hτn
 
 /-! ### Precision family (Lemma `hsl:lem:precision`) -/
 
-/-- **Lemma `hsl:lem:precision`** (lines 2348-2365) for the native primitives:
+/-- **Lemma `hsl:lem:precision`** (Lemma `hsl:lem:precision`) for the native primitives:
 for `n ≥ 1`, `0 < τ ≤ n`, `2 ≤ s` and `ε ≤ (τ/(2n))^n/8`, an `ε`-accurate
 algorithm on the signed scalar family makes at least `n/4` value queries
 (eq. `hsl:eq:precisionlower`). No seed or readout norm hypothesis is needed. -/

@@ -3,17 +3,17 @@ import GateEfficientQuadrature.Energy
 /-!
 # The source certificate of the left-endpoint quadrature
 
-The proof of Theorem `ode:thm:gates` specifies "a sufficient positive quadrature for
-time-dependent forcing" (manuscript lines 4857-4874 of v20): if `‖b(v)‖ ≤ b_*` and
-`Lip(b) ≤ L_b`, put `C_b = Λ_A b_* + L_b`; "contractivity gives Lipschitz constant at most `C_b`
-for `v ↦ U(T, v) b(v)`", and "a power-of-two left-endpoint mesh with
-`m ≥ max{1, T² C_b / (2 ν B)}` has vector quadrature error at most `ν B`", which follows from the
-bound `T² C_b / (2m)` for `m` nodes. With the propagator `U` of the dissipative equation (not a Lean
-object here) the vector quadrature error is the first source certificate of
-`ode:eq:gate-source-certificates`, `‖x(T) - U(T, 0) x₀ - ∑_i (T/m) U(T, v_i) b(v_i)‖`, by the
-Duhamel formula. This module proves both statements with the propagator written through
-solutions of the homogeneous equation, and proves the certificate directly, by a telescoping
-energy estimate, without the Duhamel formula:
+The proof of Theorem `ode:thm:gates` specifies "a sufficient positive quadrature for time-dependent
+forcing": if `‖b(v)‖ ≤ b_*` and `Lip(b) ≤ L_b`, "contractivity and `‖A(v)‖ ≤ √s (η_D + η_H)` give
+Lipschitz bound `√s (η_D + η_H) b_* + L_b` for `v ↦ U(T, v) b(v)`" (below `Λ_A = √s (η_D + η_H)` and
+`C_b = Λ_A b_* + L_b`), and "a power-of-two left-endpoint mesh with
+`m ≥ max{1, T² [√s (η_D + η_H) b_* + L_b] / (2 ν B)}` has vector quadrature error at most `ν B`"
+(that is, `m ≥ max{1, T² C_b / (2 ν B)}`), which follows from the bound `T² C_b / (2m)` for `m`
+nodes. With the propagator `U` of the dissipative equation (not a Lean object here) the vector
+quadrature error is the first source certificate of `ode:eq:gate-source-certificates`,
+`‖x(T) - U(T, 0) x₀ - ∑_i (T/m) U(T, v_i) b(v_i)‖`, by the Duhamel formula. This module proves both
+statements with the propagator written through solutions of the homogeneous equation, and proves the
+certificate directly, by a telescoping energy estimate, without the Duhamel formula:
 
 * `flow_lipschitz`: for solutions `Y`, `Y'` of `y' = -G(u) y` from `v ≤ v'` with `Y(v) = b(v)`,
   `Y'(v') = b(v')`, `‖Y(T) - Y'(T)‖ ≤ (Λ b_* + L) (v' - v)` (the Lipschitz bound of
@@ -39,10 +39,11 @@ open scoped InnerProduct BigOperators
 
 variable {V : Type*} [NormedAddCommGroup V] [InnerProductSpace ℂ V]
 
-/-- **The flow of the forcing is Lipschitz** (the paper's "contractivity gives Lipschitz
-constant at most `C_b` for `v ↦ U(T, v) b(v)`"). For an accretive generator with `‖G(u)‖ ≤ Λ`,
-an `L`-Lipschitz forcing bounded by `b_*` on `[0, T]` and solutions `Y`, `Y'` of `y' = -G(u) y` on
-`[v, T]` and `[v', T]` with `Y(v) = b(v)` and `Y'(v') = b(v')`,
+/-- **The flow of the forcing is Lipschitz** (the paper's "contractivity and
+`‖A(v)‖ ≤ √s (η_D + η_H)` give Lipschitz bound `√s (η_D + η_H) b_* + L_b` for `v ↦ U(T, v) b(v)`",
+with any bound `Λ` of the generator in place of `√s (η_D + η_H)`). For an accretive generator with
+`‖G(u)‖ ≤ Λ`, an `L`-Lipschitz forcing bounded by `b_*` on `[0, T]` and solutions `Y`, `Y'` of
+`y' = -G(u) y` on `[v, T]` and `[v', T]` with `Y(v) = b(v)` and `Y'(v') = b(v')`,
 `‖Y(T) - Y'(T)‖ ≤ (Λ b_* + L)(v' - v)`. -/
 theorem flow_lipschitz {G : ℝ → V →L[ℂ] V} {b Y Y' : ℝ → V} {T Λ L bs v v' : ℝ}
     (hv : 0 ≤ v) (hvv : v ≤ v') (hv'T : v' ≤ T)

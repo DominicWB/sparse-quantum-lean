@@ -7,6 +7,7 @@ Theorem `hs:thm:time` (time-dependent Hamiltonian simulation) of the
 accompanying paper is formalized for uniform meshes by
 `SparseHamiltonian.TimeDependent.simulation` in
 `TimeDependentHamiltonian/Theorem.lean`.
+References to the manuscript use its labels.
 
 **Access model.** The represented samples are released native sparse data
 `D : NativeSparseBlockEncoding.Data (X × Fin M) n Z s`, indexed by the unknown
@@ -90,7 +91,7 @@ the same oracles makes no queries and is exact).
 * Discretisation against the path, equation `hs:eq:timedisc`:
   `Continuous/Propagator` (`duhamel_step`, `propagator_telescope`,
   `mesh_error`); existence of the propagator: `Continuous/Existence`.
-* Rescaling by `η`, the choice of `γ` (equation `hs:eq:gammaopt` with
+* Rescaling by `η`, the choice of `γ` (equation `ov:eq:gamma` with
   `τ = η t`) and the error budget: `Theorem` (`sampledEvolution_normalize`,
   `step_le_quarter`, `count_le_shape`, `simulation`).
 

@@ -7,11 +7,11 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # The general-mesh physical oracle: Boolean certificates for any family
 
-Section `odel:sec:main` (manuscript lines 4105-4109: access model; lines 4119-4122: public
-location lists and source preparation) and the encoding for the proof of Theorem `odel:thm:joint`
-(lines 4290-4294: "A matrix value query is implemented using at most two Boolean membership
-queries [...]. All input and source preparation calls are known operations and can be simulated
-without membership queries").
+Section `odel:sec:main` (access model; public location lists and source preparation) and the
+construction before Theorem `odel:thm:joint` ("A value query computes one relevant membership bit,
+writes the known entry and uncomputes the bit. It therefore uses at most two membership queries,
+also for inverse and controlled calls. The initial and forcing states are known, so their
+preparations need no membership queries").
 
 `implementsOn_mesh` is the generic form, for any family `F` with any number of stages, of
 `ODELowerBoundExtensions.Release.implementsOn_release_joint`: a Boolean implementation of the
@@ -116,11 +116,11 @@ theorem implementsOn_mesh {X N Z : Type} [Fintype N] [DecidableEq N] [Fintype Z]
         (fun x => ODELowerBoundExtensions.Release.physicalOracle_inr_const
           (ODELowerBoundExtensions.Release.stageData F.data σ) ι Nsl d hJ b x₀ x)
 
-/-- **Call forms of the general-mesh physical oracle cost no more Boolean queries than the
-call** (lines 4290-4294): under the hypotheses of `implementsOn_mesh`, every call form of every
-label of the physical oracle (`callFamily`: plain, inverse, controlled and controlled-inverse
-calls) is implemented on one isometric encoding by at most `matrixWeight w` of its label queries
-of one Boolean phase oracle with the query function `y`. -/
+/-- **Call forms of the general-mesh physical oracle cost no more Boolean queries than the call**
+(the construction before Theorem `odel:thm:joint`): under the hypotheses of `implementsOn_mesh`,
+every call form of every label of the physical oracle (`callFamily`: plain, inverse, controlled and
+controlled-inverse calls) is implemented on one isometric encoding by at most `matrixWeight w` of
+its label queries of one Boolean phase oracle with the query function `y`. -/
 theorem implementsOn_mesh_calls {X N Z : Type} [Fintype N] [DecidableEq N] [Fintype Z]
     [AddCommGroup Z] {K s : ℕ} (F : Family X N Z K s) {M : ℕ} (σ : Fin M → Fin K) (ι : Type)
     [Fintype ι] [DecidableEq ι] (Nsl d : ℕ) {J₀ : X → SysOp N} {Jb : X → Fin M → SysOp N}

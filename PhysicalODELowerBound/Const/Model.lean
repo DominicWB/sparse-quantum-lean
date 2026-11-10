@@ -7,10 +7,9 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # Forcing over the constant-coefficient physical oracle
 
-Section `odel:sec:main` (manuscript lines 4105-4109: access with inverses and controls; lines
-4111-4113: success flag of probability at least `2/3`, conditional trace distance `ε`; lines
-4114-4115: "The lower bounds thus apply to Theorems `ode:thm:main` and `ode:thm:time`") and
-Theorem `ode:thm:main` (lines 3013-3033).
+Section `odel:sec:main` (access with inverses and controls; success flag of probability at least
+`2/3`, conditional trace distance `ε`; "the lower bounds apply to the upper bounds of the preceding
+section") and Theorem `ode:thm:main`.
 
 The adaptive solvers (`AdaptiveODELowerBound.Model.TreeSolver`) here call the physical oracle of
 the released constant-coefficient solver `SparseHamiltonian.ODECompleteEndpoint.solver`, run on
@@ -24,7 +23,7 @@ matrix calls (`matrixWeight (fun _ => 1)`), every call form weighted as its labe
 
 Only one-stage (constant-coefficient) families are concerned: the time-dependent hard families
 (the joint family, the homogeneous variant, the padded joint families) are not
-constant-coefficient equations (lines 4151-4155, 4385-4387).
+constant-coefficient equations (Section `odel:sec:main` and Proposition `odel:rem:homogeneous`).
 
 * `ConstForces F ε b`, `ConstWitnesses F τ ḡ ε b`, `ConstCost F ε q`: as `Mesh.MeshForces`,
   `Mesh.MeshWitnesses`, `Mesh.MeshCost` for this oracle; `ConstForces.le_cost`,

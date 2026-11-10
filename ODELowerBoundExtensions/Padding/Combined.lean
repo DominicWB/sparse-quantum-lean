@@ -4,11 +4,11 @@ import ODELowerBoundExtensions.Padding.Precision
 /-!
 # Theorem `odel:thm:combined` in one common dimension and on qubit registers
 
-Manuscript: proof of Theorem `odel:thm:combined`
-(lines 4001-4009): "The promise class `g ≤ ḡ` contains both the family in Theorem
-`odel:thm:joint` and the `g = 1` families in Lemma `odel:lem:herald`. The maximum of their lower
-bounds is at least a fixed fraction of their sum. Pad dimensions to a common known size if
-desired." Together with the qubit-register remark of line 3904.
+Manuscript: proof of Theorem `odel:thm:combined`: "An algorithm for the promise class `g ≤ ḡ` must
+handle both the cancellation family in Theorem `odel:thm:joint` and the `g = 1` precision families
+covered by Lemma `odel:lem:herald`. Its worst-case query count is therefore at least the larger of
+their two bounds. ... Pad dimensions to a common known size if desired." Together with the
+qubit-register remark at the end of the proof of Theorem `odel:thm:joint`.
 
 The three families of `SparseLowerBounds.ODE.combined` are replaced by their known paddings: the
 joint family padded by `PJ` (`jointPadFamilyAt`; with `dense = true` it carries the dense block and
@@ -29,12 +29,12 @@ the mixed and precision families padded by `PM`, `PP` (`mixedPadFamilyAt`,
 * `combined_qubit_register`, `exists_qubit_register`: the same in dimension `2^q`, for every
   sufficiently large `q`, with the sparsity facts of `combined_common_dimension`.
 
-As in lines 4006-4008 these are worst-case statements: no single instance witnesses all terms, and
-the independent bounds are not multiplied. No assertion is made for `Nd` below a family's
-dimension ("No assertion is made for an insufficient fixed dimension", lines 3680-3681). The
-attribution of the third and fourth sentences of `odel:thm:combined` to the padded families is
-`jointPadFamilyAt_g` (`g = Θ(ḡ)`) and `precision_terms_witness_pad` with `herald_pad_props`
-(`g = 1`, `D = 0`).
+As in the proof of Theorem `odel:thm:combined` these are worst-case statements: no single instance
+witnesses all terms, and the independent bounds are not multiplied. No assertion is made for `Nd`
+below a family's dimension ("an insufficient fixed dimension is outside the claim", Section
+`odel:sec:main`). The attribution of the third and fourth sentences of `odel:thm:combined` to the
+padded families is `jointPadFamilyAt_g` (`g = Θ(ḡ)`) and `precision_terms_witness_pad` with
+`herald_pad_props` (`g = 1`, `D = 0`).
 
 **Forms covered.** The full heralded `SparseLowerBounds.ODE.Solver` of `ODE/Model` (any branch
 register `ι`, any garbage space `G`), i.e. `Family.Forces`; controlled calls by the reduction of
@@ -127,8 +127,8 @@ theorem combined_pad (h : CombinedRange s τ gbar ε) (dense : Bool) (PJ PM PP :
   · exact Or.inr (Or.inl ⟨hI.2.1.1, hI.2.1.2.1, hf⟩)
   · exact Or.inr (Or.inr ⟨hI.2.2.1, hI.2.2.2.1, hf⟩)
 
-/-- **The three padded families have maximum sparsity exactly `s`** (lines 3662, 3899), the
-joint family with its dense block. -/
+/-- **The three padded families have maximum sparsity exactly `s`** (Section `odel:sec:main` and
+proof of Theorem `odel:thm:joint`), the joint family with its dense block. -/
 theorem combined_pad_sparsityAttained (h : CombinedRange s τ gbar ε) (PJ PM PP : Type*)
     [Fintype PJ] [DecidableEq PJ] [Fintype PM] [DecidableEq PM] [Fintype PP] [DecidableEq PP] :
     SparsityAttained (jointPadFamilyAt s τ gbar true h.toJointRange.s_ge h.tau_ge PJ) ∧
@@ -151,10 +151,10 @@ theorem card_le_of_combinedDim (h : CombinedRange s τ gbar ε) {Nd : ℕ}
   have hH' := card_le_of_dim h.toHSRange hH
   exact ⟨Nat.cast_le.mp (hJ'.trans hJ), hH'.2.1, hH'.2.2⟩
 
-/-- **Theorem `odel:thm:combined` in one common dimension, max form** (lines 4005-4006): for
-every `Nd` at least the three dimensions, the three families padded by `PadTo N_X Nd` have
-dimension exactly `Nd`, and for one solver of each, the largest value-query count is at least
-`c (ḡ √s τ + √(sτr) + r)`. -/
+/-- **Theorem `odel:thm:combined` in one common dimension, max form** (proof of Theorem
+`odel:thm:combined`): for every `Nd` at least the three dimensions, the three families padded by
+`PadTo N_X Nd` have dimension exactly `Nd`, and for one solver of each, the largest value-query
+count is at least `c (ḡ √s τ + √(sτr) + r)`. -/
 theorem combined_max_common_dimension (h : CombinedRange s τ gbar ε) (dense : Bool) (Nd : ℕ)
     (hJ : Fintype.card (JointIndex (jointM gbar) (jointMu s) s) ≤ Nd)
     (hM : Fintype.card (SearchIndex (precN τ ε) (hsMu s) s) ≤ Nd)
@@ -178,12 +178,12 @@ theorem combined_max_common_dimension (h : CombinedRange s τ gbar ε) (dense : 
         (max (AM.prog.labelCount .value : ℝ) (AP.prog.labelCount .value)) := by
   exact ⟨card_padTo hJ, card_padTo hM, card_padTo hP, combined_max_pad h dense _ _ _ AJ AM AP⟩
 
-/-- **Theorem `odel:thm:combined` in one common dimension** (family form, lines 4001-4009): for
-every `Nd` at least the three dimensions (e.g. `card_le_of_combinedDim`), the three families
-padded by `PadTo N_X Nd` have dimension exactly `Nd` and maximum sparsity exactly `s` (the joint
-family when `dense = true`), and one of
-them is in the class (`η = 1`, `T = τ`, `g ≤ ḡ`) and forces `c (ḡ √s τ + √(sτr) + r)` value
-queries. So the worst case over the class in dimension `Nd` obeys eq. `odel:eq:combined`. -/
+/-- **Theorem `odel:thm:combined` in one common dimension** (family form, proof of Theorem
+`odel:thm:combined`): for every `Nd` at least the three dimensions (e.g. `card_le_of_combinedDim`),
+the three families padded by `PadTo N_X Nd` have dimension exactly `Nd` and maximum sparsity exactly
+`s` (the joint family when `dense = true`), and one of them is in the class (`η = 1`, `T = τ`,
+`g ≤ ḡ`) and forces `c (ḡ √s τ + √(sτr) + r)` value queries. So the worst case over the class in
+dimension `Nd` obeys eq. `odel:eq:combined`. -/
 theorem combined_common_dimension (h : CombinedRange s τ gbar ε) (dense : Bool) (Nd : ℕ)
     (hJ : Fintype.card (JointIndex (jointM gbar) (jointMu s) s) ≤ Nd)
     (hM : Fintype.card (SearchIndex (precN τ ε) (hsMu s) s) ≤ Nd)
@@ -216,11 +216,11 @@ theorem combined_common_dimension (h : CombinedRange s τ gbar ε) (dense : Bool
     ⟨(joint_witness_pad h.toJointRange dense _).2, hI.2.1.2.2, hI.2.2.2.2⟩,
     combined_pad h dense _ _ _⟩
 
-/-- **Theorem `odel:thm:combined` on a qubit register** (lines 3899-3904, 4005-4006): for every
-`q` with `3 ḡ² s ≤ 2^q` and `4 s (τ + r + 1) ≤ 2^q`, the three families padded by
-`PadTo N_X (2^q)` have dimension exactly `2^q` and maximum sparsity exactly `s` (the joint family
-when `dense = true`), and one of them is in the class and forces `c (ḡ √s τ + √(sτr) + r)` value
-queries. The case `Nd = 2^q` of `combined_common_dimension`. -/
+/-- **Theorem `odel:thm:combined` on a qubit register** (proof of Theorem `odel:thm:joint` and proof
+of Theorem `odel:thm:combined`): for every `q` with `3 ḡ² s ≤ 2^q` and `4 s (τ + r + 1) ≤ 2^q`, the
+three families padded by `PadTo N_X (2^q)` have dimension exactly `2^q` and maximum sparsity exactly
+`s` (the joint family when `dense = true`), and one of them is in the class and forces
+`c (ḡ √s τ + √(sτr) + r)` value queries. The case `Nd = 2^q` of `combined_common_dimension`. -/
 theorem combined_qubit_register (h : CombinedRange s τ gbar ε) (dense : Bool) (q : ℕ)
     (hqJ : 3 * gbar ^ 2 * s ≤ (2 : ℝ) ^ q) (hqH : 4 * s * (τ + hsR τ ε + 1) ≤ (2 : ℝ) ^ q) :
     Fintype.card (JointIndex (jointM gbar) (jointMu s) s ⊕

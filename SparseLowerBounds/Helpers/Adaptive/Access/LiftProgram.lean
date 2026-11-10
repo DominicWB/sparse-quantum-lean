@@ -13,7 +13,7 @@ letter, now a letter of the spectated family `x ↦ 1_Ω ⊗ Q x`. The lifted
 program evaluates to `1_Ω ⊗ p.eval x` (`eval_liftProgram`) and makes exactly
 the same number of oracle calls (`count_liftProgram`). This is the
 spectator case of the purification remark of the manuscript
-(lines 5185-5186): untouched registers cost no queries.
+(proof of Lemma `qlsl:lem:xor`): untouched registers cost no queries.
 -/
 
 namespace SparseLowerBounds.Helpers.Adaptive.Access

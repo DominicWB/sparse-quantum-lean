@@ -5,11 +5,11 @@ import LinearSystemLowerBound.Theorem
 
 This file formalises the remark that follows Theorem `qlsl:thm:main` (the matching linear-system
 query lower bound) of *Root-sparsity scaling for Hamiltonian simulation, differential equations
-and linear-system solvers* (manuscript `sparse_quantum_algorithms.tex`, Part `qlsl`):
+and linear-system solvers* (Section `part:qlsl`):
 
-> The dimension is allowed to grow with the parameters. One may pad the construction with an
-> identity block to fit any larger dimension: `A_X ⊕ I` still has norm at most one and obeys
-> the same inverse-norm bound, and the right-hand side is extended by zero.
+> This is a worst-case bound in the stated parameter range, with dimension allowed to grow.
+> Padding with a known identity block preserves the norm and inverse-norm promises and permits any
+> larger dimension when the right-hand side is extended by zero.
 
 The theorem itself is `LinearSystemLowerBound.lower_bound` (constant `1/3072`) and
 `LinearSystemLowerBound.lower_bound_sharp` (constant `1/1536`), for the hard matrices

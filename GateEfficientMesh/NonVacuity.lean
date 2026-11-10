@@ -6,10 +6,10 @@ import TimeDependentExtensions.ODE.Corollaries
 /-!
 # Non-vacuity of the certified and mesh hypotheses
 
-Theorems `hs:thm:gates` and `ode:thm:gates`, time-dependent parts: the hypotheses of the
-endpoints of this library beyond the released ones (a certificate, a propagator or solution, and
-on a mesh a rounding condition) are met by natural instances; the statement guide cites these
-theorems for its satisfiability argument.
+Theorem `hs:thm:time` with the circuit of `hs:thm:gates`, and the time-dependent part of Theorem
+`ode:thm:gates`: the hypotheses of the endpoints of this library beyond the released ones (a
+certificate, a propagator or solution, and on a mesh a rounding condition) are met by natural
+instances; the statement guide cites these theorems for its satisfiability argument.
 
 * `time_simulation_mesh_piecewise_constant`: under the released clock promises, with the explicit
   exponent `meshExponent`, the piecewise constant path equal to the mesh samples has mesh
@@ -51,13 +51,12 @@ variable {P : Type*} [NormedAddCommGroup P] [InnerProductSpace ℂ P] [CompleteS
 
 /-! ### Hamiltonians -/
 
-/-- **The exact-gate mesh theorem applies to piecewise constant paths** (Theorem
-`hs:thm:gates`, time-dependent part, extended by uniform refinement to nonuniform meshes). Under
-the released clock promises for the mesh samples `H̃_r` and with the explicit exponent
+/-- **The exact-gate mesh theorem applies to piecewise constant paths** (Theorem `hs:thm:time` with
+the circuit of `hs:thm:gates`, extended by uniform refinement to nonuniform meshes). Under the
+released clock promises for the mesh samples `H̃_r` and with the explicit exponent
 `m = meshExponent α T ε M`, every path `Hp` equal to `H̃_r` on the mesh interval `r` has mesh
-certificate `0` and a classical piecewise propagator `U`, which is also an integral-sense
-propagator of the glued path, and the circuit of `time_simulation_mesh` is within `ε` of
-`U(T)`. -/
+certificate `0` and a classical piecewise propagator `U`, which is also an integral-sense propagator
+of the glued path, and the circuit of `time_simulation_mesh` is within `ε` of `U(T)`. -/
 theorem time_simulation_mesh_piecewise_constant (a M : ℕ) (hM : 0 < M)
     (UJ : Vsp a P →L[ℂ] Vsp a P) (D R1 : ℕ → Vsp a P →L[ℂ] Vsp a P) (Hs : ℕ → P →L[ℂ] P)
     (tm : ℕ → ℝ) (T α Q b qbar ε : ℝ) (hmesh : IsMesh tm M T) (hT : 0 < T) (hα : 0 < α)
@@ -93,10 +92,10 @@ theorem time_simulation_mesh_piecewise_constant (a M : ℕ) (hM : 0 < M)
   linarith
 
 /-- **The integral-sense conjunct of the exact-gate mesh theorem is reachable** (Theorem
-`hs:thm:gates`, time-dependent part, extended by uniform refinement to nonuniform meshes). Under
-the hypotheses of `time_simulation_mesh_piecewise_constant`, the glued path of the piecewise
-constant path is self-adjoint almost everywhere, interval integrable and has certificate `0`,
-and it has an integral-sense propagator `U` with the error bound `ε` of
+`hs:thm:time` with the circuit of `hs:thm:gates`, extended by uniform refinement to nonuniform
+meshes). Under the hypotheses of `time_simulation_mesh_piecewise_constant`, the glued path of the
+piecewise constant path is self-adjoint almost everywhere, interval integrable and has certificate
+`0`, and it has an integral-sense propagator `U` with the error bound `ε` of
 `time_simulation_mesh`. -/
 theorem time_simulation_mesh_glued (a M : ℕ) (hM : 0 < M)
     (UJ : Vsp a P →L[ℂ] Vsp a P) (D R1 : ℕ → Vsp a P →L[ℂ] Vsp a P) (Hs : ℕ → P →L[ℂ] P)

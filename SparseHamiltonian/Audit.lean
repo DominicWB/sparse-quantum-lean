@@ -367,3 +367,29 @@ import SparseHamiltonian.All
 /-- info: 'SparseHamiltonian.UnitaryImplementation.implementation' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
 #print axioms SparseHamiltonian.UnitaryImplementation.implementation
+
+-- Direct audits of the controlled-oracle declarations (axiom sets determined by compiling).
+
+/-- info: 'SparseHamiltonian.ControlledLookup.controlled_two_queries' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseHamiltonian.ControlledLookup.controlled_two_queries
+
+/-- info: 'SparseHamiltonian.ControlledLookup.circuit_clean' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseHamiltonian.ControlledLookup.circuit_clean
+
+/-- info: 'SparseHamiltonian.ControlledLookup.circuit_clean_apply' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseHamiltonian.ControlledLookup.circuit_clean_apply
+
+/-- info: 'SparseHamiltonian.NativeControlledOracle.three_query_control' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseHamiltonian.NativeControlledOracle.three_query_control
+
+/-- info: 'SparseHamiltonian.NativeControlledOracle.three_query_inverse_control' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseHamiltonian.NativeControlledOracle.three_query_inverse_control
+
+/-- info: 'SparseHamiltonian.NativeControlledOracle.certificate' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseHamiltonian.NativeControlledOracle.certificate

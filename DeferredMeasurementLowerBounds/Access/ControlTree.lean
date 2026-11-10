@@ -6,9 +6,10 @@ set_option autoImplicit false
 /-!
 # Deferral over single-label controlled calls
 
-Manuscript lines 5185-5186 ("controlled queries and adaptive algorithms after coherent
-purification and padding to their worst-case query count") and lines 3669-3673 (calls with
-"their inverses and controls").
+Manuscript: the proof of Lemma `qlsl:lem:xor` ("controlled queries and adaptive algorithms after
+coherent purification and padding to their worst-case query count") and Section
+`odel:sec:main` (calls "including inverses, controls and coherent time addresses where
+needed").
 
 For a measured algorithm over a base family `B` of unitary labels, the deferred labels compile to
 controlled calls of the spectator lift `1_R ⊗ B` (`ctrlCircuits`), acting on the active sector

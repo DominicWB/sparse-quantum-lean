@@ -8,10 +8,10 @@ set_option autoImplicit false
 /-!
 # Theorem `hsl:thm:main` for measured algorithms over families compiled into native calls
 
-Theorem `hsl:thm:main` (the manuscript, lines 2102-2119, eq. `hsl:eq:main`) for algorithms with
-measurements inside a run (lines 2363-2364: "Randomised or adaptive algorithms are covered by
-purification and deferred measurement"), over oracle families whose calls are not single native
-calls but fixed products of them.
+Theorem `hsl:thm:main` (the manuscript, eq. `hsl:eq:main`) for algorithms with measurements inside a
+run (proof of Lemma `hsl:lem:precision`: "Purification and deferred measurement include adaptive and
+randomised algorithms"), over oracle families whose calls are not single native calls but fixed
+products of them.
 
 * `NativeCompiles D O c`: every label `l` of `O` is computed exactly, on the same workspace, by a
   program `P l` over a family of labels admissible for `D`

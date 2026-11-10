@@ -8,8 +8,8 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # Theorem `odel:thm:combined` for adaptive protocols
 
-Manuscript lines 4133-4145 (Theorem `odel:thm:combined`, eq. `odel:eq:combined`), 4393-4435
-(eq. `odel:eq:hsbound`, Lemma `odel:lem:herald`) and 4437-4445 (proof of the theorem: the class
+Manuscript: Theorem `odel:thm:combined` (eq. `odel:eq:combined`), eq. `odel:eq:hsbound`, Lemma
+`odel:lem:herald` and the proof of the theorem (the class
 contains the joint family and the `g = 1` families; the maximum of their bounds is a fixed
 fraction of their sum), for adaptive solvers (`Model.TreeSolver`: fresh measured runs with
 classical branching and a heralded final protocol) over the sampled-time access and over its call
@@ -109,9 +109,9 @@ theorem herald_witness_tree (h : HSRange τ s ε) (hg : 1 ≤ gbar) :
       treeForces_of_cost hf⟩)
 
 /-- **The precision terms of Theorem `odel:thm:combined` for adaptive protocols are witnessed by
-`g = 1` families** (fourth sentence of the theorem, lines 4143-4144): on `HSRange` and for any
-`ḡ ≥ 1`, one of the homogeneous constant-coefficient families with `D = 0` and `g = 1` (time,
-mixed, precision) tree-witnesses `c₀ (√(sτr) + r)`. -/
+`g = 1` families** (fourth sentence of the theorem, Theorem `odel:thm:combined`): on `HSRange` and
+for any `ḡ ≥ 1`, one of the homogeneous constant-coefficient families with `D = 0` and `g = 1`
+(time, mixed, precision) tree-witnesses `c₀ (√(sτr) + r)`. -/
 theorem precision_terms_witness_tree (h : HSRange τ s ε) (hg : 1 ≤ gbar) :
     TreeWitnesses (timeFamilyAt τ s h.s_ge (by linarith [h.one_le_tau])) τ gbar ε
         (c0 * (Real.sqrt (s * τ * hsR τ ε) + hsR τ ε)) ∨
@@ -128,10 +128,10 @@ theorem precision_terms_witness_tree (h : HSRange τ s ε) (hg : 1 ≤ gbar) :
   · exact Or.inr (Or.inl (hw.mono hb))
   · exact Or.inr (Or.inr (hw.mono hb))
 
-/-- **Theorem `odel:thm:combined` for adaptive protocols, max form** (lines 4437-4445): for one
-adaptive solver of each of the three families (joint, mixed, precision) over the sampled-time
-access, the largest worst-case value count is at least `c (ḡ √s τ + √(sτr) + r)`,
-`c = log 2/(8192π)`. -/
+/-- **Theorem `odel:thm:combined` for adaptive protocols, max form** (proof of Theorem
+`odel:thm:combined`): for one adaptive solver of each of the three families (joint, mixed,
+precision) over the sampled-time access, the largest worst-case value count is at least
+`c (ḡ √s τ + √(sτr) + r)`, `c = log 2/(8192π)`. -/
 theorem combined_max_tree (h : CombinedRange s τ gbar ε)
     {ιJ ιM ιP FlJ FlM FlP EJ EM EP GJ GM GP : Type} [Fintype ιJ] [Fintype ιM] [Fintype ιP]
     [NormedAddCommGroup FlJ] [InnerProductSpace ℂ FlJ] [CompleteSpace FlJ]
@@ -173,7 +173,7 @@ theorem combined_max_cost_tree (h : CombinedRange s τ gbar ε) {qJ qM qP : ℝ}
       fun hs' => (Herald.precision_forces_sqrt_tree hH hL hs').le_cost hP⟩)
     (fun hL hs => (Herald.mixed_forces_tree hH hL hs).le_cost hM)
 
-/-- **Theorem `odel:thm:combined` for adaptive protocols** (lines 4133-4145, proof 4437-4445):
+/-- **Theorem `odel:thm:combined` for adaptive protocols** (with its proof):
 for `s ≥ 32`, `τ ≥ 4`, `ḡ ≥ 2`, `0 < ε ≤ 1/64`, one of the three families — the joint family of
 `odel:thm:joint` (inhomogeneous, time-dependent, `D = 0`, `g = Θ(ḡ)`) or the mixed or precision
 family of `odel:lem:herald` (homogeneous, constant-coefficient, `D = 0`, `g = 1`) — is in the

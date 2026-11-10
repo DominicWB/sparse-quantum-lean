@@ -12,7 +12,7 @@ sample-error certificate for classical solutions and piecewise propagators
 `TimeDependentExtensions.refined_error`). This module derives each of them, with its statement
 unchanged, from the integral-sense estimates of `Propagator.Duhamel`, through the containment
 results of `Propagator.Classical`. This is the paragraph after Theorem `hs:thm:time` of the
-manuscript (lines 1618-1632): for an integrable Hermitian path the integrated sample errors
+manuscript: for an integrable Hermitian path the integrated sample errors
 suffice, and the piecewise case is a special case.
 
 * `duhamel_integral_of_solvesOn`: the statement of `TimeDependentExtensions.duhamel_integral`,

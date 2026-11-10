@@ -7,8 +7,8 @@ set_option synthInstance.maxSize 8192
 /-!
 # Unitary programs: the operator-norm bounds through containment
 
-Corollary `hs:cor:unitary` of the manuscript (lines 1647-1666) for the unitary circuits of its
-statement, `‖A_U - U‖ ≤ ε` (eq. `hs:eq:unitaryerror`, lines 1652-1654). A unitary program over the
+Corollary `hs:cor:unitary` of the manuscript for the unitary circuits of its
+statement, `‖A_U - U‖ ≤ ε` (eq. `hs:eq:unitaryerror`). A unitary program over the
 released entry oracle (or over its four call forms) with operator-norm error `ε₀ ≤ 1/2` on an
 isometric encoding `J` is, run and output in full (`runAll`), a measured algorithm that
 implements every `U_m` within operator-norm error `ε₀` (`normImplements_runAll`), so the measured

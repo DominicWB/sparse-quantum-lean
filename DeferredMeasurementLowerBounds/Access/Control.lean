@@ -7,12 +7,12 @@ set_option autoImplicit false
 # Record-selected calls from controlled calls
 
 Some access models of the package grant one label per call, with its inverse, controlled and
-controlled-inverse forms (`AdaptiveODELowerBound.Access.callFamily`, manuscript lines 3669-3673:
-"their inverses and controls"), but no call that applies different labels or directions on
-different branches. For a base family `B : L₀ → X → V →L[ℂ] V` and a spectator register `J`, the
-target family `ctrlTarget B J` is the call family of the spectator lift `1_J ⊗ B` on
-control ⊗ `ℂ^J ⊗ V`, and the encoding is the package's active embedding `v ↦ |1⟩ ⊗ v`
-(`AdaptiveODELowerBound.Access.activeEmbed`).
+controlled-inverse forms (`AdaptiveODELowerBound.Access.callFamily`, Section `odel:sec:main`:
+"including inverses, controls and coherent time addresses where needed"), but no call that applies
+different labels or directions on different branches. For a base family `B : L₀ → X → V →L[ℂ] V` and
+a spectator register `J`, the target family `ctrlTarget B J` is the call family of the spectator
+lift `1_J ⊗ B` on control ⊗ `ℂ^J ⊗ V`, and the encoding is the package's active embedding
+`v ↦ |1⟩ ⊗ v` (`AdaptiveODELowerBound.Access.activeEmbed`).
 
 * A masked call (label `l₀` in direction `b` on the records of a set `S`, identity elsewhere) is
   one controlled call of `l₀` between two known control flips of the records outside `S`

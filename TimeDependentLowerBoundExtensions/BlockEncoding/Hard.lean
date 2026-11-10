@@ -7,12 +7,12 @@ set_option autoImplicit false
 /-!
 # Hermitian block encodings of the hard instances
 
-The time-indexed block-encoding model of the manuscript (paragraph "Relation to time-indexed
-block encodings", lines 1518-1538, eqs. `hs:eq:blockspecial`, `hs:eq:blockadditive`) supplies
-coherent and controlled access to Hermitian unitaries `O_r` with `J† O_r J = H̃_r / α_BE` for a
-known isometry `J`; the released form is `TimeDependentExtensions.BlockEncoding.simulation`, with
-the controlled time-indexed oracle `TimeDependentExtensions.BlockEncoding.primitive`. A standard
-sparse block encoding has normalisation `α_BE = sη` (lines 1552-1561).
+The time-indexed block-encoding model of the manuscript (eqs. `hs:eq:blockspecial`,
+`hs:eq:blockadditive`) supplies coherent
+and controlled access to Hermitian unitaries `O_r` with `J† O_r J = H̃_r / α_BE` for a known
+isometry `J`; the released form is `TimeDependentExtensions.BlockEncoding.simulation`, with the
+controlled time-indexed oracle `TimeDependentExtensions.BlockEncoding.primitive`. A standard sparse
+block encoding has normalisation `α_BE = sη` (the text after eq. `hs:eq:blockadditive`).
 
 The hard instances of Theorem `hsl:thm:main` are given by native sparse data
 (`SparseHamiltonian.NativeSparseBlockEncoding.Data`). Their released six-query block encoding

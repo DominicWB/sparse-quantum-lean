@@ -9,10 +9,9 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # Runs of the released general-mesh solver on the positive semidefinite and homogeneous families
 
-Manuscript Theorem `odel:thm:psd` (line 4016, `D_X ⪰ 0`, `‖D_X‖ = η_D = 1`, `T = τ`), Remark
-`odel:rem:homogeneous` (lines 3907-3952; the known dissipative generator `-P_reject`, line
-3925) and lines 3678-3679 ("The lower bounds thus apply to Theorems `ode:thm:main` and `ode:thm:time`");
-Theorem `ode:thm:time` (line 2879).
+Manuscript Theorem `odel:thm:psd` (`D_X ⪰ 0`, `‖D_X‖ = η_D = 1`, `T = τ`), Proposition
+`odel:rem:homogeneous` (the known dissipative generator `-P_reject`) and Section `odel:sec:main`
+("the lower bounds apply to the upper bounds of the preceding section"); Theorem `ode:thm:time`.
 
 * `psd_meshRuns_exist`: on `PsdRange` with `ḡ ≥ √2`, runs of the released general-mesh solver
   on the gadget and scalar positive semidefinite families exist with `η_H = 0`, `η_D = 1`
@@ -167,7 +166,7 @@ theorem hom_meshRun_exists (h : HomRange s τ gbar ε) :
   exact meshRun_nonempty_of_inClass _ hW.inClass hW.time_eq hτ (by linarith [h.gbar_ge])
     h.eps_pos (by linarith [h.eps_le]) hB (by omega) (false, Sum.inr ⟨0, by omega⟩)
 
-/-- **Remark `odel:rem:homogeneous` at the released general-mesh solver's runs**: every run on
+/-- **Proposition `odel:rem:homogeneous` at the released general-mesh solver's runs**: every run on
 the homogeneous family makes at least `ḡ √s τ / 500` value calls, and at most the released
 `1274019840 · 2ḡ · queryShape(s, τ + τℓ, ℓ)` matrix calls. -/
 theorem hom_meshRun_bounds (h : HomRange s τ gbar ε)

@@ -4,9 +4,10 @@ import GateEfficientNative.Hamiltonian.Theorem
 /-!
 # Native gates: integrated certificates and nonuniform meshes
 
-The native time-dependent circuit `GateNative.nativeSimT` of Theorem `hs:thm:gates` (the
-released slot circuit for accuracy `ε/2`, filter parameter `ε/4`, with every supplied unitary
-replaced by its native implementation) is released for Lipschitz paths
+The native time-dependent circuit `GateNative.nativeSimT` (the released slot circuit for accuracy
+`ε/2`, filter parameter `ε/4`, with every supplied unitary replaced by its native implementation)
+of the package extension Theorem `hs:thm:time` with the circuit of `hs:thm:gates` (single-label
+case of Lemma `ode:lem:gate-select`) is released for Lipschitz paths
 (`GateNative.native_time_simulation`). Its error splits into the exact-gate error, which the
 released `GateCircuit.SlotSim.simulationT` bounds against the ordered product of the slot
 exponentials, and the native private calls, which the released `GateNative.hcirc_error` adds.
@@ -167,9 +168,9 @@ theorem native_slot_bounds (a m : ℕ) (prim : J → Reg Y R →L[ℂ] Reg Y R)
     rw [hP, Nat.cast_mul, Nat.cast_ofNat]
     linarith only [hζε]
 
-/-- **Native gate-efficient time-dependent simulation under the integrated certificate**
-(Theorem `hs:thm:gates`, time-dependent part, before finite-set synthesis, with the certificate
-of the paragraph "Regularity and coherent parameters" after Theorem `hs:thm:time`).
+/-- **Native gate-efficient time-dependent simulation under the integrated certificate** (Theorem
+`hs:thm:time` with the circuit of `hs:thm:gates`, before finite-set synthesis, with the certificate
+of the paragraphs after the proof of Theorem `hs:thm:time`).
 
 The native circuit `nativeSimT a m (α t) Q qbar ε UJg nd ar` depends only on the public data.
 With the slot-selected private operations `D k` given natively by the compute circuit `V`
@@ -247,9 +248,9 @@ theorem native_time_simulation_certified (a m : ℕ) (prim : J → Reg Y R →L[
     rw [norm_sub_rev] at h2
     linarith
 
-/-- **Native gate-efficient time-dependent simulation on a nonuniform mesh** (Theorem
-`hs:thm:gates`, time-dependent part, before finite-set synthesis, extended by uniform refinement
-to nonuniform meshes with breakpoints, with the integrated certificate).
+/-- **Native gate-efficient time-dependent simulation on a nonuniform mesh** (Theorem `hs:thm:time`
+with the circuit of `hs:thm:gates`, before finite-set synthesis, extended by uniform refinement to
+nonuniform meshes with breakpoints, with the integrated certificate).
 
 Let `0 = t_0 ≤ ⋯ ≤ t_M = T` be a mesh (`M ≥ 1`, `T > 0`) with private operations `D_r` and
 samples `H̃_r` (`r < M`) satisfying the clock promises for `H̃_r / α`. The data are presented on

@@ -6,9 +6,10 @@ set_option autoImplicit false
 /-!
 # Herald amplitude and normalised error of the Dyson preparation (`odel:lem:dyson`)
 
-Manuscript lines 4246-4253: "Choose the truncation, discretisation, and quadrature errors so the
-unnormalised solution error is at most `ε B/(C₂ ḡ)` … Since `‖x(T)‖ ≥ B/ḡ`, the normalised error
-is at most `ε`, and success amplitude is `Ω(1/(ḡ e^z))`."
+Manuscript: the proof of Lemma `odel:lem:dyson`, "Take `δ = ε/[16(1 + c_q) ḡ]` and `ξ ≤ e^{-z} δ`.
+Since `c_q` is absolute, this choice of `δ` gives the degree in Eq. `odel:eq:degree` and
+`‖y - x(T)‖ ≤ ε B/(4 ḡ)`. Thus `y ≠ 0` and the error after normalisation is at most
+`2 ‖y - x(T)‖/‖x(T)‖ ≤ ε`. The actual success amplitude `‖y‖/(e^z B_q)` is `Ω(1/(e^z ḡ))`."
 
 The decoded vector of the LCU preparation is `w = (2 m)⁻¹ y`, where `y` is the selected LCU sum
 and `2 m` the coefficient mass (`m = lcuMass`, `B ≤ m ≤ B e^z`). If `‖y - x‖ ≤ ε B/(1000 g)`,

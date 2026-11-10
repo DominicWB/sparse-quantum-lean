@@ -6,8 +6,9 @@ section
 /-!
 # The hard Hamiltonians
 
-Manuscript lines 2281-2284 (reference vertices) and 2476-2487 (dimension and
-exact sparsity). A core chain `H` on `C` is completed to
+Manuscript: the chain construction of Section `part:hsl` (reference vertices) and the end of the
+proof of Theorem `hsl:thm:main` (dimension and exact sparsity). A core chain `H` on `C` is completed
+to
 
   `fullMatrix H s = H ⊕ diag(0, 1) ⊕ 2^{-⌈log₂ s⌉} 𝟙𝟙ᵀ`
 
@@ -24,7 +25,7 @@ dyadic weights of `Hamiltonian/Rounding`:
   `SearchCore n μ = Fin (n+1) × Fin (2^μ)`, weights `b'_k` of `a B_n`;
 * signed scalar chain (precision family) on `Fin (n+1)`, weights `b'_k` of `B_n`.
 
-Properties (Theorem `hsl:thm:main`, lines 2113-2118): real symmetric; operator
+Properties (Theorem `hsl:thm:main`): real symmetric; operator
 norm exactly one; maximum row and column Euclidean norms exactly one (every
 row/column norm at most one, the energy-one vertex attaining it, which is the
 release's `hrow`/`hcol` promise with `η = 1`); maximum row and column sparsity
@@ -42,7 +43,7 @@ abbrev FullIndex (C : Type) (s : ℕ) : Type := C ⊕ (Fin 2 ⊕ Fin s)
 /-- `⌈log₂ s⌉`. -/
 def padExp (s : ℕ) : ℕ := Nat.clog 2 s
 
-/-- The known padding block `2^{-⌈log₂ s⌉} 𝟙𝟙ᵀ` (line 2480). -/
+/-- The known padding block `2^{-⌈log₂ s⌉} 𝟙𝟙ᵀ` (the end of the proof of Theorem `hsl:thm:main`). -/
 def padBlock (s : ℕ) : Matrix (Fin s) (Fin s) ℂ := Matrix.of fun _ _ => ((2 : ℂ) ^ padExp s)⁻¹
 
 /-- The isolated reference vertices: energy `0` (`r₀`) and energy `1`. -/
@@ -104,7 +105,7 @@ theorem norm_fromBlocks_zero (A : Matrix α α ℂ) (B : Matrix β β ℂ) :
 
 end Blocks
 
-/-! ### Reference vertices and padding (lines 2281-2284, 2476-2484) -/
+/-! ### Reference vertices and padding (the chain construction of Section `part:hsl` and the end of the proof of Theorem `hsl:thm:main`) -/
 
 /-- `s ≤ 2^{⌈log₂ s⌉}` (`Nat.le_pow_clog`). -/
 theorem le_two_pow_padExp (s : ℕ) : s ≤ 2 ^ padExp s :=
@@ -114,8 +115,8 @@ theorem le_two_pow_padExp (s : ℕ) : s ≤ 2 ^ padExp s :=
 theorem padBlock_apply_ne_zero (s : ℕ) (p q : Fin s) : padBlock s p q ≠ 0 := by
   simp [padBlock]
 
-/-- **The padding block has norm `s 2^{-⌈log₂ s⌉} ≤ 1`** (line 2481; Schur
-test with `v = 1`). -/
+/-- **The padding block has norm `s 2^{-⌈log₂ s⌉} ≤ 1`** (the end of the proof of Theorem
+`hsl:thm:main`; Schur test with `v = 1`). -/
 theorem norm_padBlock_le (s : ℕ) : ‖padBlock s‖ ≤ 1 := by
   refine norm_le_of_schur (padBlock s) (fun _ _ => ((2 : ℝ) ^ padExp s)⁻¹) (fun _ _ => rfl)
     (fun _ _ => by simp [padBlock]) (fun _ => 1) (fun _ => one_pos) zero_le_one fun _ => ?_
@@ -190,8 +191,8 @@ section Full
 
 variable {C : Type} [Fintype C] [DecidableEq C]
 
-/-- The energy-one vertex makes the full norm exactly one once `‖H‖ ≤ 1`
-(lines 2281-2283, 2483-2484). -/
+/-- The energy-one vertex makes the full norm exactly one once `‖H‖ ≤ 1` (the chain construction of
+Section `part:hsl` and the end of the proof of Theorem `hsl:thm:main`). -/
 theorem norm_fullMatrix {H : Matrix C C ℂ} (hH : ‖H‖ ≤ 1) (s : ℕ) : ‖fullMatrix H s‖ = 1 := by
   rw [fullMatrix, norm_fromBlocks_zero, norm_fromBlocks_zero, norm_refBlock,
     max_eq_left (norm_padBlock_le s), max_eq_right hH]
@@ -255,7 +256,7 @@ theorem card_col_fullMatrix_le {H : Matrix C C ℂ} {s : ℕ} (hs : 1 ≤ s)
   HsInstance.card_fromBlocks_col_le hH (HsInstance.card_fromBlocks_col_le
     (fun r => (card_refBlock_col_le r).trans hs) (fun p => (card_padBlock_col s p).le)) i'
 
-/-- A padding row has exactly `s` nonzeros (lines 2481-2482). -/
+/-- A padding row has exactly `s` nonzeros (the end of the proof of Theorem `hsl:thm:main`). -/
 theorem card_row_fullMatrix_pad (H : Matrix C C ℂ) (s : ℕ) (p : Fin s) :
     (Finset.univ.filter fun i' => fullMatrix H s (Sum.inr (Sum.inr p)) i' ≠ 0).card = s := by
   rw [fullMatrix, HsInstance.card_fromBlocks_row_inr, HsInstance.card_fromBlocks_row_inr,
@@ -283,14 +284,14 @@ theorem sum_sq_scalarChain_le {n : ℕ} {c : ℕ → ℝ} (hc0 : ∀ k, 0 ≤ c 
     ∑ i', ‖scalarChain n c x i i'‖ ^ 2 ≤ 1 :=
   HsInstance.sum_sq_scalarChain_le hc0 hc x i
 
-/-- A decorated-chain row meets at most two dense `m × m` blocks (line 2247:
-sparsity at most `2m`). -/
+/-- A decorated-chain row meets at most two dense `m × m` blocks (the chain construction of Section
+`part:hsl`: sparsity at most `2m`). -/
 theorem card_row_searchChain_le {n m : ℕ} (c : ℕ → ℝ) (j : Fin n → Fin m)
     (p : Fin (n + 1) × Fin m) :
     (Finset.univ.filter fun q => searchChain n m c j p q ≠ 0).card ≤ 2 * m :=
   HsInstance.card_row_searchChain_le c j p
 
-/-- The scalar chain is two-sparse (line 2343). -/
+/-- The scalar chain is two-sparse (Lemma `hsl:lem:precision`). -/
 theorem card_row_scalarChain_le {n : ℕ} (c : ℕ → ℝ) (x : Fin n → Bool) (i : Fin (n + 1)) :
     (Finset.univ.filter fun i' => scalarChain n c x i i' ≠ 0).card ≤ 2 :=
   HsInstance.card_row_scalarChain_le c x i
@@ -307,7 +308,7 @@ theorem card_scalarIndex (n s : ℕ) : Fintype.card (ScalarIndex n s) = n + 3 + 
   simp only [ScalarIndex, FullIndex, Fintype.card_sum, Fintype.card_fin]
   omega
 
-/-- Real symmetric (line 2113). -/
+/-- Real symmetric (Theorem `hsl:thm:main`). -/
 theorem searchHam_realSymmetric (a τ : ℝ) (j : Fin n → Fin (2 ^ μ)) :
     (searchHam n μ s a τ j)ᵀ = searchHam n μ s a τ j ∧
       ∀ i i', star (searchHam n μ s a τ j i i') = searchHam n μ s a τ j i i' :=
@@ -351,7 +352,7 @@ theorem fullMatrix_props {C : Type} [Fintype C] [DecidableEq C] {H : Matrix C C 
   exact norm_fullMatrix hnorm s
 
 /-- **Norm exactly one, row/column norms exactly one, sparsity exactly `s`**
-for the search family (lines 2113-2115, 2476-2484), for `0 ≤ a ≤ 1` and
+for the search family (Theorem `hsl:thm:main`), for `0 ≤ a ≤ 1` and
 `2·2^μ ≤ s`. -/
 theorem searchHam_props {a : ℝ} (ha0 : 0 ≤ a) (ha1 : a ≤ 1) (τ : ℝ) (hs : 2 * 2 ^ μ ≤ s)
     (j : Fin n → Fin (2 ^ μ)) :

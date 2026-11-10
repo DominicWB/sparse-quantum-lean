@@ -37,7 +37,7 @@ variable {𝒢 : Set Kind} {L : ℝ → ℕ}
 
 set_option maxRecDepth 8192 in
 /-- **Theorem `hs:thm:gates` over a finite gate set with the manuscript's schedule, from the
-native data** (time-independent part): `sel_simulation_ms` for the selectively compiled native
+native data**: `sel_simulation_ms` for the selectively compiled native
 private circuit `privSel hS η nd ar`, under the hypotheses of `GateNative.native_simulation` and
 `24 d (η + 4ζ) ≤ ε`. -/
 theorem sel_simulation_ms_native (hS : Synthesis 𝒢 X L) (hadj : AdjClosed 𝒢) {c₀ c₁ : ℝ}
@@ -94,8 +94,9 @@ theorem sel_simulation_ms_native (hS : Synthesis 𝒢 X L) (hadj : AdjClosed �
     convert herr using 4
 
 set_option maxRecDepth 8192 in
-/-- **Theorem `hs:thm:gates` over a finite gate set with the manuscript's schedule, from the
-native data, time-dependent part**: `sel_time_simulation_ms` for the selectively compiled
+/-- **Package extension: Theorem `hs:thm:time` with the circuit of `hs:thm:gates` (single-label
+case of Lemma `ode:lem:gate-select`), over a finite gate set with the manuscript's schedule, from
+the native data**: `sel_time_simulation_ms` for the selectively compiled
 slot-selected native private circuit, under `24 d (η + 4ζ) ≤ ε`. -/
 theorem sel_time_simulation_ms_native (hS : Synthesis 𝒢 X L) (hadj : AdjClosed 𝒢) {c₀ c₁ : ℝ}
     (hc₀ : 0 ≤ c₀) (hc₁ : 0 ≤ c₁)

@@ -8,20 +8,20 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # Theorem `odel:thm:psd` for the released constant-coefficient solver's oracle
 
-Manuscript lines 4114-4115 ("The lower bounds thus apply to Theorems `ode:thm:main` and
-`ode:thm:time`") and 4452-4571 (Theorem `odel:thm:psd`: the homogeneous equation `ẋ = -D_X x`
-with `D_X ⪰ 0`, `‖D_X‖ = η_D = 1`, `T = τ`, `1 ≤ g ≤ √2`, public supports and dyadic entries,
-`Q = Ω(√(sτr) + r)`, with the heralded output), for adaptive solvers
-(`AdaptiveODELowerBound.Model.TreeSolver`) over the physical oracle family `Oracle.constOracle`
-of the released constant-coefficient solver `SparseHamiltonian.ODECompleteEndpoint.solver` run on
-the two PSD families (`ODELowerBoundExtensions.Psd.psdSearchFamilyAt`, `psdScalarFamilyAt`), with
-public source interfaces. Both counts of `Herald` are bounded.
+Manuscript: Section `odel:sec:main` ("the lower bounds apply to the upper bounds of the preceding
+section") and Theorem `odel:thm:psd` (the homogeneous equation `ẋ = -D_X x` with `D_X ⪰ 0`,
+`‖D_X‖ = η_D = 1`, `T = τ`, `1 ≤ g ≤ √2`, public supports and dyadic entries, `Q = Ω(√(sτr) + r)`,
+with the heralded output), for adaptive solvers (`AdaptiveODELowerBound.Model.TreeSolver`) over the
+physical oracle family `Oracle.constOracle` of the released constant-coefficient solver
+`SparseHamiltonian.ODECompleteEndpoint.solver` run on the two PSD families
+(`ODELowerBoundExtensions.Psd.psdSearchFamilyAt`, `psdScalarFamilyAt`), with public source
+interfaces. Both counts of `Herald` are bounded.
 
-* `psd_search_const_tree`: for `s ≥ 512n/τ`, the gadget family forces
-  `(log 2/(1536√2)) √(sτr)` (eq. `odel:eq:psdmixedlocal` and lines 4547-4550), from
+* `psd_search_const_tree`: for `s ≥ 512n/τ`, the gadget family forces `(log 2/(1536√2)) √(sτr)` (eq.
+  `odel:eq:psdmixedlocal` and the proof of Theorem `odel:thm:psd`), from
   `AdaptiveODELowerBound.Psd.psd_search_tree_general` with `Access.searchGrowth_const_heat`.
-* `psd_scalar_const_tree`: the scalar family forces `r/32`, and `√(sτr)/256` when
-  `s < 512n/τ` (lines 4555-4568), from `AdaptiveODELowerBound.Psd.psd_scalar_tree_general`.
+* `psd_scalar_const_tree`: the scalar family forces `r/32`, and `√(sτr)/256` when `s < 512n/τ`
+  (proof of Theorem `odel:thm:psd`), from `AdaptiveODELowerBound.Psd.psd_scalar_tree_general`.
 * `psd_max_const_tree`: max form, `psdConst (√(sτr) + r) ≤ max(Q_G, Q_S)` for both counts,
   `psdConst = log 2/(3072√2)` (`ODELowerBoundExtensions.Psd.psd_assembly`), on `PsdRange`.
 * `psd_max_const_retry`: the same for retry protocols, through `Model.retryToTree`.
@@ -32,7 +32,7 @@ oracle (controlled calls) are not included, and the released solver does not use
 Controlled calls, padding and family forms over this oracle are in the library
 `PhysicalODELowerBound`.
 
-As in the manuscript (lines 4573-4578), no constant-error `Ω(√s τ)` bound is asserted for the
+As in the manuscript (Theorem `odel:thm:psd`), no constant-error `Ω(√s τ)` bound is asserted for the
 purely dissipative subclass.
 -/
 
@@ -56,9 +56,9 @@ set_option maxRecDepth 4096
 
 variable {τ ε : ℝ} {s : ℕ}
 
-/-- **The gadget family, adaptive protocols over the released constant-coefficient oracle**
-(lines 4542-4553): for `s ≥ 512n/τ`, at least `(log 2/(1536√2)) √(sτr)` value calls, hence as
-many matrix calls, in the worst case. -/
+/-- **The gadget family, adaptive protocols over the released constant-coefficient oracle** (proof
+of Theorem `odel:thm:psd`): for `s ≥ 512n/τ`, at least `(log 2/(1536√2)) √(sτr)` value calls, hence
+as many matrix calls, in the worst case. -/
 theorem psd_search_const_tree (h : PsdRange τ s ε) (hs : 512 * (precN τ ε : ℝ) / τ ≤ s)
     (ι : Type) [Fintype ι] [DecidableEq ι] (Nm Tsl d : ℕ) {J₀ Jb : _ → SysOp _}
     (hJ : PublicConstSources J₀ Jb) {Fl E G : Type}
@@ -95,8 +95,8 @@ theorem psd_search_const_tree (h : PsdRange τ s ε) (hs : 512 * (precN τ ε : 
     linarith [ODELowerBoundExtensions.Psd.psd_gadget_arith h]
   exact ⟨hv, hv.trans (AdaptiveODELowerBound.Release.worstCost_value_le_matrix_tree A.tree)⟩
 
-/-- **The scalar family, adaptive protocols over the released constant-coefficient oracle**
-(lines 4555-4568): at least `r/32` value calls in the worst case, and at least `√(sτr)/256`
+/-- **The scalar family, adaptive protocols over the released constant-coefficient oracle** (proof
+of Theorem `odel:thm:psd`): at least `r/32` value calls in the worst case, and at least `√(sτr)/256`
 when `s < 512n/τ`; hence as many matrix calls. -/
 theorem psd_scalar_const_tree (h : PsdRange τ s ε) (ι : Type) [Fintype ι] [DecidableEq ι]
     (Nm Tsl d : ℕ) {J₀ Jb : _ → SysOp _} (hJ : PublicConstSources J₀ Jb) {Fl E G : Type}

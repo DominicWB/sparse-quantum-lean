@@ -6,16 +6,13 @@ set_option autoImplicit false
 /-!
 # Unstructured search for adaptive protocols
 
-The lower half of corollary `hs:cor:unitary` of the manuscript (lines
-1664-1665 and 1711-1718) rests on the `Ω(√N)` bound for unstructured search.
-The corollary does not mention adaptive algorithms; their treatment follows the
-convention of the lower-bound sections of the manuscript ("Randomised or
-adaptive algorithms are covered by purification and deferred measurement",
-proof of Lemma `hsl:lem:precision`, lines 2363-2364). This module proves the
-search bound for the adaptive protocols `SparseLinearSystems.Protocol.Tree`, with the worst-case
-weighted cost `Tree.worstCost w` in place of the query count of the
-non-adaptive `UnitaryImplementationExtensions.Search.count_ge`, and the same
-constant.
+The lower half of corollary `hs:cor:unitary` of the manuscript rests on the `Ω(√N)` bound for
+unstructured search. The corollary does not mention adaptive algorithms; their treatment follows the
+convention of the lower-bound sections of the manuscript ("Purification and deferred measurement
+include adaptive and randomised algorithms", proof of Lemma `hsl:lem:precision`). This module proves
+the search bound for the adaptive protocols `SparseLinearSystems.Protocol.Tree`, with the worst-case
+weighted cost `Tree.worstCost w` in place of the query count of the non-adaptive
+`UnitaryImplementationExtensions.Search.count_ge`, and the same constant.
 
 The oracle labels are implemented on an isometric encoding by Boolean phase
 queries of the marked strings `Search.markedString c m` (one marked element of

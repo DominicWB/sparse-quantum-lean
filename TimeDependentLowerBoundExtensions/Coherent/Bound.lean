@@ -7,11 +7,11 @@ set_option synthInstance.maxSize 4096
 /-!
 # Theorem `hsl:thm:main` with coherent selection of durations and start times
 
-The proof of Theorem `hs:thm:time` "also permits coherent selection of known durations, start
-times, or other public parameters, provided the corresponding coherent sampled-time oracle is
-supplied" (the manuscript, lines 1505-1510), and the lower bound of Theorem `hsl:thm:main`
-applies to the time-dependent class with time-independent hard instances (lines 1512-1516).
-Here the algorithms are programs over the released selection family
+The paragraphs after the proof of Theorem `hs:thm:time` permit coherent selection: "We may also
+select known start times, durations or other parameters in superposition, provided the corresponding
+coherent sampled-time access is supplied", and the lower bound of Theorem `hsl:thm:main` applies to
+the time-dependent class with time-independent hard instances. Here the algorithms are programs over
+the released selection family
 `TimeDependentExtensions.MeshSelect.alignedOracle (ι := ι) (constData D M) N γ ρ T ε'` (any branch
 register, number of samples, slot count and schedule) on the constant time, mixed and precision
 data, with any isometric encoding `E` of the branch-and-system space `ℂ^ι ⊗ ℂ^n`.

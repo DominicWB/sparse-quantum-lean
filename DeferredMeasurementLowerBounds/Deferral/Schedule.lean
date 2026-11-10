@@ -6,7 +6,7 @@ set_option autoImplicit false
 /-!
 # Aligned schedules of selected calls
 
-The deferred program of a measured algorithm (manuscript lines 5185-5186: "padding to their
+The deferred program of a measured algorithm (proof of Lemma `qlsl:lem:xor`: "padding to their
 worst-case query count") is built as an **aligned schedule** `Sched`: free segments
 `seg 0, seg 1, …, seg len` (programs over the selection family using only uncounted patterns
 and known unitaries, so of weight zero) separated by the counted slots `slot 0, …, slot (len - 1)`,

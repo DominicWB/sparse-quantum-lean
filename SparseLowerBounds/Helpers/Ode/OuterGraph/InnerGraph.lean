@@ -6,9 +6,8 @@ section
 /-!
 # The inner parity graph of the joint search-parity adversary
 
-Helper for `ODE/JointGraph` (proof of Lemma `odel:lem:outer`, manuscript lines
-3752-3766). On tuples `j ∈ ℤ_m^n`, two tuples are joined when exactly one
-coordinate changes and its parity changes (`InnerAdj`). For `m` even:
+Helper for `ODE/JointGraph` (proof of Lemma `odel:lem:outer`). On tuples `j ∈ ℤ_m^n`, two tuples are
+joined when exactly one coordinate changes and its parity changes (`InnerAdj`). For `m` even:
 
 * the graph flips the parity of the coordinate sum (`InnerAdj.sum_mod_ne`), so
   it is bipartite between even and odd tuples;
@@ -28,7 +27,7 @@ open Finset
 
 variable {n m : ℕ}
 
-/-- **The inner graph** (lines 3752-3755): `j` and `e` differ in exactly one
+/-- **The inner graph** (proof of Lemma `odel:lem:outer`): `j` and `e` differ in exactly one
 coordinate `k`, and the parities of `j k` and `e k` differ. -/
 def InnerAdj (j e : Fin n → Fin m) : Prop :=
   ∃ k, (∀ k', k' ≠ k → j k' = e k') ∧ (j k : ℕ) % 2 ≠ (e k : ℕ) % 2
@@ -82,7 +81,7 @@ theorem innerAdj_update {j : Fin n → Fin m} {k : Fin n} {z : Fin m}
     (hz : (j k : ℕ) % 2 ≠ (z : ℕ) % 2) : InnerAdj j (Function.update j k z) :=
   ⟨k, fun k' hk' => (Function.update_of_ne hk' _ _).symm, by simpa using hz⟩
 
-/-- **Inner degree** (line 3757): for `m` even the inner graph is regular of
+/-- **Inner degree** (proof of Lemma `odel:lem:outer`): for `m` even the inner graph is regular of
 degree `d = n (m/2)`. -/
 theorem card_innerAdj (hme : Even m) (j : Fin n → Fin m) :
     (univ.filter (InnerAdj j)).card = n * (m / 2) := by

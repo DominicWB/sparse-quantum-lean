@@ -3,13 +3,13 @@ import SparseHamiltonian.ManuscriptPrecision
 /-!
 # Theorem `hs:thm:main` at zero time or zero norm bound
 
-Theorem `hs:thm:main` of the accompanying paper ends with "If `t = 0` or the available bound
-is `η = 0`, the identity circuit suffices." The released endpoint
-`SparseHamiltonian.ImprovedSparseHamiltonian.simulation_log_one` assumes `η > 0`, and its
-query bound `995328 (√s τ + √(s τ log(1/ε)) + log(1/ε))` is positive at `t = 0`. The released
-module `SparseHamiltonian/ImprovedZeroSimulation.lean` certifies the identity in the smaller
-oracle family `NativeSparseAttenuation.oracles D`; this file states the remark in the oracle
-family `ImprovedSparseHamiltonian.oracle D γ η t ε`, with the clean encoding
+Theorem `hs:thm:main` of the accompanying paper ends with "For `t = 0` or a known zero Hamiltonian,
+the identity circuit suffices." The released endpoint
+`SparseHamiltonian.ImprovedSparseHamiltonian.simulation_log_one` assumes `η > 0`, and its query
+bound `995328 (√s τ + √(s τ log(1/ε)) + log(1/ε))` is positive at `t = 0`. The released module
+`SparseHamiltonian/ImprovedZeroSimulation.lean` certifies the identity in the smaller oracle family
+`NativeSparseAttenuation.oracles D`; this file states the remark in the oracle family
+`ImprovedSparseHamiltonian.oracle D γ η t ε`, with the clean encoding
 `ImprovedSparseHamiltonian.input D γ η t ε`, of the released endpoint.
 
 * `input_isometry`: the clean encoding is an isometry for all public parameters.

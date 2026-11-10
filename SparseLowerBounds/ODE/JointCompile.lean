@@ -6,14 +6,13 @@ section
 /-!
 # The sampled-time access of the joint family from membership queries
 
-Manuscript lines 3852-3858: "A matrix value query is implemented using at
-most two Boolean membership queries, by computing the relevant bit, writing
-the known entry, and uncomputing the bit. The same holds for inverse and
-controlled calls." For the joint family (`ODE/JointInstance`) every label of
-the coherent sampled-time oracle (`Family.access ι`, branch register `ι`, time
-address `Fin (n + 2)`) is `EncodedOracle.ImplementsOn` the membership phase
-oracle `x ↦ (jointBoolean ι …).phase (membership x)` on the clean-ancilla
-encoding (`ancillaEmbed`) at cost `hardCost`:
+Manuscript: the construction before Theorem `odel:thm:joint`, "A value query computes one relevant
+membership bit, writes the known entry and uncomputes the bit. It therefore uses at most two
+membership queries, also for inverse and controlled calls." For the joint family
+(`ODE/JointInstance`) every label of the coherent sampled-time oracle (`Family.access ι`, branch
+register `ι`, time address `Fin (n + 2)`) is `EncodedOracle.ImplementsOn` the membership phase
+oracle `x ↦ (jointBoolean ι …).phase (membership x)` on the clean-ancilla encoding (`ancillaEmbed`)
+at cost `hardCost`:
 
 * the row and column **location** labels are input-, stage- and
   branch-independent permutation unitaries (fixed gates): **0** queries;
@@ -186,8 +185,8 @@ theorem access_value_apply (hμ : 1 ≤ μ) (hμs : 2 ^ μ ≤ s) (T : ℝ)
         else 0) :=
   rfl
 
-/-- **Every sampled-time label is a `hardCost`-query membership program**
-(lines 3854-3858): `0` for the locators, `2` for the value oracle. -/
+/-- **Every sampled-time label is a `hardCost`-query membership program** (the construction before
+Theorem `odel:thm:joint`): `0` for the locators, `2` for the value oracle. -/
 theorem implementsOn_joint (ι : Type*) [Fintype ι] {M n μ s : ℕ} (hμ : 1 ≤ μ)
     (hμs : 2 ^ μ ≤ s) (T : ℝ) (hT : (n : ℝ) * (Real.pi / 2) + 1 ≤ T) (l : Query) :
     EncodedOracle.ImplementsOn

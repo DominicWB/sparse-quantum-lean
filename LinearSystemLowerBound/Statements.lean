@@ -12,6 +12,7 @@ Theorem `qlsl:thm:main` (a matching linear-system query lower bound) and Lemma
 No result from another paper is used; the argument is the paper's weight-growth argument
 with weight `(2I - P)^{⊗n}` and parity observable `Z^{⊗n}`.  Two properties of the hard
 family are transferred from the `SparseLowerBounds` library of this package (`Bridge.lean`).
+References to the manuscript use its labels.
 
 * Main theorem: `LinearSystemLowerBound.lower_bound` (constant `1/3072`, as in the paper) and
   `LinearSystemLowerBound.lower_bound_sharp` (constant `1/1536`) in `Theorem.lean`; the case
@@ -23,7 +24,7 @@ family are transferred from the `SparseLowerBounds` library of this package (`Br
   `family_promise`, `family_real_symm`, `family_indefinite`, `family_sparse`,
   `family_dimension`, `rhsVec_norm`; satisfiable access conditions `exists_access`.  Through
   `SparseLowerBounds` (`Bridge.lean`, `family_eq_submatrix`): the actual condition number
-  `κ/16 < ‖A_X‖ ‖A_X⁻¹‖ ≤ κ` (`family_cond`, the remark after the theorem,
+  `κ/16 < ‖A_X‖ ‖A_X⁻¹‖ ≤ κ` (`family_cond`; proof of Theorem `qlsl:thm:main`, the display after
   eq. `qlsl:eq:actualconditioning`) and the dimension
   `s κ ln(1/ε)/32 < N ≤ (s - 1) κ ln(1/ε)` (`family_dimension_sharp`).
 * Matching upper bound in the same model: `LinearSystemLowerBound.upper_meets_lower` and
@@ -120,7 +121,8 @@ forms.
   contributes no output, which is the paper's random-bit convention.  Measurements inside a
   run followed by classically controlled operations can be deferred in the usual way; since a
   native call may apply different queries on different branches and is counted once, this
-  does not increase the worst-case count (this reduction is not formalised).
+  does not increase the worst-case count (this reduction is formalised:
+  `DeferredMeasurementLowerBounds.Corollaries.lower_bound_measured`).
 * A value query is estimated directly: on every address block it is a translation of the
   value register depending on one bit, so it costs one growth factor `(1 + 2/√m)²`.  The
   paper simulates it by two Boolean queries, which costs a factor `2` in the constant; the
@@ -131,6 +133,6 @@ forms.
 * The lower bound is stated for every native data with the hard matrices, input-independent
   locators and an entry-determined value table; `exists_access` constructs one (fixed
   permutation locators, an address-independent word code with five entry values).
-* The parameters `R` and `m` are powers of two as in the paper.  Not formalised: the remark
-  on padding to larger dimensions.
+* The parameters `R` and `m` are powers of two as in the paper.  The remark on padding to
+  larger dimensions is `LowerBoundRemarks.LinearSystemPadding.lower_bound_common_dimension`.
 -/

@@ -5,22 +5,21 @@ set_option synthInstance.maxHeartbeats 400000
 section
 /-! ## Axiom audits
 
-Each audit fixes the exact axiom report of its declaration and fails to compile if the
-declaration depends on any other axiom. The audits cover every theorem of the extensions of the
-dissipative-ODE lower bounds (694 theorems) and every `Prop`-valued field of the structures
-`Psd.PsdRange`, `Homogeneous.HomRange`, `Padding.ZeroPad`, `Release.RetrySolver`,
-`Release.RetryWitnesses`, `Release.PublicSources` and `Release.ReleaseRun` (26 fields), in
-module order, helper modules included: Theorem `odel:thm:psd` (`Psd/`), Remark
-`odel:rem:homogeneous` (`Homogeneous/`), the padding remarks of Section `part:odel`
-(`Padding/`), the retry protocols, the released solver and the bracket (`Release/`), and Lemma
-`odel:lem:dyson` with eq. `odel:eq:fixed` and its consequence (`Dyson/`). Every report lists
-`propext`, `Classical.choice` and `Quot.sound`, except for 8 lemmas, whose reports list a subset
-of these three axioms (one of them depends on no axiom): three word-table lemmas and the
-padded-word identity `Padding.padWords_eq_value`, two weight lemmas of the released oracle
-(`Release.matrixWeight_value_le`, `Release.matrixWeight_hardCost`), the flag-index involution
-`Dyson.flipEquiv_flipEquiv` and the weight lemma `Dyson.sourceWeight_le_total`. Definitions are not
-listed; the proof fields of the data and family constructions are reached through the theorems
-about them. -/
+Each audit fixes the exact axiom report of its declaration and fails to compile if the declaration
+depends on any other axiom. The audits cover every theorem of the extensions of the dissipative-ODE
+lower bounds (694 theorems) and every `Prop`-valued field of the structures `Psd.PsdRange`,
+`Homogeneous.HomRange`, `Padding.ZeroPad`, `Release.RetrySolver`, `Release.RetryWitnesses`,
+`Release.PublicSources` and `Release.ReleaseRun` (26 fields), in module order, helper modules
+included: Theorem `odel:thm:psd` (`Psd/`), Proposition `odel:rem:homogeneous` (`Homogeneous/`), the
+padding remarks of Section `part:odel` (`Padding/`), the retry protocols, the released solver and
+the bracket (`Release/`), and Lemma `odel:lem:dyson` with eq. `odel:eq:fixed` and its consequence
+(`Dyson/`). Every report lists `propext`, `Classical.choice` and `Quot.sound`, except for 8 lemmas,
+whose reports list a subset of these three axioms (one of them depends on no axiom): three
+word-table lemmas and the padded-word identity `Padding.padWords_eq_value`, two weight lemmas of the
+released oracle (`Release.matrixWeight_value_le`, `Release.matrixWeight_hardCost`), the flag-index
+involution `Dyson.flipEquiv_flipEquiv` and the weight lemma `Dyson.sourceWeight_le_total`.
+Definitions are not listed; the proof fields of the data and family constructions are reached
+through the theorems about them. -/
 
 /-! ### Theorem `odel:thm:psd` (`ODELowerBoundExtensions.Psd`) -/
 
@@ -708,7 +707,7 @@ about them. -/
 #guard_msgs (whitespace := lax) in
 #print axioms ODELowerBoundExtensions.Psd.psd
 
-/-! ### Remark `odel:rem:homogeneous` (`ODELowerBoundExtensions.Homogeneous`) -/
+/-! ### Proposition `odel:rem:homogeneous` (`ODELowerBoundExtensions.Homogeneous`) -/
 
 /-! #### `ODELowerBoundExtensions.Homogeneous.Parameters` -/
 

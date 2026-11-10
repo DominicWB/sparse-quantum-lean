@@ -12,12 +12,12 @@ seed `ψ` and a public flag isometry `F`; its unnormalised success vector is `F�
 and its Born success probability `‖F† C_x ψ‖²`. A final attempt is the same kind of datum with
 the output isometry as its flag.
 
-`RunApprox t t' e` (an implementation `t'` of the ideal run `t` with approximate known gates):
-the circuit of `t'` is a known-gate approximation of the circuit of `t` (`GateApprox`, same oracle
-calls), the seed of `t'` is within `e_ψ` of the ideal seed, the flag of `t'` within `e_F` of
-the ideal flag in operator norm, and the three errors sum to at most `e`. Then `e` bounds the
-quantity `e` of the manuscript, "the change in the unnormalised success vector due to all
-known-gate approximations in a test or final attempt":
+`RunApprox t t' e` (an implementation `t'` of the ideal run `t` with approximate known gates): the
+circuit of `t'` is a known-gate approximation of the circuit of `t` (`GateApprox`, same oracle
+calls), the seed of `t'` is within `e_ψ` of the ideal seed, the flag of `t'` within `e_F` of the
+ideal flag in operator norm, and the three errors sum to at most `e`. Then `e` bounds the quantity
+`ε_syn` of the manuscript, "the change in its unnormalised success vector due to all known-gate
+approximations in a test or final attempt":
 
 * `RunApprox.amp_sub_le`: `‖F'† C'_x ψ' - F† C_x ψ‖ ≤ e` for every input;
 * `RunApprox.probability_sub_le`: both success vectors have norm at most one, so the success
@@ -153,11 +153,11 @@ end RunApprox
 
 /-! ### Implementations specified by their effect -/
 
-/-- **An implementation of a run within `e` on the inputs satisfying `P`**, specified by its
-effect (the manuscript's `e`, "the change in the unnormalised success vector due to all
-known-gate approximations"): the implemented run `t'` has the weighted cost of the ideal run
-`t` for every weighting of the labels, and on every input satisfying `P` its unnormalised
-success vector differs from that of `t` by at most `e`. -/
+/-- **An implementation of a run within `e` on the inputs satisfying `P`**, specified by its effect
+(the manuscript's `ε_syn`, "the change in its unnormalised success vector due to all known-gate
+approximations"): the implemented run `t'` has the weighted cost of the ideal run `t` for every
+weighting of the labels, and on every input satisfying `P` its unnormalised success vector differs
+from that of `t` by at most `e`. -/
 def AmpApprox (P : X → Prop) (t t' : TestRun O F) (e : ℝ) : Prop :=
   (∀ w : L → ℕ, t'.circuit.cost w = t.circuit.cost w) ∧ ∀ x, P x → ‖amp t' x - amp t x‖ ≤ e
 

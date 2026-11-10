@@ -11,29 +11,34 @@ import ZeroTimeRemarks.ODEMesh
 # Zero-time and zero-generator remarks: paper-to-Lean entry point
 
 The accompanying paper remarks after several upper-bound theorems that the degenerate cases
-need no matrix query:
+need no matrix query (for the dissipative solvers, none outside the supplied input and source
+preparations):
 
-* Theorem `hs:thm:main` (lines 1283-1284; also 1771-1772): "If `t = 0` or the available bound
-  is `η = 0`, the identity circuit suffices."
-* Theorem `hs:thm:time` (line 1828): "Zero time or a known zero Hamiltonian requires no matrix
-  queries."
-* Theorem `hs:thm:gates` (lines 2379-2380): "At `t = 0` the identity circuit suffices."
-* Theorem `ode:thm:main` (lines 3171-3172): "Zero time or a known zero generator can be handled
-  directly without matrix queries"; Theorem `ode:thm:time` (line 3429) extends the bound of
-  `ode:thm:main` to time-dependent generators and inherits the remark.
-* Theorem `ode:thm:gates` (lines 3954-3955): "Zero time or a known zero generator uses direct
-  source assembly and needs no matrix calls."
+* Theorem `hs:thm:main`: "For `t = 0` or a known zero Hamiltonian, the identity circuit
+  suffices."
+* Theorem `hs:thm:time`: "For zero evolution time or a Hamiltonian known to vanish throughout
+  the evolution, the evolution operator is the identity, so we can implement it without any
+  matrix queries."
+* Theorem `hs:thm:gates`, stated under the assumptions of Theorem `hs:thm:main`.
+* Theorem `ode:thm:main` (the remark after eq. `ode:eq:simple`): "At zero time or for a known zero
+  generator, the solver assembles the initial and source terms directly. It makes no matrix
+  queries outside the supplied input and source preparations." The source interfaces here are
+  separate query-only oracles, so the matrix-query count is zero. Theorem `ode:thm:time`
+  extends the bound of `ode:thm:main` to time-dependent generators, and the same remark is
+  stated for it here.
+* Theorem `ode:thm:gates`: "At `T = 0` only the initial preparation is needed. For a known zero
+  generator the solver assembles the source quadrature directly. Neither case needs a propagator
+  query; any matrix queries inside the supplied preparations still count."
 
-The released endpoints of `hs:thm:main` and `hs:thm:time` assume a positive norm bound
-(`η > 0`, `α > 0`), those on general meshes and for time-indexed block encodings also `T > 0`,
-and those of `ode:thm:time` assume `T > 0` and `ρ = η_H + R η_D > 0`; at zero time the
-endpoints of `hs:thm:main`, `hs:thm:time` (uniform meshes) and `hs:thm:gates` still charge their
-positive query and gate bounds, and the endpoint of `ode:thm:main` treats the degenerate cases
-in separate, source-only oracle families. This library states the remarks in the oracle family,
-cost weights, clean encodings and output guarantees of each released endpoint, with zero matrix
-queries, and gives combined forms for every time and every bound; the released libraries are
-unchanged. No result from another paper is used. Manuscript lines refer to
-`sparse_quantum_algorithms.tex` (v11); the labels are the stable references.
+The released endpoints of `hs:thm:main` and `hs:thm:time` assume a positive norm bound (`η > 0`,
+`α > 0`), those on general meshes and for time-indexed block encodings also `T > 0`, and those of
+`ode:thm:time` assume `T > 0` and `ρ = η_H + R η_D > 0`; at zero time the endpoints of
+`hs:thm:main`, `hs:thm:time` (uniform meshes) and `hs:thm:gates` still charge their positive query
+and gate bounds, and the endpoint of `ode:thm:main` treats the degenerate cases in separate,
+source-only oracle families. This library states the remarks in the oracle family, cost weights,
+clean encodings and output guarantees of each released endpoint, with zero matrix queries, and gives
+combined forms for every time and every bound; the released libraries are unchanged. No result from
+another paper is used. References to the manuscript use its labels.
 
 **Naming convention.** All new declarations are in the namespace
 `SparseHamiltonian.ZeroTimeRemarks`, one sub-namespace per module of `ZeroTimeRemarks/`
@@ -308,6 +313,10 @@ Every theorem of the library is axiom-audited in `ZeroTimeRemarks/Audit.lean`.
 
 **Formalisation choices.**
 
+* Sample positivity (a formal restriction): the time-dependent ODE forms (`ODETime`,
+  `ODEMesh`) keep the positivity hypothesis of the released solvers (positive semidefinite
+  dissipative parts of all represented samples), which Theorem `ode:thm:time` of the
+  manuscript does not make (see `TimeDependentODE/Statements.lean`).
 * Each degenerate case uses the oracle family, clean encoding and guarantee of the released
   endpoint; where the released statement chooses a rescaling `γ` existentially, the zero cases
   use the admissible `γ = 1` (the encodings are isometries for every public parameter).

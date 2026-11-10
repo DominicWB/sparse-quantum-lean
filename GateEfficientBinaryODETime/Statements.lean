@@ -24,18 +24,21 @@ remain hypotheses. It instantiates `GateNative.native_ode_time_solver`
 (`binary_ode_time_solver`, with the
 counts `binary_ode_time_counts` and the explicit worst-case gate count
 `binary_ode_time_gate_count`) and its finite-gate-set form `GateSynth.native_ode_time_solver_synth`
-(`binary_ode_time_solver_synth`). The released libraries are unchanged; this library imports and
-reuses `GateEfficientBinaryODE` (constant coefficients), `GateEfficientBinaryTime` (time-indexed
-binary oracles) and `GateEfficientBinary`. No result from another paper is used, except
-single-qubit synthesis and the decomposition of controlled gates as the hypothesis
-`GateSynth.Synthesis` of the finite-gate-set form. All declarations below are in the namespace
-`SparseHamiltonian.GateBinaryODETime`.
+(`binary_ode_time_solver_synth`, a partial formalisation, under this package's format hypotheses,
+of the finite-set statement of Theorem `ode:thm:gates`). The released libraries are unchanged; this
+library imports and reuses `GateEfficientBinaryODE` (constant coefficients),
+`GateEfficientBinaryTime` (time-indexed binary oracles) and `GateEfficientBinary`. No result from
+another paper is used, except single-qubit synthesis and the decomposition of controlled gates as
+the hypothesis `GateSynth.Synthesis` of the finite-gate-set form. All declarations below are in the
+namespace `SparseHamiltonian.GateBinaryODETime`.
+References to the manuscript use its labels.
 
 * Theorem `ode:thm:gates`, time-dependent part, for time-indexed binary data:
   `binary_ode_time_solver`, `binary_ode_time_counts`, `binary_ode_time_gate_count`; over a finite
-  gate set: `binary_ode_time_solver_synth`. The public data `PubT`, its conditions `PubT.OK`, the
-  released parameters `PubT.params` (`PubT.params_ok`), the native preparation `PubT.prep`, the
-  remaining instance conditions `PubT.Rest`.
+  gate set (a partial formalisation, under this package's format hypotheses, of the finite-set
+  statement of the theorem): `binary_ode_time_solver_synth`. The public data `PubT`, its
+  conditions `PubT.OK`, the released parameters `PubT.params` (`PubT.params_ok`), the native
+  preparation `PubT.prep`, the remaining instance conditions `PubT.Rest`.
 * `U_J`: the Hadamard gates `GateBinaryODE.hadUJ4` of the constant-coefficient library
   (`PubT.UJg`).
 * The native private operation and its native identity: `odeOpT` (`odeOpT_public`,
@@ -63,7 +66,10 @@ solver (`GateODE.Time.TParams`, `2^m` slots of length `T/2^m`). The Hamiltonian 
 represented slot generator of the released solver is the lifted sample:
 `GateODE.Time.gens (HsT D en x) (LsT D en x) r = M̂_r = mLift D en (x, r)` (`gensT_eq`). The
 input hypotheses are, for every slot `r`: the row and column energies of `H(M_r)` are at most
-`η_H²`, those of `L(M_r)` at most `η_D²`, and `L(M_r)` is accretive (`re ⟪w, L w⟫ ≥ 0`).
+`η_H²`, those of `L(M_r)` at most `η_D²`, and `L(M_r)` is accretive (`re ⟪w, L w⟫ ≥ 0`). The
+accretivity of every sample is the hypothesis of the formal versions of Theorem
+`ode:thm:time`, which that theorem of the manuscript does not make (the formal restriction
+stated in `TimeDependentODE/Statements.lean`).
 
 **The public data** (`PubT`): the system qubits `k` (`kx`), the slot bits `σ ≤ k`, the stored
 bits `b`, the decoder scale `c₀`, the energy bounds `η_H`, `η_D`, the Cayley rescaling `γ`, the

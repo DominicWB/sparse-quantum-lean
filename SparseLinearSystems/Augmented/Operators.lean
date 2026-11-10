@@ -14,6 +14,9 @@ where `H₀` is the off-diagonal lift of `Z ⊗ B`, `T₁` the lift of `X ⊗ I`
 also records self-adjointness and norm bounds of the three branches and the
 explicit public vectors used later: the seed coordinate `e`, the right-hand
 side `β = |0⟩|0⟩|b⟩` and the solution coordinates `|lower⟩|0⟩|1⟩`.
+
+Notation: the regularization parameter is `σ` here and `ξ` in the manuscript, so a subscript `σ` (as
+in `g_σ`, `r_σ`, `H_{σ,r}`) stands for the manuscript's subscript `ξ`.
 -/
 
 namespace SparseLinearSystems.Augmented

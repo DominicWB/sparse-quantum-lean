@@ -6,7 +6,7 @@ section
 /-!
 # Boolean access certificates and their transport
 
-The paper's Boolean reduction (manuscript lines 5304-5338) compiles a labelled
+The paper's Boolean reduction (proof of Theorem `qlsl:thm:main`) compiles a labelled
 oracle family to Boolean one-hot queries through `EncodedOracle.ImplementsOn`
 with per-label costs.
 The release's linear-system algorithm does not query the native primitives
@@ -31,7 +31,7 @@ with cost `w l`) and shows that it survives the wrappers at the **same** cost:
   the Boolean program is lifted gate by gate
   (`Helpers.Adaptive.Access.liftProgram`), with the same query count;
 * `BooleanAccess.sumConst`: adjoining input-independent unitary labels
-  (such as `U_b` for an input-independent right-hand side, lines 5084-5096)
+  (such as `U_b` for an input-independent right-hand side, Theorem `qlsl:thm:main`)
   at cost `0` (`EncodedOracle.ImplementsOn.fixed`).
 -/
 

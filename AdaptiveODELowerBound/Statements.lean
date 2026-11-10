@@ -6,58 +6,59 @@ set_option autoImplicit false
 /-!
 # Dissipative-ODE lower bounds for adaptive solvers: paper-to-Lean entry point
 
-The lower bounds of Section `part:odel` of the manuscript (Section `odel:sec:main` from line
-4091) are formalised in `SparseLowerBounds.ODE` for single heralded programs and in
+The lower bounds of Section `part:odel` of the manuscript (model in Section `odel:sec:main`) are
+formalised in `SparseLowerBounds.ODE` for single heralded programs and in
 `ODELowerBoundExtensions` for single programs and the release's bounded retry protocols. This
 library proves them for **adaptive solvers**, the protocol model of the adaptive
 Hamiltonian-simulation lower bound, over the sampled-time access **with inverses and controls**
-(line 4106), and adds a named lemma for the reduction of inverse and controlled value calls to
-Boolean queries (lines 4289-4294). All declarations below are in the namespace
-`AdaptiveODELowerBound`.
+(Section `odel:sec:main`), and adds a named lemma for the reduction of inverse and controlled value
+calls to Boolean queries (the construction before Theorem `odel:thm:joint`). All declarations below
+are in the namespace `AdaptiveODELowerBound`.
 
-* Theorem `odel:thm:combined` (lines 4133-4145, proof 4437-4445): `combined_max_tree` (max form
+* Theorem `odel:thm:combined` and its proof: `combined_max_tree` (max form
   over the sampled-time access), `combined_max_cost_tree` (max form over realised value counts
   of either access shape) and `combined_tree` (family form); over the physical oracle of the
   released general-mesh solver, `Release.combined_max_release_tree` (per-family forms
   `Release.joint_release_tree`, `mixed_release_tree`, `precision_release_tree`).
-* Theorem `odel:thm:joint` (lines 4296-4304) and Lemma `odel:lem:outer` (line 4181):
+* Theorem `odel:thm:joint` and Lemma `odel:lem:outer`:
   `Joint.joint_witness_tree`, `Joint.joint_forces_tree`, `Joint.outer_count_ge_tree`.
-* Remark `odel:rem:homogeneous` (line 4343): `Joint.hom_witness_tree`, `Joint.hom_forces_tree`.
-* Lemma `odel:lem:herald` and eq. `odel:eq:hsbound` (lines 4393-4406): `herald_max_tree`,
+* Proposition `odel:rem:homogeneous`: `Joint.hom_witness_tree`, `Joint.hom_forces_tree`.
+* Lemma `odel:lem:herald` and eq. `odel:eq:hsbound` (Lemma `odel:lem:herald`): `herald_max_tree`,
   `herald_max_cost_tree`, `herald_witness_tree`, and the fourth sentence of Theorem
   `odel:thm:combined` (the two precision terms are witnessed by homogeneous
   constant-coefficient families with `D = 0`, `g = 1`), `precision_terms_witness_tree`.
-* Theorem `odel:thm:psd` (lines 4452-4466, eq. `odel:eq:psd`): `Psd.psd_tree` (family form),
-  `Psd.psd_max_tree`, `Psd.psd_max_cost_tree`; eq. `odel:eq:psdmixedlocal` (line 4543) is
+* Theorem `odel:thm:psd` (eq. `odel:eq:psd`): `Psd.psd_tree` (family form),
+  `Psd.psd_max_tree`, `Psd.psd_max_cost_tree`; eq. `odel:eq:psdmixedlocal` is
   `Psd.psd_search_forces_local_tree`.
-* The padding remarks (maximum sparsity exactly `s`, common dimension, qubit registers; lines
-  4335-4340 and 4437-4445): `Padding.combined_pad_tree`, `Padding.combined_common_dimension_tree`,
-  `Padding.combined_qubit_register_tree`, `Padding.joint_witness_pad_tree`,
-  `Padding.joint_common_dimension_tree`, `Padding.joint_qubit_register_tree`,
-  `Padding.herald_witness_pad_tree`.
-* Inverse and controlled calls (lines 4105-4108, 4289-4294, and lines 2594-2597 for the
-  Hamiltonian families): `Access.implementsOn_callFamily`, with the instances
-  `Access.implementsOn_calls_joint`, `Access.implementsOn_calls_hom` (at most two Boolean
-  membership queries per value call, none per location call), the public locators
-  `Access.calls_locator_const_joint`, `Access.calls_locator_const_hom`, and the admissibility
-  of every call form of the spectated native primitives, `Access.admissible_callFamily_spec`.
+* The padding remarks (maximum sparsity exactly `s`, common dimension, qubit registers; proof of
+  Theorem `odel:thm:joint` and proof of Theorem `odel:thm:combined`): `Padding.combined_pad_tree`,
+  `Padding.combined_common_dimension_tree`, `Padding.combined_qubit_register_tree`,
+  `Padding.joint_witness_pad_tree`, `Padding.joint_common_dimension_tree`,
+  `Padding.joint_qubit_register_tree`, `Padding.herald_witness_pad_tree`.
+* Inverse and controlled calls (Section `odel:sec:main` and the construction before Theorem
+  `odel:thm:joint`, and the chain construction of Section `part:hsl` for the Hamiltonian families):
+  `Access.implementsOn_callFamily`, with the instances `Access.implementsOn_calls_joint`,
+  `Access.implementsOn_calls_hom` (at most two Boolean membership queries per value call, none per
+  location call), the public locators `Access.calls_locator_const_joint`,
+  `Access.calls_locator_const_hom`, and the admissibility of every call form of the spectated native
+  primitives, `Access.admissible_callFamily_spec`.
 * Retry-protocol forms: `psd_retry`, `hom_witness_retry`, `joint_witness_pad_retry`,
   `herald_witness_pad_retry`, `combined_pad_retry`, `joint_common_dimension_retry`,
   `joint_qubit_register_retry`, `combined_common_dimension_retry`,
   `combined_qubit_register_retry`.
 
-**Algorithm model** (lines 4105-4118; adaptivity, line 2673). `Model.TreeSolver F O Fl E G ε`:
-an adaptive protocol `SparseLinearSystems.Protocol.Tree O Fl E` over a labelled oracle family
-`O` on the inputs of the family `F` (a finite classical decision tree of fresh measured runs,
-branching on the outcomes, then a final fresh-trial protocol that heralds its output in `E`),
-an isometric readout `E → ℂ^N ⊗ G`, success mass at least `2/3` on every input and, for every
-solution, conditional output within trace distance `ε` of `x(T)/‖x(T)‖` (observable form,
-`AdaptiveHamiltonianLowerBound.DensityAccurate`). It mirrors
-`ODELowerBoundExtensions.Release.RetrySolver` field for field. The flag space `Fl` is any
-Hilbert space, `E` is finite-dimensional, the garbage `G` is any Hilbert space. A retry protocol
-is the tree `Tree.final` (`Model.retryToTree`, the same counts, `Model.worstCost_retryToTree`),
-so every tree witness is a retry witness and a single-program witness
-(`Model.treeWitnesses_retryWitnesses`, `Model.treeWitnesses_witnesses`).
+**Algorithm model** (Section `odel:sec:main`; adaptivity, proof of Lemma `hsl:lem:precision`).
+`Model.TreeSolver F O Fl E G ε`: an adaptive protocol `SparseLinearSystems.Protocol.Tree O Fl E`
+over a labelled oracle family `O` on the inputs of the family `F` (a finite classical decision tree
+of fresh measured runs, branching on the outcomes, then a final fresh-trial protocol that heralds
+its output in `E`), an isometric readout `E → ℂ^N ⊗ G`, success mass at least `2/3` on every input
+and, for every solution, conditional output within trace distance `ε` of `x(T)/‖x(T)‖` (observable
+form, `AdaptiveHamiltonianLowerBound.DensityAccurate`). It mirrors
+`ODELowerBoundExtensions.Release.RetrySolver` field for field. The flag space `Fl` is any Hilbert
+space, `E` is finite-dimensional, the garbage `G` is any Hilbert space. A retry protocol is the tree
+`Tree.final` (`Model.retryToTree`, the same counts, `Model.worstCost_retryToTree`), so every tree
+witness is a retry witness and a single-program witness (`Model.treeWitnesses_retryWitnesses`,
+`Model.treeWitnesses_witnesses`).
 
 **Access and count.** `Model.TreeForces F ε b`: every adaptive solver over the sampled-time
 access `F.access ι` of `SparseLowerBounds.ODE`, and every adaptive solver over its call forms
@@ -141,8 +142,8 @@ Every theorem of the library, and every `Prop`-valued field of `Model.TreeSolver
 
 **Formalisation choices.**
 
-* The access shapes are the sampled-time access and its call forms, which realises lines
-  4105-4106 (inverses and controls). The one-stage families also admit any
+* The access shapes are the sampled-time access and its call forms, which realise the
+  inverses and controls of Section `odel:sec:main`. The one-stage families also admit any
   `AdaptiveHamiltonianLowerBound.Access.Admissible` labels (`Herald.treeForces_of_ham`,
   `Psd.treeForces_of_heat` and the `*_tree_general` statements); `Admissible` over the inputs
   does not cover the time-addressed calls of the multi-stage families, so `TreeForces` fixes the
@@ -183,7 +184,7 @@ Every theorem of the library, and every `Prop`-valued field of `Model.TreeSolver
   runs, so all their success projectors `F F†` have rank `dim Fl`; a run with a projector of
   smaller rank is padded to that rank on a spare qubit of `ι` that the run never populates.
 * Over the released solver's oracle there are only max forms, as in the released library: a
-  run there carries per-run parameters. The comparison with eq. `odel:eq:upper` (line 4148) is
+  run there carries per-run parameters. The comparison with eq. `odel:eq:upper` is
   `ODELowerBoundExtensions.Release.release_theta` (in `ODELowerBoundExtensions/Release/Theta.lean`,
   outside this library's imports); a release run is a retry protocol, hence the
   tree `Tree.final`, so its lower half is also `Release.combined_max_release_tree` at
@@ -194,11 +195,11 @@ Every theorem of the library, and every `Prop`-valued field of `Model.TreeSolver
 **Not formalised.**
 
 * The application to the constant-coefficient released solver
-  `SparseHamiltonian.ODECompleteEndpoint.solver` (Theorem `ode:thm:main`, line 4115); only the
-  general-mesh solver of `ode:thm:time` is connected, on the same hard families.
+  `SparseHamiltonian.ODECompleteEndpoint.solver` (Theorem `ode:thm:main`, Section `odel:sec:main`);
+  only the general-mesh solver of `ode:thm:time` is connected, on the same hard families.
 * Controlled calls of the released physical oracle (`Access.callFamily` of
-  `ODELowerBoundExtensions.Release.meshOracle`; the released solver does not use them); family
-  forms over that oracle; and released-oracle forms of Theorem `odel:thm:psd`, Remark
+  `ODELowerBoundExtensions.Release.meshOracle`; the released solver does not use them); family forms
+  over that oracle; and released-oracle forms of Theorem `odel:thm:psd`, Proposition
   `odel:rem:homogeneous` and the padded families.
 * Adaptive forms of Lemma `odel:lem:dyson` and eq. `odel:eq:fixed`: they are upper bounds, and a
   retry solver is a tree (`Model.retryToTree`), so
@@ -211,14 +212,12 @@ Every theorem of the library, and every `Prop`-valued field of `Model.TreeSolver
 
 **Provenance.** No result from another paper is used. The libraries `SparseHamiltonian`,
 `SparseODE`, `SparseLinearSystems`, `LinearSystemLowerBound`, `SparseLowerBounds` (with
-`ODELowerBounds`), `AdaptiveHamiltonianLowerBound`, `LowerBoundRemarks`,
-`TimeDependentExtensions` and `ODELowerBoundExtensions` are only imported; no released module
-is changed. `ODELowerBoundExtensions/Statements.lean`, `SparseLowerBounds/ODE/Statements.lean`
-and `SparseLowerBounds/ODE/Model.lean` predate this library: their notes that controlled oracle
-calls are covered only by a documented reduction, that Theorem `odel:thm:psd`, Remark
+`ODELowerBounds`), `AdaptiveHamiltonianLowerBound`, `LowerBoundRemarks`, `TimeDependentExtensions`
+and `ODELowerBoundExtensions` are only imported; no released module is changed.
+`ODELowerBoundExtensions/Statements.lean`, `SparseLowerBounds/ODE/Statements.lean` and
+`SparseLowerBounds/ODE/Model.lean` predate this library: their notes that controlled oracle calls
+are covered only by a documented reduction, that Theorem `odel:thm:psd`, Proposition
 `odel:rem:homogeneous` and the padded families hold only for single programs, and that adaptive
-solvers (and, for the joint family, general adaptive trees) are outside them, are superseded
-here for the sampled-time access. Line numbers in this guide refer to the manuscript used by
-this library; the module docstrings of the imported libraries cite another manuscript version,
-and the paper labels are the stable references.
+solvers (and, for the joint family, general adaptive trees) are outside them, are superseded here
+for the sampled-time access. References to the manuscript use its labels.
 -/

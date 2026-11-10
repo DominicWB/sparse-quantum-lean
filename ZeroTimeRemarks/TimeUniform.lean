@@ -4,12 +4,13 @@ import ZeroTimeRemarks.Hamiltonian
 /-!
 # Theorem `hs:thm:time` at zero time or zero norm bound (uniform meshes)
 
-Theorem `hs:thm:time` of the accompanying paper ends with "Zero time or a known zero
-Hamiltonian requires no matrix queries." For the released uniform-mesh endpoint
+Theorem `hs:thm:time` of the accompanying paper ends with "For zero evolution time or a Hamiltonian
+known to vanish throughout the evolution, the evolution operator is the identity, so we can
+implement it without any matrix queries." For the released uniform-mesh endpoint
 `SparseHamiltonian.TimeDependent.simulation` (which assumes `η > 0`), the released
 `TimeDependent.zero_certificate` already gives the identity program over the same coherent
-sampled-time oracles for `t = 0` or a path that vanishes on `[0, t]`. This file adds the
-remaining case of a public bound `η = 0` and the combined statement.
+sampled-time oracles for `t = 0` or a path that vanishes on `[0, t]`. This file adds the remaining
+case of a public bound `η = 0` and the combined statement.
 
 * `evolution_one`: the ordered product of identities is the identity.
 * `isometry_norm_le_one`, `identity_error_le`: the identity program changes the clean

@@ -4,22 +4,20 @@ import GateEfficientBinarySelect.NonVacuity
 # Coherent selection from binary data and Theorem `ode:thm:gates` on branch-dependent meshes:
 paper-to-Lean entry point
 
-Lemma `ode:lem:gate-select` of the accompanying paper (gate-efficient coherent selection,
-manuscript line 4554) selects, coherently from a label `z` that specifies a frequency
-`|k_z| ≤ R` and a start time `0 ≤ v_z ≤ T`, the propagator of `H(t) + k_z D(t)` from `v_z` to
-`T`. In its proof every branch has its own mesh with the sample addresses `v_z + r u_z/M`
-(line 4610), and the represented samples there must have a "certified total operator-norm
-error, integrated over the selected interval, [of] at most `δ/16`" (lines 4574-4577). For
-efficiently decoded binary entries the lemma claims the additional gate count
-`G_sel(δ) = d poly(b_data, log(N+1), log M, log((d+1)/δ))` (`ode:eq:gate-select-gates`, line
-4591) and a reusable work space `A_sel(δ)` without the leading factor `d` (line 4597); for a
-power-of-two source mesh the sample address is an integer address on a uniform grid, "computed
-by multiplication and addition" (lines 4657-4665). Theorem `ode:thm:gates` (line 4751) allows a
-positive source quadrature whose nodes "are computed coherently from their labels" (line 4737);
-its word budget `𝔟` (`ode:eq:gate-word-budget`, line 4763) contains a term `log(m+1)` for the
-`m` nodes, and it bounds the gates and qubits by `ode:eq:gate-main` and `ode:eq:gate-space`
-(lines 4773-4776), with the per-trial claim "every successful trial has Euclidean error at most
-`ε`, up to a global phase" (line 4784).
+Lemma `ode:lem:gate-select` of the accompanying paper (gate-efficient coherent selection) selects,
+coherently from a label `z` that specifies a frequency `|k_z| ≤ R` and a start time `0 ≤ v_z ≤ T`,
+the propagator of `H(t) + k_z D(t)` from `v_z` to `T`. Every branch has its own mesh with the sample
+addresses `v_z + r u_z/M`, and the represented samples there must satisfy "their certified total
+operator-norm error, integrated over the selected interval, is at most `δ/16`" (the lemma, after eq.
+`ode:eq:gate-select-mesh`). For efficiently decoded binary entries the lemma claims the additional
+gate count `G_sel(δ) = d poly(b_data, log(N+1), log M, log((d+1)/δ))` (`ode:eq:gate-select-gates`)
+and a reusable work space `A_sel(δ)` without the leading factor `d`; for a power-of-two source mesh
+the sample address is an integer address on a uniform grid, "computed by multiplication and
+addition". Theorem `ode:thm:gates` allows a positive source quadrature whose "nodes can be computed
+coherently from their labels at polynomial cost"; its word budget `𝔟` (`ode:eq:gate-word-budget`)
+contains a term `log(m+1)` for the `m` nodes, and it bounds the gates and qubits by
+`ode:eq:gate-main` and `ode:eq:gate-space`, with the per-trial claim "every successful trial has
+Euclidean error at most `ε`, up to a global phase".
 
 The released libraries formalise the lemma with exact gates under a uniform sample bound and
 with the clock promise for the rescaled samples as a hypothesis (`GateEfficientSelect`), the
@@ -48,18 +46,20 @@ time-dependent solver on one common mesh with masked source branches only
   of the power-of-two source mesh (one node per slot of a branch; any weights `w_u ≥ 0`, so any
   quadrature with nodes on a dyadic grid of at most `2^m` points): natively
   (`binary_select_solver` for any such weights, `binary_select_solverL` for the left-endpoint
-  weights), over a finite gate set (`binary_select_solver_synth`, `binary_select_solverL_synth`,
-  and with the per-trial claim `binary_select_solver_trials`, `binary_select_solverL_trials`),
-  and equations `ode:eq:gate-main` and `ode:eq:gate-space` with explicit constants in the query
-  shape `q*`, in the register words and in `𝔟` (`binary_select_budget`,
-  `binary_select_budget_words`, `binary_select_budget_bits`), also over a finite gate set with
+  weights), over a finite gate set as a partial formalisation, under this package's format
+  hypotheses, of the finite-set statement of Theorem `ode:thm:gates` (`binary_select_solver_synth`,
+  `binary_select_solverL_synth`, and with the per-trial claim `binary_select_solver_trials`,
+  `binary_select_solverL_trials`), and equations `ode:eq:gate-main` and `ode:eq:gate-space` with
+  explicit constants in the query shape `q*`, in the register words and in `𝔟`
+  (`binary_select_budget`, `binary_select_budget_words`, `binary_select_budget_bits`), also over a
+  finite gate set (partial formalisation, under this package's format hypotheses, of the same
+  finite-set statement) with
   the per-trial claim (`binary_select_budget_trials`, `binary_select_budget_trials_bits`).
 
-Source nodes computed by other coherent arithmetic (non-dyadic nodes, or more nodes than slots
-per branch without refining the branches) are not covered; see *Not formalised*. No result from
-another paper is used. The released libraries are unchanged. Manuscript lines refer to
-`sparse_quantum_algorithms.tex` (v21); the labels are the stable references. Every theorem of the
-library is axiom-audited in `GateEfficientBinarySelect/Audit.lean`.
+Source nodes computed by other coherent arithmetic (non-dyadic nodes, or more nodes than slots per
+branch without refining the branches) are not covered; see *Not formalised*. No result from another
+paper is used. The released libraries are unchanged. References to the manuscript use its labels.
+Every theorem of the library is axiom-audited in `GateEfficientBinarySelect/Audit.lean`.
 
 **Naming convention.** All declarations of this library are in the namespace
 `SparseHamiltonian.GateBinarySelect` and are named relative to it below. Released declarations
@@ -70,7 +70,7 @@ are named relative to `SparseHamiltonian` (for example `GateSelect.gate_select`,
 **Notation.** In the generic lemmas the paper's accuracy `δ` is `ε`, in the binary-data ones it
 is `δ`. `M = 2^m` is the number of slots of every branch, `τ = α T` the common normalised time,
 `βH + R βD` plays the role of `L_*`, and `d = GateCircuit.Sim.fDeg Q τ q̄ (ε/2)` (exact gates)
-or `fDeg Q τ q̄ (ε/4)` (native) is the released filter degree, with the reuse register
+or `fDeg Q τ q̄ (ε/4)` (native) is the package's own filter degree, with the reuse register
 `r = GateCircuit.Sim.simR …` (`2d + 2 ≤ 2^r ≤ 4 (d+1)`). For binary data the public data are
 `q : GateBinaryODETime.PubT` (system qubits `k_x`, slot bits `σ`, stored bits `b`, decoder scale
 `c₀`, energy bounds `η_H`, `η_D`, Cayley rescaling `γ`, time `T`, amplification bound `g`,
@@ -371,6 +371,14 @@ label at `0`, so the start is `u' T/2^m` with `u' = (ini ? u : 0)`. The paper's 
 
 **Formalisation choices.**
 
+* Sample positivity (a formal restriction): the time-dependent ODE solvers assume accretive
+  dissipative parts for every represented sample, the hypothesis of the formal versions of Theorem
+  `ode:thm:time`, which that theorem of the manuscript does not make (it asks of the represented
+  samples only the uniform moment and norm promises; see `TimeDependentODE/Statements.lean`).
+  `RepresentedSampleODE` lifts it for the query-level mesh solvers and the common-mesh gate solver;
+  the conformance endpoints `ManuscriptConformance.ode_thm_time`, `ode_thm_gates_time_cert` and
+  `ode_thm_gates_time_decoder_cert` hold for represented samples of any sign. The manuscript's
+  theorems are not changed.
 * The branch step `u_z/M` is carried by the private operation, as in the released
   `GateEfficientSelect`: the Cayley parameter of the private operation of branch `z` is
   `γ (2^m - u')/2^m`, computed by the released angle arithmetic from the duration word
@@ -394,9 +402,9 @@ label at `0`, so the start is `u' T/2^m` with `u' = (ini ? u : 0)`. The paper's 
   any label register, with the native identity of the private operations as a hypothesis.
 * Error budgets. Exact gates: `ε/2` for the released circuit, `ε/16` for freezing
   (`L_* u_z²/(2M) ≤ ε/16` from `M ≥ 8 L_* T²/ε`) and `ε/16` for the integrated sample error, as
-  in the proof (`δ/16` each); the released degree and subdivision condition replace the schedule
-  `ode:eq:gate-select-schedule` and the conditions `M ≥ 2, 4 α T, 2 (α T)^{3/2}/√δ`. Native:
-  `ε/2` for the exact-gate lemma at accuracy `ε/2` (hence `ε/32` for the certificate and
+  in the proof (`δ/16` each); the package's own filter degree and mesh condition replace the
+  schedule `ode:eq:gate-select-schedule` and the conditions `M ≥ 2, 4 α T, 2 (α T)^{3/2}/√δ`.
+  Native: `ε/2` for the exact-gate lemma at accuracy `ε/2` (hence `ε/32` for the certificate and
   `16 L_* T² ≤ ε M`) and `ε/2` for the `6 d` private calls at `4 ζ` each (`48 d ζ ≤ ε`).
 * The integrated sample error of `gate_select_certified` is the slot-weighted sum of the errors
   at the sample addresses; `gate_select_integral` takes the integrals of the path errors over the

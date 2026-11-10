@@ -7,8 +7,8 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # Runs of the released constant-coefficient solver as measured solvers
 
-Manuscript Theorem `ode:thm:main` (line 2584) and Section `odel:sec:main`, lines 3678-3679 ("The
-lower bounds thus apply to Theorems `ode:thm:main` and `ode:thm:time`").
+Manuscript Theorem `ode:thm:main` and Section `odel:sec:main` ("the lower bounds apply to the upper
+bounds of the preceding section").
 
 * `constRun_exists_measuredSolver`: every run of the released constant-coefficient solver
   (`ConstantODELowerBound.Runs.ConstRun`, any split bounds `η_H`, `η_D`) is a measured solver over

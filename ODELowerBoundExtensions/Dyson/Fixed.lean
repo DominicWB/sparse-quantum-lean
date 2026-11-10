@@ -3,12 +3,12 @@ import ODELowerBoundExtensions.Dyson.Degree
 set_option autoImplicit false
 
 /-!
-# Eq. `odel:eq:fixed` and its consequence (`odel:lem:dyson`, lines 4256-4268)
+# Eq. `odel:eq:fixed` and its consequence (`odel:lem:dyson`)
 
-"At fixed positive `s, τ, ḡ`, this gives `Q_A = O(log(1/ε)/log log(1/ε))` (`ε → 0`).
-Consequently a uniform worst-case lower bound proportional to `ḡ √s τ log(ḡ/ε)` is false under
-these access assumptions: fixing any admissible positive `s, τ, ḡ` makes the auxiliary upper
-bound sublinear in `log(1/ε)`."
+"At fixed positive `s, τ, ḡ`, this gives `Q_A = O(log(1/ε)/log log(1/ε))` (`ε → 0`). Consequently a
+uniform worst-case lower bound proportional to `ḡ √s τ log(ḡ/ε)` is false under these access
+assumptions: fixing any admissible positive `s, τ, ḡ` makes this comparison upper bound sublinear in
+`log(1/ε)`."
 
 Here `z = s τ` (`τ = Λ T`, `Λ` the public entry bound), and the auxiliary upper bound is
 `dysonBound z ḡ ε` (eq. `odel:eq:dyson`, `Degree.lean`), which bounds the worst-case matrix
@@ -104,8 +104,9 @@ theorem dyson_fixed (z g : ℝ) (hz : 0 < z) (hg : 1 ≤ g) :
         linarith
     _ = 16000 * g * Real.exp z * (5 + z) * (u / Real.log u) := by ring
 
-/-- **The Dyson bound falls below `c ḡ √s τ log(ḡ/ε)`** (lines 4262-4265): for fixed `s, τ > 0`,
-`ḡ ≥ 1` and every `c > 0`, the Dyson bound is below `c ḡ √s τ log(ḡ/ε)` for all small `ε`. -/
+/-- **The Dyson bound falls below `c ḡ √s τ log(ḡ/ε)`** (the text after eq. `odel:eq:fixed`): for
+fixed `s, τ > 0`, `ḡ ≥ 1` and every `c > 0`, the Dyson bound is below
+`c ḡ √s τ log(ḡ/ε)` for all small `ε`. -/
 theorem eventually_lt (s τ g c : ℝ) (hs : 0 < s) (hτ : 0 < τ) (hg : 1 ≤ g) (hc : 0 < c) :
     ∃ ε₀ : ℝ, 0 < ε₀ ∧ ∀ ε, 0 < ε → ε ≤ ε₀ →
       dysonBound (s * τ) g ε < c * g * Real.sqrt s * τ * Real.log (g / ε) := by

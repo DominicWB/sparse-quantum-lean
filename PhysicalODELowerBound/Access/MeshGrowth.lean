@@ -8,9 +8,9 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # The general-mesh physical oracle on one-stage families: search-weight growth
 
-Manuscript lines 4105-4109 (access model), 4114-4115 ("The lower bounds thus apply to Theorems
-`ode:thm:main` and `ode:thm:time`") and 4119-4122 (public location lists, all unknown information
-in exact finite-word entries, public source preparation).
+Manuscript: Section `odel:sec:main` (access model; "the lower bounds apply to the upper bounds of
+the preceding section"; public location lists, all unknown information in exact finite-word entries,
+public source preparation).
 
 The released general-mesh solver `TimeDependentExtensions.ODE.solver` queries the physical oracle
 `ODELowerBoundExtensions.Release.meshOracle F σ ι N d J₀ J_b` of the data of a family `F` along a

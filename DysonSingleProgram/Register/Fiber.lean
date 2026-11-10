@@ -10,10 +10,9 @@ set_option autoImplicit false
 /-!
 # Spectator registers for oracle programs
 
-Manuscript lines 4105-4109 (Section `odel:sec:main`, the access model used by Lemma
-`odel:lem:dyson`): access is through the reversible value oracle and the row/column locators with
-a coherent time address; known unitaries, arithmetic and specified known state preparations are
-free.
+Manuscript: Section `odel:sec:main` (the access model used by Lemma `odel:lem:dyson`): access is
+through the reversible value oracle and the row/column locators with a coherent time address; known
+unitaries, arithmetic and specified known state preparations are free.
 
 In the single-program class of the ODE lower bounds (`SparseLowerBounds.ODE.Solver`) the branch
 register `ι` of `Family.access ι` is a spectator: the oracle does not touch it. This module

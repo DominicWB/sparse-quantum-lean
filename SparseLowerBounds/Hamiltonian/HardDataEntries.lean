@@ -6,8 +6,8 @@ section
 /-!
 # Entry formulas of the hard Hamiltonians
 
-Helper statements for `Hamiltonian/HardData` (manuscript lines 2234-2252,
-2277-2284, 2342-2343 and 2476-2487):
+Helper statements for `Hamiltonian/HardData` (the chain construction of Section `part:hsl`,
+Lemma `hsl:lem:precision` and the end of the proof of Theorem `hsl:thm:main`):
 
 * the entries of `fullMatrix H s = H ⊕ diag(0, 1) ⊕ 2^{-⌈log₂ s⌉} 𝟙𝟙ᵀ` on each
   block of `FullIndex C s = C ⊕ (Fin 2 ⊕ Fin s)`;
@@ -54,7 +54,7 @@ variable {C : Type} [Fintype C] [DecidableEq C] (H : Matrix C C ℂ) {s : ℕ}
 @[simp] theorem fullMatrix_pad_ref (t : Fin s) (r : Fin 2) :
     fullMatrix H s (Sum.inr (Sum.inr t)) (Sum.inr (Sum.inl r)) = 0 := rfl
 
-/-- The padding block `2^{-⌈log₂ s⌉} 𝟙𝟙ᵀ` (line 2480). -/
+/-- The padding block `2^{-⌈log₂ s⌉} 𝟙𝟙ᵀ` (the end of the proof of Theorem `hsl:thm:main`). -/
 @[simp] theorem fullMatrix_pad (t t' : Fin s) :
     fullMatrix H s (Sum.inr (Sum.inr t)) (Sum.inr (Sum.inr t')) = ((2 : ℂ) ^ padExp s)⁻¹ := rfl
 
@@ -107,9 +107,9 @@ section Words
 
 variable {n μ s : ℕ} {a τ : ℝ}
 
-/-- **Search chain words** (lines 2277-2278): at scale `2^{F+μ+σ}` the word
-`N_k (2 - 2^μ y) 2^σ` is the gadget-decorated rounded weight `b'_k (2/m - y)`,
-`m = 2^μ`, `b'_k = N_k/2^F`. -/
+/-- **Search chain words** (the chain construction of Section `part:hsl`): at scale `2^{F+μ+σ}` the
+word `N_k (2 - 2^μ y) 2^σ` is the gadget-decorated rounded weight `b'_k (2/m - y)`, `m = 2^μ`,
+`b'_k = N_k/2^F`. -/
 theorem searchWord_div (k : ℕ) (y : Bool) :
     ((((chainNum n a τ k : ℤ) * (2 - 2 ^ μ * (if y then 1 else 0)) * 2 ^ padExp s : ℤ) : ℂ) /
         2 ^ (chainBits n a τ + μ + padExp s)) =

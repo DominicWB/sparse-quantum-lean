@@ -4,10 +4,10 @@ set_option synthInstance.maxHeartbeats 400000
 set_option autoImplicit false
 
 /-!
-# Remark `odel:rem:homogeneous`: parameters and numerics
+# Proposition `odel:rem:homogeneous`: parameters and numerics
 
-Manuscript lines 3907-3952 (Remark `odel:rem:homogeneous`, "A homogeneous variant"). The
-source of the joint family of Theorem `odel:thm:joint` (lines 3860-3905) is removed when
+Manuscript: Proposition `odel:rem:homogeneous` ("Homogeneous time-dependent variant"). The
+source of the joint family of Theorem `odel:thm:joint` is removed when
 `τ ≥ 20(1 + log ḡ)`. The parameters are `M = jointM ḡ = 2⌊ḡ²/2⌋`, `m = 2^{jointMu s}` as in
 Theorem `odel:thm:joint` (`SparseLowerBounds.ODE.Parameters`), `n = ⌊τ/π⌋` (`homN`) and the
 dissipation time `d = log(4√M)` (`homD`).
@@ -33,7 +33,7 @@ the family is the paper's up to the global phase `-i` of the final state: normal
 and readout correlations are unchanged. The known pulses take at most `7π/4 ≤ 9π/4`, so the
 paper's time budget holds.
 
-**Numerics** (lines 3939-3947): `nπ/2 ≤ τ/2`, the known stages take at most
+**Numerics** (Proposition `odel:rem:homogeneous`): `nπ/2 ≤ τ/2`, the known stages take at most
 `7π/4 + log 4 + log ḡ < 10(1 + log ḡ) ≤ τ/2` (`homN_time`), and `n ≥ τ/π - 1 ≥ τ/5`
 (`fifth_le_homN`). The decision correlation is `β = (2/3)(15/17 - 2ε)` (`homCorr`: the
 paper's success probability `(2/3)(16/17 - ε) + 1/6` is `(1 + β)/2`), `β ≥ 463/816` for
@@ -46,9 +46,9 @@ namespace ODELowerBoundExtensions.Homogeneous
 noncomputable section
 open SparseLowerBounds.ODE
 
-/-- **The parameter range of Remark `odel:rem:homogeneous`** (lines 3907-3908 with the range
-of Theorem `odel:thm:joint`, lines 3861-3862): `s ≥ 4`, `ḡ ≥ 2`, `τ ≥ 20(1 + log ḡ)` and
-`0 < ε ≤ 1/64`. (`τ ≥ 20` follows, `twenty_le_tau`.) -/
+/-- **The parameter range of Proposition `odel:rem:homogeneous`** (Proposition
+`odel:rem:homogeneous` with the range of Theorem `odel:thm:joint`): `s ≥ 4`, `ḡ ≥ 2`,
+`τ ≥ 20(1 + log ḡ)` and `0 < ε ≤ 1/64`. (`τ ≥ 20` follows, `twenty_le_tau`.) -/
 structure HomRange (s : ℕ) (τ gbar ε : ℝ) : Prop where
   s_ge : 4 ≤ s
   gbar_ge : 2 ≤ gbar
@@ -56,23 +56,24 @@ structure HomRange (s : ℕ) (τ gbar ε : ℝ) : Prop where
   eps_pos : 0 < ε
   eps_le : ε ≤ 1 / 64
 
-/-- The number of hidden stages `n = ⌊τ/π⌋` (line 3910). -/
+/-- The number of hidden stages `n = ⌊τ/π⌋` (Proposition `odel:rem:homogeneous`). -/
 def homN (τ : ℝ) : ℕ := ⌊τ / Real.pi⌋₊
 
-/-- The length `((n+2) mod 4)·π/2` of the merged phase pulse `-|1⟩⟨1|` (lines 3911-3914:
-the phase pulse of length `(n mod 4)π/2` followed by the `Z` pulse of length `π/2`, the
-latter replaced by `-|1⟩⟨1|` for time `π`). -/
+/-- The length `((n+2) mod 4)·π/2` of the merged phase pulse `-|1⟩⟨1|` (Proposition
+`odel:rem:homogeneous`: the phase pulse of length `(n mod 4)π/2` followed by the `Z` pulse of length
+`π/2`, the latter replaced by `-|1⟩⟨1|` for time `π`). -/
 def pulseLen (n : ℕ) : ℝ := (((n + 2) % 4 : ℕ) : ℝ) * (Real.pi / 2)
 
-/-- The dissipation time `d = log(4√M)` (line 3927). -/
+/-- The dissipation time `d = log(4√M)` (Proposition `odel:rem:homogeneous`). -/
 def homD (M : ℕ) : ℝ := Real.log (4 * Real.sqrt M)
 
-/-- The busy time `nπ/2 + pulseLen n + π/4 + d`: hidden stages, merged phase pulse, `Y` pulse
-and dissipation; the remaining time up to `T` is a known idle stage (line 3946). -/
+/-- The busy time `nπ/2 + pulseLen n + π/4 + d`: hidden stages, merged phase pulse, `Y` pulse and
+dissipation; the remaining time up to `T` is a known idle stage (Proposition
+`odel:rem:homogeneous`). -/
 def homBusy (M n : ℕ) : ℝ := n * (Real.pi / 2) + pulseLen n + Real.pi / 4 + homD M
 
-/-- The decision correlation `β = (2/3)(15/17 - 2ε)` (lines 3936-3937: success probability
-`(2/3)(16/17 - ε) + 1/6 = (1 + β)/2`). -/
+/-- The decision correlation `β = (2/3)(15/17 - 2ε)` (Proposition `odel:rem:homogeneous`: success
+probability `(2/3)(16/17 - ε) + 1/6 = (1 + β)/2`). -/
 def homCorr (ε : ℝ) : ℝ := 2 / 3 * (15 / 17 - 2 * ε)
 
 /-- The explicit constant `c_H = 1/500` of eq. `odel:eq:joint` for the homogeneous variant. -/
@@ -108,7 +109,7 @@ theorem exp_neg_homD {M : ℕ} (hM : 1 ≤ M) : Real.exp (-homD M) = 1 / (4 * Re
   have hs : 0 < Real.sqrt M := Real.sqrt_pos.mpr (Nat.cast_pos.mpr (by omega))
   rw [Real.exp_neg, Real.exp_log (by positivity), one_div]
 
-/-- `d ≤ log 4 + log ḡ` at `M = jointM ḡ` (`√M ≤ ḡ`, line 3933; line 3943). -/
+/-- `d ≤ log 4 + log ḡ` at `M = jointM ḡ` (`√M ≤ ḡ`, Proposition `odel:rem:homogeneous`). -/
 theorem homD_le {gbar : ℝ} (hg : 2 ≤ gbar) : homD (jointM gbar) ≤ Real.log 4 + Real.log gbar := by
   unfold homD
   have hM := four_le_jointM hg
@@ -122,8 +123,8 @@ theorem twenty_le_tau {s : ℕ} {τ gbar ε : ℝ} (h : HomRange s τ gbar ε) :
   have := Real.log_nonneg (by linarith [h.gbar_ge] : (1 : ℝ) ≤ gbar)
   linarith [h.tau_ge]
 
-/-- **The time budget** (lines 3939-3945): `nπ/2 ≤ τ/2` and the known stages take at most
-`7π/4 + log 4 + log ḡ < 10(1 + log ḡ) ≤ τ/2`, so the busy time fits in `[0, τ]`. -/
+/-- **The time budget** (Proposition `odel:rem:homogeneous`): `nπ/2 ≤ τ/2` and the known stages take
+at most `7π/4 + log 4 + log ḡ < 10(1 + log ḡ) ≤ τ/2`, so the busy time fits in `[0, τ]`. -/
 theorem homN_time {τ gbar : ℝ} (hg : 2 ≤ gbar) (hτ : 20 * (1 + Real.log gbar) ≤ τ) :
     homBusy (jointM gbar) (homN τ) ≤ τ := by
   have hlg := Real.log_nonneg (by linarith : (1 : ℝ) ≤ gbar)
@@ -143,7 +144,7 @@ theorem homN_time {τ gbar : ℝ} (hg : 2 ≤ gbar) (hτ : 20 * (1 + Real.log gb
   unfold homBusy
   linarith
 
-/-- `n = ⌊τ/π⌋ ≥ τ/π - 1 ≥ τ/5` for `τ ≥ 10` (line 3947). -/
+/-- `n = ⌊τ/π⌋ ≥ τ/π - 1 ≥ τ/5` for `τ ≥ 10` (Proposition `odel:rem:homogeneous`). -/
 theorem fifth_le_homN {τ : ℝ} (hτ : 10 ≤ τ) : τ / 5 ≤ homN τ := by
   have hp := Real.pi_pos
   have hpi := Real.pi_lt_d2
@@ -169,9 +170,9 @@ theorem homCorr_ge {ε : ℝ} (hε : ε ≤ 1 / 64) : 463 / 816 ≤ homCorr ε :
   unfold homCorr
   linarith
 
-/-- **The numeric chain of the remark** (lines 3947-3949 with lines 3895-3897): for `τ ≥ 10`,
-`ḡ ≥ 2` and `β ≥ 463/816`, `ḡ √s τ / 500 ≤ β² n √(M m) / 16`, since `n ≥ τ/5`,
-`√(Mm) ≥ ḡ√s/2` and `(463/816)²/160 ≥ 1/500`. -/
+/-- **The numeric chain of the remark** (Proposition `odel:rem:homogeneous` with the proof of
+Theorem `odel:thm:joint`): for `τ ≥ 10`, `ḡ ≥ 2` and `β ≥ 463/816`,
+`ḡ √s τ / 500 ≤ β² n √(M m) / 16`, since `n ≥ τ/5`, `√(Mm) ≥ ḡ√s/2` and `(463/816)²/160 ≥ 1/500`. -/
 theorem hom_numeric {s : ℕ} {τ gbar : ℝ} (hτ : 10 ≤ τ) (hg : 2 ≤ gbar) {β : ℝ}
     (hβ : 463 / 816 ≤ β) :
     homConst * gbar * Real.sqrt s * τ ≤

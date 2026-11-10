@@ -3,6 +3,10 @@ import GateEfficientRemarks.ODE.ZeroBudget
 /-!
 # Zero time or a known zero generator over a finite gate set: the budgets in `𝔟`
 
+The finite-gate-set forms of Theorem `ode:thm:gates` in this module are a partial formalisation of
+its finite-set statement, under this package's format hypotheses: the manuscript states Theorem
+`ode:thm:gates` over a finite gate set; the conformance endpoints count native gates.
+
 The finite-gate-set form of `binary_ode_budget_bits_zero` (equations `ode:eq:gate-main` and
 `ode:eq:gate-space` of Theorem `ode:thm:gates` with its remark on zero time and a known zero
 generator) with the per-trial claim: only the preparation is synthesised
@@ -47,7 +51,8 @@ variable {Xa : Type*} [Fintype Xa] [DecidableEq Xa] {𝒢 : Set Kind} {len : ℝ
 
 /-- **Equations `ode:eq:gate-main` and `ode:eq:gate-space` in `𝔟` over a finite gate set, with
 the per-trial claim, for zero time or a known zero generator, constant coefficients**
-(Theorem `ode:thm:gates` with its remark).
+(partial formalisation, under this package's format hypotheses, of the finite-set statement of
+Theorem `ode:thm:gates` with its remark).
 
 Under `Synthesis 𝒢 Xa len` with `len ζ ≤ c₁ log(1/ζ) + c₀` (`c₀, c₁ ≥ 0` the synthesis
 constants), `AdjClosed 𝒢` and `zeroTestKinds ⊆ 𝒢`, for binary public data with `BPublicOK0 q` in

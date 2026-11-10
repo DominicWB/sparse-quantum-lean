@@ -10,8 +10,8 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # The constant-coefficient physical oracle in spectator form
 
-Manuscript Section `odel:sec:main`, lines 3669-3673 and 3678-3679 ("The lower bounds thus apply
-to Theorems `ode:thm:main` and `ode:thm:time`"); Theorem `ode:thm:main` (line 2584).
+Manuscript Section `odel:sec:main` ("the lower bounds apply to the upper bounds of the preceding
+section"); Theorem `ode:thm:main`.
 
 The matrix labels of the released constant-coefficient solver's physical oracle
 `ConstantODELowerBound.Oracle.constOracle F ι Nm Tsl d J₀ J_b` are, by the released normal form

@@ -2,7 +2,7 @@ import GateEfficientSynthesis.Circuit
 import GateEfficientNative.Hamiltonian.Theorem
 
 /-!
-# Theorem `hs:thm:gates` over a finite gate set: native implementations
+# Theorem `hs:thm:gates` and a package extension over a finite gate set: native implementations
 
 The native gate-level circuits of `GateEfficientNative` consist of elementary gates and primitive
 oracle calls. Under the synthesis hypothesis `Synthesis 𝒢 X L`, a synthesis budget `ε' > 0` is spent
@@ -16,7 +16,9 @@ qubits (the reused synthesis ancillas), and its full output, with every ancilla 
 * `native_simulation_synth`: time-independent Hamiltonians (`native_simulation`).
 * `native_simulation_signed_synth`: every real time (`native_simulation_signed`).
 * `native_time_simulation_synth`: time-dependent Hamiltonians on a uniform mesh
-  (`native_time_simulation`), for every propagator of the path.
+  (`native_time_simulation`), for every propagator of the path (package extension: Theorem
+  `hs:thm:time` with the circuit of `hs:thm:gates` (single-label case of Lemma
+  `ode:lem:gate-select`)).
 -/
 
 set_option autoImplicit false
@@ -117,8 +119,8 @@ variable {S Z Y J X : Type*} [Fintype S] [DecidableEq S] [Fintype Z] [DecidableE
 variable {R : Type*} [NormedAddCommGroup R] [InnerProductSpace ℂ R] [CompleteSpace R]
 variable {𝒢 : Set Kind} {L : ℝ → ℕ}
 
-/-- **Native gate-efficient sparse simulation over a finite gate set** (Theorem `hs:thm:gates`,
-time-independent part). Under the hypotheses of `native_simulation` and the synthesis hypothesis,
+/-- **Native gate-efficient sparse simulation over a finite gate set** (Theorem `hs:thm:gates`).
+Under the hypotheses of `native_simulation` and the synthesis hypothesis,
 the synthesis of the native circuit with the budget `ε'` consists of valid gates of `𝒢` and
 primitive calls, makes exactly `12 d` times the primitive calls of `V`, uses at most `N L(ε'/(N+1))`
 gates, where `N` is the native gate count bounded in `native_simulation`, has `|X|` more qubits, and
@@ -217,8 +219,9 @@ theorem native_simulation_signed_synth (hS : Synthesis 𝒢 X L) (ε' : ℝ) (h�
   exact (norm_sysEmb _ (fun φ => by rw [io_apply, norm_bas]) ψ).le
 
 /-- **Native gate-efficient time-dependent simulation over a finite gate set** (Theorem
-`hs:thm:gates`, time-dependent part; `native_time_simulation`): for every propagator `U` of the
-path, the synthesised circuit is within `ε + ε'` of `U(t)` on the clean system embedding. -/
+`hs:thm:time` with the circuit of `hs:thm:gates`; `native_time_simulation`): for every propagator
+`U` of the path, the synthesised circuit is within `ε + ε'` of `U(t)` on the clean system
+embedding. -/
 theorem native_time_simulation_synth (hS : Synthesis 𝒢 X L) (ε' : ℝ) (hε' : 0 < ε') (a m : ℕ)
     (prim : J → Reg Y R →L[ℂ] Reg Y R) (hprim : ∀ j, IsUnitary (prim j))
     (UJg : List (Gate (Fin a ⊕ S))) (hUJg : ∀ g ∈ UJg, GateOK 3 g)

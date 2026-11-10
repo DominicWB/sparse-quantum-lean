@@ -8,10 +8,10 @@ import GateEfficientSynthesis.Binary
 The finite-gate-set forms of the binary-data endpoints of Theorem `hs:thm:gates` (library
 `GateEfficientSynthesis`: `GateSynth.binary_simulation_synth`,
 `GateSynth.binary_time_simulation_synth`, `GateSynth.binary_simulation_budget_synth`,
-`GateSynth.binary_time_simulation_budget_synth`) synthesise the binary-data circuits with the
-budget `ε'`. With the combined circuits `binaryCircuit` and `binaryTimeCircuit` (the empty circuit
-at zero time, the released circuit otherwise) and `synthBudget_nil`, this file states the remark
-"At `t = 0` the identity circuit suffices" for them:
+`GateSynth.binary_time_simulation_budget_synth`) synthesise the binary-data circuits with the budget
+`ε'`. With the combined circuits `binaryCircuit` and `binaryTimeCircuit` (the empty circuit at zero
+time, the released circuit otherwise) and `synthBudget_nil`, this file states the remark "at `t = 0`
+the identity suffices" (Theorem `hs:thm:gates`) for them:
 
 * `binary_simulation_synth_nonneg`, `binary_time_simulation_synth_nonneg`;
 * `binary_simulation_budget_synth_nonneg`, `binary_time_simulation_budget_synth_nonneg` (the
@@ -123,13 +123,14 @@ theorem binary_simulation_synth_nonneg (hS : Synthesis 𝒢 Xa L) (ε' : ℝ) (h
       exact hcalls p
     · convert herr using 1
 
-/-- **The time-dependent part of Theorem `hs:thm:gates` from time-indexed binary sparse data
-over a finite gate set for every `t ≥ 0`, with the identity circuit at `t = 0`.** Under the
-hypotheses of the released `GateSynth.binary_time_simulation_synth`, the synthesis
-`synthBudget hS ε' (binaryTimeCircuit …)` consists of valid gates of `𝒢` and primitive calls,
-makes `0` calls and uses `0` gates if `t = 0`, has the released counts otherwise, has the released
-qubit count, the propagator of the lifted path exists, and for every propagator `U` its full
-output is within `ε + ε'` of `U(t)`; at `t = 0` the error is exactly `0`. -/
+/-- **The time-dependent gate-level simulation (Theorem `hs:thm:time` with the circuit of
+`hs:thm:gates`) from time-indexed binary sparse data over a finite gate set for every `t ≥ 0`, with
+the identity circuit at `t = 0`.** Under the hypotheses of the released
+`GateSynth.binary_time_simulation_synth`, the synthesis `synthBudget hS ε' (binaryTimeCircuit …)`
+consists of valid gates of `𝒢` and primitive calls, makes `0` calls and uses `0` gates if `t = 0`,
+has the released counts otherwise, has the released qubit count, the propagator of the lifted path
+exists, and for every propagator `U` its full output is within `ε + ε'` of `U(t)`; at `t = 0` the
+error is exactly `0`. -/
 theorem binary_time_simulation_synth_nonneg (hS : Synthesis 𝒢 Xa L) (ε' : ℝ) (hε' : 0 < ε')
     (D : Data (X × Fin (2 ^ m)) n (Cfg (VW b)) s)
     (en : Cfg (Fin k) ≃ n) (σ : ℕ) (hσ : σ ≤ k) (hs : s = 2 ^ σ)
@@ -332,8 +333,10 @@ theorem binary_simulation_budget_synth_nonneg (s : ℕ) (hs1 : 1 ≤ s) (τ ε :
     · convert herr using 1
 
 /-- **The time-dependent gate budget from time-indexed binary sparse oracles over a finite gate set
-for every `t ≥ 0`, with the identity circuit at `t = 0`** (equation `hs:eq:gate-total`,
-time-dependent part). There is a rescaling `γ`, chosen before the gate set, the synthesis budget,
+for every `t ≥ 0`, with the identity circuit at `t = 0`** (equation `hs:eq:gate-total` in the
+package extension: Theorem `hs:thm:time` with the circuit of `hs:thm:gates` (single-label case of
+Lemma `ode:lem:gate-select`)). There is a rescaling `γ`, chosen before the gate set, the synthesis
+budget,
 the data, the path and the mesh, with every bound that the released
 `GateSynth.binary_time_simulation_budget_synth` states (`d ≤ 4608 q`), such that: for every gate set
 with a logarithmic synthesis length, every `0 < ε' ≤ 1` and all data, paths and meshes as in the

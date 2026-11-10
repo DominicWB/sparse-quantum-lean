@@ -11,8 +11,8 @@ of the asymptotic gate budget, beginning with equations `ode:eq:gate-main` and
 data. The public rescaling `γ = gammaOf …` is a hypothesis of the endpoints; for the
 finite-gate-set forms, single-qubit synthesis and the decomposition of controlled gates
 (`GateSynth.Synthesis`), the adjoint closure of the gate set (`AdjClosed`) and the kinds
-of the exact zero tests (`zeroTestKinds`) are hypotheses, not axioms; the last two are
-without loss of generality (`GateSynthTrials.extra_hyps`).
+of the exact zero tests (`zeroTestKinds`) are hypotheses, not axioms; `GateSynthTrials.extra_hyps`
+meets the last two over `closeKinds 𝒢₀`, and the gate counts are then over that set.
 -/
 
 /-! ### Equations `ode:eq:gate-main` and `ode:eq:gate-space` for the solvers from binary data -/

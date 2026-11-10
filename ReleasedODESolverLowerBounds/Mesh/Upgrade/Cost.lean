@@ -50,10 +50,11 @@ theorem MeasuredMeshCost.exists_meshCost_le {F : Family X N Z K s} {ε q : ℝ}
       inferInstance, inferInstance, inferInstance, inferInstance, inferInstance, inferInstance,
       inferInstance, inferInstance, inferInstance, inferInstance, T, rfl⟩, by exact_mod_cast hT⟩
 
-/-- **Forcing on adaptive solvers over the general-mesh physical oracle implies forcing on
-measured solvers with the same bound** (purification and deferred measurement, lines
-2363-2364). The value count is transported; the matrix count follows from it, the matrix count
-being at least the value count (`DeferredMeasurementLowerBounds.Model.Measured.worstCost_mono`).
+/-- **Forcing on adaptive solvers over the general-mesh physical oracle implies forcing on measured
+solvers with the same bound** (purification and deferred measurement, proof of Lemma
+`hsl:lem:precision`). The value count is transported; the matrix count follows from it, the matrix
+count being at least the value count
+(`DeferredMeasurementLowerBounds.Model.Measured.worstCost_mono`).
 -/
 theorem measuredMeshForces_of_meshForces {F : Family X N Z K s} {ε b : ℝ}
     (h : MeshForces F ε b) : MeasuredMeshForces F ε b := by

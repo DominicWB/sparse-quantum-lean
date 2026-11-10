@@ -5,6 +5,10 @@ import GateEfficientBinaryNodes.Integrated
 /-!
 # Theorem `ode:thm:gates` with retained source circuits: the native solvers
 
+The finite-gate-set forms of Theorem `ode:thm:gates` in this module are a partial formalisation of
+its finite-set statement, under this package's format hypotheses: the manuscript states Theorem
+`ode:thm:gates` over a finite gate set; the conformance endpoints count native gates.
+
 **The released correctness argument for any compiled preparation.** The instance arguments of
 the released finite-gate-set solvers (`GateSynthTrials.native_ode_solver_trials`,
 `GateSynthTrials.native_ode_time_solver_trials`, `GateBinaryNodes.native_time_trials_outcomeC`)
@@ -328,7 +332,8 @@ theorem sep_arith {c g Nk G K lam c₀ c₁ T : ℝ} (hc : 0 ≤ c) (hg : 0 ≤ 
   linarith
 
 /-- **Gate-efficient dissipative ODE solver over a finite gate set with retained source circuits,
-constant coefficients** (Theorem `ode:thm:gates`, constant coefficients, with
+constant coefficients** (partial formalisation, under this package's format hypotheses, of the
+finite-set statement of Theorem `ode:thm:gates`, constant coefficients, with
 equation `ode:eq:gate-main` in the separated form of the paper).
 
 The supplied source circuits `srcC` are circuits over the gate set `𝒢` (their gates are gates
@@ -456,8 +461,9 @@ theorem native_ode_solver_sel (hS : Synthesis 𝒢 X len) (hadj : AdjClosed 𝒢
       (fun Urel δ hδ hA => selPrep_approx hS hη _ hprepV prim hprim Urel hδ hA)
 
 /-- **Gate-efficient dissipative ODE solver over a finite gate set with retained source circuits,
-time-dependent coefficients** (Theorem `ode:thm:gates`, time-dependent part, with equation
-`ode:eq:gate-main` in the separated form of the paper). The supplied loading and
+time-dependent coefficients** (partial formalisation, under this package's format hypotheses, of
+the finite-set statement of Theorem `ode:thm:gates`, time-dependent part,
+with equation `ode:eq:gate-main` in the separated form of the paper). The supplied loading and
 weight-preparation circuits are circuits over `𝒢`; the native preparation is compiled
 selectively with the budget `ν/3`. The conclusions of `native_ode_solver_sel`, with the ratio
 `2g` (so `80 g`, `40 g`), `G_src = |loadC| + 2 |wpC|`, the budget `24 d ζ + 3 ζs ≤ ν` and the
@@ -614,11 +620,12 @@ theorem native_time_sel_outcomeBI (hS : Synthesis 𝒢 X len) (p : TParams) (hp 
     (fun Urel δ hδ hA => selPrep_approx hS hη _ hprepV prim hprim Urel hδ hA)
 
 /-- **The selective preparation with the source certificate of `GateEfficientSelect`**
-(Theorem `ode:thm:gates`, time-dependent part on branch-dependent meshes with a positive source
-quadrature and the certificate of equation `ode:eq:gate-source-certificates`): every instance
-satisfying `GateSelect.ODE.BInstanceOK` (uniform sample errors `δG`) has the guarantees `NOutcome`
-for `nprotocol (selPrep hS (ν/3) (tnprepC …)) (2g)`, through the integrated certificate with
-`δI = T δG` (`GateBinaryNodes.BInstanceOK.toI`). -/
+(partial formalisation, under this package's format hypotheses, of the finite-set statement of
+Theorem `ode:thm:gates`, time-dependent part on branch-dependent meshes with a
+positive source quadrature and the certificate of equation `ode:eq:gate-source-certificates`): every
+instance satisfying `GateSelect.ODE.BInstanceOK` (uniform sample errors `δG`) has the guarantees
+`NOutcome` for `nprotocol (selPrep hS (ν/3) (tnprepC …)) (2g)`, through the integrated certificate
+with `δI = T δG` (`GateBinaryNodes.BInstanceOK.toI`). -/
 theorem native_time_sel_outcomeB (hS : Synthesis 𝒢 X len) (p : TParams) (hp : p.PublicOK)
     (UJg : List (Gate (Fin p.a ⊕ S))) (hUJg : ∀ g ∈ UJg, GateOK 3 g)
     (nd : NativeOp (TSel p.m p.l p.m) (Fin p.a ⊕ S) Z Y J) (hnd : nd.Public)

@@ -7,7 +7,7 @@ set_option autoImplicit false
 /-!
 # The three hard families against adaptive protocols
 
-For each hard family of Theorem `hsl:thm:main` (manuscript lines 2308-2409), an adaptive
+For each hard family of Theorem `hsl:thm:main`, an adaptive
 protocol `T : SparseLinearSystems.Protocol.Tree O F E` that on every input heralds success with
 probability at least `2/3` and whose conditional output is `ε`-accurate for
 `e^{-iτH}ψ_in` (`DensityAccurate`, observable form of trace distance) must have a large
@@ -22,7 +22,7 @@ worst-case cost `T.worstCost w`.
   weight). The bounds are those of `Hamiltonian/Theorem.lean` with the paper's constants:
   `c_T √s τ`, `(log 2/(384√2)) √(sτr)`, `r/32` and `√(sτr)/(64√2)` (for `s < 64n/τ`).
 
-The correlations are those of the heralded proof (Lemma `odel:lem:herald`, lines 3985-3996):
+The correlations are those of the heralded proof (Lemma `odel:lem:herald`):
 `(2/3)(7A/8 - 2ε) ≥ 1/4` (time), `≥ A/2` (mixed, `A ≥ 16ε`), `> 0` (precision). One value
 call costs one growth factor, so the general bounds are twice the paper's value-query bounds
 (`log 2/96`, `n/4`), and the paper's constants follow (`time_final`, `mixrbound`, `rbound`,
@@ -58,7 +58,7 @@ theorem cast_two_pow (μ : ℕ) : (((2 ^ μ : ℕ)) : ℝ) = (2 : ℝ) ^ μ := b
 
 /-! ### Any family with search-weight growth -/
 
-/-- **Time family, adaptive protocols** (lines 2385-2401): heralded success `≥ 2/3` and
+/-- **Time family, adaptive protocols** (Lemma `hsl:lem:time`): heralded success `≥ 2/3` and
 conditional accuracy `ε` force `worstCost ≥ (log 2/48) n √m` (`n = timeN τ`,
 `m = 2^{hsMu s}`). -/
 theorem time_tree_general (h : HSRange τ s ε)
@@ -100,7 +100,7 @@ theorem time_tree_general (h : HSRange τ s ε)
         mul_le_mul_of_nonneg_left (quarter_root (timeN τ)) hc
     _ ≤ T.worstCost w := hb
 
-/-- **Mixed family, adaptive protocols** (Lemma `hsl:lem:mixed`, lines 2308-2338, at the
+/-- **Mixed family, adaptive protocols** (Lemma `hsl:lem:mixed`, at the
 main parameters `L ≥ 64τ`, `s ≥ 64n/τ`): `worstCost ≥ (log 2/48) √(mnτ)`. -/
 theorem mixed_tree_general (h : HSRange τ s ε) (hL : 64 * τ ≤ hsL ε)
     (hs : 64 * (precN τ ε : ℝ) / τ ≤ s)
@@ -153,7 +153,7 @@ theorem mixed_tree_general (h : HSRange τ s ε) (hL : 64 * τ ≤ hsL ε)
         mul_le_mul_of_nonneg_left (mixed_root hn2 hτ0 hτn) hc
     _ ≤ T.worstCost w := hb
 
-/-- **Precision family, adaptive protocols** (Lemma `hsl:lem:precision`, lines 2340-2370, at
+/-- **Precision family, adaptive protocols** (Lemma `hsl:lem:precision`, at
 the main parameters `L ≥ 64τ`): inputs `x : Fin n → Bool`, labels with search-weight growth
 along `toBits`; `worstCost ≥ n/2` (`n = ⌊r/4⌋`). -/
 theorem precision_tree_general (h : HSRange τ s ε) (hL : 64 * τ ≤ hsL ε)
@@ -197,7 +197,7 @@ theorem precision_tree_general (h : HSRange τ s ε) (hL : 64 * τ ≤ hsL ε)
 
 /-! ### Admissible labels over the hard data -/
 
-/-- **Time family, admissible labels** (eq. `hsl:eq:timelower`, line 2406, for adaptive
+/-- **Time family, admissible labels** (eq. `hsl:eq:timelower`, for adaptive
 protocols): `worstCost ≥ c_T √s τ`, `c_T = log 2/(192π)`. -/
 theorem time_tree (h : HSRange τ s ε)
     (O : L → (Fin (timeN τ) → Fin (2 ^ hsMu s)) → K →L[ℂ] K) (w : L → ℕ)
@@ -215,7 +215,7 @@ theorem time_tree (h : HSRange τ s ε)
       (Nat.cast_nonneg _)) (Real.sqrt_nonneg _)
   linarith [time_final h.one_le_tau h.s_ge]
 
-/-- **Mixed family, admissible labels** (eq. `hsl:eq:mixrbound`, line 2441, for adaptive
+/-- **Mixed family, admissible labels** (eq. `hsl:eq:mixrbound`, for adaptive
 protocols): for `L ≥ 64τ` and `s ≥ 64n/τ`, `worstCost ≥ (log 2/(384√2)) √(sτr)`. -/
 theorem mixed_tree (h : HSRange τ s ε) (hL : 64 * τ ≤ hsL ε)
     (hs : 64 * (precN τ ε : ℝ) / τ ≤ s)
@@ -234,9 +234,8 @@ theorem mixed_tree (h : HSRange τ s ε) (hL : 64 * τ ≤ hsL ε)
     mul_nonneg (div_nonneg (Real.log_pos one_lt_two).le (by norm_num)) (Real.sqrt_nonneg _)
   linarith [mixrbound h hL]
 
-/-- **Precision family, admissible labels** (eqs. `hsl:eq:rbound`, `hsl:eq:failedmix`, lines
-2436 and 2450, for adaptive protocols): for `L ≥ 64τ`, `worstCost ≥ r/32`, and
-`worstCost ≥ √(sτr)/(64√2)` when `s < 64n/τ`. -/
+/-- **Precision family, admissible labels** (eqs. `hsl:eq:rbound`, `hsl:eq:failedmix`, for adaptive
+protocols): for `L ≥ 64τ`, `worstCost ≥ r/32`, and `worstCost ≥ √(sτr)/(64√2)` when `s < 64n/τ`. -/
 theorem precision_tree (h : HSRange τ s ε) (hL : 64 * τ ≤ hsL ε)
     (O : L → (Fin (precN τ ε) → Bool) → K →L[ℂ] K) (w : L → ℕ)
     (hO : ∀ l, Access.Admissible (precisionMainData τ ε s h.s_ge) (O l) (w l)) (T : Tree O F E)

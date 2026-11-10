@@ -8,18 +8,18 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # Eq. `odel:eq:hsbound` for the released constant-coefficient solver's oracle
 
-Manuscript lines 4114-4115 ("The lower bounds thus apply to Theorems `ode:thm:main` and
-`ode:thm:time`"), 4049-4050 ("Theorem `hsl:thm:main` applies to the anti-Hermitian subclass"),
-4392-4400 (eq. `odel:eq:hsbound`: the families of Theorem `hsl:thm:main` read as
-constant-coefficient ODEs `A = -iH_X`, `b = 0`, `g = 1`) and 4403-4435 (Lemma `odel:lem:herald`),
-for adaptive solvers (`AdaptiveODELowerBound.Model.TreeSolver`) over the physical oracle family
+Manuscript: Section `odel:sec:main` ("the lower bounds apply to the upper bounds of the preceding
+section"), the end of Section `part:ode` ("Our Hamiltonian lower bound applies to the anti-Hermitian
+subclass"), eq. `odel:eq:hsbound` (the families of Theorem `hsl:thm:main` read as
+constant-coefficient ODEs `A = -iH_X`, `b = 0`, `g = 1`) and Lemma `odel:lem:herald`, for adaptive
+solvers (`AdaptiveODELowerBound.Model.TreeSolver`) over the physical oracle family
 `Oracle.constOracle` of the released constant-coefficient solver
 `SparseHamiltonian.ODECompleteEndpoint.solver` (Theorem `ode:thm:main`) run on the hard family's
-data (any branch register, mesh size, slot count and degree), with public source interfaces.
-Two counts are bounded, as in `AdaptiveODELowerBound.Release.combined_max_release_tree`: the
-worst-case number of value calls `Tree.worstCost (ODESourceQueryBudget.matrixWeight valueWeight)`
-and the released matrix count `Tree.worstCost (ODESourceQueryBudget.matrixWeight (fun _ => 1))`
-(row, column and value calls, inverses included, source calls not counted).
+data (any branch register, mesh size, slot count and degree), with public source interfaces. Two
+counts are bounded, as in `AdaptiveODELowerBound.Release.combined_max_release_tree`: the worst-case
+number of value calls `Tree.worstCost (ODESourceQueryBudget.matrixWeight valueWeight)` and the
+released matrix count `Tree.worstCost (ODESourceQueryBudget.matrixWeight (fun _ => 1))` (row, column
+and value calls, inverses included, source calls not counted).
 
 * `time_const_tree`, `mixed_const_tree`, `precision_const_tree`: the bounds of eqs.
   `hsl:eq:timelower`, `hsl:eq:mixrbound`, `hsl:eq:rbound`, `hsl:eq:failedmix` with the constants
@@ -37,8 +37,7 @@ Controlled calls, padding and family forms over this oracle are in the library
 `PhysicalODELowerBound`.
 
 The joint term `ḡ √s τ` of Theorem `odel:thm:combined` is not part of this bound: its family is
-time dependent, and the manuscript does not prove it for constant-coefficient equations (lines
-4151-4155).
+time dependent, and the manuscript does not prove it for constant-coefficient equations.
 -/
 
 namespace ConstantODELowerBound.Herald

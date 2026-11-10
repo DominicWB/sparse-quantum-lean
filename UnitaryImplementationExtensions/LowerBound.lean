@@ -8,10 +8,10 @@ set_option autoImplicit false
 /-!
 # The `Θ(√N)` query complexity of black-box unitary implementation
 
-The last sentence of corollary `hs:cor:unitary` of the manuscript (lines
-1786-1787): at fixed constant error the worst-case query complexity is
-`Θ(√N)`. The manuscript states the lower half without a detailed argument
-(lines 1833-1840, a reduction from unstructured search); it is proved here.
+The last sentence of corollary `hs:cor:unitary` of the manuscript: at fixed constant error the
+worst-case query complexity is `Θ(√N)`. The manuscript states the lower half without a detailed
+argument (proof of Corollary `hs:cor:unitary`, a reduction from unstructured search); it is proved
+here.
 
 The hard instances are the search unitaries `SearchFamily.searchMatrix N m`.
 Their one-bit reversible entry lookup is the Boolean phase oracle of the marked

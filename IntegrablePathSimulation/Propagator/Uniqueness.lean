@@ -11,8 +11,8 @@ interval: their difference `D` is continuous and obeys `‖D s‖ ≤ ∫_a^s �
 vanishes by the integral form of Grönwall's inequality with the integrable coefficient `‖H‖`
 (`Calculus.eq_zero_of_norm_le_integral`). Together with `Propagator.Existence`, every
 interval-integrable path has exactly one propagator on `[0, T]` (`existsUnique_isPropagator`),
-the operator `U_H(T, 0)` of Theorem `hs:thm:time` of the manuscript (lines 1414-1445) for the
-integrable paths of the paragraph after its proof (lines 1618-1632).
+the operator `U_H(T, 0)` of Theorem `hs:thm:time` of the manuscript for the
+integrable paths of the paragraph after its proof.
 -/
 
 namespace IntegrablePathSimulation.Propagator

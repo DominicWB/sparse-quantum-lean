@@ -6,27 +6,32 @@ import TimeDependentExtensions.Coherent.Theorem
 /-!
 # Generalisations of the time-dependent theorems: paper-to-Lean entry point
 
-The generalisations stated after Theorem `hs:thm:time` (paragraphs "Regularity and coherent
-parameters" and "Relation to time-indexed block encodings") and in the proof of Theorem
-`ode:thm:time` of the accompanying paper: nonuniform meshes, piecewise paths with breakpoints
-and one-sided samples, integrated sample-error certificates, the nonuniform certified source
-quadrature, coherent selection of durations and start times, and the time-indexed
-block-encoding special case (equations `hs:eq:blockspecial` and `hs:eq:blockadditive`). The
-released uniform-mesh theorems `SparseHamiltonian.TimeDependent.simulation` and
-`SparseHamiltonian.TimeDependentODE.solver` (libraries `TimeDependentHamiltonian` and
-`TimeDependentODE`, whose statement files predate this library) are unchanged. The corollary
-`hs:cor:hybrid` relies on other papers and is not formalised. No result from another paper is
-used. All declarations below are in the namespace `TimeDependentExtensions`.
+The generalisations stated after Theorem `hs:thm:time` (the paragraphs after its proof and eqs.
+`hs:eq:blockspecial` and `hs:eq:blockadditive`) and in the proof of Theorem
+`ode:thm:time` of the accompanying paper: nonuniform meshes, piecewise paths with breakpoints and
+one-sided samples, integrated sample-error certificates, coherent selection of durations and start
+times, and the time-indexed block-encoding special case
+(equations `hs:eq:blockspecial` and `hs:eq:blockadditive`). The released uniform-mesh theorems
+`SparseHamiltonian.TimeDependent.simulation` and `SparseHamiltonian.TimeDependentODE.solver`
+(libraries `TimeDependentHamiltonian` and `TimeDependentODE`, whose statement files predate this
+library) are unchanged. The corollary `hs:cor:hybrid` relies on other papers and is not formalised.
+No result from another paper is used. All declarations below are in the namespace
+`TimeDependentExtensions`. References to the manuscript use its labels.
 
 * Theorem `hs:thm:time` on general meshes, with breakpoints and the integrated certificate:
   `Hamiltonian.simulation`; piecewise Lipschitz paths with one-sided samples:
   `Hamiltonian.simulation_lipschitz`; one path on `[0, T]`: `Hamiltonian.simulation_path`;
   untouched references: `Hamiltonian.simulation_with_reference`; an explicit slot count:
   `Hamiltonian.slotCount`, `Hamiltonian.slotCount_spec`.
-* Theorem `ode:thm:time` on general meshes, with breakpoints, integrated certificates and the
-  certified source quadrature on the mesh: `ODE.solver` (statement `ODE.Outcome`); piecewise
+* A special case of Theorem `ode:thm:time` on general meshes, with breakpoints and integrated
+  certificates: source nodes at the left endpoints `t_q` of the mesh intervals with nonnegative
+  weights `Δ_q = t_{q+1} - t_q`, and represented samples with positive semidefinite dissipative
+  parts: `ODE.solver` (statement `ODE.Outcome`); piecewise
   Lipschitz generators and forcing: `ODE.solver_lipschitz` (`ODE.LipschitzOutcome`); the
-  public part of the budget on a mesh of step at most `h`: `ODE.publicError_le`.
+  public part of the budget on a mesh of step at most `h`: `ODE.publicError_le`. The source
+  interface of Theorem `ode:thm:time` (nodes anywhere in `[0, T]`, complex coefficients) is
+  formalised in `GeneralSourceODE`, and with represented samples of any sign in
+  `RepresentedSampleODE`.
 * Equation `hs:eq:blockspecial`: `BlockEncoding.resolvent_right`, `resolvent_left`,
   `resolvent_boundary`, `resolvent_moment`, `endpoint_norm_le`; equation
   `hs:eq:blockadditive`: `BlockEncoding.simulation`.
@@ -138,14 +143,22 @@ Every theorem of the library is axiom-audited in `TimeDependentExtensions/Audit.
 
 **Formalisation choices.**
 
-* Nonuniform meshes are realised by a uniform refinement into `N` slots with the slot-to-sample
-  map `pieceOf` in the clean encoding (the manuscript uses such a "known map from each new
-  time label to its original sample label" in the proof of `hs:cor:hybrid`). The rounding of
-  the interval lengths to multiples of `T / N` costs `M (T / N) Λ`, `Λ = √s η` (Hamiltonian;
-  condition `9 M √s η T ≤ ε N`) or `M (T / N) s Λ B` with `Λ = D.scale` (ODE, in
-  `publicError`); the paper instead uses nonuniform Cayley steps `w_r = α Δ_r`. Increasing
-  `N` changes neither the query bound nor the primitive sampled-time oracle; only the
-  spectator clock register grows.
+* Sample positivity (a formal restriction): `ODE.solver` and `ODE.solver_lipschitz` keep the
+  positivity hypothesis of `TimeDependentODE.solver` (positive semidefinite dissipative parts
+  of all represented samples), which Theorem `ode:thm:time` of the manuscript does not make (it
+  asks of the represented samples only the uniform moment and norm promises; see
+  `TimeDependentODE/Statements.lean`). `RepresentedSampleODE` lifts it for the query-level mesh
+  solvers and the common-mesh gate solver; the conformance endpoints
+  `ManuscriptConformance.ode_thm_time`, `ode_thm_gates_time_cert` and
+  `ode_thm_gates_time_decoder_cert` hold for represented samples of any sign. The manuscript's
+  theorem is not changed.
+* Nonuniform meshes are realised by a uniform refinement into `N` slots with the slot-to-sample map
+  `pieceOf` in the clean encoding (the proof of `hs:cor:hybrid` uses the same refinement: "on each
+  new interval choose the original sample containing its left endpoint"). The rounding of the
+  interval lengths to multiples of `T / N` costs `M (T / N) Λ`, `Λ = √s η` (Hamiltonian; condition
+  `9 M √s η T ≤ ε N`) or `M (T / N) s Λ B` with `Λ = D.scale` (ODE, in `publicError`); the paper
+  instead uses nonuniform Cayley steps `w_r = α Δ_r`. Increasing `N` changes neither the query bound
+  nor the primitive sampled-time oracle; only the spectator clock register grows.
 * Breakpoints: the path is one piece per mesh interval, given on the closed interval; the
   propagator or solution solves each piece on its closed interval, with one-sided
   derivatives at the mesh points. The one-sided sample of interval `r` is the value of piece

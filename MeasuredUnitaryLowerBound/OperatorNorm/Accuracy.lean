@@ -8,18 +8,17 @@ set_option autoImplicit false
 /-!
 # Operator-norm implementations are sharply trace-distance accurate
 
-Eq. `hs:eq:unitaryerror` of the manuscript (lines 1652-1654) for measured algorithms
-(purification and deferred measurement, lines 2363-2364). A measured algorithm that implements
-`U` within operator-norm error `ε` (`NormImplements`, `ε² ≤ 2`) succeeds with probability one on
-every encoded unit input `J ψ`, and its output, records discarded and read through the isometry
-`e`, is within trace distance `ε √(1 - ε²/4)` of `U ψ` whenever `‖U ψ‖ ≤ 1`
-(`densityAccurate_of_normImplements`). The output correlation of a readout effect is the
-expectation of the record-wise lifted effect in the read dilation (`corr_outObs_sum_pure`),
-the target's is that of `U ⊗ γ` (`inner_garbageTensor_lift`, through the product-vector
-expectation `⟪Φ, (Mo ⊗ 1) Φ⟫ = ‖g‖² ⟪v, Mo v⟫` of `inner_tensor_liftObs`), and
-`abs_re_inner_sub_le_sharp` compares the two vectors; the read dilation is a unit vector because
-the trace of the output is the success probability
-(`DeferredMeasurementLowerBounds.Corollaries.corr_one_successDensity`).
+Eq. `hs:eq:unitaryerror` of the manuscript for measured algorithms (purification and deferred
+measurement, proof of Lemma `hsl:lem:precision`). A measured algorithm that implements `U` within
+operator-norm error `ε` (`NormImplements`, `ε² ≤ 2`) succeeds with probability one on every encoded
+unit input `J ψ`, and its output, records discarded and read through the isometry `e`, is within
+trace distance `ε √(1 - ε²/4)` of `U ψ` whenever `‖U ψ‖ ≤ 1` (`densityAccurate_of_normImplements`).
+The output correlation of a readout effect is the expectation of the record-wise lifted effect in
+the read dilation (`corr_outObs_sum_pure`), the target's is that of `U ⊗ γ`
+(`inner_garbageTensor_lift`, through the product-vector expectation
+`⟪Φ, (Mo ⊗ 1) Φ⟫ = ‖g‖² ⟪v, Mo v⟫` of `inner_tensor_liftObs`), and `abs_re_inner_sub_le_sharp`
+compares the two vectors; the read dilation is a unit vector because the trace of the output is the
+success probability (`DeferredMeasurementLowerBounds.Corollaries.corr_one_successDensity`).
 -/
 
 namespace MeasuredUnitaryLowerBound.OperatorNorm

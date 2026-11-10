@@ -20,17 +20,19 @@ circuits (with their accuracy `ζs` and the budget `24 d ζ + 2 ζs ≤ ν`) and
 conditions of the instance remain hypotheses. It instantiates `native_ode_solver`
 (`binary_ode_solver`, with the counts `binary_ode_counts` and the explicit worst-case gate count
 `binary_ode_gate_count`) and its finite-gate-set form `GateSynth.native_ode_solver_synth`
-(`binary_ode_solver_synth`). The released libraries are unchanged; the statement files of
-`GateEfficientBinary`, `GateEfficientBinaryTime` and `GateEfficientSynthesis` predate this library
-and list `ode:thm:gates` from binary data as not formalised. No result from another paper is used,
-except single-qubit synthesis and the decomposition of controlled gates as the hypothesis
-`GateSynth.Synthesis` of the finite-gate-set form. All declarations below are in the namespace
-`SparseHamiltonian.GateBinaryODE`.
+(`binary_ode_solver_synth`, a partial formalisation, under this package's format hypotheses, of
+the finite-set statement of Theorem `ode:thm:gates`). The released libraries are unchanged; the
+statement files of `GateEfficientBinary`, `GateEfficientBinaryTime` and `GateEfficientSynthesis`
+predate this library and list `ode:thm:gates` from binary data as not formalised. No result from
+another paper is used, except single-qubit synthesis and the decomposition of controlled gates as
+the hypothesis `GateSynth.Synthesis` of the finite-gate-set form. All declarations below are in the
+namespace `SparseHamiltonian.GateBinaryODE`. References to the manuscript use its labels.
 
 * Theorem `ode:thm:gates` for binary data, constant coefficients: `binary_ode_solver`,
-  `binary_ode_counts`, `binary_ode_gate_count`; over a finite gate set: `binary_ode_solver_synth`.
-  The public data `Pub`, its conditions `Pub.OK`, the released parameters `Pub.params`
-  (`Pub.params_ok`) and the native preparation `Pub.prep`.
+  `binary_ode_counts`, `binary_ode_gate_count`; over a finite gate set (a partial formalisation,
+  under this package's format hypotheses, of the finite-set statement of the theorem):
+  `binary_ode_solver_synth`. The public data `Pub`, its conditions `Pub.OK`, the released parameters
+  `Pub.params` (`Pub.params_ok`) and the native preparation `Pub.prep`.
 * `U_J` from Hadamard gates: `hadUJ4`, `hadUJ4_ok`, `hadUJ4_length`, `boundary_lift4`.
 * The native private operation and its native identity: `odeOp`, `computeV4` (`odeOp_public`,
   `computeV4_nGates`, `computeV4_nCalls`), `nativeOK4`, `decOK`, `Pub.nativeOK`.

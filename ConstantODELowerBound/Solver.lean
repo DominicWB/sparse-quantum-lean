@@ -6,14 +6,13 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # The released constant-coefficient solver on a one-stage family of the class
 
-Theorem `ode:thm:main` (manuscript lines 3013-3033) and lines 4114-4115 ("The lower bounds thus
-apply to Theorems `ode:thm:main` and `ode:thm:time`"). This module runs the released solver
+Theorem `ode:thm:main` and Section `odel:sec:main` ("the lower bounds apply to the upper bounds of
+the preceding section"). This module runs the released solver
 `SparseHamiltonian.ODECompleteEndpoint.solver` on `constData F` of a one-stage family `F` of the
 class (`g ≤ ḡ`, any row and column bound `η`: the norm information enters only through the split
-bounds) with time `T = τ > 0`, promise parameter `g = ḡ`, split bounds `η_H`, `η_D` on the
-Hermitian and dissipative parts of the generator, initial norm `r₀ = ‖x₀‖`, forcing norm
-`r_b = ‖b‖`, any unit seed and any unitary source interfaces mapping the seed to `x₀/‖x₀‖` and
-`b/‖b‖`.
+bounds) with time `T = τ > 0`, promise parameter `g = ḡ`, split bounds `η_H`, `η_D` on the Hermitian
+and dissipative parts of the generator, initial norm `r₀ = ‖x₀‖`, forcing norm `r_b = ‖b‖`, any unit
+seed and any unitary source interfaces mapping the seed to `x₀/‖x₀‖` and `b/‖b‖`.
 
 * `exists_constProtocol`: the solver's public branch is the positive-time branch
   (`ODECompleteEndpoint.PositiveOutcome`) since `T > 0` and `η_H + R η_D > 0`; it gives a

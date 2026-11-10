@@ -7,36 +7,35 @@ set_option synthInstance.maxSize 4096
 /-!
 # Theorem `hsl:thm:main` for measured algorithms with coherent selection
 
-The proof of Theorem `hs:thm:time` permits coherent selection of known durations and start
-times, "provided the corresponding coherent sampled-time oracle is supplied" (the manuscript,
-lines 1505-1510); the lower bound of Theorem `hsl:thm:main` (lines 2102-2119, eq. `hsl:eq:main`)
-applies to the time-dependent class with time-independent hard instances (lines 1512-1516), and
-randomised or adaptive algorithms are covered by purification and deferred measurement (lines
-2363-2364). This module states it for **measured algorithms**
-(`DeferredMeasurementLowerBounds.Model.Measured`: mid-run and multi-outcome measurements,
-classical control, randomness and resets) whose oracle calls are the released selection family
-`TimeDependentExtensions.MeshSelect.alignedOracle (ι := ι) (constData D M) N γ ρ T ε'` (any
-branch register `ι`, numbers of samples and slots, and schedule; the oracle family of both
-`TimeDependentExtensions.Coherent.coherent_select`, durations, and `coherent_windows`, start
-times and windows, and of `IntegrablePathSimulation.Coherent.coherent_windows`), on the
-constant time, mixed and precision data, and over its call forms
-(plain, inverse, controlled and controlled inverse, `AdaptiveODELowerBound.Access.callFamily`;
-native access "with inverses and coherent controls", lines 2078-2080).
+The paragraphs after the proof of Theorem `hs:thm:time` permit coherent selection of known durations
+and start times, "provided the corresponding coherent sampled-time access is supplied"; the lower
+bound of Theorem `hsl:thm:main` (eq. `hsl:eq:main`) applies to the time-dependent class with
+time-independent hard instances (the paragraphs after the proof of Theorem `hs:thm:time`), and
+randomised or adaptive algorithms are covered by purification and deferred measurement (proof of
+Lemma `hsl:lem:precision`). This module states it for **measured algorithms**
+(`DeferredMeasurementLowerBounds.Model.Measured`: mid-run and multi-outcome measurements, classical
+control, randomness and resets) whose oracle calls are the released selection family
+`TimeDependentExtensions.MeshSelect.alignedOracle (ι := ι) (constData D M) N γ ρ T ε'` (any branch
+register `ι`, numbers of samples and slots, and schedule; the oracle family of both
+`TimeDependentExtensions.Coherent.coherent_select`, durations, and `coherent_windows`, start times
+and windows, and of `IntegrablePathSimulation.Coherent.coherent_windows`), on the constant time,
+mixed and precision data, and over its call forms (plain, inverse, controlled and controlled
+inverse, `AdaptiveODELowerBound.Access.callFamily`; native access with inverses and the controls of
+Lemma `access:lem:control`, Section `hsl:sec:main`).
 
 * `main_max_measured_select`, `main_max_measured_calls_select`:
   `c₀ (√s τ + √(sτr) + r) ≤ max(Q_T, Q_M, Q_P)`, `c₀ = log 2/(4096π)`, `Q` the worst-case number
   of value calls over all transcripts (location calls free, every call form of a value call
   counted once).
 
-A measured algorithm has no output operator, so the selection criteria
-(`Coherent.SelectCriterion`, `Coherent.WindowsCriterion`) are replaced, as in
-`Coherent.main_max_tree_select`, by accuracy of the conditional output against every propagator
-of the constant path. A run of the selection simulator on a branch `i₀` of total duration `τ`
-(input encoding `E ∘ |i₀⟩`, `Coherent.select_endpoint`), embedded by
-`DeferredMeasurementLowerBounds.Model.ofProgram` with the branch prepared in the initial vector,
-meets this accuracy because an operator-norm error at most `ε` implies eq. `hsl:eq:accuracy`
-(lines 2096-2097); for the duration-selection simulator this is `released_select_measured`.
-The windows simulators are not given such a witness here.
+A measured algorithm has no output operator, so the selection criteria (`Coherent.SelectCriterion`,
+`Coherent.WindowsCriterion`) are replaced, as in `Coherent.main_max_tree_select`, by accuracy of the
+conditional output against every propagator of the constant path. A run of the selection simulator
+on a branch `i₀` of total duration `τ` (input encoding `E ∘ |i₀⟩`, `Coherent.select_endpoint`),
+embedded by `DeferredMeasurementLowerBounds.Model.ofProgram` with the branch prepared in the initial
+vector, meets this accuracy because an operator-norm error at most `ε` implies eq.
+`hsl:eq:accuracy`; for the duration-selection simulator this is `released_select_measured`. The
+windows simulators are not given such a witness here.
 
 Proof: the labels are admissible (`Coherent.admissible_select`,
 `Coherent.admissible_callFamily_select`), accuracy against every propagator of the constant path

@@ -6,11 +6,12 @@ set_option autoImplicit false
 set_option synthInstance.maxSize 1024
 
 /-!
-# Remark `odel:rem:homogeneous`: the stage tables and the decode
+# Proposition `odel:rem:homogeneous`: the stage tables and the decode
 
-Manuscript lines 3907-3952 with the encoding of lines 3852-3858 ("All matrix entries are exact
-complex dyadic numbers. [...] A matrix value query is implemented using at most two Boolean
-membership queries"). The words follow `SparseLowerBounds.ODE.jointData`:
+Manuscript: Proposition `odel:rem:homogeneous`, with the encoding of the construction before
+Theorem `odel:thm:joint` ("All entries are complex dyadic numbers [...]. A value query computes
+one relevant membership bit, writes the known entry and uncomputes the bit. It therefore uses at
+most two membership queries"). The words follow `SparseLowerBounds.ODE.jointData`:
 
 * **Words** `Word μ`, one stage-indexed one-bit table `homTable k`
   (`SparseLowerBounds.Hamiltonian.BitTable`): on a hidden stage `k < n` the flag-one block

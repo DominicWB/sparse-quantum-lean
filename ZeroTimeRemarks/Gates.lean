@@ -3,16 +3,16 @@ import GateEfficientNative.Hamiltonian.Theorem
 /-!
 # Theorem `hs:thm:gates` at zero time
 
-Theorem `hs:thm:gates` of the accompanying paper ends with "At `t = 0` the identity circuit
-suffices." The released gate-level endpoints build one circuit from the public data for every
-`τ ≥ 0` (`GateCircuit.Sim.gate_efficient_simulation`, the slot-selected
+Theorem `hs:thm:gates` of the accompanying paper states "This is a time-independent result; at
+`t = 0` the identity suffices." The released gate-level endpoints build one circuit from the public
+data for every `τ ≥ 0` (`GateCircuit.Sim.gate_efficient_simulation`, the slot-selected
 `GateCircuit.SlotSim.gate_efficient_time_simulation`) and their native forms
 (`GateNative.native_simulation`, `GateNative.native_simulation_signed` for every real time,
-`GateNative.native_time_simulation`); at zero time these circuits still contain `6 d` private
-calls and `12 d` calls of `U_J`, with a positive filter degree `d`. This file states the remark
-in the same gate models: the empty circuit, over the same wires and with the same clean system
-embedding, has no elementary gate, no private or primitive call and no `U_J` call, and its full
-output error is exactly `0` at zero time.
+`GateNative.native_time_simulation`); at zero time these circuits still contain `6 d` private calls
+and `12 d` calls of `U_J`, with a positive filter degree `d`. This file states the remark in the
+same gate models: the empty circuit, over the same wires and with the same clean system embedding,
+has no elementary gate, no private or primitive call and no `U_J` call, and its full output error is
+exactly `0` at zero time.
 
 * `circuit`, `simulation_nonneg`: exact gates, constant Hamiltonian, every `τ ≥ 0`.
 * `circuitT`, `time_simulation_nonneg`: exact gates, slot-selected time-dependent circuit,
@@ -134,14 +134,14 @@ def circuitT (a m : ℕ) (α t Q qbar ε : ℝ) :
       (a + m + 2 * simR Q (α * t) qbar (ε / 2)))) :=
   if t = 0 then [] else SlotSim.simCircuitT a (α * t) Q qbar (ε / 2) m
 
-/-- **The time-dependent part of Theorem `hs:thm:gates` (exact gates) for every `t ≥ 0`.**
-Under the hypotheses of the released `SlotSim.gate_efficient_time_simulation`, the circuit
-`circuitT a m α t Q qbar ε` consists of valid instructions, makes `0` slot-selected private
-calls and `0` calls of `U_J` if `t = 0`, and exactly `6 d` and `12 d` otherwise, has `0`
-elementary gates if `t = 0` and at most `200 (d+1)(a+m+r+1)` otherwise, and for every propagator
-`U` of the path its full output on clean inputs is within `ε` of `U(t)`; at `t = 0` the error
-is exactly `0`. The wire count, the degree bounds and the existence of a propagator are those of
-the released theorem. -/
+/-- **The time-dependent gate-level simulation (Theorem `hs:thm:time` with the circuit of
+`hs:thm:gates`) (exact gates) for every `t ≥ 0`.** Under the hypotheses of the released
+`SlotSim.gate_efficient_time_simulation`, the circuit `circuitT a m α t Q qbar ε` consists of valid
+instructions, makes `0` slot-selected private calls and `0` calls of `U_J` if `t = 0`, and exactly
+`6 d` and `12 d` otherwise, has `0` elementary gates if `t = 0` and at most `200 (d+1)(a+m+r+1)`
+otherwise, and for every propagator `U` of the path its full output on clean inputs is within `ε` of
+`U(t)`; at `t = 0` the error is exactly `0`. The wire count, the degree bounds and the existence of
+a propagator are those of the released theorem. -/
 theorem time_simulation_nonneg (a m : ℕ) {P : Type*} [NormedAddCommGroup P]
     [InnerProductSpace ℂ P] [CompleteSpace P] (UJ : Vsp a P →L[ℂ] Vsp a P)
     (D R1 : ℕ → Vsp a P →L[ℂ] Vsp a P) (Hpath : ℝ → P →L[ℂ] P) (Hs : ℕ → P →L[ℂ] P)
@@ -348,12 +348,12 @@ def nativeCircuitT (a m : ℕ) (α t Q qbar ε : ℝ) (UJg : List (Gate (Fin a �
       (a + m + 2 * simR Q (α * t) qbar (ε / 4))) S Empty Z ar.bT ar.bP ar.A) Y J) :=
   if t = 0 then [] else nativeSimT a m (α * t) Q qbar ε UJg nd ar
 
-/-- **Native time-dependent part of Theorem `hs:thm:gates` for every `t ≥ 0`.** Under the
-hypotheses of the released `native_time_simulation`, the circuit
-`nativeCircuitT a m α t Q qbar ε UJg nd ar` consists of valid instructions, makes `0` primitive
-calls and has `0` elementary gates if `t = 0`, has the released counts otherwise, and for every
-propagator `U` of the path its full output on the system embedding is within `ε` of `U(t)`;
-at `t = 0` the error is exactly `0`. The wire count, the degree bounds and the existence of a
+/-- **Native time-dependent gate-level simulation (Theorem `hs:thm:time` with the circuit of
+`hs:thm:gates`) for every `t ≥ 0`.** Under the hypotheses of the released `native_time_simulation`,
+the circuit `nativeCircuitT a m α t Q qbar ε UJg nd ar` consists of valid instructions, makes `0`
+primitive calls and has `0` elementary gates if `t = 0`, has the released counts otherwise, and for
+every propagator `U` of the path its full output on the system embedding is within `ε` of `U(t)`; at
+`t = 0` the error is exactly `0`. The wire count, the degree bounds and the existence of a
 propagator are those of the released theorem. -/
 theorem native_time_simulation_nonneg (a m : ℕ) (prim : J → Reg Y R →L[ℂ] Reg Y R)
     (hprim : ∀ j, IsUnitary (prim j))

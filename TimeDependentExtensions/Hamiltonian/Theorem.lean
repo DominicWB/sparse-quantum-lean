@@ -7,10 +7,10 @@ set_option autoImplicit false
 /-!
 # Time-dependent sparse Hamiltonian simulation on general meshes
 
-The generalisations of Theorem `hs:thm:time` stated after its proof ("Regularity and coherent
-parameters"): an arbitrary mesh `0 = t_0 ≤ t_1 ≤ ⋯ ≤ t_M = T`, a path with breakpoints at
-the mesh points (one piece `H_r` per interval, with the one-sided sample on each interval),
-and the integrated sample-error certificate `∑_r ∫_{t_r}^{t_{r+1}} ‖H_r(u) - H̃_r‖ du`.
+The generalisations of Theorem `hs:thm:time` stated after its proof: an arbitrary mesh
+`0 = t_0 ≤ t_1 ≤ ⋯ ≤ t_M = T`, a path with breakpoints at the mesh points (one piece `H_r` per
+interval, with the one-sided sample on each interval), and the integrated sample-error certificate
+`∑_r ∫_{t_r}^{t_{r+1}} ‖H_r(u) - H̃_r‖ du`.
 
 The coherent sampled-time oracle supplies one represented sample `H̃_r = D.matrix (x, r)`
 per interval. The program runs the released chronological clock on `N` slots of length

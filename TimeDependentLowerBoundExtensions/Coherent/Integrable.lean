@@ -8,10 +8,11 @@ set_option synthInstance.maxSize 4096
 # Coherent start times and durations under the integrable-path criterion
 
 For an integrable Hermitian path it suffices to have a certified bound on the integrated sample
-errors, and the proof permits coherent selection of known durations and start times (the
-manuscript, lines 1500-1510); `IntegrablePathSimulation.Coherent.coherent_windows` states this
-on the released selection family. The lower bound of Theorem `hsl:thm:main` applies to the
-time-dependent class with time-independent hard instances (lines 1512-1516).
+errors, and the proof permits coherent selection of known durations and start times (the manuscript,
+the paragraphs after the proof of Theorem `hs:thm:time`);
+`IntegrablePathSimulation.Coherent.coherent_windows` states this on the released selection family.
+The lower bound of Theorem `hsl:thm:main` applies to the time-dependent class with time-independent
+hard instances (the paragraphs after the proof of Theorem `hs:thm:time`).
 
 * `WindowsIntegrableCriterion`: the guarantee of
   `IntegrablePathSimulation.Coherent.coherent_windows` for one program and one public table of

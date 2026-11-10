@@ -9,8 +9,11 @@ right inverse `y ↦ (M⁻¹ y, 0)` of `[M, -cβ]`, takes its adjoint and applie
 bounded-left-inverse estimate.  For the regularized augmentation `H_σ` this
 gives: `H_σ` is self-adjoint, its kernel is the line through the normalized
 generator, and every nonzero eigenvalue has modulus at least `gap κ σ`
-(`regularizedAugmentedHamiltonian_nonzero_eigenvalue_gap`, equation
-`qls:eq:auggap`).
+(`regularizedAugmentedHamiltonian_nonzero_eigenvalue_gap`; the manuscript states the kernel in
+equation `qls:eq:u` and this gap in the paragraph after it).
+
+Notation: the regularization parameter is `σ` here and `ξ` in the manuscript, so a subscript `σ` (as
+in `g_σ`, `r_σ`, `H_{σ,r}`) stands for the manuscript's subscript `ξ`.
 -/
 
 namespace SparseLinearSystems.HilbertAugmentationGap
@@ -205,7 +208,7 @@ section FiniteDimensional
 variable [FiniteDimensional ℂ V]
 
 /-- Specialization to the actual regularized dilation: the dense augmented
-column adjoint retains the manuscript gap `g_sigma`. -/
+column adjoint retains the manuscript gap `g_ξ`. -/
 theorem regularized_column_adjoint_lower
     (A : V ≃L[ℂ] V) (κ σ : ℝ)
     (hκ : 1 ≤ κ) (hInv : ‖A.symm.toContinuousLinearMap‖ ≤ κ)
@@ -224,7 +227,7 @@ theorem regularized_column_adjoint_lower
   exact InputInverseBounds.regularizedDilationEquiv_inverse_norm_le
     A κ σ hκ hInv hσ₀ hσ₁
 
-/-- Concrete Gram inequality `C C† >= g_sigma² I` for the manuscript's
+/-- Concrete Gram inequality `C C† >= g_ξ² I` for the manuscript's
 regularized augmented row. -/
 theorem regularized_column_gram_rayleigh_lower
     (A : V ≃L[ℂ] V) (κ σ : ℝ)

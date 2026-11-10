@@ -66,8 +66,9 @@ variable {X n : Type*} [Fintype n] [DecidableEq n] {Zs : Type*} [Fintype Zs] [De
 variable {Xa : Type*} [Fintype Xa] [DecidableEq Xa] {𝒢 : Set Kind} {len : ℝ → ℕ}
 
 /-- **Equations `ode:eq:gate-main` and `ode:eq:gate-space` in `𝔟` over a finite gate set,
-constant coefficients** (Theorem `ode:thm:gates`). Under `Synthesis 𝒢 Xa len` with
-`len ζ ≤ c₁ log(1/ζ) + c₀` on `(0, 1]` (`c₀, c₁ ≥ 0` the synthesis constants, not the decoder
+constant coefficients** (partial formalisation, under this package's format hypotheses, of the
+finite-set statement of Theorem `ode:thm:gates`). Under `Synthesis 𝒢 Xa len`
+with `len ζ ≤ c₁ log(1/ζ) + c₀` on `(0, 1]` (`c₀, c₁ ≥ 0` the synthesis constants, not the decoder
 scale `c₀`), `AdjClosed 𝒢`, `zeroTestKinds ⊆ 𝒢` and the hypotheses of
 `binary_ode_budget_bits` (public rescaling, `ζ ≥ ν/(196608 q*)`, `b ≤ b_data`, `c₀`, `T`, `η_H`,
 `η_D` of bit length `b_data`), with `𝔟 = bitB b_data (2^k_x) (2^m) (2^k) q* g ε` and
@@ -188,9 +189,10 @@ theorem binary_ode_budget_trials_bits (hS : Synthesis 𝒢 Xa len) (hadj : AdjCl
     linarith
 
 /-- **Equations `ode:eq:gate-main` and `ode:eq:gate-space` in `𝔟` over a finite gate set,
-time-dependent coefficients** (Theorem `ode:thm:gates`, time-dependent part). Under the synthesis
-hypotheses of `binary_ode_budget_trials_bits` (`c₀, c₁ ≥ 0` the synthesis constants, not the
-decoder scale `c₀`) and the hypotheses of
+time-dependent coefficients** (partial formalisation, under this package's format hypotheses, of
+the finite-set statement of Theorem `ode:thm:gates`, time-dependent part).
+Under the synthesis hypotheses of `binary_ode_budget_trials_bits` (`c₀, c₁ ≥ 0` the synthesis
+constants, not the decoder scale `c₀`) and the hypotheses of
 `binary_ode_time_budget_bits`, with `𝔟 = bitB b_data (2^k_x) (2^m) (2^m) q* g ε`
 (`q* = qOf s T η_H η_D (2g) (ε/2)`) and `G_src = |loadC| + 2 |wpC|`: the native preparation bound
 is `B = prepBoundT q loadC wpC ≤ 2·10¹⁸ q* (𝔟+1)³ + G_src`; in every history the synthesised

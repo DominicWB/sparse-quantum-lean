@@ -3,13 +3,14 @@ import ODELowerBoundExtensions.Psd.Data.ScalarTable
 /-!
 # The scalar family as release sparse-access data
 
-Manuscript lines 4119-4127. The PSD scalar-family
+Manuscript: the proof of Theorem `odel:thm:psd`. The PSD scalar-family
 generator `psdScalarMat` (three-sparse core, dense PSD padding to sparsity exactly `s`) is
 packaged as `NativeSparseBlockEncoding.Data` by `Hamiltonian.bitData`:
 
 * `psdScalarTable_decode`, `psdScalarLoc_row`, `psdScalarLoc_col`: exact decoding and coverage;
 * `psdScalarData`: the data, hidden input `n` bits; its native primitives are `hardCost`-query
-  programs over the bit oracle (`implementsOn_psdScalarData_spec`, so `q ≤ 2 Q_A`, line 4125);
+  programs over the bit oracle (`implementsOn_psdScalarData_spec`, so `q ≤ 2 Q_A`, proof of Theorem
+  `odel:thm:psd`);
 * `psdScalarData_hardInstance`, `psdScalarData_posSemidef`: the instance properties and
   `D_x ⪰ 0`.
 -/
@@ -212,8 +213,8 @@ theorem psdScalarLoc_col (hn : 1 ≤ n) (hs : 3 ≤ s) (x : Fin n → Bool) (i i
   rw [Matrix.transpose_apply] at e
   exact psdScalarLoc_row hn hs x i' i (by rwa [e])
 
-/-- **The PSD scalar family as native sparse data** (lines 4119-4121): hidden input `n` bits,
-matrix `psdScalarMat n s u`, exact dyadic words, input-independent locators. -/
+/-- **The PSD scalar family as native sparse data** (proof of Theorem `odel:thm:psd`): hidden input
+`n` bits, matrix `psdScalarMat n s u`, exact dyadic words, input-independent locators. -/
 def psdScalarData (n s : ℕ) (u : ℝ) (hn : 1 ≤ n) (hs : 3 ≤ s) :
     Data (Fin n → Bool) (ScalarIndex n s) (Word (psdScalarBits n s u)) s :=
   bitData s (psdScalarBits n s u) (by omega) (padSlot _ s)
@@ -233,9 +234,9 @@ abbrev psdScalarSpecBoolean (Ω : Type*) [Fintype Ω] (n s : ℕ) (u : ℝ) :=
 @[simp] theorem psdScalarData_matrix (hn : 1 ≤ n) (hs : 3 ≤ s) :
     (psdScalarData n s u hn hs).matrix = psdScalarMat n s u := rfl
 
-/-- **Two Boolean queries per value call** (line 4125, `q ≤ 2 Q_A`): the native primitives of
-the PSD scalar data, with a spectator register, are `hardCost`-query programs over the bit
-oracle of the hidden bits. -/
+/-- **Two Boolean queries per value call** (proof of Theorem `odel:thm:psd`, `q ≤ 2 Q_A`): the
+native primitives of the PSD scalar data, with a spectator register, are `hardCost`-query programs
+over the bit oracle of the hidden bits. -/
 theorem implementsOn_psdScalarData_spec (Ω : Type*) [Fintype Ω] (hn : 1 ≤ n) (hs : 3 ≤ s)
     (l : Query) :
     EncodedOracle.ImplementsOn (bitOracle (psdScalarSpecBoolean Ω n s u))
@@ -243,7 +244,7 @@ theorem implementsOn_psdScalarData_spec (Ω : Type*) [Fintype Ω] (hn : 1 ≤ n)
       (ancillaEmbed (Joint Ω (PsdScalarSpace n s u))) (hardCost l) :=
   implementsOn_bitData_spec Ω _ _ _ _ _ _ _ _ _ _ l
 
-/-- **The instance properties** of the PSD scalar data (lines 4074-4077, 4120-4121, 4132-4134). -/
+/-- **The instance properties** of the PSD scalar data (proof of Theorem `odel:thm:psd`). -/
 theorem psdScalarData_hardInstance (hn : 1 ≤ n) (hs : 3 ≤ s) :
     HardInstance (psdScalarData n s u hn hs) := by
   have hP := fun x => psdScalarMat_props (n := n) hs u x
@@ -273,7 +274,7 @@ theorem psdScalarData_hardInstance (hn : 1 ≤ n) (hs : 3 ≤ s) :
         Finset.sum_congr rfl fun i _ => by rw [entry_symm_of_transpose (hR x).1 i refOne]
     _ = 1 := (hP x).2.2.2.1
 
-/-- **`D_x ⪰ 0`** for every hidden input (lines 4120-4121). -/
+/-- **`D_x ⪰ 0`** for every hidden input (proof of Theorem `odel:thm:psd`). -/
 theorem psdScalarData_posSemidef (hn : 1 ≤ n) (hs : 3 ≤ s) (x : Fin n → Bool) :
     ((psdScalarData n s u hn hs).matrix x).PosSemidef :=
   psdScalarMat_posSemidef u x

@@ -8,8 +8,8 @@ set_option synthInstance.maxSize 8192
 /-!
 # The unitary lower half of `hs:cor:unitary` for measured algorithms
 
-Manuscript Corollary `hs:cor:unitary` (lines 1647-1666: `0 < ε ≤ 1/2`, "At fixed constant error,
-the worst-case query complexity is `Θ(√N)`") and line 2364 (purification and deferred
+Manuscript Corollary `hs:cor:unitary` (`0 < ε ≤ 1/2`, "the constant-error worst-case complexity is
+`Θ(√N)`") and the end of the proof of Lemma `hsl:lem:precision` (purification and deferred
 measurement). The lower half for unitary circuits is `UnitaryImplementationExtensions.LowerBound`;
 here it is extended to **measured algorithms** (`Model.Measured`) that implement the search
 unitaries `U_m` (`UnitaryImplementationExtensions.SearchFamily.searchMatrix`).

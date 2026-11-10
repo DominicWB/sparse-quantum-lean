@@ -5,14 +5,12 @@ set_option autoImplicit false
 /-!
 # The entry oracles of the search family as Boolean phase oracles
 
-The hard instances of the lower half of corollary `hs:cor:unitary` of the
-manuscript (lines 1647-1666; the reduction to unstructured search at lines
-1711-1718) are the search unitaries
-`UnitaryImplementationExtensions.SearchFamily.searchMatrix N m`, whose entry
-oracle "uses one query to the search oracle". This module records that fact in
-the form used by the adaptive lower bounds: each entry oracle of the search
-family is the Boolean phase oracle of the marked strings
-`Search.markedString c m` for a fixed position map `c`.
+The hard instances of the lower half of corollary `hs:cor:unitary` of the manuscript (the reduction
+to unstructured search in the proof of Corollary `hs:cor:unitary`) are the search unitaries
+`UnitaryImplementationExtensions.SearchFamily.searchMatrix N m`, for which "One matrix-entry query
+therefore uses one search query". This module records that fact in the form used by the adaptive
+lower bounds: each entry oracle of the search family is the Boolean phase oracle of the marked
+strings `Search.markedString c m` for a fixed position map `c`.
 
 * `lookup_eq_phase_marked`: the ordinary reversible entry lookup with an
   arbitrary payload `V`, positions `(j, k)`, `c (j, k) = j + k`

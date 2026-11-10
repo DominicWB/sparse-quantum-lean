@@ -5,16 +5,14 @@ set_option autoImplicit false
 /-!
 # Entry-only oracle reduction for approximately represented unitaries
 
-The same reduction as `SparseHamiltonian.UnitaryEntryOracle`, for the access
-model of `ApproxData.Data` (corollary `hs:cor:unitary` of the manuscript, lines
-1769-1788). The only unknown primitive is one ordinary reversible entry query of
-the original table, lifted by the released spectator map
+The same reduction as `SparseHamiltonian.UnitaryEntryOracle`, for the access model of
+`ApproxData.Data` (corollary `hs:cor:unitary` of the manuscript). The only unknown primitive is one
+ordinary reversible entry query of the original table, lifted by the released spectator map
 `UnitaryEntryOracle.lift`; the known row and column locators become fixed gates
-(`UnitaryEntryOracle.rowBase`, `UnitaryEntryOracle.columnBase`) and the value
-query of the dilation is one entry query between two fixed routing gates
-(`UnitaryEntryOracle.route`). For exact data the oracle is the released one
-(`oracle_ofExact`). The reduction is restated here because the released one is
-typed on exact unitary data.
+(`UnitaryEntryOracle.rowBase`, `UnitaryEntryOracle.columnBase`) and the value query of the dilation
+is one entry query between two fixed routing gates (`UnitaryEntryOracle.route`). For exact data the
+oracle is the released one (`oracle_ofExact`). The reduction is restated here because the released
+one is typed on exact unitary data.
 -/
 
 namespace UnitaryImplementationExtensions.ApproxOracle

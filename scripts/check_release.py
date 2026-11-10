@@ -15,7 +15,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 AXIOMS = "[propext, Classical.choice, Quot.sound]"
 STANDARD_AXIOMS = ("propext", "Classical.choice", "Quot.sound")
-AUDIT_COUNTS = {"SparseHamiltonian": 91, "SparseODE": 497, "SparseLinearSystems": 709,
+AUDIT_COUNTS = {"SparseHamiltonian": 97, "SparseODE": 497, "SparseLinearSystems": 859,
                 "GateEfficientHamiltonian": 142, "TimeDependentHamiltonian": 110,
                 "TimeDependentODE": 154, "GateEfficientTimeDependent": 58,
                 "GateEfficientODE": 471, "GeneralODE": 358, "LinearSystemLowerBound": 318,
@@ -27,7 +27,7 @@ AUDIT_COUNTS = {"SparseHamiltonian": 91, "SparseODE": 497, "SparseLinearSystems"
                 "GateEfficientSynthesis": 71, "GateEfficientBinaryODE": 391,
                 "ODELowerBoundExtensions": 720, "GateEfficientBinaryODETime": 97,
                 "ChebyshevLinearSystem": 96, "GateEfficientSynthesisTrials": 49,
-                "GateEfficientODEBudget": 55, "ChebyshevLinearSystemFinite": 114,
+                "GateEfficientODEBudget": 55, "ChebyshevLinearSystemFinite": 169,
                 "ZeroTimeRemarks": 65, "UnitaryImplementationPrecision": 59,
                 "AdaptiveODELowerBound": 131, "UnitaryImplementationExtensions": 79,
                 "IntegrablePathSimulation": 75, "ZeroTimeGateODE": 152,
@@ -44,7 +44,21 @@ AUDIT_COUNTS = {"SparseHamiltonian": 91, "SparseODE": 497, "SparseLinearSystems"
                 "GateEfficientBinaryNodes": 226,
                 "GateEfficientSelective": 109,
                 "QLSHoeffding": 41,
-                "GateEfficientSchedule": 61}
+                "GateEfficientSchedule": 61,
+                "OptimalPrecision": 356,
+                "SignedFactorSimulation": 238,
+                "NativeSignedFactor": 91,
+                "LargeSparsityCore": 400, "OptimalSparseSimulation": 64,
+                "TwoNormSimulation": 16, "OptimalLowerBounds": 158,
+                "GateOptimalPrecision": 431, "GeneralSourceODE": 118,
+                "MixedOutputODE": 65, "GateOptimalBinary": 431,
+                "GeneralSourceExtensions": 122, "RepresentedSampleODE": 93,
+                "SourceAccuracyODE": 17, "CleanWorkODE": 49, "GeneralSparseAccess": 252,
+                "GeneralDecoder": 141, "GeneralSparseODE": 116, "GeneralDecoderODE": 96,
+                "MeshCertificateODE": 84, "DysonFullClass": 140,
+                "PrivateSpaceAbstract": 42,
+                "SparseGateAccounting": 50,
+                "ManuscriptConformance": 859}
 # A checked audit block fixes Lean's exact axiom report for one declaration.
 AUDIT_PATTERN = re.compile(
     r"/--\s*info: '(\S+)' (?:depends on axioms: \[([^\]]*)\]|does not depend on any axioms)"
@@ -247,7 +261,31 @@ def main():
           f"{AUDIT_COUNTS['GateEfficientBinaryNodes']} computed source-node, "
           f"{AUDIT_COUNTS['GateEfficientSelective']} selective-synthesis, "
           f"{AUDIT_COUNTS['QLSHoeffding']} Hoeffding-schedule, "
-          f"{AUDIT_COUNTS['GateEfficientSchedule']} manuscript-schedule); "
+          f"{AUDIT_COUNTS['GateEfficientSchedule']} manuscript-schedule, "
+          f"{AUDIT_COUNTS['OptimalPrecision']} optimal-precision, "
+          f"{AUDIT_COUNTS['SignedFactorSimulation']} signed-factor, "
+          f"{AUDIT_COUNTS['NativeSignedFactor']} native-factor, "
+          f"{AUDIT_COUNTS['LargeSparsityCore']} large-sparsity core, "
+          f"{AUDIT_COUNTS['OptimalSparseSimulation']} optimal simulation, "
+          f"{AUDIT_COUNTS['TwoNormSimulation']} two-norm simulation, "
+          f"{AUDIT_COUNTS['OptimalLowerBounds']} optimal lower bounds, "
+          f"{AUDIT_COUNTS['GateOptimalPrecision']} gate-level optimal-precision, "
+          f"{AUDIT_COUNTS['GeneralSourceODE']} general-source ODE, "
+          f"{AUDIT_COUNTS['MixedOutputODE']} mixed-output ODE, "
+          f"{AUDIT_COUNTS['GateOptimalBinary']} binary-data optimal-precision, "
+          f"{AUDIT_COUNTS['GeneralSourceExtensions']} general-source extensions, "
+          f"{AUDIT_COUNTS['RepresentedSampleODE']} represented-sample ODE, "
+          f"{AUDIT_COUNTS['SourceAccuracyODE']} source-accuracy ODE, "
+          f"{AUDIT_COUNTS['CleanWorkODE']} clean-work ODE, "
+          f"{AUDIT_COUNTS['GeneralSparseAccess']} general-size sparse access, "
+          f"{AUDIT_COUNTS['GeneralDecoder']} general-decoder, "
+          f"{AUDIT_COUNTS['GeneralSparseODE']} general-size ODE gate-solver, "
+          f"{AUDIT_COUNTS['GeneralDecoderODE']} decoder ODE gate-solver, "
+          f"{AUDIT_COUNTS['MeshCertificateODE']} mesh-certificate ODE, "
+          f"{AUDIT_COUNTS['DysonFullClass']} full-class Dyson, "
+          f"{AUDIT_COUNTS['PrivateSpaceAbstract']} private-space abstract-simulation, "
+          f"{AUDIT_COUNTS['SparseGateAccounting']} sparse gate-accounting, "
+          f"{AUDIT_COUNTS['ManuscriptConformance']} manuscript-conformance); "
           f"{partial} report a strict subset of {AXIOMS}; source hygiene.")
     print("PASS: Lean/Mathlib 4.32.1; package, README and citation versions agree.")
     print("Packaging checks only; run lake build to verify the proofs and axiom audits.")

@@ -21,6 +21,9 @@ public slot):
 `W = R · A_sp(x) · F_a · V(x) · F_b · V(x)†`.
 
 This is the form compiled to primitive queries in `Circuit.Step`.
+
+Notation: the regularization parameter is `σ` here and `ξ` in the manuscript, so a subscript `σ` (as
+in `g_σ`, `r_σ`, `H_{σ,r}`) stands for the manuscript's subscript `ξ`.
 -/
 
 namespace SparseLinearSystems.LogicalWalk

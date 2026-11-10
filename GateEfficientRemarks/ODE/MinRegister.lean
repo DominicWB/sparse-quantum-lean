@@ -5,8 +5,11 @@ import GateEfficientODEBudget.Shape
 /-!
 # The minimal register of the direct source assembly and the word budget `𝔟`
 
-The remark of Theorem `ode:thm:gates` of the accompanying paper ("Zero time or a known zero
-generator uses direct source assembly and needs no matrix calls") is formalised in the released
+The remark of Theorem `ode:thm:gates` of the accompanying paper ("At `T = 0` only the initial
+preparation is needed. For a known zero generator the solver assembles the source quadrature
+directly. Neither case needs a propagator query; any matrix queries inside the supplied
+preparations still count.") is formalised, with the forcing circuit still applied at `T = 0` with
+weight zero, in the released
 library `ZeroTimeGateODE` on every native ODE register `ZeroTimeGateODE.ZNW a m r K k l f S Zs Z
 bT bP A`: the direct source assembly uses no simulator, LCHS, private-operation or arithmetic
 wire. For the absolute-constant forms of equations `ode:eq:gate-main` and `ode:eq:gate-space` in

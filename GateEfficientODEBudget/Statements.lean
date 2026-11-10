@@ -7,20 +7,24 @@ import GateEfficientODEBudget.Words
 Theorem `ode:thm:gates` of the accompanying paper bounds the complete dissipative solver by
 `G_ODE ≤ C ḡ [q P(𝔟) + G_src(ν) + A_src(ν)]` non-matrix-oracle gates (equation
 `ode:eq:gate-main`) and `A_ODE ≤ P(𝔟) + C A_src(ν)` auxiliary qubits (equation
-`ode:eq:gate-space`), with `O(ḡ q)` matrix queries and `O(ḡ)` source-preparation calls, where
-`ν = ε/(10⁴ ḡ)`, `ℓ = log(1/ν)`, `Θ = T η_H + T η_D ℓ` and `q = √s Θ + √(sΘℓ) + ℓ` (equation
-`ode:eq:gate-q`). The released solvers from binary data (`GateBinaryODE.binary_ode_solver`,
-`GateBinaryODETime.binary_ode_time_solver`) count their gates through the filter degree `d`, the
-LCHS grid `J` and the register words (`GateBinaryODE.binary_ode_gate_count`,
+`ode:eq:gate-space`): "The solver makes `O(ḡ q)` primitive matrix queries outside its `O(ḡ)`
+input/source calls. Counting also the matrix queries inside supplied preparation circuits gives
+`O(ḡ [q + Q_src(ν)])` primitive matrix queries in total." Here `ν = ε/(10⁴ ḡ)`, `ℓ = log(1/ν)`,
+`Θ = T η_H + T η_D ℓ` and `q = √s Θ + √(sΘℓ) + ℓ` (equation `ode:eq:gate-q`). The released solvers
+from binary data (`GateBinaryODE.binary_ode_solver`, `GateBinaryODETime.binary_ode_time_solver`)
+count their gates through the filter degree `d`, the LCHS grid `J` and the register words
+(`GateBinaryODE.binary_ode_gate_count`,
 `GateBinaryODETime.binary_ode_time_gate_count`), with the Cayley rescaling `γ` a free public
 datum. This library chooses `γ` from the public data before the data, proves `d = O(q)`,
 `J = O(q ℓ)` and that the words `m`, `r`, `k`, `l` are `O(log(q/ν))`, and states the resulting
 budgets with explicit absolute constants: before synthesis, as a polynomial in the register
-words, and over a finite gate set with the per-trial claim (through
+words, and over a finite gate set (a partial formalisation, under this package's format hypotheses,
+of the finite-set statement of Theorem `ode:thm:gates`) with the per-trial claim (through
 `GateEfficientSynthesisTrials`). The released libraries are unchanged. No result from another
 paper is used, except single-qubit synthesis and the decomposition of controlled gates as the
 hypothesis `GateSynth.Synthesis` of the finite-gate-set form. All declarations below are in the
 namespace `SparseHamiltonian.GateODEBudget`.
+References to the manuscript use its labels.
 
 * The public rescaling and the size bounds: `gam`, `thetaOf`, `qOf`, `gammaOf`, `ShapeOK`
   (`ShapeOK.tau_le`, `ShapeOK.width_mul_le`, `ShapeOK.degree_shape_le`, `ShapeOK.lamD_le`,
@@ -70,7 +74,8 @@ the binary data `D`, `en`, `hrange`, `hdec` and the valid source circuits `srcC`
   elementary gates, `G_C = 2 (28 k_x + 2) + 2 |arith| + 2 bP + bT + 1` the gates of one private
   call, `G_src = |srcC 0| + |srcC 1|`, `A = k_x + |Zs| + (6 k_x + 4 b) + bT + bP + A_arith`;
 * makes at most `3932160 g q*` calls of each matrix oracle besides `40 g` times the calls of the
-  source circuits (`O(ḡ q)` matrix queries, `O(ḡ)` source calls);
+  source circuits (the theorem's `O(ḡ q)` primitive matrix queries outside its `O(ḡ)` input/source
+  calls, and `O(ḡ [q + Q_src(ν)])` in total);
 
 its register has `22 k_x + 12 m + 24 r + 4 k + 4 l + 8 b + 2 (bT + bP + A_arith) + 2 |Zs| + 47`
 qubits; and for every input and instance as in `binary_ode_solver` with the arithmetic budget
@@ -99,12 +104,13 @@ history and its register has at most `10000 (𝔴+1)³ + 2 |Zs|` qubits
 
 **Over a finite gate set** (`Synth`; hypotheses `hS : GateSynth.Synthesis 𝒢 Xa len` with
 `len ζ ≤ c₁ log(1/ζ) + c₀` on `(0, 1]` (`c₀, c₁ ≥ 0`), `AdjClosed 𝒢`, `zeroTestKinds ⊆ 𝒢`, and
-those of `binary_ode_budget`; the two gate-set hypotheses are without loss of generality,
-`GateSynthTrials.extra_hyps`). With `B = prepBound q srcC`
-`= 819400 q* (G_C + k_x + σ + m + r + k + ℓ (l+1) + 8) + G_src` (`prep_budget_arith`) and the
-synthesised preparation `P = GateSynthTrials.synthPrep hS (ν/3) (q.prep srcC)`,
-`binary_ode_budget_trials`: every instruction of every trial `trialN P j` is valid and every gate
-is a gate of `𝒢`; one native preparation has at most `B` gates; in every history the synthesised
+those of `binary_ode_budget`; the two gate-set hypotheses are stated assumptions:
+`GateSynthTrials.extra_hyps` meets them over `closeKinds 𝒢₀`, and the gate counts are then over that
+set). With `B = prepBound q srcC` `= 819400 q* (G_C + k_x + σ + m + r + k + ℓ (l+1) + 8) + G_src`
+(`prep_budget_arith`) and the synthesised preparation
+`P = GateSynthTrials.synthPrep hS (ν/3) (q.prep srcC)`, `binary_ode_budget_trials`: every
+instruction of every trial `trialN P j` is valid and every gate is a gate of `𝒢`; one native
+preparation has at most `B` gates; in every history the synthesised
 protocol `nprotocol P g` (only the preparation synthesised, its inverse the exact adjoint, the
 zero tests and the sign exact) uses at most `40 g B (c₁ log((B+1)/(ν/3)) + c₀) + 20 g (4 n + 3)`
 gates of `𝒢`,

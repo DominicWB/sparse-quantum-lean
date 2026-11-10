@@ -5,8 +5,8 @@ set_option autoImplicit false
 /-!
 # Summed pair gaps: the real inequality behind the endpoint search bound
 
-The lower half of Corollary `hs:cor:unitary` of the manuscript (lines 1647-1666, error range
-`0 < ε ≤ 1/2`; the reduction to unstructured search, lines 1711-1718) at the endpoint
+The lower half of Corollary `hs:cor:unitary` of the manuscript (error range
+`0 < ε ≤ 1/2`; the reduction to unstructured search) at the endpoint
 `ε = 1/2` of trace-distance accuracy cannot use a uniform pair gap: an output
 `(|m⟩⟨m| + |m'⟩⟨m'|)/2` is within trace distance `1/2` of both `|m⟩` and `|m'⟩`. The gaps
 `g(x, x')` of the pair observables are nonnegative only on average over the pairs. This module

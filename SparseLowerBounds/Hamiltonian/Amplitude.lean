@@ -6,8 +6,8 @@ section
 /-!
 # Reading the amplitude as a correlation
 
-Manuscript lines 2291-2306 (eq. `hsl:eq:readout`). For a core start vector
-`v₀` and target `t`, the known input and observable are
+Manuscript: the chain construction of Section `part:hsl` (eq. `hsl:eq:readout`). For a core start
+vector `v₀` and target `t`, the known input and observable are
 
   `ψ_in = (|r₀⟩ + |v₀⟩)/√2`,  `M = iⁿ |r₀⟩⟨t| + (-i)ⁿ |t⟩⟨r₀|`.
 
@@ -18,7 +18,7 @@ Hermitian with `‖M‖ = ‖t‖` (`norm_readoutObs_le`).
 
 For the hard families (`v₀ = |0, v⟩`, `t = |n, v⟩` for the search chains;
 `v₀ = |0⟩`, `t = |n⟩` for the scalar chain) the parity-corrected ideal
-expectation is at least `7A/8` after dyadic rounding (lines 2299-2301;
+expectation is at least `7A/8` after dyadic rounding (the chain construction of Section `part:hsl`;
 `search_corr`, `scalar_corr`), where `A = chainAmp n a τ = sin(aτ/n)^n`.
 -/
 
@@ -85,7 +85,7 @@ theorem evolve_coreVec (H : Matrix C C ℂ) (τ : ℝ) (v : EuclideanSpace ℂ C
     evolve (fullMatrix H s) τ (coreVec v) = coreVec (evolve H τ v) :=
   evolve_fullMatrix_core H s τ v
 
-/-- **`r₀` is a fixed zero-energy vertex** (line 2281):
+/-- **`r₀` is a fixed zero-energy vertex** (the chain construction of Section `part:hsl`):
 `e^{-iτ fullMatrix H s} |r₀⟩ = |r₀⟩` for every core `H`. -/
 theorem evolve_refZero (H : Matrix C C ℂ) (τ : ℝ) :
     evolve (fullMatrix H s) τ (EuclideanSpace.single refZero 1) =
@@ -215,8 +215,8 @@ theorem norm_readoutInput {v₀ : EuclideanSpace ℂ C} (hv : ‖v₀‖ = 1) :
   have hs : (0 : ℝ) < Real.sqrt 2 := by positivity
   rw [readoutInput, norm_smul, h2, norm_inv, Complex.norm_of_nonneg hs.le, inv_mul_cancel₀ hs.ne']
 
-/-- **The readout expectation** (lines 2293-2300): with `r₀` isolated at zero
-energy, `⟨M⟩ = Re(iⁿ ⟨t| e^{-iτH} |v₀⟩)` in the evolved known input. -/
+/-- **The readout expectation** (the chain construction of Section `part:hsl`): with `r₀` isolated
+at zero energy, `⟨M⟩ = Re(iⁿ ⟨t| e^{-iτH} |v₀⟩)` in the evolved known input. -/
 theorem readout_expectation (H : Matrix C C ℂ) (n : ℕ) (v₀ t : EuclideanSpace ℂ C) (τ : ℝ) :
     ⟪evolve (fullMatrix H s) τ (readoutInput v₀),
         readoutObs n t (evolve (fullMatrix H s) τ (readoutInput v₀))⟫_ℂ =
@@ -283,8 +283,8 @@ theorem scalarObs_contraction (n s : ℕ) :
     IsSelfAdjoint (scalarObs n s) ∧ ‖scalarObs n s‖ ≤ 1 :=
   ⟨isSelfAdjoint_readoutObs _ _, norm_readoutObs_le _ (by rw [PiLp.norm_single, norm_one])⟩
 
-/-- The 7/8 step (lines 2299-2301): if `z` is within `A/8` of `(-i)ⁿ A`, then
-`Re(iⁿ z) ≥ 7A/8` (`iⁿ (-i)ⁿ = 1`, `|iⁿ| = 1`). -/
+/-- The 7/8 step (the chain construction of Section `part:hsl`): if `z` is within `A/8` of
+`(-i)ⁿ A`, then `Re(iⁿ z) ≥ 7A/8` (`iⁿ (-i)ⁿ = 1`, `|iⁿ| = 1`). -/
 theorem seven_eighths_le_re_I_pow_mul (n : ℕ) {z : ℂ} {A : ℝ}
     (h : ‖z - (-Complex.I) ^ n * (A : ℂ)‖ ≤ A / 8) : 7 * A / 8 ≤ (Complex.I ^ n * z).re := by
   have hI : Complex.I ^ n * (-Complex.I) ^ n = 1 := by
@@ -331,7 +331,7 @@ theorem Amplitude.mul_re_I_pow_sign {σ : ℝ} (hσ : |σ| = 1) (n : ℕ) (E : �
         push_cast; ring
     _ = Complex.I ^ n * E := by rw [hσσ, Complex.ofReal_one, one_mul]
 
-/-- **Search-family readout** (lines 2299-2301): after rounding, the
+/-- **Search-family readout** (the chain construction of Section `part:hsl`): after rounding, the
 parity-corrected ideal expectation is at least `7A/8`. -/
 theorem search_corr (hn : 1 ≤ n) (hμ : 1 ≤ μ) {a τ : ℝ} (ha : 0 < a) (ha1 : a ≤ 1)
     (hτ : 0 < τ) (hA : 0 < chainAmp n a τ) (j : Fin n → Fin (2 ^ μ)) :

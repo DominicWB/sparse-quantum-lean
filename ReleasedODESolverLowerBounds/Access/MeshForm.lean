@@ -10,9 +10,9 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # The general-mesh physical oracle in spectator form
 
-Manuscript Section `odel:sec:main`, lines 3669-3673 (value oracle and locators, "their inverses
-and controls, with a coherent time address"), and lines 3678-3679 ("The lower bounds thus apply
-to Theorems `ode:thm:main` and `ode:thm:time`"); Theorem `ode:thm:time` (line 2879).
+Manuscript Section `odel:sec:main` (value oracle and locators, "including inverses, controls and
+coherent time addresses where needed") and "the lower bounds apply to the upper bounds of the
+preceding section"; Theorem `ode:thm:time`.
 
 The matrix labels of the released general-mesh solver's physical oracle
 `ODELowerBoundExtensions.Release.meshOracle F σ ι N d J₀ J_b` are, by the released normal form

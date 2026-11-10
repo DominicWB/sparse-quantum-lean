@@ -4,14 +4,14 @@ import ZeroTimeRemarks.Gates
 /-!
 # Theorem `hs:thm:gates` at zero time: binary sparse data
 
-Theorem `hs:thm:gates` of the accompanying paper ends with "At `t = 0` the identity circuit
-suffices." The released library `ZeroTimeRemarks` states this remark for the exact-gate and
-native circuits (`ZeroTimeRemarks.Gates`) and lists the binary-data variants as not formalised.
-The released binary-data endpoints (`GateBinary.binary_simulation`,
+Theorem `hs:thm:gates` of the accompanying paper states "This is a time-independent result; at
+`t = 0` the identity suffices." The released library `ZeroTimeRemarks` states this remark for the
+exact-gate and native circuits (`ZeroTimeRemarks.Gates`) and lists the binary-data variants as not
+formalised. The released binary-data endpoints (`GateBinary.binary_simulation`,
 `GateBinary.binary_simulation_budget`, `GateBinary.binary_time_simulation`,
-`GateBinary.binary_time_simulation_budget`) build one circuit for every time `τ ≥ 0`, which at
-zero time still makes `12 d` times `2` row, `2` column and `1` value calls. This file states the
-remark in the same model:
+`GateBinary.binary_time_simulation_budget`) build one circuit for every time `τ ≥ 0`, which at zero
+time still makes `12 d` times `2` row, `2` column and `1` value calls. This file states the remark
+in the same model:
 
 * `binaryCircuit`, `binary_simulation_nonneg`, `binary_simulation_budget_nonneg`: binary sparse
   data, every `τ ≥ 0`;
@@ -222,9 +222,9 @@ section BinaryTime
 variable {X n : Type*} [Fintype n] [DecidableEq n] {s k b m : ℕ}
 variable {R : Type*} [NormedAddCommGroup R] [InnerProductSpace ℂ R] [CompleteSpace R]
 
-/-- The time-dependent circuit of Theorem `hs:thm:gates` from time-indexed binary sparse data
-for every `t ≥ 0`: the empty (identity) circuit at `t = 0` and the released `binaryTimeSim`
-otherwise, on the same wires. -/
+/-- The time-dependent circuit (Theorem `hs:thm:time` with the circuit of `hs:thm:gates`) from
+time-indexed binary sparse data for every `t ≥ 0`: the empty (identity) circuit at `t = 0` and the
+released `binaryTimeSim` otherwise, on the same wires. -/
 def binaryTimeCircuit (k b m σ : ℕ) (hσ : σ ≤ k) (s : ℕ) (γ c0 t ε ζ : ℝ) :
     List (NInstr (HW (Wire (k + 1) m
       (simR (width (s : ℝ) γ) (time (s : ℝ) t γ) (moment γ) (ε / 4))
@@ -234,14 +234,14 @@ def binaryTimeCircuit (k b m σ : ℕ) (hσ : σ ≤ k) (s : ℕ) (γ c0 t ε ζ
       (binArithT k b m (γ * Real.sqrt s * c0) ζ).A) (Fin m ⊕ PY k b) Query) :=
   if t = 0 then [] else binaryTimeSim k b m σ hσ s γ c0 t ε ζ
 
-/-- **The time-dependent part of Theorem `hs:thm:gates` from time-indexed binary sparse data for
-every `t ≥ 0`, with the identity circuit at `t = 0`.** Under the hypotheses of the released
-`GateBinary.binary_time_simulation`, the circuit `binaryTimeCircuit k b m σ hσ s γ c₀ t ε ζ`
-consists of valid instructions, makes `0` calls and has `0` elementary gates if `t = 0`, has the
-released counts otherwise, and for every propagator `U` of the lifted path its full output on
-the system embedding is within `ε` of `U(t)`; at `t = 0` the error is exactly `0`. The qubit
-count, the degree and register bounds and the existence of a propagator are those of the
-released theorem. -/
+/-- **The time-dependent gate-level simulation (Theorem `hs:thm:time` with the circuit of
+`hs:thm:gates`) from time-indexed binary sparse data for every `t ≥ 0`, with the identity circuit at
+`t = 0`.** Under the hypotheses of the released `GateBinary.binary_time_simulation`, the circuit
+`binaryTimeCircuit k b m σ hσ s γ c₀ t ε ζ` consists of valid instructions, makes `0` calls and has
+`0` elementary gates if `t = 0`, has the released counts otherwise, and for every propagator `U` of
+the lifted path its full output on the system embedding is within `ε` of `U(t)`; at `t = 0` the
+error is exactly `0`. The qubit count, the degree and register bounds and the existence of a
+propagator are those of the released theorem. -/
 theorem binary_time_simulation_nonneg (D : Data (X × Fin (2 ^ m)) n (Cfg (VW b)) s)
     (en : Cfg (Fin k) ≃ n) (σ : ℕ) (hσ : σ ≤ k) (hs : s = 2 ^ σ)
     (hrange : ∀ j : n, (∃ q, D.slot q = j) ↔ ∃ u : Fin σ → Bool, j = en (lowWord σ u))
@@ -336,13 +336,13 @@ theorem binary_time_simulation_nonneg (D : Data (X × Fin (2 ^ m)) n (Cfg (VW b)
 end BinaryTime
 
 /-- **The budget of the time-dependent binary construction for every `t ≥ 0`, with the identity
-circuit at `t = 0`** (Theorem `hs:thm:gates`, time-dependent part, before finite-set synthesis). For
-`s ≥ 1`, `t ≥ 0`, `0 < ε ≤ 1` and `q = √s t + √(s t log(2/ε)) + log(2/ε)`, there is a rescaling `γ`,
-chosen from `s`, `t` and `ε` before the data, the path and the mesh, with every bound that the
-released `GateBinary.binary_time_simulation_budget` states (`d ≤ 4608 q`), such that: for all data,
-paths, meshes and arithmetic accuracies as in the released budget, the circuit `binaryTimeCircuit`
-makes `0` calls if `t = 0` and at most `55296 q` times `2` row, `2` column and `1` value calls
-otherwise, uses `0` elementary gates if `t = 0` and at most
+circuit at `t = 0`** (Theorem `hs:thm:time` with the circuit of `hs:thm:gates`, before finite-set
+synthesis). For `s ≥ 1`, `t ≥ 0`, `0 < ε ≤ 1` and `q = √s t + √(s t log(2/ε)) + log(2/ε)`, there is
+a rescaling `γ`, chosen from `s`, `t` and `ε` before the data, the path and the mesh, with every
+bound that the released `GateBinary.binary_time_simulation_budget` states (`d ≤ 4608 q`), such that:
+for all data, paths, meshes and arithmetic accuracies as in the released budget, the circuit
+`binaryTimeCircuit` makes `0` calls if `t = 0` and at most `55296 q` times `2` row, `2` column and
+`1` value calls otherwise, uses `0` elementary gates if `t = 0` and at most
 `200 (4608 q + 1) (G_C + (σ+1) + (k+1) + m + r + 1)` otherwise, `2^r ≤ 4 (4608 q + 1)`, the
 propagator of the lifted path exists, and the full output is within `ε` of `U(t)` for every
 propagator `U`, with error exactly `0` at `t = 0`. -/

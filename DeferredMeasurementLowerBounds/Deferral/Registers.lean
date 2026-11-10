@@ -6,10 +6,10 @@ set_option autoImplicit false
 /-!
 # Record registers and the dilation of an instrument
 
-The deferral of a measured algorithm (manuscript lines 2363-2364 and 5185-5186: purification and
-deferred measurement) keeps every classical outcome in a fresh record register. A record of
-`k` registers of width `W` is `Rec W k = Fin k → Option (Fin W)`: the value `none` is the fresh
-value and `some j` records outcome `j`. The workspace with records is `Joint (Rec W k) K`
+The deferral of a measured algorithm (the proofs of Lemmas `hsl:lem:precision` and `qlsl:lem:xor`:
+purification and deferred measurement) keeps every classical outcome in a fresh record register. A
+record of `k` registers of width `W` is `Rec W k = Fin k → Option (Fin W)`: the value `none` is the
+fresh value and `some j` records outcome `j`. The workspace with records is `Joint (Rec W k) K`
 (`ℂ^{Rec W k} ⊗ K` as an `L²` sum), and `split` separates the first register:
 `Joint (Rec W (k+1)) K ≃ Joint (Option (Fin W)) (Joint (Rec W k) K)`.
 

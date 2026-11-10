@@ -1,16 +1,20 @@
 import ChebyshevLinearSystemFinite.Alloc
+import ChebyshevLinearSystemFinite.CentredAveraging
 
 set_option autoImplicit false
 
 /-! ## Axiom audits
 
 Each audit fixes the exact axiom report of its declaration and fails to compile
-if the declaration depends on any other axiom. Every report lists `propext`,
-`Classical.choice` and `Quot.sound`. The audits cover every theorem of the
+if the declaration depends on any other axiom. The audits cover every theorem of the
 library of Theorem `qls:thm:main` with approximate known gates and the explicit
 constants of Remark `qls:rem:constants`, beginning with the endpoints `main_amp`,
 `main`, `main_uniform`, `main_uniform_sharp`, `main_alloc`, `main_exact`, `main_improved`
-and `main_improved_exists`.
+and `main_improved_exists`; the theorems of `CentredAveraging` (Remark `qls:rem:averaging` and
+the query comparison) are in their own section at the end. Every report lists `propext`,
+`Classical.choice` and `Quot.sound`, except six arithmetic lemmas of `CentredAveraging`
+(`lowHalf_add_highHalf`, `lowHalf_le_highHalf`, `highHalf_le_succ_lowHalf`,
+`highHalf_eq_of_even`, `highHalf_eq_of_odd`, `halves_zero`), whose reports list a strict subset.
 -/
 
 /-! ### Theorem `qls:thm:main` with approximate known gates -/
@@ -480,3 +484,225 @@ and `main_improved_exists`.
 /-- info: 'ChebyshevLinearSystemFinite.repeatLeaf_worstCost' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
 #print axioms ChebyshevLinearSystemFinite.repeatLeaf_worstCost
+
+/-! ### Centred averaging (Remark `qls:rem:averaging`) and the query comparison (`CentredAveraging`) -/
+
+/-- info: 'ChebyshevLinearSystemFinite.CentredAveraging.lowHalf_add_highHalf' depends on axioms: [propext, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms ChebyshevLinearSystemFinite.CentredAveraging.lowHalf_add_highHalf
+
+/-- info: 'ChebyshevLinearSystemFinite.CentredAveraging.lowHalf_le_highHalf' depends on axioms: [propext, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms ChebyshevLinearSystemFinite.CentredAveraging.lowHalf_le_highHalf
+
+/-- info: 'ChebyshevLinearSystemFinite.CentredAveraging.highHalf_le_succ_lowHalf' depends on axioms: [propext, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms ChebyshevLinearSystemFinite.CentredAveraging.highHalf_le_succ_lowHalf
+
+/-- info: 'ChebyshevLinearSystemFinite.CentredAveraging.highHalf_eq_of_even' depends on axioms: [propext, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms ChebyshevLinearSystemFinite.CentredAveraging.highHalf_eq_of_even
+
+/-- info: 'ChebyshevLinearSystemFinite.CentredAveraging.highHalf_eq_of_odd' depends on axioms: [propext, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms ChebyshevLinearSystemFinite.CentredAveraging.highHalf_eq_of_odd
+
+/-- info: 'ChebyshevLinearSystemFinite.CentredAveraging.halves_zero' does not depend on any axioms -/
+#guard_msgs (whitespace := lax) in
+#print axioms ChebyshevLinearSystemFinite.CentredAveraging.halves_zero
+
+/-- info: 'ChebyshevLinearSystemFinite.CentredAveraging.highHalf_bounds' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms ChebyshevLinearSystemFinite.CentredAveraging.highHalf_bounds
+
+/-- info: 'ChebyshevLinearSystemFinite.CentredAveraging.Icc_low_sub' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms ChebyshevLinearSystemFinite.CentredAveraging.Icc_low_sub
+
+/-- info: 'ChebyshevLinearSystemFinite.CentredAveraging.adjoint_pow_mul_pow' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms ChebyshevLinearSystemFinite.CentredAveraging.adjoint_pow_mul_pow
+
+/-- info: 'ChebyshevLinearSystemFinite.CentredAveraging.wpow_neg_mul_pow' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms ChebyshevLinearSystemFinite.CentredAveraging.wpow_neg_mul_pow
+
+/-- info: 'ChebyshevLinearSystemFinite.CentredAveraging.isometry_of_isUnitary' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms ChebyshevLinearSystemFinite.CentredAveraging.isometry_of_isUnitary
+
+/-- info: 'ChebyshevLinearSystemFinite.CentredAveraging.coisometry_of_isUnitary' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms ChebyshevLinearSystemFinite.CentredAveraging.coisometry_of_isUnitary
+
+/-- info: 'ChebyshevLinearSystemFinite.CentredAveraging.norm_pow_apply_of_isometry' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms ChebyshevLinearSystemFinite.CentredAveraging.norm_pow_apply_of_isometry
+
+/-- info: 'ChebyshevLinearSystemFinite.CentredAveraging.norm_wpow_apply' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms ChebyshevLinearSystemFinite.CentredAveraging.norm_wpow_apply
+
+/-- info: 'ChebyshevLinearSystemFinite.CentredAveraging.wpow_neg_mul_of_fixed' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms ChebyshevLinearSystemFinite.CentredAveraging.wpow_neg_mul_of_fixed
+
+/-- info: 'ChebyshevLinearSystemFinite.CentredAveraging.centred_sub_eq' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms ChebyshevLinearSystemFinite.CentredAveraging.centred_sub_eq
+
+/-- info: 'ChebyshevLinearSystemFinite.CentredAveraging.norm_centred_sub_apply' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms ChebyshevLinearSystemFinite.CentredAveraging.norm_centred_sub_apply
+
+/-- info: 'ChebyshevLinearSystemFinite.CentredAveraging.norm_centred_apply' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms ChebyshevLinearSystemFinite.CentredAveraging.norm_centred_apply
+
+/-- info: 'ChebyshevLinearSystemFinite.CentredAveraging.opNorm_centred_sub' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms ChebyshevLinearSystemFinite.CentredAveraging.opNorm_centred_sub
+
+/-- info: 'ChebyshevLinearSystemFinite.CentredAveraging.mul_fixedProj' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms ChebyshevLinearSystemFinite.CentredAveraging.mul_fixedProj
+
+/-- info: 'ChebyshevLinearSystemFinite.CentredAveraging.centred_filter_error' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms ChebyshevLinearSystemFinite.CentredAveraging.centred_filter_error
+
+/-- info: 'ChebyshevLinearSystemFinite.CentredAveraging.polyOp_eq_sum' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms ChebyshevLinearSystemFinite.CentredAveraging.polyOp_eq_sum
+
+/-- info: 'ChebyshevLinearSystemFinite.CentredAveraging.polyOp_avg' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms ChebyshevLinearSystemFinite.CentredAveraging.polyOp_avg
+
+/-- info: 'ChebyshevLinearSystemFinite.CentredAveraging.centCoeff_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms ChebyshevLinearSystemFinite.CentredAveraging.centCoeff_nonneg
+
+/-- info: 'ChebyshevLinearSystemFinite.CentredAveraging.centCoeff_eq_zero' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms ChebyshevLinearSystemFinite.CentredAveraging.centCoeff_eq_zero
+
+/-- info: 'ChebyshevLinearSystemFinite.CentredAveraging.centCoeff_shift' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms ChebyshevLinearSystemFinite.CentredAveraging.centCoeff_shift
+
+/-- info: 'ChebyshevLinearSystemFinite.CentredAveraging.centCoeff_neg_highHalf' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms ChebyshevLinearSystemFinite.CentredAveraging.centCoeff_neg_highHalf
+
+/-- info: 'ChebyshevLinearSystemFinite.CentredAveraging.sum_centred' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms ChebyshevLinearSystemFinite.CentredAveraging.sum_centred
+
+/-- info: 'ChebyshevLinearSystemFinite.CentredAveraging.sum_centCoeff' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms ChebyshevLinearSystemFinite.CentredAveraging.sum_centCoeff
+
+/-- info: 'ChebyshevLinearSystemFinite.CentredAveraging.centred_sum' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms ChebyshevLinearSystemFinite.CentredAveraging.centred_sum
+
+/-- info: 'ChebyshevLinearSystemFinite.CentredAveraging.sum_centCoeff_powT' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms ChebyshevLinearSystemFinite.CentredAveraging.sum_centCoeff_powT
+
+/-- info: 'ChebyshevLinearSystemFinite.CentredAveraging.centSeedT_isometry' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms ChebyshevLinearSystemFinite.CentredAveraging.centSeedT_isometry
+
+/-- info: 'ChebyshevLinearSystemFinite.CentredAveraging.centSeedT_norm' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms ChebyshevLinearSystemFinite.CentredAveraging.centSeedT_norm
+
+/-- info: 'ChebyshevLinearSystemFinite.CentredAveraging.centT_compression' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms ChebyshevLinearSystemFinite.CentredAveraging.centT_compression
+
+/-- info: 'ChebyshevLinearSystemFinite.CentredAveraging.centSeedVec_norm' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms ChebyshevLinearSystemFinite.CentredAveraging.centSeedVec_norm
+
+/-- info: 'ChebyshevLinearSystemFinite.CentredAveraging.centFlag_isometry' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms ChebyshevLinearSystemFinite.CentredAveraging.centFlag_isometry
+
+/-- info: 'ChebyshevLinearSystemFinite.CentredAveraging.centred_block' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms ChebyshevLinearSystemFinite.CentredAveraging.centred_block
+
+/-- info: 'ChebyshevLinearSystemFinite.CentredAveraging.centred_block_adjoint' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms ChebyshevLinearSystemFinite.CentredAveraging.centred_block_adjoint
+
+/-- info: 'ChebyshevLinearSystemFinite.CentredAveraging.centred_run' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms ChebyshevLinearSystemFinite.CentredAveraging.centred_run
+
+/-- info: 'ChebyshevLinearSystemFinite.CentredAveraging.centred_test_amplitude' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms ChebyshevLinearSystemFinite.CentredAveraging.centred_test_amplitude
+
+/-- info: 'ChebyshevLinearSystemFinite.CentredAveraging.centred_run_zero' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms ChebyshevLinearSystemFinite.CentredAveraging.centred_run_zero
+
+/-- info: 'ChebyshevLinearSystemFinite.CentredAveraging.centred_averaging_run' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms ChebyshevLinearSystemFinite.CentredAveraging.centred_averaging_run
+
+/-- info: 'ChebyshevLinearSystemFinite.CentredAveraging.qAv_eq' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms ChebyshevLinearSystemFinite.CentredAveraging.qAv_eq
+
+/-- info: 'ChebyshevLinearSystemFinite.CentredAveraging.nAv_pos' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms ChebyshevLinearSystemFinite.CentredAveraging.nAv_pos
+
+/-- info: 'ChebyshevLinearSystemFinite.CentredAveraging.one_le_sqrt_of_pos' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms ChebyshevLinearSystemFinite.CentredAveraging.one_le_sqrt_of_pos
+
+/-- info: 'ChebyshevLinearSystemFinite.CentredAveraging.test_ratio_nat' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms ChebyshevLinearSystemFinite.CentredAveraging.test_ratio_nat
+
+/-- info: 'ChebyshevLinearSystemFinite.CentredAveraging.final_ratio_nat' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms ChebyshevLinearSystemFinite.CentredAveraging.final_ratio_nat
+
+/-- info: 'ChebyshevLinearSystemFinite.CentredAveraging.walkSteps_ratio' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms ChebyshevLinearSystemFinite.CentredAveraging.walkSteps_ratio
+
+/-- info: 'ChebyshevLinearSystemFinite.CentredAveraging.centred_test_ratio' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms ChebyshevLinearSystemFinite.CentredAveraging.centred_test_ratio
+
+/-- info: 'ChebyshevLinearSystemFinite.CentredAveraging.centred_final_ratio' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms ChebyshevLinearSystemFinite.CentredAveraging.centred_final_ratio
+
+/-- info: 'ChebyshevLinearSystemFinite.CentredAveraging.budget_query_comparison' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms ChebyshevLinearSystemFinite.CentredAveraging.budget_query_comparison
+
+/-- info: 'ChebyshevLinearSystemFinite.CentredAveraging.step_costs' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms ChebyshevLinearSystemFinite.CentredAveraging.step_costs
+
+/-- info: 'ChebyshevLinearSystemFinite.CentredAveraging.test_query_comparison' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms ChebyshevLinearSystemFinite.CentredAveraging.test_query_comparison
+
+/-- info: 'ChebyshevLinearSystemFinite.CentredAveraging.final_query_comparison' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms ChebyshevLinearSystemFinite.CentredAveraging.final_query_comparison
+
+/-- info: 'ChebyshevLinearSystemFinite.CentredAveraging.averaging_schedules' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms ChebyshevLinearSystemFinite.CentredAveraging.averaging_schedules

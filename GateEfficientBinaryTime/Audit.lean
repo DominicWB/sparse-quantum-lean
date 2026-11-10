@@ -5,16 +5,15 @@ import GateEfficientBinaryTime.Budget
 
 /-! ## Axiom audits
 
-Each audit fixes the exact axiom report of its declaration and fails to compile
-if the declaration depends on any other axiom. Every report lists `propext`,
-`Classical.choice` and `Quot.sound`, except for 2 lemmas, whose reports list a
-strict subset of these three axioms (one of them none). The audits cover every
-theorem of the library of the time-dependent gate-level construction from binary
-data, beginning with the time-dependent part of Theorem `hs:thm:gates` for
-time-indexed binary sparse oracles.
+Each audit fixes the exact axiom report of its declaration and fails to compile if the declaration
+depends on any other axiom. Every report lists `propext`, `Classical.choice` and `Quot.sound`,
+except for 2 lemmas, whose reports list a strict subset of these three axioms (one of them none).
+The audits cover every theorem of the library of the time-dependent gate-level construction from
+binary data, beginning with the time-dependent gate-level simulation (Theorem `hs:thm:time` with the
+circuit of `hs:thm:gates`) for time-indexed binary sparse oracles.
 -/
 
-/-! ### The time-dependent part of Theorem `hs:thm:gates` from binary data -/
+/-! ### The time-dependent gate-level simulation (Theorem `hs:thm:time` with the circuit of `hs:thm:gates`) from binary data -/
 
 /-- info: 'SparseHamiltonian.GateBinary.binary_time_simulation' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in

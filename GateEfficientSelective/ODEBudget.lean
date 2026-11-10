@@ -4,11 +4,14 @@ import GateEfficientBitBudget.Synth
 /-!
 # Equations `ode:eq:gate-main` and `ode:eq:gate-space` with retained source circuits
 
-Theorem `ode:thm:gates` of the accompanying paper bounds the gates of the solver over the finite
-gate set by `C ḡ [q P(𝔟) + G_src(ν) + A_src(ν)]` and its qubits by `P(𝔟) + C A_src(ν)`, where
-`G_src` counts the supplied source and weight-preparation circuits over the gate set and `P` does
-not depend on them. The released finite-gate-set budgets (`GateBitBudget.binary_ode_budget_trials_bits`
-and its time-dependent analogue) synthesise the source circuits with the rest of the
+Theorem `ode:thm:gates` of the accompanying paper bounds the gates of the solver (here over the
+finite gate set, a partial formalisation, under this package's format hypotheses, of its finite-set
+statement: the manuscript states Theorem `ode:thm:gates` over a finite gate set; the conformance
+endpoints count native gates) by
+`C ḡ [q P(𝔟) + G_src(ν) + A_src(ν)]` and its qubits by `P(𝔟) + C A_src(ν)`, where `G_src` counts the
+supplied source and weight-preparation circuits over the gate set and `P` does not depend on them.
+The released finite-gate-set budgets (`GateBitBudget.binary_ode_budget_trials_bits` and its
+time-dependent analogue) synthesise the source circuits with the rest of the
 preparation, so their gate bound contains `G_src · log(G_src + 1)`. Here the preparation is
 compiled selectively (`selPrep`): with source circuits over `𝒢` (and `𝒢` adjoint-closed), the
 synthesised gate occurrences are bounded by the native preparation bound with empty source
@@ -75,8 +78,9 @@ theorem prepBound_split (q : Pub)
   simp only [prepBound, nGatesN_empty, Nat.cast_zero, add_zero]
 
 /-- **Equations `ode:eq:gate-main` and `ode:eq:gate-space` in `𝔟` with retained source circuits,
-constant coefficients** (Theorem `ode:thm:gates`, constant coefficients). Under the hypotheses of
-`GateBitBudget.binary_ode_budget_trials_bits` (`Synthesis 𝒢 Xa len` with
+constant coefficients** (partial formalisation, under this package's format hypotheses, of the
+finite-set statement of Theorem `ode:thm:gates`, constant coefficients). Under
+the hypotheses of `GateBitBudget.binary_ode_budget_trials_bits` (`Synthesis 𝒢 Xa len` with
 `len ζ ≤ c₁ log(1/ζ) + c₀`, `AdjClosed 𝒢`, `zeroTestKinds ⊆ 𝒢`, the public rescaling,
 `ζ ≥ ν/(196608 q*)` and the bit lengths) and source circuits over `𝒢`, with
 `𝔟 = bitB b_data (2^k_x) (2^m) (2^k) q* g ε` and `G_src = |srcC 0| + |srcC 1|`, the selective
@@ -295,9 +299,10 @@ theorem prepBoundT_split (q : PubT)
   simp only [prepBoundT, nGatesN_empty, Nat.cast_zero, mul_zero, add_zero]
 
 /-- **Equations `ode:eq:gate-main` and `ode:eq:gate-space` in `𝔟` with retained source circuits,
-time-dependent coefficients** (Theorem `ode:thm:gates`, time-dependent part, common mesh). Under
-the hypotheses of `GateBitBudget.binary_ode_time_budget_trials_bits` and loading and
-weight-preparation circuits over `𝒢`, with `𝔟 = bitB b_data (2^k_x) (2^m) (2^m) q* g ε`
+time-dependent coefficients** (partial formalisation, under this package's format hypotheses, of
+the finite-set statement of Theorem `ode:thm:gates`, time-dependent part,
+common mesh). Under the hypotheses of `GateBitBudget.binary_ode_time_budget_trials_bits` and loading
+and weight-preparation circuits over `𝒢`, with `𝔟 = bitB b_data (2^k_x) (2^m) (2^m) q* g ε`
 (`q* = qOf s T η_H η_D (2g) (ε/2)`) and `G_src = |loadC| + 2 |wpC|`: the selective protocol
 (ratio `2g`) has valid trials over `𝒢`; it synthesises at most
 `R = prepBoundT q ∅ ∅ ≤ 2·10¹⁸ q* (𝔟+1)³` gate occurrences per preparation; it uses in every

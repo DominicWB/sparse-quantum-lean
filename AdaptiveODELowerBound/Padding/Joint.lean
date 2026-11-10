@@ -8,9 +8,10 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # The padded joint families against adaptive protocols
 
-Manuscript lines 4335-4340 (the dense block `2^{-⌈log₂ s⌉} 𝟙𝟙ᵀ` for maximum sparsity exactly `s`;
-known zero padding to any sufficiently large register) for the joint family of Theorem
-`odel:thm:joint`, for adaptive solvers over the sampled-time access and over its call forms.
+Manuscript: the end of the proof of Theorem `odel:thm:joint` (the dense block `2^{-⌈log₂ s⌉} 𝟙𝟙ᵀ`
+for maximum sparsity exactly `s`; known zero padding to any sufficiently large register) for the
+joint family of Theorem `odel:thm:joint`, for adaptive solvers over the sampled-time access and over
+its call forms.
 
 The padded families are the released `ODELowerBoundExtensions.Padding.jointDenseFamily`,
 `jointPadFamily`, `jointDenseFamilyAt`, `jointPadFamilyAt`. As in the released library, hardness
@@ -26,7 +27,7 @@ is re-derived from the Boolean implementations (`implementsOn_jointDense`,
 * `joint_common_dimension_tree`, `joint_qubit_register_tree`: the family padded by
   `PadTo JointIndex Nd` has dimension exactly `Nd` for every `Nd` at least the unpadded
   dimension, in particular `Nd = 2^q` whenever `3 ḡ² s ≤ 2^q` ("any sufficiently large qubit
-  register", line 4340).
+  register", proof of Theorem `odel:thm:joint`).
 -/
 
 namespace AdaptiveODELowerBound.Padding
@@ -140,9 +141,9 @@ end General
 
 variable {s : ℕ} {τ gbar ε : ℝ}
 
-/-- **Theorem `odel:thm:joint` with maximum sparsity exactly `s`, adaptive protocols** (lines
-4296-4341): for `s ≥ 4`, `τ ≥ 4`, `ḡ ≥ 2`, `0 < ε ≤ 1/64`, the densely padded joint family is in
-the class (`η = 1`, `T = τ`, `g ≤ ḡ`) and tree-forces `ḡ √s τ / 400` calls. -/
+/-- **Theorem `odel:thm:joint` with maximum sparsity exactly `s`, adaptive protocols** (Theorem
+`odel:thm:joint`): for `s ≥ 4`, `τ ≥ 4`, `ḡ ≥ 2`, `0 < ε ≤ 1/64`, the densely padded joint family is
+in the class (`η = 1`, `T = τ`, `g ≤ ḡ`) and tree-forces `ḡ √s τ / 400` calls. -/
 theorem joint_witness_dense_tree (h : JointRange s τ gbar ε) :
     TreeWitnesses (jointDenseFamilyAt s τ gbar h.s_ge h.tau_ge) τ gbar ε
       (jointConst * gbar * Real.sqrt s * τ) := by
@@ -156,10 +157,10 @@ theorem joint_witness_dense_tree (h : JointRange s τ gbar ε) :
       (jointMu_le_padExp s) (jointN_time (by linarith [h.tau_ge])) (by linarith [h.eps_le])⟩
     (joint_bound_le h)
 
-/-- **Theorem `odel:thm:joint` after known zero padding, adaptive protocols** (line 4340):
-for every finite known register `P`, with or without the dense block, the padded joint family is
-in the class and tree-forces `ḡ √s τ / 400` calls; with the dense block it has maximum sparsity
-exactly `s`. The padded family keeps `g = √M`, `g = Θ(ḡ)`
+/-- **Theorem `odel:thm:joint` after known zero padding, adaptive protocols** (proof of Theorem
+`odel:thm:joint`): for every finite known register `P`, with or without the dense block, the padded
+joint family is in the class and tree-forces `ḡ √s τ / 400` calls; with the dense block it has
+maximum sparsity exactly `s`. The padded family keeps `g = √M`, `g = Θ(ḡ)`
 (`ODELowerBoundExtensions.Padding.jointPadFamilyAt_g`). -/
 theorem joint_witness_pad_tree (h : JointRange s τ gbar ε) (dense : Bool) (P : Type*)
     [Fintype P] [DecidableEq P] :
@@ -178,7 +179,7 @@ theorem joint_witness_pad_tree (h : JointRange s τ gbar ε) (dense : Bool) (P :
     fun hd => by subst hd; exact jointPadFamily_sparsityAttained rfl⟩
 
 /-- **Theorem `odel:thm:joint` in any sufficiently large common dimension, adaptive protocols**
-(lines 4335-4340; as `joint_common_dimension`): for every `Nd` at least the dimension of
+(as `joint_common_dimension`): for every `Nd` at least the dimension of
 `jointFamilyAt`, the joint family padded by `PadTo JointIndex Nd`, with or without the dense block,
 has dimension exactly `Nd`, is in the class and tree-forces `ḡ √s τ / 400` calls; with the dense
 block it has maximum sparsity exactly `s`. -/
@@ -194,7 +195,7 @@ theorem joint_common_dimension_tree (h : JointRange s τ gbar ε) (dense : Bool)
   exact ⟨card_padTo hJ, joint_witness_pad_tree h dense _⟩
 
 /-- **Theorem `odel:thm:joint` on any sufficiently large qubit register, adaptive protocols**
-(line 4340, "Known zero padding permits any sufficiently large qubit register"; as
+("Known zero padding permits any sufficiently large qubit register"; as
 `joint_qubit_register`): for every `q` with `3 ḡ² s ≤ 2^q`, the joint family padded by
 `PadTo JointIndex (2^q)`, with or without the dense block, has dimension exactly `2^q`, is in the
 class and tree-forces `ḡ √s τ / 400` calls; with the dense block it has maximum sparsity exactly

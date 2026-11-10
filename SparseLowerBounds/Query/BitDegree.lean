@@ -6,11 +6,10 @@ section
 /-!
 # Fourier degree of Boolean bit-oracle programs
 
-The polynomial argument of Lemma `hsl:lem:precision` (manuscript lines
-2355-2365). The hidden input is a string of `n` independent bits
-`x : Fin n → Bool`, queried through the phase oracle
-`bitOracle P x = 1 - 2 Σ_{k, x k} P k` of a projection family
-`P : ProjFamily K (Fin n)` (`Query/PhaseOracle`).
+The polynomial argument of Lemma `hsl:lem:precision`. The hidden input is a string of `n`
+independent bits `x : Fin n → Bool`, queried through the phase oracle
+`bitOracle P x = 1 - 2 Σ_{k, x k} P k` of a projection family `P : ProjFamily K (Fin n)`
+(`Query/PhaseOracle`).
 
 Functions of the bits are expanded in the characters
 `χ_S(x) = (-1)^{|{k ∈ S : x k}|}`; `degLE n V d` is the span of
@@ -26,9 +25,9 @@ multilinear degree at most `d` after reducing `x_k² = x_k`).
   `d < n` vanishes (`sum_bitParity_mul_eq_zero`): every character it contains
   omits some bit, whose balanced average vanishes.
 
-Hence a program whose parity correlation is positive makes at least `n/2`
-Boolean queries (`le_two_mul_count`, line 2362: `2q ≥ n`). No norm hypothesis
-on the seed or the observable is needed.
+Hence a program whose parity correlation is positive makes at least `n/2` Boolean queries
+(`le_two_mul_count`, proof of Lemma `hsl:lem:precision`: `2q ≥ n`). No norm hypothesis on the seed
+or the observable is needed.
 
 ## Proof route (helper statements)
 
@@ -61,7 +60,7 @@ variable {n : ℕ}
 def chi (S : Finset (Fin n)) (x : Fin n → Bool) : ℂ :=
   (-1) ^ (S.filter fun k => x k = true).card
 
-/-- The parity `σ(X) = (-1)^{x_1 + ⋯ + x_n}` of `n` hidden bits (line 2345). -/
+/-- The parity `σ(X) = (-1)^{x_1 + ⋯ + x_n}` of `n` hidden bits (Lemma `hsl:lem:precision`). -/
 def bitParity (x : Fin n → Bool) : ℝ :=
   (-1) ^ (Finset.univ.filter fun k => x k = true).card
 
@@ -115,7 +114,7 @@ theorem card_symmDiff_le (S T : Finset (Fin n)) : (symmDiff S T).card ≤ S.card
   exact (Finset.card_le_card Finset.symmDiff_subset_union).trans (Finset.card_union_le S T)
 
 /-- A nonempty character is balanced: flipping one bit of `S` is an
-involution of the cube that negates `χ_S` (lines 2361-2362). -/
+involution of the cube that negates `χ_S` (proof of Lemma `hsl:lem:precision`). -/
 theorem sum_chi_eq_zero {S : Finset (Fin n)} (hS : S.Nonempty) : ∑ x, chi S x = 0 := by
   obtain ⟨k, hk⟩ := hS
   simp_rw [chi_eq_prod]
@@ -232,8 +231,8 @@ theorem star_bitOracle (P : ProjFamily K (Fin n)) (x : Fin n → Bool) :
     star (bitOracle P x) = bitOracle P x := by
   exact P.star_phase x
 
-/-- **One query raises the degree by one** (lines 2357-2358): if the state `f` has
-degree at most `d`, then `x ↦ bitOracle P x (f x)` has degree at most `d + 1`. -/
+/-- **One query raises the degree by one** (proof of Lemma `hsl:lem:precision`): if the state `f`
+has degree at most `d`, then `x ↦ bitOracle P x (f x)` has degree at most `d + 1`. -/
 theorem query_mem_degLE (P : ProjFamily K (Fin n)) {d : ℕ} {f : (Fin n → Bool) → K}
     (hf : f ∈ degLE n K d) : (fun x => bitOracle P x (f x)) ∈ degLE n K (d + 1) := by
   have hfun : (fun x => bitOracle P x (f x)) =
@@ -258,7 +257,7 @@ theorem eval_apply_mem_degLE (P : ProjFamily K (Fin n)) (q : Program (bitOracle 
       exact degLE_mono (by omega) (hp (hq hf))
 
 /-- After a program with `q.count` queries (inverse queries included), the
-state has Fourier degree at most `q.count` in the bits (lines 2357-2359). -/
+state has Fourier degree at most `q.count` in the bits (proof of Lemma `hsl:lem:precision`). -/
 theorem program_mem_degLE (P : ProjFamily K (Fin n)) (q : Program (bitOracle P)) (φ₀ : K) :
     (fun x => q.eval x φ₀) ∈ degLE n K q.count := by
   have h := eval_apply_mem_degLE P q (const_mem_degLE (n := n) φ₀)
@@ -298,7 +297,7 @@ theorem inner_chi_smul_mem_degLE (A : K →L[ℂ] K) {d d' : ℕ} {S : Finset (F
 
 omit [CompleteSpace K] in
 /-- Degrees add under the sesquilinear pairing with any fixed operator
-(lines 2359-2360: expectations have degree at most `2q`). -/
+(proof of Lemma `hsl:lem:precision`: expectations have degree at most `2q`). -/
 theorem inner_mem_degLE (A : K →L[ℂ] K) {d d' : ℕ} {f g : (Fin n → Bool) → K}
     (hf : f ∈ degLE n K d) (hg : g ∈ degLE n K d') :
     (fun x => ⟪f x, A (g x)⟫_ℂ) ∈ degLE n ℂ (d + d') := by
@@ -325,7 +324,7 @@ theorem inner_mem_degLE (A : K →L[ℂ] K) {d d' : ℕ} {f g : (Fin n → Bool)
       exact Submodule.smul_mem _ _ h₁
 
 /-- The full parity is uncorrelated with every function of degree `d < n`
-(lines 2360-2362). -/
+(proof of Lemma `hsl:lem:precision`). -/
 theorem sum_bitParity_mul_eq_zero {d : ℕ} {g : (Fin n → Bool) → ℂ} (hg : g ∈ degLE n ℂ d)
     (hd : d < n) : ∑ x, (bitParity x : ℂ) * g x = 0 := by
   let Φ : ((Fin n → Bool) → ℂ) →ₗ[ℂ] ℂ :=
@@ -344,7 +343,7 @@ theorem sum_bitParity_mul_eq_zero {d : ℕ} {g : (Fin n → Bool) → ℂ} (hg :
     rw [← Finset.sum_mul, sum_bitParity_mul_chi hSu, zero_mul]
   exact h hg
 
-/-- **The precision obstruction** (lines 2356-2364): a Boolean bit program
+/-- **The precision obstruction** (proof of Lemma `hsl:lem:precision`): a Boolean bit program
 with `2 q < n` queries has zero parity correlation for every seed and every
 input-independent operator. -/
 theorem program_correlation_eq_zero (P : ProjFamily K (Fin n)) (q : Program (bitOracle P))
@@ -353,7 +352,7 @@ theorem program_correlation_eq_zero (P : ProjFamily K (Fin n)) (q : Program (bit
   exact sum_bitParity_mul_eq_zero
     (inner_mem_degLE M (program_mem_degLE P q φ₀) (program_mem_degLE P q φ₀)) (by omega)
 
-/-- **`2q ≥ n`** (line 2362): a Boolean bit program whose (unnormalised)
+/-- **`2q ≥ n`** (proof of Lemma `hsl:lem:precision`): a Boolean bit program whose (unnormalised)
 parity correlation is positive makes at least `n/2` queries. -/
 theorem le_two_mul_count (P : ProjFamily K (Fin n)) (q : Program (bitOracle P)) (φ₀ : K)
     (M : K →L[ℂ] K)

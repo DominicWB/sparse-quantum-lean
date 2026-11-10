@@ -7,7 +7,7 @@ set_option autoImplicit false
 # Search with accurate heralded outputs for adaptive protocols
 
 The generic form of the lower half of corollary `hs:cor:unitary` of the
-manuscript (lines 1664-1665 and 1711-1718): an adaptive protocol
+manuscript: an adaptive protocol
 `SparseLinearSystems.Protocol.Tree` over a unitary family whose labels are
 implemented by Boolean phase queries of the marked strings of a position map
 `c : I → Fin N`, which on every instance `m` heralds success with probability

@@ -8,8 +8,8 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # From oracle-generic bounds to forcing over the constant-coefficient physical oracle
 
-Section `odel:sec:main` (manuscript lines 4105-4109: value, inverse and controlled calls; lines
-4119-4122: public location lists, exact finite-word entries, public source preparation).
+Section `odel:sec:main` (value, inverse and controlled calls; public location lists, exact
+finite-word entries, public source preparation).
 
 `constForces_of_growth`: if every adaptive solver of the one-stage family `F` over a unitary
 oracle family with search-weight growth `w` along `g` costs at least `b`, and the stage data

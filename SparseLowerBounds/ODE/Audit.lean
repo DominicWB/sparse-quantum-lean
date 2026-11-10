@@ -5,27 +5,22 @@ set_option synthInstance.maxHeartbeats 400000
 section
 /-! ## Axiom audits
 
-Each audit fixes the exact axiom report of its declaration and fails to compile
-if the declaration depends on any other axiom. The audits cover every theorem
-of the dissipative-ODE lower bounds (Theorem `odel:thm:combined`, manuscript
-lines 3654-3953 and 4001-4009, with Lemma `odel:lem:outer`, Theorem
-`odel:thm:joint` and Lemma `odel:lem:herald` in the ODE model; 230 theorems)
-and every Prop-valued field of the structures `Family`, `Family.InClass`,
-`Solver`, `Family.Witnesses`, `JointRange` and `CombinedRange` (23 fields).
-Every report lists `propext`, `Classical.choice` and `Quot.sound`, except for
-7 elementary lemmas, whose reports list a subset of these three axioms (5 of
-them depend on no axiom). In module order, helper modules included: the
-generic additive adversary `Query/PositiveAdversary` (with
-`Helpers/Adversary/PhaseInner`), the promise problem and outer adversary
-(`ODE/Promise`, `Helpers/Ode/OuterGraph/*`, `ODE/JointGraph`,
-`ODE/JointAdversary`), the model (`ODE/Model`, `ODE/Uniqueness`), the joint
-family (`ODE/Parameters`, `Helpers/Ode/JointFamily/*`, `ODE/JointInstance`,
-`ODE/JointCompile`, `ODE/JointTheorem`), the `g = 1` families
-(`Helpers/Ode/Precision/Transfer`, `ODE/Precision`) and the combined theorem
-(`ODE/Theorem`). Definitions are not listed; the proof fields of the data and
-family constructions (`jointData`, `jointFamily`, `jointFamilyAt`, `hamData`,
-`hamFamily`, `timeFamilyAt`, `mixedFamilyAt`, `precisionFamilyAt`) are reached
-through the theorems about them (`joint_witness`, `herald_witness`,
+Each audit fixes the exact axiom report of its declaration and fails to compile if the declaration
+depends on any other axiom. The audits cover every theorem of the dissipative-ODE lower bounds
+(Theorem `odel:thm:combined`, with Lemma `odel:lem:outer`, Theorem `odel:thm:joint` and Lemma
+`odel:lem:herald` in the ODE model; 230 theorems) and every Prop-valued field of the structures
+`Family`, `Family.InClass`, `Solver`, `Family.Witnesses`, `JointRange` and `CombinedRange` (23
+fields). Every report lists `propext`, `Classical.choice` and `Quot.sound`, except for 7 elementary
+lemmas, whose reports list a subset of these three axioms (5 of them depend on no axiom). In module
+order, helper modules included: the generic additive adversary `Query/PositiveAdversary` (with
+`Helpers/Adversary/PhaseInner`), the promise problem and outer adversary (`ODE/Promise`,
+`Helpers/Ode/OuterGraph/*`, `ODE/JointGraph`, `ODE/JointAdversary`), the model (`ODE/Model`,
+`ODE/Uniqueness`), the joint family (`ODE/Parameters`, `Helpers/Ode/JointFamily/*`,
+`ODE/JointInstance`, `ODE/JointCompile`, `ODE/JointTheorem`), the `g = 1` families
+(`Helpers/Ode/Precision/Transfer`, `ODE/Precision`) and the combined theorem (`ODE/Theorem`).
+Definitions are not listed; the proof fields of the data and family constructions (`jointData`,
+`jointFamily`, `jointFamilyAt`, `hamData`, `hamFamily`, `timeFamilyAt`, `mixedFamilyAt`,
+`precisionFamilyAt`) are reached through the theorems about them (`joint_witness`, `herald_witness`,
 `combined`). -/
 
 /-! ### `SparseLowerBounds.Helpers.Adversary.PhaseInner` -/

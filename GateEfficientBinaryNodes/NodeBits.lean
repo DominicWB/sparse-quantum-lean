@@ -239,9 +239,10 @@ variable {X n : Type*} [Fintype n] [DecidableEq n] {Zs : Type*} [Fintype Zs] [De
 variable {Zn : Type} [Fintype Zn] [DecidableEq Zn]
 variable {Xa : Type*} [Fintype Xa] [DecidableEq Xa] {𝒢 : Set Kind} {len : ℝ → ℕ}
 
-/-- **The gate, call and qubit budget over a finite gate set, computed nodes** (Theorem
-`ode:thm:gates`, time-dependent part with general source nodes, equations `ode:eq:gate-main` and
-`ode:eq:gate-space` over a finite gate set). Under `Synthesis 𝒢 Xa len` with
+/-- **The gate, call and qubit budget over a finite gate set, computed nodes** (partial
+formalisation, under this package's format hypotheses, of the finite-set statement of Theorem
+`ode:thm:gates`, time-dependent part with general source nodes, equations `ode:eq:gate-main`
+and `ode:eq:gate-space` over a finite gate set). Under `Synthesis 𝒢 Xa len` with
 `len ζ ≤ c₁ log(1/ζ) + c₀` on `(0, 1]`, `AdjClosed 𝒢` and `zeroTestKinds ⊆ 𝒢`, for the public
 data `q` with `γ = gammaOf T η_H η_D (2g) (ε/2)`, `q* = qOf s T η_H η_D (2g) (ε/2)`,
 `ℓ = log(1/ν)`, the node program `N` and the valid circuits `loadC`, `wpC` of
@@ -647,11 +648,12 @@ variable {Zn : Type} [Fintype Zn] [DecidableEq Zn]
 variable {Xa : Type*} [Fintype Xa] [DecidableEq Xa] {𝒢 : Set Kind} {len : ℝ → ℕ}
 
 /-- **Equations `ode:eq:gate-main` and `ode:eq:gate-space` in `𝔟` over a finite gate set,
-computed nodes** (Theorem `ode:thm:gates`, time-dependent part with general source nodes). Under
-the synthesis hypotheses of `binary_nodes_budget_trials` (`c₀, c₁ ≥ 0` the synthesis constants)
-and the hypotheses of `wordsN_le`, with `G_src = |loadC| + 2 |wpC|`: the native preparation bound
-is `B = prepBoundN q μ nd N loadC wpC ≤ 2·10¹⁸ q* ((𝔟+μ+1)³ + |N|) + G_src`; in every history the
-synthesised protocol (ratio `2g`) uses at most
+computed nodes** (partial formalisation, under this package's format hypotheses, of the finite-set
+statement of Theorem `ode:thm:gates`, time-dependent part with general
+source nodes). Under the synthesis hypotheses of `binary_nodes_budget_trials` (`c₀, c₁ ≥ 0` the
+synthesis constants) and the hypotheses of `wordsN_le`, with `G_src = |loadC| + 2 |wpC|`: the native
+preparation bound is `B = prepBoundN q μ nd N loadC wpC ≤ 2·10¹⁸ q* ((𝔟+μ+1)³ + |N|) + G_src`; in
+every history the synthesised protocol (ratio `2g`) uses at most
 `80 g (2·10¹⁸ q* ((𝔟+μ+1)³ + |N|) + G_src) (c₁ (64 (𝔟+μ+1) + log(G_src+1) + log(|N|+1)) + c₀) +
 40 g (4 (3·10¹¹ (𝔟+μ+1)³ + 2 |Zn| + 2 |Zs| + |Xa|) + 3)` gates of `𝒢`; and its register has at
 most `7·10¹¹ (𝔟+μ+1)³ + 4 |Zn| + 4 |Zs| + 2 |Xa|` qubits. The validity, gate-set membership,

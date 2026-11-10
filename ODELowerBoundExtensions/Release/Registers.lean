@@ -6,7 +6,7 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # Fixed register relabellings and homogeneous spectators
 
-Generic register lemmas for `Release/Normal` (manuscript lines 3669-3673: every matrix label of
+Generic register lemmas for `Release/Normal` (Section `odel:sec:main`: every matrix label of
 the released ODE solver is one call of the sampled-time native query, with untouched spectator
 registers and fixed register relabellings).
 

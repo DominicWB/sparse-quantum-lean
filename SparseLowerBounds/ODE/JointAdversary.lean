@@ -6,7 +6,7 @@ section
 /-!
 # Lemma `odel:lem:outer`: the joint search-parity adversary
 
-Manuscript lines 3743-3798. For `M ≥ 2` even, `m ≥ 2` even (the paper assumes
+Manuscript: Lemma `odel:lem:outer` and its proof. For `M ≥ 2` even, `m ≥ 2` even (the paper assumes
 `m ≥ 4`) and `n ≥ 1`, deciding
 in which half of the candidates the unique odd candidate `a_*` of a promised
 input lies (`ODE/Promise`) requires `Ω(n √(Mm))` membership queries. Here, with
@@ -32,7 +32,7 @@ noncomputable section
 open SparseHamiltonian OracleCircuit
 open scoped InnerProductSpace
 
-/-- The arithmetic of the adversary ratio (lines 3791-3794): from
+/-- The arithmetic of the adversary ratio (proof of Lemma `odel:lem:outer`): from
 `(β²/2) (M/2) d² ≤ 2 λ Q` with `λ = √(M/2) d √(m/2)` and `d = n (m/2)`,
 `Q ≥ β² n · 2 √(M/2) √(m/2) / 8`. -/
 theorem outer_arith {a b A B β N Q : ℝ} (ha : a ^ 2 = A) (hb : b ^ 2 = B)
@@ -44,7 +44,7 @@ theorem outer_arith {a b A B β N Q : ℝ} (ha : a ^ 2 = A) (hb : b ^ 2 = B)
       β ^ 2 / 2 * (a ^ 2 * (N * b ^ 2) ^ 2) := by ring
   exact le_of_mul_le_mul_left (by rw [key]; exact h) (by linarith)
 
-/-- **Lemma `odel:lem:outer`** (lines 3743-3798), explicit form: a Boolean
+/-- **Lemma `odel:lem:outer`** (Section `odel:sec:main`), explicit form: a Boolean
 program over the joint membership oracle whose final states have signed
 correlation at least `β ≥ 0` with the half answer, measured by a contraction
 `A`, makes at least `β² n √(M m) / 8` queries. -/

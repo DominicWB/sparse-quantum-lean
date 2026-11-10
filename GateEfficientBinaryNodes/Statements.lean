@@ -4,19 +4,18 @@ import GateEfficientBinaryNodes.NonVacuity
 # Constant-forcing source preparation, integrated generator-sample certificates and computed
 source nodes for Theorem `ode:thm:gates`: paper-to-Lean entry point
 
-Theorem `ode:thm:gates` of the accompanying paper (gate-efficient dissipative equations,
-manuscript line 4955) solves the time-dependent dissipative problem from a positive source
-quadrature "with nodes `v_i`, weights `w_i ≥ 0`" (line 4930) whose nodes "are computed coherently
-from their labels with polynomial cost" (line 4941). Its proof uses the branch-dependent meshes
-of Lemma `ode:lem:gate-select` (line 4758), whose represented samples "must satisfy the common
-moment bounds" at the addresses `v_z + r u_z/M` read by a branch, with "certified total
-operator-norm error, integrated over the selected interval, … at most `δ/16`" (lines 4778-4781),
-and "for other efficiently computed nodes, any time-address rounding is included in the stated
-represented-sample error" (line 4870). For constant forcing the proof prepares the sources with
-"one rotation between the initial and forcing sectors and `log₂ m` Hadamard gates, and the forcing
-state is loaded by the same controlled circuit on every forcing label", so that
-`G_src(ν) = G_{x₀}(cν) + G_b(cν) + poly(b_data, log(m+1), log(1/ν))` (equation
-`ode:eq:gate-constant-source`, lines 5061-5072).
+Theorem `ode:thm:gates` of the accompanying paper (gate-efficient dissipative equations) solves the
+time-dependent dissipative problem from a positive source quadrature, whose "nodes `v_i` and weights
+`w_i ≥ 0`" satisfy the certificates eq. `ode:eq:gate-source-certificates` and whose "nodes can be
+computed coherently from their labels at polynomial cost". Its proof uses the branch-dependent
+meshes of Lemma `ode:lem:gate-select`, whose represented samples "must satisfy the common moment
+bounds" at the addresses `v_z + r u_z/M` read by a branch, with "certified total operator-norm
+error, integrated over the selected interval, … at most `δ/16`", and "for other efficiently computed
+nodes, any time-address rounding is included in the stated represented-sample error". For constant
+forcing the proof prepares the sources with "one rotation between the initial and forcing sectors
+and `log₂ m` Hadamard gates, and the forcing state is loaded by the same controlled circuit on every
+forcing label", so that `G_src(ν) = G_{x₀}(cν) + G_b(cν) + poly(b_data, log(m+1), log(1/ν))`
+(equation `ode:eq:gate-constant-source`).
 
 The released libraries formalise the time-dependent part of the theorem from time-indexed binary
 data on the branch-dependent meshes with the `2^m` dyadic nodes `u T/2^m` only, with a uniform
@@ -48,16 +47,19 @@ solver already prepares its sources with one rotation and Hadamard gates
   coherently from the node words (`addrGN`), the samples read on a data grid of `2^nd ≤ 2^(μ+m)`
   points with the time-address rounding charged to the integrated represented-sample error
   (`sampleErrNQ`), natively (`binary_nodes_solver`, `binary_nodes_counts`,
-  `binary_nodes_gate_count`), over a finite gate set (`binary_nodes_solver_synth`,
-  `binary_nodes_solver_trials`, with `binary_nodes_synth_counts`, `binary_nodes_trials_counts`),
-  and equations `ode:eq:gate-main` and `ode:eq:gate-space` in the query shape `q*`, in the
-  register words and in `𝔟` (`binary_nodes_budget`, `binary_nodes_budget_words`,
-  `binary_nodes_budget_bits`), also over a finite gate set with the per-trial claim
+  `binary_nodes_gate_count`), over a finite gate set as a partial formalisation, under this
+  package's format hypotheses, of the finite-set statement of Theorem `ode:thm:gates`
+  (`binary_nodes_solver_synth`, `binary_nodes_solver_trials`, with `binary_nodes_synth_counts`,
+  `binary_nodes_trials_counts`), and equations `ode:eq:gate-main` and `ode:eq:gate-space` in the
+  query shape `q*`, in the register words and in `𝔟` (`binary_nodes_budget`,
+  `binary_nodes_budget_words`, `binary_nodes_budget_bits`), also over a finite gate set (partial
+  formalisation, under this package's format hypotheses, of the same finite-set statement) with
+  the per-trial claim
   (`binary_nodes_budget_trials`, `binary_nodes_budget_trials_bits`).
 
-No result from another paper is used. The released libraries are unchanged. Manuscript lines
-refer to `sparse_quantum_algorithms.tex` (v23); the labels are the stable references. Every
-theorem of the library is axiom-audited in `GateEfficientBinaryNodes/Audit.lean`.
+No result from another paper is used. The released libraries are unchanged. References to the
+manuscript use its labels. Every theorem of the library is axiom-audited in
+`GateEfficientBinaryNodes/Audit.lean`.
 
 **Naming convention.** All declarations of this library are in the namespace
 `SparseHamiltonian.GateBinaryNodes` and are named relative to it below. Released declarations are
@@ -298,6 +300,15 @@ label at `0`, and `u_s = T - v_s` is its duration. `B = ‖x₀‖ + ∑_u w_u �
 
 **Formalisation choices.**
 
+* Sample positivity (a formal restriction): the time-dependent ODE solvers assume accretive
+  dissipative parts of the represented samples the branches read, the hypothesis of the formal
+  versions of Theorem `ode:thm:time`, which that theorem of the manuscript does not make (it asks of
+  the represented samples only the uniform moment and norm promises; see
+  `TimeDependentODE/Statements.lean`). `RepresentedSampleODE` lifts it for the query-level mesh
+  solvers and the common-mesh gate solver; the conformance endpoints
+  `ManuscriptConformance.ode_thm_time`, `ode_thm_gates_time_cert` and
+  `ode_thm_gates_time_decoder_cert` hold for represented samples of any sign. The manuscript's
+  theorems are not changed.
 * The integrated certificate is the slot-weighted sum of the errors of the represented samples
   at the sample addresses (the integral over `[v_s, T]` of the piecewise-constant error); the
   variation of the generator path within a slot is charged to the Lipschitz term
@@ -356,9 +367,9 @@ label at `0`, and `u_s = T - v_s` is its duration. `B = ‖x₀‖ + ∑_u w_u �
 * An explicit example in which the integrated certificate of the binary-data solvers holds and
   no admissible uniform bound does (the strictness is shown for the certificate of Lemma
   `ode:lem:gate-select` by the released `GateBinarySelect.nvc_not_uniform`).
-* The sufficient constant-forcing mesh `m ≤ 2 max{1, T² √s (η_D + η_H) ‖b‖/(2νB)}` of the proof
-  (lines 5075-5083) is not connected to `RestConst`, `RestLIConst`; its left-endpoint form with
-  a Lipschitz bound `L_b = 0` is the released `GateQuad.nodes_sufficient`,
+* The sufficient constant-forcing mesh `m ≤ 2 max{1, T² √s (η_D + η_H) ‖b‖/(2νB)}` of the proof of
+  Theorem `ode:thm:gates` is not connected to `RestConst`, `RestLIConst`; its left-endpoint form
+  with a Lipschitz bound `L_b = 0` is the released `GateQuad.nodes_sufficient`,
   `GateQuad.exists_pow_two_nodes` and `GateQuad.budget_disc_paper`.
 * Lower bounds.
 

@@ -7,11 +7,10 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # Forcing over the general-mesh physical oracle
 
-Section `odel:sec:main` (manuscript lines 4105-4109: access "through a reversible value oracle
-and in-place row/column locators, their inverses and controls, with a coherent time address when
-needed"; lines 4111-4113: success flag of probability at least `2/3`, conditional trace distance
-`ε`; lines 4114-4115: "The lower bounds thus apply to Theorems `ode:thm:main` and
-`ode:thm:time`"; lines 4119-4122: public location lists and source preparation).
+Section `odel:sec:main` (access "including inverses, controls and coherent time addresses where
+needed"; success flag of probability at least `2/3`, conditional trace distance `ε`; "the lower
+bounds apply to the upper bounds of the preceding section"; public location lists and source
+preparation).
 
 The adaptive solvers (`AdaptiveODELowerBound.Model.TreeSolver`) here call the physical oracle of
 the released general-mesh solver `TimeDependentExtensions.ODE.solver`, run on the data of a

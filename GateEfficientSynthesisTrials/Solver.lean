@@ -4,6 +4,10 @@ import GateEfficientNative.ODE.Time
 /-!
 # Theorem `ode:thm:gates` over a finite gate set, trial by trial: the native solvers
 
+The finite-gate-set forms of Theorem `ode:thm:gates` in this module are a partial formalisation of
+its finite-set statement, under this package's format hypotheses: the manuscript states Theorem
+`ode:thm:gates` over a finite gate set; the conformance endpoints count native gates.
+
 The native gate-efficient dissipative ODE solvers of `GateEfficientNative`
 (`native_ode_solver`, `native_ode_time_solver`) with the preparation synthesised over a finite
 gate set under the synthesis hypothesis `Synthesis 𝒢 X len`, with the synthesis budget `ν/3`
@@ -60,8 +64,9 @@ variable {S Zs Z Y J X : Type*} [Fintype S] [DecidableEq S] [Fintype Zs] [Decida
 variable {𝒢 : Set Kind} {len : ℝ → ℕ}
 
 /-- **Gate-efficient dissipative ODE solver over a finite gate set with exact reflections,
-constant coefficients** (Theorem `ode:thm:gates`, constant coefficients, with finite-set
-synthesis as a hypothesis, including the per-trial claim).
+constant coefficients** (partial formalisation, under this package's format hypotheses, of the
+finite-set statement of Theorem `ode:thm:gates`, constant coefficients, with
+finite-set synthesis as a hypothesis, including the per-trial claim).
 
 The synthesised protocol `nprotocol (synthPrep hS (ν/3) (nprepC p UJg nd ar srcC)) g` depends
 only on the public data. Under `Synthesis 𝒢 X len`, `AdjClosed 𝒢` and `zeroTestKinds ⊆ 𝒢`,
@@ -194,8 +199,9 @@ theorem native_ode_solver_trials (hS : Synthesis 𝒢 X len) (hadj : AdjClosed �
     p.ε hne hp.g_ge hp.ε_pos hp.ε_half hNorm hbud h hηδ
 
 /-- **Gate-efficient dissipative ODE solver over a finite gate set with exact reflections,
-time-dependent coefficients** (Theorem `ode:thm:gates`, time-dependent part, with finite-set
-synthesis as a hypothesis, including the per-trial claim).
+time-dependent coefficients** (partial formalisation, under this package's format hypotheses, of
+the finite-set statement of Theorem `ode:thm:gates`, time-dependent part,
+with finite-set synthesis as a hypothesis, including the per-trial claim).
 
 The synthesised protocol `nprotocol (synthPrep hS (ν/3) (tnprepC p UJg nd ar loadC wpC)) (2g)`
 depends only on the public data. Under `Synthesis 𝒢 X len`, `AdjClosed 𝒢` and

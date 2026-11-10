@@ -6,9 +6,10 @@ set_option autoImplicit false
 set_option synthInstance.maxSize 1024
 
 /-!
-# Remark `odel:rem:homogeneous`: the half readout and the ideal correlation
+# Proposition `odel:rem:homogeneous`: the half readout and the ideal correlation
 
-Manuscript lines 3935-3937 (with lines 3887-3888 of Theorem `odel:thm:joint`). On success the
+Manuscript: the proof of Proposition `odel:rem:homogeneous` (with the readout of the proof of
+Theorem `odel:thm:joint`). On success the
 solver's output is measured with the half indicator `homHalfObs` of the candidate register
 (whatever the flag): it is Hermitian (`homHalfObs_isSelfAdjoint`), a contraction
 (`norm_homHalfObs_le`), and every candidate state `|f, a, ω⟩` is an eigenvector with eigenvalue
@@ -84,8 +85,8 @@ theorem norm_homHalfObs_le : ‖homHalfObs M μ s‖ ≤ 1 := by
 theorem neg_one_le_halfSign_mul (a b : Fin M) : -1 ≤ halfSign M b * halfSign M a := by
   unfold halfSign; split_ifs <;> norm_num
 
-/-- **The ideal signed correlation** (lines 3935-3937): measuring the candidate half of the
-normalised final state agrees with the half of `a_*` with signed correlation at least
+/-- **The ideal signed correlation** (Proposition `odel:rem:homogeneous`): measuring the candidate
+half of the normalised final state agrees with the half of `a_*` with signed correlation at least
 `p_* - (1 - p_*) ≥ 15/17`. -/
 theorem homEnd_ideal_corr (hM : 1 ≤ M) (b : Fin M) :
     15 / 17 ≤ halfSign M b *

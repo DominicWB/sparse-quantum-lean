@@ -2924,3 +2924,617 @@ in module order. Each requires exactly `propext`, `Classical.choice` and
 /-- info: 'SparseLinearSystems.Endpoint.main_exists' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
 #print axioms SparseLinearSystems.Endpoint.main_exists
+
+/-! ### `SparseLinearSystems.Separate.Algebra` -/
+
+/-- info: 'SparseLinearSystems.Separate.enlarged_apply' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.enlarged_apply
+
+/-- info: 'SparseLinearSystems.Separate.decoder_apply' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.decoder_apply
+
+/-- info: 'SparseLinearSystems.Separate.cayley_resolvent' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.cayley_resolvent
+
+/-- info: 'SparseLinearSystems.Separate.walk_resolvent' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.walk_resolvent
+
+/-- info: 'SparseLinearSystems.Separate.one_sub_walk_resolvent' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.one_sub_walk_resolvent
+
+/-- info: 'SparseLinearSystems.Separate.enlarged_solution' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.enlarged_solution
+
+/-- info: 'SparseLinearSystems.Separate.decoder_solution' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.decoder_solution
+
+/-- info: 'SparseLinearSystems.Separate.solution_norm_sq' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.solution_norm_sq
+
+/-- info: 'SparseLinearSystems.Separate.walk_fixed_eq_zero' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.walk_fixed_eq_zero
+
+/-- info: 'SparseLinearSystems.Separate.enlarged_lower' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.enlarged_lower
+
+/-- info: 'SparseLinearSystems.Separate.decoder_norm_le' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.decoder_norm_le
+
+/-! ### `SparseLinearSystems.Separate.Bounds` -/
+
+/-- info: 'SparseLinearSystems.Separate.hyp' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.hyp
+
+/-- info: 'SparseLinearSystems.Separate.dil_lower' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.dil_lower
+
+/-- info: 'SparseLinearSystems.Separate.dil_injective' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.dil_injective
+
+/-- info: 'SparseLinearSystems.Separate.dil_gap' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.dil_gap
+
+/-- info: 'SparseLinearSystems.Separate.tStar_eq' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.tStar_eq
+
+/-- info: 'SparseLinearSystems.Separate.enlarged_inverse' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.enlarged_inverse
+
+/-- info: 'SparseLinearSystems.Separate.norm_lift' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.norm_lift
+
+/-- info: 'SparseLinearSystems.Separate.norm_rhs' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.norm_rhs
+
+/-- info: 'SparseLinearSystems.Separate.dil_lift' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.dil_lift
+
+/-- info: 'SparseLinearSystems.Separate.enlarged_solution_eq' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.enlarged_solution_eq
+
+/-- info: 'SparseLinearSystems.Separate.solution_norm_bounds' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.solution_norm_bounds
+
+/-- info: 'SparseLinearSystems.Separate.solution_norm_lower' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.solution_norm_lower
+
+/-- info: 'SparseLinearSystems.Separate.solution_norm_upper' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.solution_norm_upper
+
+/-- info: 'SparseLinearSystems.Separate.decode_solution' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.decode_solution
+
+/-- info: 'SparseLinearSystems.Separate.decode_norm_le' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.decode_norm_le
+
+/-- info: 'SparseLinearSystems.Separate.estimate_transfer' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.estimate_transfer
+
+/-- info: 'SparseLinearSystems.Separate.ratio_bound' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.ratio_bound
+
+/-! ### `SparseLinearSystems.Separate.SolverInterface` -/
+
+/-- info: 'SparseLinearSystems.Separate.norm_initial' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.norm_initial
+
+/-- info: 'SparseLinearSystems.Separate.solverOracle_unitary' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.solverOracle_unitary
+
+/-! ### `SparseLinearSystems.Separate.Registers` -/
+
+/-- info: 'SparseLinearSystems.Separate.neg_unitary' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.neg_unitary
+
+/-- info: 'SparseLinearSystems.Separate.IsUnitary.norm_apply' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.IsUnitary.norm_apply
+
+/-- info: 'SparseLinearSystems.Separate.cellIn_apply' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.cellIn_apply
+
+/-- info: 'SparseLinearSystems.Separate.cellOut_apply' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.cellOut_apply
+
+/-- info: 'SparseLinearSystems.Separate.norm_cellIn' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.norm_cellIn
+
+/-- info: 'SparseLinearSystems.Separate.cellIn_adjoint' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.cellIn_adjoint
+
+/-- info: 'SparseLinearSystems.Separate.cellIn_isometry' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.cellIn_isometry
+
+/-- info: 'SparseLinearSystems.Separate.inner_eq_zero_of_disjoint' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.inner_eq_zero_of_disjoint
+
+/-- info: 'SparseLinearSystems.Separate.sector_apply' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.sector_apply
+
+/-- info: 'SparseLinearSystems.Separate.sector_isometry' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.sector_isometry
+
+/-- info: 'SparseLinearSystems.Separate.invSqrtTwo_mul_self' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.invSqrtTwo_mul_self
+
+/-- info: 'SparseLinearSystems.Separate.conj_invSqrtTwo' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.conj_invSqrtTwo
+
+/-- info: 'SparseLinearSystems.Separate.had_false' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.had_false
+
+/-- info: 'SparseLinearSystems.Separate.had_true' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.had_true
+
+/-- info: 'SparseLinearSystems.Separate.had_mul_had' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.had_mul_had
+
+/-- info: 'SparseLinearSystems.Separate.had_adjoint' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.had_adjoint
+
+/-- info: 'SparseLinearSystems.Separate.had_unitary' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.had_unitary
+
+/-- info: 'SparseLinearSystems.Separate.lcu_unitary' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.lcu_unitary
+
+/-- info: 'SparseLinearSystems.Separate.lcu_false' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.lcu_false
+
+/-- info: 'SparseLinearSystems.Separate.lcu_true' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.lcu_true
+
+/-- info: 'SparseLinearSystems.Separate.lcu_cellIn_false' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.lcu_cellIn_false
+
+/-- info: 'SparseLinearSystems.Separate.lcu_cellIn_true' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.lcu_cellIn_true
+
+/-- info: 'SparseLinearSystems.Separate.lcu_block' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.lcu_block
+
+/-- info: 'SparseLinearSystems.Separate.prodCurry_apply' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.prodCurry_apply
+
+/-- info: 'SparseLinearSystems.Separate.prodCurry_symm_apply' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.prodCurry_symm_apply
+
+/-- info: 'SparseLinearSystems.Separate.prodCurry_masked' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.prodCurry_masked
+
+/-! ### `SparseLinearSystems.Separate.Native` -/
+
+/-- info: 'SparseLinearSystems.Separate.sepOracle_unitary' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.sepOracle_unitary
+
+/-- info: 'SparseLinearSystems.Separate.enc_apply' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.enc_apply
+
+/-- info: 'SparseLinearSystems.Separate.norm_enc' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.norm_enc
+
+/-- info: 'SparseLinearSystems.Separate.enc_isometry' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.enc_isometry
+
+/-- info: 'SparseLinearSystems.Separate.fixL_apply' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.fixL_apply
+
+/-- info: 'SparseLinearSystems.Separate.inlP_eval' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.inlP_eval
+
+/-- info: 'SparseLinearSystems.Separate.inlP_cost' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.inlP_cost
+
+/-- info: 'SparseLinearSystems.Separate.inrP_eval' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.inrP_eval
+
+/-- info: 'SparseLinearSystems.Separate.inrP_cost' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.inrP_cost
+
+/-- info: 'SparseLinearSystems.Separate.natProg_apply' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.natProg_apply
+
+/-- info: 'SparseLinearSystems.Separate.natL_apply' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.natL_apply
+
+/-- info: 'SparseLinearSystems.Separate.natL_cost' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.natL_cost
+
+/-- info: 'SparseLinearSystems.Separate.srcProg_apply' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.srcProg_apply
+
+/-- info: 'SparseLinearSystems.Separate.srcL_apply' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.srcL_apply
+
+/-- info: 'SparseLinearSystems.Separate.srcL_cost' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.srcL_cost
+
+/-- info: 'SparseLinearSystems.Separate.cl_isometry' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.cl_isometry
+
+/-- info: 'SparseLinearSystems.Separate.cl_adjoint_cl' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.cl_adjoint_cl
+
+/-- info: 'SparseLinearSystems.Separate.bdry_isometry' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.bdry_isometry
+
+/-- info: 'SparseLinearSystems.Separate.reflection_unitary' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.reflection_unitary
+
+/-- info: 'SparseLinearSystems.Separate.reflNat_unitary' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.reflNat_unitary
+
+/-- info: 'SparseLinearSystems.Separate.reflNat_clean' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.reflNat_clean
+
+/-- info: 'SparseLinearSystems.Separate.generator_adjoint' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.generator_adjoint
+
+/-- info: 'SparseLinearSystems.Separate.action_one' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.action_one
+
+/-- info: 'SparseLinearSystems.Separate.cay_clean' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.cay_clean
+
+/-- info: 'SparseLinearSystems.Separate.cay_unitary' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.cay_unitary
+
+/-- info: 'SparseLinearSystems.Separate.walkNat_clean' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.walkNat_clean
+
+/-- info: 'SparseLinearSystems.Separate.UB_unitary' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.UB_unitary
+
+/-- info: 'SparseLinearSystems.Separate.sysEnc_adjoint_apply' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.sysEnc_adjoint_apply
+
+/-- info: 'SparseLinearSystems.Separate.norm_sysEnc' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.norm_sysEnc
+
+/-- info: 'SparseLinearSystems.Separate.sysEnc_isometry' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.sysEnc_isometry
+
+/-- info: 'SparseLinearSystems.Separate.UB_block' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.UB_block
+
+/-- info: 'SparseLinearSystems.Separate.rhsL_apply' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.rhsL_apply
+
+/-- info: 'SparseLinearSystems.Separate.norm_bdry' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.norm_bdry
+
+/-- info: 'SparseLinearSystems.Separate.exists_prepGate' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.exists_prepGate
+
+/-- info: 'SparseLinearSystems.Separate.prepGate_unitary' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.prepGate_unitary
+
+/-- info: 'SparseLinearSystems.Separate.prepGate_nEmb' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.prepGate_nEmb
+
+/-- info: 'SparseLinearSystems.Separate.PB_unitary' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.PB_unitary
+
+/-- info: 'SparseLinearSystems.Separate.norm_seedVec' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.norm_seedVec
+
+/-- info: 'SparseLinearSystems.Separate.PB_seed' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.PB_seed
+
+/-- info: 'SparseLinearSystems.Separate.masked_lcu_mul' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.masked_lcu_mul
+
+/-- info: 'SparseLinearSystems.Separate.hadMask_unitary' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.hadMask_unitary
+
+/-- info: 'SparseLinearSystems.Separate.lcuGate_unitary' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.lcuGate_unitary
+
+/-- info: 'SparseLinearSystems.Separate.circLcu_apply' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.circLcu_apply
+
+/-- info: 'SparseLinearSystems.Separate.circLcu_cost' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.circLcu_cost
+
+/-- info: 'SparseLinearSystems.Separate.circLcu_cost_mat' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.circLcu_cost_mat
+
+/-- info: 'SparseLinearSystems.Separate.circLcu_cost_src' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.circLcu_cost_src
+
+/-- info: 'SparseLinearSystems.Separate.circP_apply' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.circP_apply
+
+/-- info: 'SparseLinearSystems.Separate.circP_cost' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.circP_cost
+
+/-- info: 'SparseLinearSystems.Separate.circP_cost_mat' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.circP_cost_mat
+
+/-- info: 'SparseLinearSystems.Separate.circP_cost_src' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.circP_cost_src
+
+/-! ### `SparseLinearSystems.Separate.Decode` -/
+
+/-- info: 'SparseLinearSystems.Separate.emb₁_apply' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.emb₁_apply
+
+/-- info: 'SparseLinearSystems.Separate.norm_emb₁' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.norm_emb₁
+
+/-- info: 'SparseLinearSystems.Separate.norm_sector' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.norm_sector
+
+/-- info: 'SparseLinearSystems.Separate.sector_emb₁_disjoint' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.sector_emb₁_disjoint
+
+/-- info: 'SparseLinearSystems.Separate.route_apply' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.route_apply
+
+/-- info: 'SparseLinearSystems.Separate.norm_route' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.norm_route
+
+/-- info: 'SparseLinearSystems.Separate.route_isometry' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.route_isometry
+
+/-- info: 'SparseLinearSystems.Separate.exists_flip' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.exists_flip
+
+/-- info: 'SparseLinearSystems.Separate.flip_unitary' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.flip_unitary
+
+/-- info: 'SparseLinearSystems.Separate.flip_sector' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.flip_sector
+
+/-- info: 'SparseLinearSystems.Separate.decoderOp_sector' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.decoderOp_sector
+
+/-- info: 'SparseLinearSystems.Separate.decoderOp_emb₁' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.decoderOp_emb₁
+
+/-- info: 'SparseLinearSystems.Separate.liftL_apply' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.liftL_apply
+
+/-- info: 'SparseLinearSystems.Separate.liftL_adjoint' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.liftL_adjoint
+
+/-- info: 'SparseLinearSystems.Separate.norm_selector' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.norm_selector
+
+/-- info: 'SparseLinearSystems.Separate.selector_isometry' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.selector_isometry
+
+/-- info: 'SparseLinearSystems.Separate.selector_adjoint_apply' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.selector_adjoint_apply
+
+/-- info: 'SparseLinearSystems.Separate.sysEnc_lcu' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.sysEnc_lcu
+
+/-- info: 'SparseLinearSystems.Separate.selected' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.selected
+
+/-- info: 'SparseLinearSystems.Separate.unitDirection_unit_smul' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.unitDirection_unit_smul
+
+/-- info: 'SparseLinearSystems.Separate.decode_contraction' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.decode_contraction
+
+/-- info: 'SparseLinearSystems.Separate.decode_success' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.decode_success
+
+/-! ### `SparseLinearSystems.Separate.Main` -/
+
+/-- info: 'SparseLinearSystems.Separate.encS_isometry' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.encS_isometry
+
+/-- info: 'SparseLinearSystems.Separate.masked_sector' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.masked_sector
+
+/-- info: 'SparseLinearSystems.Separate.letters_intertwine' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.letters_intertwine
+
+/-- info: 'SparseLinearSystems.Separate.compiled_apply' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.compiled_apply
+
+/-- info: 'SparseLinearSystems.Separate.letters_cost_mat' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.letters_cost_mat
+
+/-- info: 'SparseLinearSystems.Separate.letters_cost_src' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.letters_cost_src
+
+/-- info: 'SparseLinearSystems.Separate.cost_bool' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.cost_bool
+
+/-- info: 'SparseLinearSystems.Separate.compiled_cost_mat' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.compiled_cost_mat
+
+/-- info: 'SparseLinearSystems.Separate.compiled_cost_src' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.compiled_cost_src
+
+/-- info: 'SparseLinearSystems.Separate.trialSeed_norm' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.trialSeed_norm
+
+/-- info: 'SparseLinearSystems.Separate.trialOut_isometry' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.trialOut_isometry
+
+/-- info: 'SparseLinearSystems.Separate.trial_unitary' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.trial_unitary
+
+/-- info: 'SparseLinearSystems.Separate.trial_amplitude' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.trial_amplitude
+
+/-- info: 'SparseLinearSystems.Separate.trial_cost_mat' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.trial_cost_mat
+
+/-- info: 'SparseLinearSystems.Separate.trial_cost_src' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.trial_cost_src
+
+/-- info: 'SparseLinearSystems.Separate.single_worstCost' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.single_worstCost
+
+/-- info: 'SparseLinearSystems.Separate.repeat_guarantee' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.repeat_guarantee
+
+/-- info: 'SparseLinearSystems.Separate.pure_traceDistance' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.pure_traceDistance
+
+/-- info: 'SparseLinearSystems.Separate.log_budget' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.log_budget
+
+/-- info: 'SparseLinearSystems.Separate.constA_pos' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.constA_pos
+
+/-- info: 'SparseLinearSystems.Separate.constB_pos' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.constB_pos
+
+/-- info: 'SparseLinearSystems.Separate.main' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms SparseLinearSystems.Separate.main

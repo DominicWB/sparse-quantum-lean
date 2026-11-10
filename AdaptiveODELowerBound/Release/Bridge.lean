@@ -9,10 +9,10 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # Theorem `odel:thm:combined` for adaptive protocols over the released solver's oracle
 
-Manuscript lines 4105-4118 ("The lower bounds thus apply to Theorems `ode:thm:main` and
-`ode:thm:time`") and 4133-4145, for adaptive solvers (`Model.TreeSolver`) over the physical oracle
-family of the released general-mesh solver `TimeDependentExtensions.ODE.solver`, run on the hard
-family's data along any public placement `σ : Fin M → Fin K` of mesh pieces into stages
+Manuscript: Section `odel:sec:main` ("the lower bounds apply to the upper bounds of the preceding
+section") and Theorem `odel:thm:combined`, for adaptive solvers (`Model.TreeSolver`) over the
+physical oracle family of the released general-mesh solver `TimeDependentExtensions.ODE.solver`, run
+on the hard family's data along any public placement `σ : Fin M → Fin K` of mesh pieces into stages
 (`ODELowerBoundExtensions.Release.meshOracle`, any spectator index, slot count and degree), with
 public source interfaces (`Release.PublicSources`). Two counts are bounded, as in
 `Release.combined_max_release`: the worst-case number of value calls
@@ -34,7 +34,7 @@ constant-coefficient released solver `SparseHamiltonian.ODECompleteEndpoint.solv
 piecewise-constant coefficients. The adaptive solvers here call the physical oracle family
 `meshOracle` itself (with inverse calls); the call forms `Access.callFamily` of the physical
 oracle (controlled calls) are not included, and the released solver does not use them.
-The comparison with the upper bound (lines 4148-4151, "within one factor `ℓ`") is
+The comparison with the upper bound (Section `odel:sec:main`, "within one logarithm") is
 `ODELowerBoundExtensions.Release.release_theta`, whose lower half is proved there from
 `Release.combined_max_release` at the retry solvers `A.release.toRetrySolver` of the runs. A
 release run is a retry protocol, hence the adaptive protocol `Tree.final` (`Model.retryToTree`,

@@ -7,19 +7,19 @@ section
 /-!
 # Accuracy, readout correlation and the endpoint form
 
-Manuscript lines 2090-2097 (eq. `hsl:eq:accuracy`) and 2303-2306.
+Manuscript: Section `hsl:sec:main` (eq. `hsl:eq:accuracy`) and the readout of the chain construction
+of Section `part:hsl`.
 
-* `corr_of_accurate`: an `ε`-accurate output (observable form of trace
-  distance, `Readout.Accurate`) changes the expectation of a Hermitian
-  contraction by at most `2ε` (lines 2303-2304), so a signed ideal expectation
-  `≥ a` becomes an output correlation `≥ a - 2ε`.
-* `endpointReadout`, `accurate_of_endpoint`: "an operator-norm error at most
-  `ε` implies eq. `hsl:eq:accuracy`" (lines 2096-2097). For a fixed isometric
-  input encoding `ι : ℂ^S → K` (the release's `input`), an endpoint error
-  `‖V ∘ ι - ι ∘ U‖ ≤ ε` makes the output `V (ι ψ)`, read through the fixed
-  isometry `endpointReadout ι i₀ : K → ℂ^S ⊗ K`, `ε`-accurate for `U ψ`. The
-  readout sends `k` to `(ι† k) ⊗ ι|i₀⟩ + |i₀⟩ ⊗ (1 - ι ι†) k`; on the image of
-  `ι` it is `ι ψ ↦ ψ ⊗ ι|i₀⟩`.
+* `corr_of_accurate`: an `ε`-accurate output (observable form of trace distance, `Readout.Accurate`)
+  changes the expectation of a Hermitian contraction by at most `2ε` (the chain construction of
+  Section `part:hsl`), so a signed ideal expectation `≥ a` becomes an output correlation `≥ a - 2ε`.
+* `endpointReadout`, `accurate_of_endpoint`: "The complete-output norm guarantee of our upper bounds
+  implies this weaker requirement after the work registers are discarded" (eq. `hsl:eq:accuracy`).
+  For a fixed isometric input encoding `ι : ℂ^S → K` (the release's `input`), an endpoint error
+  `‖V ∘ ι - ι ∘ U‖ ≤ ε` makes the output
+  `V (ι ψ)`, read through the fixed isometry `endpointReadout ι i₀ : K → ℂ^S ⊗ K`, `ε`-accurate for
+  `U ψ`. The readout sends `k` to `(ι† k) ⊗ ι|i₀⟩ + |i₀⟩ ⊗ (1 - ι ι†) k`; on the image of `ι` it is
+  `ι ψ ↦ ψ ⊗ ι|i₀⟩`.
 
 Proof route for `accurate_of_endpoint` (helpers below, all stated here):
 
@@ -46,10 +46,9 @@ variable {S G K : Type*} [Fintype S] [DecidableEq S]
   [NormedAddCommGroup G] [InnerProductSpace ℂ G] [CompleteSpace G]
   [NormedAddCommGroup K] [InnerProductSpace ℂ K] [CompleteSpace K]
 
-/-- **Accuracy gives correlation** (lines 2303-2304): if the output is `ε`-accurate
-for `ψ` and a Hermitian contraction `M` has signed ideal expectation
-`sgn ⟪ψ, M ψ⟫ ≥ a` with `|sgn| ≤ 1`, the output has signed expectation at
-least `a - 2ε`. -/
+/-- **Accuracy gives correlation** (the chain construction of Section `part:hsl`): if the output is
+`ε`-accurate for `ψ` and a Hermitian contraction `M` has signed ideal expectation `sgn ⟪ψ, M ψ⟫ ≥ a`
+with `|sgn| ≤ 1`, the output has signed expectation at least `a - 2ε`. -/
 theorem corr_of_accurate (e : K →L[ℂ] SysGarb S G) (Φ : K) (ψ : EuclideanSpace ℂ S) (ε : ℝ)
     (hacc : Accurate e Φ ψ ε) (M : EuclideanSpace ℂ S →L[ℂ] EuclideanSpace ℂ S)
     (hM : IsSelfAdjoint M) (hM1 : ‖M‖ ≤ 1) {sgn a : ℝ} (hsgn : |sgn| ≤ 1)
@@ -91,7 +90,7 @@ theorem norm_inner_sub_inner_le (L : K →L[ℂ] K) (a b : K) :
 
 omit [CompleteSpace K] in
 /-- Real-part form of `norm_inner_sub_inner_le`, the form consumed by
-`Readout.Accurate` (step 3 of `accurate_of_endpoint`, lines 2096-2097). -/
+`Readout.Accurate` (step 3 of `accurate_of_endpoint`, Section `hsl:sec:main`). -/
 theorem abs_inner_sub_inner_le (L : K →L[ℂ] K) (a b : K) :
     |(⟪a, L a⟫_ℂ).re - (⟪b, L b⟫_ℂ).re| ≤ ‖L‖ * (‖a‖ + ‖b‖) * ‖a - b‖ := by
   -- Proof sketch: `|Re z - Re w| = |Re (z - w)| ≤ ‖z - w‖`, then `norm_inner_sub_inner_le`.
@@ -236,7 +235,7 @@ theorem inner_outObs_endpointReadout (ι : EuclideanSpace ℂ S →L[ℂ] K) (h�
     ContinuousLinearMap.comp_apply]
   exact inner_endpointReadout_lift ι hι i₀ M φ
 
-/-- **Endpoint error implies accuracy** (lines 2096-2097). If
+/-- **Endpoint error implies accuracy** (Section `hsl:sec:main`). If
 `‖V ∘ ι - ι ∘ U‖ ≤ ε` for a contraction `V` and an isometric encoding `ι`,
 then for every input `ψ` with `‖ψ‖ ≤ 1` and `‖U ψ‖ ≤ 1`, the output `V (ι ψ)`
 read through `endpointReadout ι i₀` is `ε`-accurate for `U ψ`. -/

@@ -8,7 +8,7 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # Lemma `odel:lem:herald` for adaptive protocols: the `g = 1` families
 
-Manuscript lines 4393-4435 (eq. `odel:eq:hsbound` and Lemma `odel:lem:herald`). The `g = 1`
+Manuscript: eq. `odel:eq:hsbound` and Lemma `odel:lem:herald`. The `g = 1`
 families of `SparseLowerBounds/ODE/Precision` (`timeFamilyAt`, `mixedFamilyAt`,
 `precisionFamilyAt`: the hard Hamiltonian data read as homogeneous constant-coefficient ODEs with
 generator `iH`, `D = 0`, `‖x(T)‖ = 1`) force on adaptive solvers the per-family bounds of eqs.

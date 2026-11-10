@@ -5,12 +5,11 @@ set_option autoImplicit false
 /-!
 # Unstructured search at constant error
 
-The lower-bound part of corollary `hs:cor:unitary` of the manuscript (lines
-1786-1787 and 1833-1840) reduces to the `Ω(√N)` bound for unstructured search
-with one marked element of `Fin N`. The package's search lemma `hsl:lem:search`
-is a multiplicative-adversary bound for the search-parity correlation; the
-constant-error search bound used here is derived from the bounded-error
-positive-weight adversary `SparseLowerBounds.PositiveAdversary.count_ge`.
+The lower-bound part of corollary `hs:cor:unitary` of the manuscript reduces to the `Ω(√N)` bound
+for unstructured search with one marked element of `Fin N`. The package's search lemma
+`hsl:lem:search` is a multiplicative-adversary bound for the search-parity correlation; the
+constant-error search bound used here is derived from the bounded-error positive-weight adversary
+`SparseLowerBounds.PositiveAdversary.count_ge`.
 
 The oracle is a Boolean phase oracle `P.phase (markedString c m)` of an
 arbitrary projection family `P` on an arbitrary Hilbert workspace, whose

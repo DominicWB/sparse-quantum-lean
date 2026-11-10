@@ -6,8 +6,8 @@ section
 /-!
 # The one-bit gadget `U_j`
 
-Manuscript lines 5219-5248 (`qlsl:eq:gadget`, `qlsl:eq:logical`,
-`qlsl:eq:entries`). For a one-hot string `x = e_j` of length `m`, the gadget is
+Manuscript: the construction in the proof of Theorem `qlsl:thm:main` (`qlsl:eq:gadget`,
+`qlsl:eq:logical`, `qlsl:eq:entries`). For a one-hot string `x = e_j` of length `m`, the gadget is
 `U_x = S^{j+1} G` with the cyclic shift `S` and `G = 2|u⟩⟨u| - I`. We define it
 directly by its entry formula (eq. `qlsl:eq:entries`)
 
@@ -36,7 +36,7 @@ variable {m : ℕ}
 def gadgetPos (a b : Fin m) : Fin m :=
   ⟨((a : ℕ) + (m - 1 - b)) % m, Nat.mod_lt _ a.pos⟩
 
-/-- **Eq. `qlsl:eq:entries`** (line 5241): `(U_j)_{ab} = 2/m - [a - b - 1 ≡ j]`. -/
+/-- **Eq. `qlsl:eq:entries`** (eq. `qlsl:eq:entries`): `(U_j)_{ab} = 2/m - [a - b - 1 ≡ j]`. -/
 def gadget (m : ℕ) (j : Fin m) : Matrix (Fin m) (Fin m) ℂ :=
   Matrix.of fun a b => (2 / m : ℂ) - if gadgetPos a b = j then 1 else 0
 
@@ -113,7 +113,7 @@ theorem star_gadget_apply_aux (j : Fin m) (a b : Fin m) :
   simp only [gadget, Matrix.of_apply]
   split_ifs <;> simp
 
-/-- `U_j` is unitary (lines 5229-5233: `S` and `G` are unitary). -/
+/-- `U_j` is unitary (proof of Theorem `qlsl:thm:main`: `S` and `G` are unitary). -/
 theorem gadget_mem_unitaryGroup (j : Fin m) : gadget m j ∈ Matrix.unitaryGroup (Fin m) ℂ := by
   rw [Matrix.mem_unitaryGroup_iff]
   ext a c
@@ -150,7 +150,7 @@ theorem norm_logical (hm : Even m) (hm0 : 0 < m) (z : Bool) :
   field_simp
   ring
 
-/-- **Eq. `qlsl:eq:logical`** (lines 5232-5236): for even `m`,
+/-- **Eq. `qlsl:eq:logical`** (proof of Theorem `qlsl:thm:main`): for even `m`,
 `U_j |z_L⟩ = |(z ⊕ (j mod 2))_L⟩`, with no global phase. -/
 theorem gadget_mulVec_logical (hm : Even m) (j : Fin m) (z : Bool) :
     gadget m j *ᵥ logical m z = logical m (xor z (decide ((j : ℕ) % 2 = 1))) := by
@@ -184,7 +184,7 @@ theorem gadget_mulVec_logical (hm : Even m) (j : Fin m) (z : Bool) :
   · have hq : (gadgetPos a j : ℕ) % 2 = 1 := by omega
     cases z <;> simp [ha, hj, hq]
 
-/-- All entries are nonzero for `m ≥ 3` (lines 5243-5245; the manuscript uses
+/-- All entries are nonzero for `m ≥ 3` (proof of Theorem `qlsl:thm:main`; the manuscript uses
 `m ≥ 4`), so the support is the whole block for every `j`. -/
 theorem gadget_apply_ne_zero (hm : 3 ≤ m) (j : Fin m) (a b : Fin m) : gadget m j a b ≠ 0 := by
   have hm0 : (m : ℂ) ≠ 0 := by exact_mod_cast (show m ≠ 0 by omega)

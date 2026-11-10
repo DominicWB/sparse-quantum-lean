@@ -5,8 +5,8 @@ set_option autoImplicit false
 /-!
 # Parking an attempt register
 
-Manuscript lines 4687-4689 (proof of Lemma `odel:lem:dyson`) and 4108-4109 (Section
-`odel:sec:main`: known gates are free). The four attempts of the
+Manuscript: the proof of Lemma `odel:lem:dyson` and Section `odel:sec:main`
+(known gates are free). The four attempts of the
 released wrapper act on separate registers; the oracle acts on one main register. After an
 attempt on the main register `V = ℂ^M ⊗ W` (cutoff label and workspace), the fixed unitary
 `swapMain` exchanges the main register with a parking register `ℂ^{M × d}` (`d = dim W`) that

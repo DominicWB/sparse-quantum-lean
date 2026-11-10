@@ -8,10 +8,11 @@ set_option synthInstance.maxSize 4096
 # Calls of time-indexed block encodings under the integrable-path criterion
 
 For an integrable Hermitian path it suffices to have a certified bound on the integrated sample
-errors (the manuscript, lines 1500-1504), and the block-encoding simulator of
-`IntegrablePathSimulation.BlockEncoding.simulation` meets the corresponding criterion on the
-released aligned block-encoding family. The lower bound of Theorem `hsl:thm:main` applies to the
-time-dependent class with time-independent hard instances (lines 1512-1516).
+errors (the manuscript, the paragraphs after the proof of Theorem `hs:thm:time`), and the
+block-encoding simulator of `IntegrablePathSimulation.BlockEncoding.simulation` meets the
+corresponding criterion on the released aligned block-encoding family. The lower bound of Theorem
+`hsl:thm:main` applies to the time-dependent class with time-independent hard instances (the
+paragraphs after the proof of Theorem `hs:thm:time`).
 
 * `BEIntegrableCriterion`: the error criterion of
   `IntegrablePathSimulation.BlockEncoding.simulation` for one program (every path self-adjoint

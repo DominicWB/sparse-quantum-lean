@@ -63,17 +63,14 @@ common dimension; the structural remark on parity-amplitude reductions; gate, wo
 classical costs; the ODE lower bounds of Section `part:odel` other than Lemma
 `odel:lem:herald`.
 
-**Provenance.**  This library is an external development, included with its statements and
-proofs.  It was split into modules (`SparseLowerBounds.Imports` collects the external
-imports), `set_option linter.unusedSectionVars false` was replaced by `omit … in`, `private`
-was removed so that every theorem can be audited, linter warnings were fixed, and process
-notes were removed from the documentation.  Of its linear-system part, only the shared
-Boolean-query layer (`Query/`, `Adaptive/Access.lean`) and the hard matrix (`LinearSystems/`)
-are included; its own linear-system lower-bound theorems are not.  The module
-`Hamiltonian/NativeMax.lean` was added in this package.  Line numbers in the module
-docstrings refer to the manuscript version used by that development, where Theorem
-`hsl:thm:main` starts at line 2102 and Theorem `qlsl:thm:main` at line 5070; the labels are
-the stable references.
+**Provenance.** This library is an external development, included with its statements and proofs. It
+was split into modules (`SparseLowerBounds.Imports` collects the external imports),
+`set_option linter.unusedSectionVars false` was replaced by `omit … in`, `private` was removed so
+that every theorem can be audited, linter warnings were fixed, and process notes were removed from
+the documentation. Of its linear-system part, only the shared Boolean-query layer (`Query/`,
+`Adaptive/Access.lean`) and the hard matrix (`LinearSystems/`) are included; its own linear-system
+lower-bound theorems are not. The module `Hamiltonian/NativeMax.lean` was added in this package.
+References to the manuscript use its labels.
 
 **Audits.**  `SparseLowerBounds/Audit.lean` fixes the exact axiom report of every theorem of
 the library and of every field of the `Prop` structures `HSRange`, `HardInstance` and

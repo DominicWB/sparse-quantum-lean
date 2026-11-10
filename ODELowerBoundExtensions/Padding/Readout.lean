@@ -6,9 +6,9 @@ import SparseLowerBounds.ODE.Theorem
 
 Section `part:odel` of the manuscript: the padding remarks
 "Known zero padding permits any sufficiently large qubit register" (end of the proof of
-Theorem `odel:thm:joint`, lines 3899-3904) and "Pad dimensions to a common known size if desired"
-(proof of Theorem `odel:thm:combined`, lines 4005-4006). The ODE output model is the heralded
-readout model (`SparseLowerBounds.ODE.Solver`, `Readout.HeraldedAccurate`, lines 3675-3678).
+Theorem `odel:thm:joint`) and "Pad dimensions to a common known size if desired"
+(proof of Theorem `odel:thm:combined`). The ODE output model is the heralded
+readout model (`SparseLowerBounds.ODE.Solver`, `Readout.HeraldedAccurate`, Section `odel:sec:main`).
 
 This module extends the readout transfer of `LowerBoundRemarks.HamiltonianPadding`
 (`padReadout`, `accurate_padReadout`) from `Readout.Accurate` to `Readout.HeraldedAccurate`:

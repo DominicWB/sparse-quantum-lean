@@ -6,7 +6,7 @@ set_option autoImplicit false
 set_option synthInstance.maxSize 4096
 
 /-!
-# The physical Dyson SELECT and its LCU (`odel:lem:dyson`, lines 4200-4206, 4228)
+# The physical Dyson SELECT and its LCU (`odel:lem:dyson`)
 
 The logical SELECT of `Select.lean` is compiled to the physical masked native access
 `matrixOracle (Omega K M) D` by the release's masked-program compiler
@@ -61,7 +61,7 @@ theorem select_unitary {M : ℕ} (hM : 0 < M) (hK : 0 < Ks) (σ : Fin M → Fin 
     IsUnitary ((select hM hK σ D K).eval x) :=
   NativeMaskedProgram.compile_unitary _ (timeOracle_unitary D) _ _ _ _ x
 
-/-- **Exact compression of the physical SELECT** (lines 4200-4206). -/
+/-- **Exact compression of the physical SELECT** (proof of Lemma `odel:lem:dyson`). -/
 theorem select_compression {M : ℕ} (hM : 0 < M) (hK : 0 < Ks) (σ : Fin M → Fin Ks)
     (D : Data (X × Fin Ks) n Z s) (K : ℕ) (x : X) :
     (encoding (M := M) hK D K)† ∘L (select hM hK σ D K).eval x ∘L encoding hK D K =
@@ -79,7 +79,8 @@ theorem select_compression {M : ℕ} (hM : 0 < M) (hK : 0 < Ks) (σ : Fin M → 
   simp only [encoding, select, adjoint_comp, comp_apply, h1, h2]
   rfl
 
-/-- `18 K` native matrix calls (`O(K)`, line 4204; the count does not depend on the mesh). -/
+/-- `18 K` native matrix calls (`O(K)`, proof of Lemma `odel:lem:dyson`; the count does not depend
+on the mesh). -/
 theorem select_count {M : ℕ} (hM : 0 < M) (hK : 0 < Ks) (σ : Fin M → Fin Ks)
     (D : Data (X × Fin Ks) n Z s) (K : ℕ) :
     (select hM hK σ D K).count = 18 * K := by

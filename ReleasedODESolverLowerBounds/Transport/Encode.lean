@@ -7,9 +7,10 @@ set_option autoImplicit false
 /-!
 # Absorbing the spectator lift into a larger physical oracle
 
-Manuscript Section `odel:sec:main`, lines 3669-3673 (value oracle and locators, "their inverses
-and controls"), lines 3685-3686 ("Initial and source preparation contain no hidden input
-information") and line 2364 (deferred measurement).
+Manuscript Section `odel:sec:main` (value oracle and locators, "including inverses, controls and
+coherent time addresses where needed"), Section `odel:sec:main` ("Initial and source preparations
+contain no hidden information") and the end of the proof of Lemma `hsl:lem:precision` (deferred
+measurement).
 
 The controlled-call circuits of the deferral (`DeferredMeasurementLowerBounds.Access.selCircuit`,
 `ctrlCircuits`) are programs over the call forms of the spectator lift `1_J ⊗ B`

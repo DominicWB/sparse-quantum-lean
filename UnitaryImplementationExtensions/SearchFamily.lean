@@ -7,7 +7,7 @@ set_option autoImplicit false
 # The search family of unitaries
 
 The hard family of the lower-bound part of corollary `hs:cor:unitary` of the
-manuscript (lines 1833-1840): for a marked element `m` of `Fin N` (addition
+manuscript: for a marked element `m` of `Fin N` (addition
 modulo `N`), `(U_m)_{jk} = 1` if `j + k = m` and `0` otherwise. Each `U_m` is a
 permutation matrix and `U_m |0⟩ = |m⟩`. As exact entry data (`searchData`) its
 entries are single bits `searchTable N m (j, k) ∈ ZMod 2`, and the entry at

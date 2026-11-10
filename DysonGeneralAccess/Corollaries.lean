@@ -7,11 +7,11 @@ set_option synthInstance.maxSize 4096
 /-!
 # Consequences of the single-program form of Lemma `odel:lem:dyson`
 
-Manuscript, the sentence before Lemma `odel:lem:dyson` (lines 4150-4152: it "covers the entire
-time-dependent class under the coherent access, regularity, and source-preparation assumptions of
-Theorem `ode:thm:time`"), eq. `odel:eq:fixed` and the following consequence (lines 4256-4268: "a
-uniform worst-case lower bound proportional to `ḡ √s τ log(ḡ/ε)` is false under these access
-assumptions").
+Manuscript: the paragraph before Lemma `odel:lem:dyson` ("The comparison must cover the whole
+time-dependent input class [...] the following lemma uses the coherent access, certified
+discretisation and source-preparation assumptions of Theorem `ode:thm:time`"), eq. `odel:eq:fixed`
+and the consequence after it ("a uniform worst-case lower bound proportional to
+`ḡ √s τ log(ḡ/ε)` is false under these access assumptions").
 
 * `ReleaseValid`, `releaseValid_valid`, `single_release_class`: every instance accepted by the
   released solver `TimeDependentExtensions.ODE.solver` (the premises of its `Outcome`, at any slot

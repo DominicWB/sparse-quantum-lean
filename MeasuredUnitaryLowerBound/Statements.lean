@@ -7,23 +7,22 @@ set_option autoImplicit false
 /-!
 # The unitary `Ω(√N)` lower bound at trace-distance error `1/2`: paper-to-Lean entry point
 
-Corollary `hs:cor:unitary` of the manuscript (lines 1647-1666) allows any error
-`0 < ε ≤ 1/2` (line 1649) and ends: "At fixed constant error, the worst-case query complexity
-is `Θ(√N)`" (lines 1664-1665). Its lower half is the reduction to unstructured search (proof,
-lines 1711-1718: `U_m |0⟩ = |m⟩`), and the corollary counts inverse calls (line 1662). The
-lower-bound setting of the manuscript gives access "with inverses and coherent controls"
-(lines 2079-2080), and the closing sentence of the proof of `hsl:lem:precision` covers
-"Randomised or adaptive algorithms ... by purification and deferred measurement"
-(lines 2363-2364). `AdaptiveUnitaryLowerBound` and
-`DeferredMeasurementLowerBounds` prove the lower half for adaptive and measured algorithms at
-every fixed trace-distance error `ε₀ < 1/2`; their factors `(1 - 2ε₀)²` and
-`1 - 2 √(ε₀ (1 - ε₀))` vanish at `ε₀ = 1/2`. This library proves it on the whole range
+Corollary `hs:cor:unitary` of the manuscript allows any error `0 < ε ≤ 1/2` and ends: "the
+constant-error worst-case complexity is `Θ(√N)`". Its lower half is the reduction to unstructured
+search (proof of Corollary `hs:cor:unitary`: `U_m |0⟩ = |m⟩`), and the corollary counts inverse
+calls (Corollary `hs:cor:unitary`). The lower-bound setting of the manuscript gives access with
+inverses and the controls of Lemma `access:lem:control` (Section `hsl:sec:main`), and the closing
+sentence of the proof of `hsl:lem:precision` covers "Purification and deferred measurement include
+adaptive and randomised algorithms" (proof of Lemma `hsl:lem:precision`).
+`AdaptiveUnitaryLowerBound` and `DeferredMeasurementLowerBounds` prove the lower half for adaptive
+and measured algorithms at every fixed trace-distance error `ε₀ < 1/2`; their factors `(1 - 2ε₀)²`
+and `1 - 2 √(ε₀ (1 - ε₀))` vanish at `ε₀ = 1/2`. This library proves it on the whole range
 `ε₀ ≤ 1/2`, endpoint included, for adaptive protocols (heralded or not), for algorithms with
-measurements inside a run, and for both with controlled and controlled-inverse calls. It also
-states the manuscript's operator-norm error `‖A_U - U‖ ≤ ε` (eq. `hs:eq:unitaryerror`, lines
-1652-1654) for measured algorithms, through a purification of their output, with the sharp
-per-input trace distance `ε √(1 - ε²/4)` (`OperatorNorm`). All declarations below are in the
-namespace `MeasuredUnitaryLowerBound`.
+measurements inside a run, and for both with controlled and controlled-inverse calls. It also states
+the manuscript's operator-norm error `‖A_U - U‖ ≤ ε` (eq. `hs:eq:unitaryerror`) for measured
+algorithms, through a purification of their output, with the sharp per-input trace distance
+`ε √(1 - ε²/4)` (`OperatorNorm`). All declarations below are in the namespace
+`MeasuredUnitaryLowerBound`.
 
 **Paper-to-Lean map.** Namespaces and files (relative to `MeasuredUnitaryLowerBound/`):
 `Global` is `Global/Sum.lean`, `Global/Kernel.lean` and `Global/Reads.lean`; `Reading` is
@@ -57,16 +56,15 @@ namespace `MeasuredUnitaryLowerBound`.
   and the readout forms `Global.tree_count_ge_of_reads`, `Global.program_count_ge_of_reads`.
 * Non-vacuity: `NonVacuity.released_tree_half`, `NonVacuity.released_calls_tree_half`,
   `NonVacuity.released_measured_half`, `NonVacuity.released_measured_calls_half`.
-* Operator-norm error for measured algorithms (`hs:cor:unitary`, lines 1647-1666, range
-  `0 < ε ≤ 1/2` at line 1649; measured algorithms by purification and deferred measurement,
-  lines 2363-2364): the notion `OperatorNorm.NormImplements`; the sharp passage to trace
+* Operator-norm error for measured algorithms (`hs:cor:unitary`, range `0 < ε ≤ 1/2` in Corollary
+  `hs:cor:unitary`; measured algorithms by purification and deferred measurement, proof of Lemma
+  `hsl:lem:precision`): the notion `OperatorNorm.NormImplements`; the sharp passage to trace
   distance `OperatorNorm.abs_re_inner_sub_le_sharp`, `OperatorNorm.accurate_of_endpoint_sharp`,
-  `OperatorNorm.densityAccurate_of_normImplements` (eq. `hs:eq:unitaryerror`, lines 1652-1654);
-  the bounds `OperatorNorm.implementation_count_ge_measured_norm`,
-  `OperatorNorm.entry_count_ge_measured_norm`,
+  `OperatorNorm.densityAccurate_of_normImplements` (eq. `hs:eq:unitaryerror`); the bounds
+  `OperatorNorm.implementation_count_ge_measured_norm`, `OperatorNorm.entry_count_ge_measured_norm`,
   `OperatorNorm.implementation_count_ge_measured_norm_half`,
-  `OperatorNorm.implementation_count_ge_measured_norm_sqrt`; over the four call forms ("with
-  inverses and coherent controls", lines 2079-2080)
+  `OperatorNorm.implementation_count_ge_measured_norm_sqrt`; over the four call forms (with inverses
+  and the controls of Lemma `access:lem:control`, Section `hsl:sec:main`)
   `OperatorNorm.implementation_count_ge_measured_calls_norm` and its `_half` and `_sqrt` forms;
   containment of the unitary programs of the corollary `OperatorNorm.normImplements_runAll`,
   `OperatorNorm.normImplements_of_deferred`, `OperatorNorm.implementation_count_ge_program_norm`,
@@ -193,7 +191,7 @@ Every theorem of the library is axiom-audited in `MeasuredUnitaryLowerBound/Audi
 **Formalisation choices.**
 
 * Error measure. The manuscript's error is the operator norm `‖A_U - U‖ ≤ ε`
-  (`hs:eq:unitaryerror`, lines 1652-1654); the accuracy here is trace distance
+  (`hs:eq:unitaryerror`); the accuracy here is trace distance
   (`DensityAccurate`), the package's notion for adaptive, heralded and measured outputs, for
   which an operator norm has no natural meaning. For a unitary program, operator-norm error `ε`
   gives trace distance at most `ε` (`SparseLowerBounds.Hamiltonian.accurate_of_endpoint` with
@@ -202,10 +200,9 @@ Every theorem of the library is axiom-audited in `MeasuredUnitaryLowerBound/Audi
   `AdaptiveUnitaryLowerBound.Theorem.implementation_count_ge_program_of_error`. The new content
   is the trace-distance endpoint `ε₀ = 1/2` for adaptive, heralded and measured algorithms,
   the measured and adaptive form of the manuscript's range `0 < ε ≤ 1/2`.
-* Setting. Adaptive algorithms, measurements inside a run, inverses and coherent controls come
-  from the lower-bound setting of the manuscript (lines 2079-2080) and from the closing sentence
-  of the proof of `hsl:lem:precision` (lines 2363-2364), not from the text of the corollary
-  itself.
+* Setting. Adaptive algorithms, measurements inside a run, inverses and coherent controls come from
+  the lower-bound setting of the manuscript (Section `hsl:sec:main`) and from the closing sentence
+  of the proof of `hsl:lem:precision`, not from the text of the corollary itself.
 * `N = 2`. The bounds are empty at `N = 2`, and must be: a protocol without queries whose
   output is maximally mixed is within trace distance `1/2` of both targets. In operator norm
   `U_0 = 1` and `U_1 = X` are at distance `2`, so this obstruction is specific to trace
@@ -253,9 +250,10 @@ Every theorem of the library is axiom-audited in `MeasuredUnitaryLowerBound/Audi
 * The sharp constant `ε √(1 - ε²/4)` is derived, not stated in the manuscript.
   `OperatorNorm.abs_re_inner_sub_le_sharp` needs only `ε² ≤ 2` (the monotone range of
   `d √(4 - d²)`); `OperatorNorm.accurate_of_endpoint_sharp` keeps the hypotheses of
-  `SparseLowerBounds.Hamiltonian.accurate_of_endpoint` and adds `ε² ≤ 2`. The constant lemmas
-  are stated on `0 ≤ ε ≤ 1/2`, which contains the manuscript's `0 < ε ≤ 1/2` (line 1649); the
-  bounds take `ε₀ ≤ 1/2`, although the proof works whenever `ε₀ √(1 - ε₀²/4) ≤ 1/2`.
+  `SparseLowerBounds.Hamiltonian.accurate_of_endpoint` and adds `ε² ≤ 2`. The constant lemmas are
+  stated on `0 ≤ ε ≤ 1/2`, which contains the manuscript's `0 < ε ≤ 1/2` (Corollary
+  `hs:cor:unitary`); the bounds take `ε₀ ≤ 1/2`, although the proof works whenever
+  `ε₀ √(1 - ε₀²/4) ≤ 1/2`.
 * Containment. Every unitary program with the package's error `‖p.eval x ∘L J - J ∘L U‖ ≤ ε`,
   run and output in full, satisfies the notion with one Kraus map and garbage `J |i₀⟩`
   (`OperatorNorm.normImplements_runAll`); the program forms present containment and
@@ -267,7 +265,7 @@ Every theorem of the library is axiom-audited in `MeasuredUnitaryLowerBound/Audi
   force at least one call at `N = 2`, as they must (`U_0 = 1` and `U_1 = X` are at
   operator-norm distance `2`); the `√N` forms take `N ≥ 3`. Constants: `4` (plain and entry
   lookup), `32` (call forms), `64` and `512` in the `√N` forms.
-* Untouched reference (lines 1663-1664, 1709): for linear maps between possibly different
+* Untouched reference (Corollary `hs:cor:unitary`): for linear maps between possibly different
   spaces, `‖T ⊗ 1‖ ≤ ‖T‖` with entangled inputs over a finite reference is the package's
   `SparseHamiltonian.FiniteReferenceLift.norm_lift_le` (with `norm_error_le` and
   `normalized_error_le`), cited, not restated. Only the input `|0⟩` of the reduction is used in
@@ -293,18 +291,15 @@ Every theorem of the library is axiom-audited in `MeasuredUnitaryLowerBound/Audi
   `OperatorNorm.global_of_pairwise`).
 * Circuit-size, workspace and classical circuit-generation costs.
 
-**Provenance.** No result from another paper is used; the search bound is derived from the
-package's positive-weight adversary for trees. The released libraries
-`AdaptiveHamiltonianLowerBound`, `AdaptiveODELowerBound`, `AdaptiveUnitaryLowerBound`,
-`DeferredMeasurementLowerBounds` and `UnitaryImplementationExtensions` (with their
-dependencies) are only imported; no released module is changed. Of the items listed as not
-formalised in `DeferredMeasurementLowerBounds/Statements.lean` and
-`AdaptiveUnitaryLowerBound/Statements.lean`, the trace-distance endpoint `ε₀ = 1/2` and the named
-measured forms over the call family are proved here. The operator-norm endpoint is covered for
-unitary programs by
-`AdaptiveUnitaryLowerBound.Theorem.implementation_count_ge_program_of_error`, and for measured
-algorithms, with the sharp trace distance, by `OperatorNorm`; the statement guide of
-`DeferredMeasurementLowerBounds` predates `OperatorNorm`. Line numbers in this guide and in the
-module docstrings refer to the manuscript version accompanying this library; the paper labels
-are the stable references.
+**Provenance.** No result from another paper is used; the search bound is derived from the package's
+positive-weight adversary for trees. The released libraries `AdaptiveHamiltonianLowerBound`,
+`AdaptiveODELowerBound`, `AdaptiveUnitaryLowerBound`, `DeferredMeasurementLowerBounds` and
+`UnitaryImplementationExtensions` (with their dependencies) are only imported; no released module is
+changed. Of the items listed as not formalised in `DeferredMeasurementLowerBounds/Statements.lean`
+and `AdaptiveUnitaryLowerBound/Statements.lean`, the trace-distance endpoint `ε₀ = 1/2` and the
+named measured forms over the call family are proved here. The operator-norm endpoint is covered for
+unitary programs by `AdaptiveUnitaryLowerBound.Theorem.implementation_count_ge_program_of_error`,
+and for measured algorithms, with the sharp trace distance, by `OperatorNorm`; the statement guide
+of `DeferredMeasurementLowerBounds` predates `OperatorNorm`. References to the manuscript use its
+labels.
 -/

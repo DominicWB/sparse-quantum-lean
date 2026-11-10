@@ -4,6 +4,10 @@ import GateEfficientSynthesis.ODESolver
 /-!
 # Theorem `ode:thm:gates` from time-indexed binary sparse data over a finite gate set
 
+The finite-gate-set forms of Theorem `ode:thm:gates` in this module are a partial formalisation of
+its finite-set statement, under this package's format hypotheses: the manuscript states Theorem
+`ode:thm:gates` over a finite gate set; the conformance endpoints count native gates.
+
 The time-dependent native solver from binary data (`binary_ode_time_solver`) with every trial
 synthesised over a finite gate set under the synthesis hypothesis `GateSynth.Synthesis 𝒢 Xa len`
 of `GateEfficientSynthesis` (gate set `𝒢`, synthesis ancillas `Xa`, synthesis length `len`),
@@ -42,8 +46,9 @@ variable {X n : Type*} [Fintype n] [DecidableEq n] {Zs : Type*} [Fintype Zs] [De
 variable {Xa : Type*} [Fintype Xa] [DecidableEq Xa] {𝒢 : Set GateSynth.Kind} {len : ℝ → ℕ}
 
 /-- **Gate-efficient dissipative ODE solver from time-indexed binary sparse data over a finite
-gate set, time-dependent coefficients** (Theorem `ode:thm:gates`, time-dependent part, with
-finite-set synthesis as a hypothesis).
+gate set, time-dependent coefficients** (partial formalisation, under this package's format
+hypotheses, of the finite-set statement of Theorem `ode:thm:gates`,
+time-dependent part, with finite-set synthesis as a hypothesis).
 
 For the public data `q`, the time-indexed binary sparse data `D` and the source circuits
 `loadC`, `wpC` of `binary_ode_time_solver`, the synthesised protocol

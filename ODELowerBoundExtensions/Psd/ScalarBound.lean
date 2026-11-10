@@ -3,20 +3,20 @@ import ODELowerBoundExtensions.Psd.SearchBound
 /-!
 # The scalar-family bound of Theorem `odel:thm:psd`
 
-Manuscript lines 4119-4131. The scalar family has the same
+Manuscript: the proof of Theorem `odel:thm:psd`. The scalar family has the same
 positive endpoint correlation (`psd_scalar_corr`, heralded: `psd_heralded_corr`). After `q`
 Boolean queries any unconditional observable expectation has multilinear degree at most `2q`,
 so positive uniform correlation with the full `n`-bit parity requires `2q ≥ n`
 (`Hamiltonian.precision_cost_of_corr`, the polynomial method of `hsl:lem:precision`). The
 success flag is part of the unconditional observable `Π (e† (M ⊗ 1) e) Π`; the polynomial
-method is not applied to a postselected ratio (lines 4126-4127).
+method is not applied to a postselected ratio (proof of Theorem `odel:thm:psd`).
 
 * `psd_scalar_cost`: Boolean cost `q ≥ n/2` for any labelled family implementable by bit
   queries;
-* `psd_scalar_forces_quarter`: `Q_A ≥ n/4` (`q ≤ 2 Q_A`, line 4125);
+* `psd_scalar_forces_quarter`: `Q_A ≥ n/4` (`q ≤ 2 Q_A`, proof of Theorem `odel:thm:psd`);
 * `psd_scalar_forces`: `Q_A ≥ r/32` (`n ≥ r/8`);
-* `psd_scalar_forces_sqrt`: for `s < 512n/τ`, `Q_A > √(sτr)/256` (lines 4129-4131; stated
-  with `≥`).
+* `psd_scalar_forces_sqrt`: for `s < 512n/τ`, `Q_A > √(sτr)/256` (proof of Theorem `odel:thm:psd`;
+  stated with `≥`).
 
 The paper's scalar family is three-sparse and its bound `r/32` needs no condition on `s`. Here it
 is stated on the padded family (maximum sparsity exactly `s`) under `PsdRange`, so at `s ≥ 32`:
@@ -41,9 +41,9 @@ variable {τ ε : ℝ} {s : ℕ} {K K' G L : Type*}
   [NormedAddCommGroup K'] [InnerProductSpace ℂ K'] [CompleteSpace K']
   [NormedAddCommGroup G] [InnerProductSpace ℂ G] [CompleteSpace G]
 
-/-- **Scalar-family bound, Boolean-cost form** (lines 4122-4127): any heralded program over a
-labelled oracle family implementable with `w l` bit queries, heralded-accurate for the
-normalised endpoints of the scalar family, has Boolean cost `p.cost w ≥ n/2`. -/
+/-- **Scalar-family bound, Boolean-cost form** (proof of Theorem `odel:thm:psd`): any heralded
+program over a labelled oracle family implementable with `w l` bit queries, heralded-accurate for
+the normalised endpoints of the scalar family, has Boolean cost `p.cost w ≥ n/2`. -/
 theorem psd_scalar_cost (h : PsdRange τ s ε) (P : ProjFamily K' (Fin (precN τ ε)))
     (E : K →L[ℂ] K') (hE : E† ∘L E = 1) (O : L → (Fin (precN τ ε) → Bool) → K →L[ℂ] K)
     (hO : ∀ l x, IsUnitary (O l x)) (w : L → ℕ)
@@ -73,8 +73,8 @@ theorem psd_scalar_cost (h : PsdRange τ s ε) (P : ProjFamily K' (Fin (precN τ
   exact precision_cost_of_corr P E hE O hO w hw p φ₀ _
     (Finset.sum_pos (fun x _ => hpos x) Finset.univ_nonempty)
 
-/-- **`Q_A ≥ n/4`** (line 4125): every heralded solver of the scalar family makes at least
-`n/4` value queries (and as many matrix queries). -/
+/-- **`Q_A ≥ n/4`** (proof of Theorem `odel:thm:psd`): every heralded solver of the scalar family
+makes at least `n/4` value queries (and as many matrix queries). -/
 theorem psd_scalar_forces_quarter (h : PsdRange τ s ε) :
     (psdScalarFamilyAt h).Forces ε ((precN τ ε : ℝ) / 4) := by
   intro ι _ G _ _ _ A
@@ -88,7 +88,7 @@ theorem psd_scalar_forces_quarter (h : PsdRange τ s ε) :
           (by have := h.s_ge; omega))
         p A.seed A.out A.out_isometry A.herald A.herald_proj hsucc hacc])
 
-/-- **`Q_A ≥ r/32`** (line 4125). -/
+/-- **`Q_A ≥ r/32`** (proof of Theorem `odel:thm:psd`). -/
 theorem psd_scalar_forces (h : PsdRange τ s ε) :
     (psdScalarFamilyAt h).Forces ε (hsR τ ε / 32) := by
   intro ι _ G _ _ _ A
@@ -96,8 +96,8 @@ theorem psd_scalar_forces (h : PsdRange τ s ε) :
   have ha := rbound h.toHSRange h.hL
   exact ⟨ha.trans hb.1, ha.trans hb.2⟩
 
-/-- **Small sparsity** (lines 4129-4131): for `s < 512n/τ`, every heralded solver of the scalar
-family makes at least `√(sτr)/256` value queries (and as many matrix queries). -/
+/-- **Small sparsity** (proof of Theorem `odel:thm:psd`): for `s < 512n/τ`, every heralded solver of
+the scalar family makes at least `√(sτr)/256` value queries (and as many matrix queries). -/
 theorem psd_scalar_forces_sqrt (h : PsdRange τ s ε) (hs : (s : ℝ) < 512 * precN τ ε / τ) :
     (psdScalarFamilyAt h).Forces ε (Real.sqrt (s * τ * hsR τ ε) / 256) := by
   intro ι _ G _ _ _ A

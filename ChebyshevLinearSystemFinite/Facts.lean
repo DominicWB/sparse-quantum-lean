@@ -19,6 +19,9 @@ filter of any degree `D` at the public gap `g` (residual amplitude `resid s g D`
   of `c A⁻¹ b` with `1/(r (1 + μ)(1 + q²)) ≤ c ≤ 1/(r (1 + q²))` (the released
   `augmented_final_fact` at the target `δ = resid`, whose degree is `D` by
   `augDegree_resid`).
+
+Notation: the regularization parameter is `σ` here and `ξ` in the manuscript, so a subscript `σ` (as
+in `g_σ`, `r_σ`, `H_{σ,r}`) stands for the manuscript's subscript `ξ`.
 -/
 
 namespace ChebyshevLinearSystemFinite

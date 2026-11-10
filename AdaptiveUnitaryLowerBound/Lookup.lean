@@ -6,7 +6,7 @@ set_option autoImplicit false
 # Adaptive algorithms over the ordinary entry lookup
 
 The lower half of the last sentence of corollary `hs:cor:unitary` of the
-manuscript (lines 1664-1665, reduction at lines 1711-1718) for adaptive
+manuscript (reduction in the proof of Corollary `hs:cor:unitary`) for adaptive
 algorithms over the ordinary reversible entry lookup of the search family,
 `LookupControlledGate.oracle (K := V) (searchTable N)`, with an arbitrary
 untouched payload `V` (for the protocol forms the workspace `W` and the output

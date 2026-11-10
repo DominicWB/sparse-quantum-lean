@@ -3,10 +3,10 @@ import ODELowerBoundExtensions.Padding.JointDense
 /-!
 # The densely padded joint family: class and instance facts
 
-Manuscript: end of the proof of Theorem `odel:thm:joint`,
-lines 3899-3903 ("Its norm is at most one and its entries are dyadic. It requires no membership
-queries and leaves the solution unchanged."). The construction `jointDenseFamily` (dense block
-`denseHam = 2^{-B} 1 1ᵀ` on the `Fin s` block, generator `denseGen`) is `Padding/JointDense`.
+Manuscript: end of the proof of Theorem `odel:thm:joint`, proof of Theorem `odel:thm:joint` ("Its
+norm is at most one and its entries are dyadic. It requires no membership queries and leaves the
+solution unchanged."). The construction `jointDenseFamily` (dense block `denseHam = 2^{-B} 1 1ᵀ` on
+the `Fin s` block, generator `denseGen`) is `Padding/JointDense`.
 
 **What the block preserves.** `jointDenseFamily` has the same durations, sources and initial state
 as `SparseLowerBounds.ODE.jointFamily`; its solution is the same `jointSol`, because `jointSol`
@@ -40,7 +40,7 @@ theorem denseHam_isHermitian : (denseHam M μ s B dense).IsHermitian := by
 
 /-- **At `B = ⌈log₂ s⌉` the dense block is the released padding block**:
 `denseHam … (padExp s) true = 0 ⊕ Hamiltonian.padBlock s` (`padBlock s = 2^{-⌈log₂ s⌉} 1 1ᵀ`,
-line 2480). -/
+the end of the proof of Theorem `hsl:thm:main`). -/
 theorem denseHam_padExp :
     denseHam M μ s (Hamiltonian.padExp s) true =
       (Matrix.fromBlocks 0 0 0 (Hamiltonian.padBlock s) :
@@ -49,9 +49,9 @@ theorem denseHam_padExp :
   rcases i with i | i <;> rcases j with j | j <;>
     simp [denseHam, Matrix.fromBlocks_apply₂₂, Hamiltonian.padBlock]
 
-/-- **The block has norm at most one** (line 3902): `‖2^{-B} 1 1ᵀ‖ = s 2^{-B} ≤ 1` for
-`s ≤ 2^B`, needed only with the block (`dense = true`); at `B = padExp s` this is the released
-`Hamiltonian.norm_padBlock_le` (`denseHam_padExp`). -/
+/-- **The block has norm at most one** (proof of Theorem `odel:thm:joint`):
+`‖2^{-B} 1 1ᵀ‖ = s 2^{-B} ≤ 1` for `s ≤ 2^B`, needed only with the block (`dense = true`); at
+`B = padExp s` this is the released `Hamiltonian.norm_padBlock_le` (`denseHam_padExp`). -/
 theorem norm_denseHam_le (hsB : dense = true → s ≤ 2 ^ B) :
     ‖SparseStateOverlap.matrixOperator (denseHam M μ s B dense)‖ ≤ 1 :=
   denseBlock_norm_le denseHam_inl_left denseHam_inl_right denseHam_inr_inr
@@ -62,8 +62,9 @@ theorem jointSol_inr (x : Promised M n (2 ^ μ)) (t : ℝ) (t' : Fin s) :
     jointSol M n μ s T x t (Sum.inr t') = 0 := by
   simp [jointSol, jointSrc, jointInit, candState_inr]
 
-/-- **The solution is unchanged** (line 3903): `jointSol` solves every instance of the dense
-family, since `denseGen` and `jointGen` agree on vectors vanishing on the block. -/
+/-- **The solution is unchanged** (proof of Theorem `odel:thm:joint`): `jointSol` solves every
+instance of the dense family, since `denseGen` and `jointGen` agree on vectors vanishing on the
+block. -/
 theorem jointDenseSol_solves (x : Promised M n (2 ^ μ)) :
     (jointDenseFamily M n μ s B dense hμ hμs hμB T hT).Solves x (jointSol M n μ s T x) := by
   have h0 := jointSol_solves (M := M) (n := n) (μ := μ) (s := s) (hμ := hμ) (hμs := hμs)
@@ -131,8 +132,8 @@ theorem jointDenseFamily_inClass (hsB : dense = true → s ≤ 4 ^ B) {gbar : �
         le_div_iff₀ hs]
       nlinarith
 
-/-- **Maximum row and column sparsity exactly `s`** (line 3899), at every input and stage: the
-block rows and columns have `s` nonzero entries. -/
+/-- **Maximum row and column sparsity exactly `s`** (proof of Theorem `odel:thm:joint`), at every
+input and stage: the block rows and columns have `s` nonzero entries. -/
 theorem jointDenseFamily_sparsityAttained (hd : dense = true) :
     SparsityAttained (jointDenseFamily M n μ s B dense hμ hμs hμB T hT) := by
   subst hd
@@ -144,8 +145,8 @@ theorem jointDenseFamily_sparsityAttained (hd : dense = true) :
     simp [denseGen_apply, denseJointGen_inr_left, denseJointGen_inr_right, denseHam_inl_left,
       denseHam_inl_right, denseHam_inr_inr]
 
-/-- **Exact dyadic entries** (line 3902): every sampled entry is `i · v/2^B`,
-`-2^B < v ≤ 2^B`; the block entries are `i · 2^{-B}`. -/
+/-- **Exact dyadic entries** (proof of Theorem `odel:thm:joint`): every sampled entry is
+`i · v/2^B`, `-2^B < v ≤ 2^B`; the block entries are `i · 2^{-B}`. -/
 theorem jointDenseFamily_dyadic (p : Promised M n (2 ^ μ) × Fin (n + 2))
     (i j : JointIndex M μ s) :
     ∃ v : ℤ, -(2 : ℤ) ^ B < v ∧ v ≤ 2 ^ B ∧
@@ -182,9 +183,9 @@ theorem jointDenseFamily_table_false :
 -- The nested time-addressed workspaces exceed the default instance size.
 set_option synthInstance.maxSize 1024 in
 open OracleCircuit in
-/-- **The dense family's access is a `hardCost` membership program** (lines 3852-3858, 3903):
-`implementsOn_stageData` in the family form of `SparseLowerBounds.ODE.implementsOn_joint`; the
-dense block costs no query. -/
+/-- **The dense family's access is a `hardCost` membership program** (the construction before
+Theorem `odel:thm:joint`): `implementsOn_stageData` in the family form of
+`SparseLowerBounds.ODE.implementsOn_joint`; the dense block costs no query. -/
 theorem implementsOn_jointDense (ι : Type*) [Fintype ι] (l : Query) :
     EncodedOracle.ImplementsOn
       (fun x : Promised M n (2 ^ μ) =>

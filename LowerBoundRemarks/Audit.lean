@@ -293,7 +293,7 @@ padding of the hard linear systems and the padding of the hard Hamiltonian-simul
 #guard_msgs (whitespace := lax) in
 #print axioms LowerBoundRemarks.LinearSystemPadding.lower_bound_common_dimension
 
-/-! ### Padding the hard Hamiltonian-simulation families (remark after Theorem `hsl:thm:main`) -/
+/-! ### Padding the hard Hamiltonian-simulation families (last clause of Theorem `hsl:thm:main`) -/
 
 /-- info: 'LowerBoundRemarks.HamiltonianPadding.padTable_addr_inl_inl' does not depend on any axioms -/
 #guard_msgs (whitespace := lax) in

@@ -7,8 +7,8 @@ set_option autoImplicit false
 # Read probabilities of measured algorithms
 
 The search and unitary-implementation lower bounds for measured algorithms (manuscript Corollary
-`hs:cor:unitary`, lines 1647-1666, and line 2364) measure success by the probability of reading
-the instance `m` from the heralded output through an isometric readout onto `ℂ^N ⊗ G`
+`hs:cor:unitary`, and the proof of Lemma `hsl:lem:precision`) measure success by the probability of
+reading the instance `m` from the heralded output through an isometric readout onto `ℂ^N ⊗ G`
 (`readProb`).
 
 * `norm_sq_sel_liftReadout`: in the deferred program the weight of the value `m` in the lifted

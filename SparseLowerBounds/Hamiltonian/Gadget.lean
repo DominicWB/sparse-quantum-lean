@@ -7,7 +7,7 @@ section
 /-!
 # The search gadget `U_x` of `part:hsl`
 
-Manuscript lines 2207-2217 (eq. `hsl:eq:gadget`). For a one-hot string marked
+Manuscript: eq. `hsl:eq:gadget`. For a one-hot string marked
 at `j`, `U_x = S^{j+1}(2P_u - I)` has entries `(U_x)_{ab} = 2/m - x_{a-b-1 mod m}`.
 This is literally the QLS gadget `LinearSystems.gadget m j` (entry formula
 `2/m - [a - b - 1 ≡ j]`), which is reused: it is unitary
@@ -17,7 +17,7 @@ This is literally the QLS gadget `LinearSystems.gadget m j` (entry formula
 the membership bit at position `LinearSystems.gadgetPos a b`.
 
 New here: on the known alternating vector `v = Z u`, `v_a = (-1)^a/√m`,
-`U_x v = (-1)^j v` for even `m` (line 2216, `gadget_mulVec_alt`).
+`U_x v = (-1)^j v` for even `m` (the chain construction of Section `part:hsl`, `gadget_mulVec_alt`).
 -/
 
 namespace SparseLowerBounds.Hamiltonian
@@ -80,7 +80,7 @@ theorem star_alt (a : Fin m) : star (alt m a) = alt m a := by
   simp [alt, Complex.conj_ofReal]
 
 /-- `v ⊥ u` for even `m`: `Σ_a (-1)^a = 0`, so the `2/m`-part of the gadget
-annihilates `v` (line 2216). -/
+annihilates `v` (the chain construction of Section `part:hsl`). -/
 theorem sum_alt (hm : Even m) : ∑ a, alt m a = 0 := by
   obtain ⟨k, rfl⟩ := hm
   simp only [alt, ← Finset.sum_div]
@@ -98,7 +98,7 @@ theorem alt_gadgetPos (hm : Even m) (a j : Fin m) :
   rw [neg_one_pow_eq_of_mod_two hp, pow_succ, pow_add]
   ring
 
-/-- **`U_x v = (-1)^j v`** (line 2216), for even `m`. -/
+/-- **`U_x v = (-1)^j v`** (the chain construction of Section `part:hsl`), for even `m`. -/
 theorem gadget_mulVec_alt (hm : Even m) (j : Fin m) :
     LinearSystems.gadget m j *ᵥ alt m = (-1 : ℂ) ^ (j : ℕ) • alt m := by
   funext a

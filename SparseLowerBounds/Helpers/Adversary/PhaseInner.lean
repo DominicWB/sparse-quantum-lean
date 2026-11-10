@@ -17,10 +17,9 @@ section
 /-!
 # Inner products under phase oracles
 
-Helper for `SparseLowerBounds.Query.PositiveAdversary` (manuscript lines
-3743-3797, the positive spectral adversary in the proof of Lemma
-`odel:lem:outer`). For a projection family `P` (Query/PhaseOracle) with
-remainder `R = P.rest`:
+Helper for `SparseLowerBounds.Query.PositiveAdversary` (the positive spectral adversary in the proof
+of Lemma `odel:lem:outer`). For a projection family `P` (Query/PhaseOracle) with remainder
+`R = P.rest`:
 
 * unitaries preserve inner products and norms (`inner_map_map_of_isUnitary`,
   `norm_map_of_isUnitary`);

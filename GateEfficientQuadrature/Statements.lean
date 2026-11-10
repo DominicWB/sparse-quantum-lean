@@ -5,28 +5,28 @@ import GateEfficientQuadrature.NonVacuity
 /-!
 # The sufficient source quadrature of Theorem `ode:thm:gates`: paper-to-Lean entry point
 
-Theorem `ode:thm:gates` of the accompanying paper (gate-efficient dissipative equations,
-manuscript line 4726) assumes, for time-dependent forcing, a positive source quadrature with
-nodes `v_i`, weights `w_i ≥ 0` and the normalisation `B_m = ‖x₀‖ + ∑_i w_i ‖b(v_i)‖`, and the
-certificates `ode:eq:gate-source-certificates` (line 4707)
+Theorem `ode:thm:gates` of the accompanying paper (gate-efficient dissipative equations) assumes,
+for time-dependent forcing, a positive source quadrature with nodes `v_i`, weights `w_i ≥ 0` and the
+normalisation `B_m = ‖x₀‖ + ∑_i w_i ‖b(v_i)‖`, and the certificates
+`ode:eq:gate-source-certificates`
 
 `‖x(T) - U(T, 0) x₀ - ∑_i w_i U(T, v_i) b(v_i)‖ ≤ ν B`, `0 < B_m ≤ 2B`,
 
-for `B = ‖x₀‖ + ∫_0^T ‖b(v)‖ dv` and the propagator `U` of the dissipative equation. Its proof
-then specifies a sufficient positive quadrature (lines 4857-4874): if `‖b(v)‖ ≤ b_*` and
-`Lip(b) ≤ L_b`, put `Λ_A = √s (η_D + η_H)` and `C_b = Λ_A b_* + L_b`; "contractivity gives
-Lipschitz constant at most `C_b` for `v ↦ U(T, v) b(v)`"; "a power-of-two left-endpoint mesh with
-`m ≥ max{1, T² C_b / (2 ν B)}` has vector quadrature error at most `ν B`"; and
-`|B_m - B| ≤ T² L_b / (2m) ≤ ν B`, `(1 - ν) B ≤ B_m ≤ (1 + ν) B`, hence `B_m > 0` and
-`B_m ≤ 2B`, "including when `x₀ = 0`". This library formalises these statements, without the
-propagator as a Lean object (see *Formalisation choices*). It supplies the source certificate of
-the solver on the branch-dependent meshes of Lemma `ode:lem:gate-select` (`GateEfficientSelect`),
-where the certificate is a hypothesis, and derives the budget fields of that solver from the
-paper's choice of parameters.
+for `B = ‖x₀‖ + ∫_0^T ‖b(v)‖ dv` and the propagator `U` of the dissipative equation. Its proof then
+specifies a sufficient positive quadrature: if `‖b(v)‖ ≤ b_*` and `Lip(b) ≤ L_b`, "contractivity and
+`‖A(v)‖ ≤ √s (η_D + η_H)` give Lipschitz bound `√s (η_D + η_H) b_* + L_b` for `v ↦ U(T, v) b(v)`"
+(below `Λ_A = √s (η_D + η_H)` and `C_b = Λ_A b_* + L_b`); "a power-of-two left-endpoint mesh with
+`m ≥ max{1, T² [√s (η_D + η_H) b_* + L_b] / (2 ν B)}` has vector quadrature error at most `ν B`"
+(that is, `m ≥ max{1, T² C_b / (2 ν B)}`); and `|B_m - B| ≤ T² L_b / (2m) ≤ ν B`,
+`(1 - ν) B ≤ B_m ≤ (1 + ν) B`, hence `B_m > 0` and `B_m ≤ 2B`, "including when `x₀ = 0`". This
+library formalises these statements, without the propagator as a Lean object (see *Formalisation
+choices*). It supplies the source certificate of the solver on the branch-dependent meshes of Lemma
+`ode:lem:gate-select` (`GateEfficientSelect`), where the certificate is a hypothesis, and derives
+the budget fields of that solver from the paper's choice of parameters.
 
-No result from another paper is used. The released libraries are unchanged. Manuscript lines
-refer to `sparse_quantum_algorithms.tex` (v20); the labels are the stable references. Every
-theorem of the library is axiom-audited in `GateEfficientQuadrature/Audit.lean`.
+No result from another paper is used. The released libraries are unchanged. References to the
+manuscript use its labels. Every theorem of the library is axiom-audited in
+`GateEfficientQuadrature/Audit.lean`.
 
 **Naming convention.** All declarations of this library are in the namespace
 `SparseHamiltonian.GateQuad` and are named relative to it below. Released declarations are named
@@ -37,17 +37,16 @@ relative to `SparseHamiltonian` (for example `TimeDependentODE.SolvesODE`,
 of the released protocol, with `M = 2^m` slots, `m` source bits and `2^m` forcing labels
 `(true, q)` (`GateODE.Time.TParams`). The equation is `x' = -G(u) x + b(u)`
 (`TimeDependentODE.SolvesODE`, `G = -A` accretive). `Λ` bounds `‖G(u)‖` on `[0, T]` (the paper's
-`Λ_A`); `L` is the Lipschitz constant of the forcing (the paper's `L_b`; the operators `Lb` of
-`LInstanceOK` are the represented dissipative branch samples, as `Hb` are the Hamiltonian ones);
-the real number `bs` (`b_s` below) bounds the forcing samples `f_q` (`b_*` for exact samples; it
-is unrelated to the released sample family `bs : ℕ → P` and to `GateSelect.ODE.bsW`); `δb`
-(`δ` below) bounds their errors. `contMass x₀ b T` is the paper's `B`, and
-`quadMass x₀ f T n = ‖x₀‖ + ∑_{q < n} (T / n) ‖f_q‖` is written `B_n` (the paper's `B_m`). A
+`√s (η_D + η_H)`, written `Λ_A` above); `L` is the Lipschitz constant of the forcing (the paper's
+`L_b`; the operators `Lb` of `LInstanceOK` are the represented dissipative branch samples, as `Hb`
+are the Hamiltonian ones); the real number `bs` (`b_s` below) bounds the forcing samples `f_q`
+(`b_*` for exact samples; it is unrelated to the released sample family `bs : ℕ → P` and to
+`GateSelect.ODE.bsW`); `δb` (`δ` below) bounds their errors. `contMass x₀ b T` is the paper's `B`,
+and `quadMass x₀ f T n = ‖x₀‖ + ∑_{q < n} (T / n) ‖f_q‖` is written `B_n` (the paper's `B_m`). A
 solution `y` of the homogeneous equation `y' = -G(u) y` on `[v, T]` with `y(v) = z` stands for
 `U(·, v) z`: for an accretive generator it is unique (`homog_eq_zero`) and, for a Lipschitz
-generator, it exists
-(`GateSelect.ODE.exists_branch_solution`), so the certificates below, stated for every such
-family, are the certificates for `U`.
+generator, it exists (`GateSelect.ODE.exists_branch_solution`), so the certificates below, stated
+for every such family, are the certificates for `U`.
 
 **What was already released (cited, not redone).**
 
@@ -182,6 +181,14 @@ certificate error equals its bound `κ = 1/8000`.
 
 **Formalisation choices.**
 
+* Sample positivity (a formal restriction): the time-dependent ODE solvers assume `Lb ≥ 0` for every
+  represented sample, the hypothesis of the formal versions of Theorem `ode:thm:time`, which that
+  theorem of the manuscript does not make (it asks of the represented samples only the uniform
+  moment and norm promises; see `TimeDependentODE/Statements.lean`). `RepresentedSampleODE` lifts it
+  for the query-level mesh solvers and the common-mesh gate solver; the conformance endpoints
+  `ManuscriptConformance.ode_thm_time`, `ode_thm_gates_time_cert` and
+  `ode_thm_gates_time_decoder_cert` hold for represented samples of any sign. The manuscript's
+  theorems are not changed.
 * The propagator `U(T, v)` of the dissipative equation is not a Lean object here; `U(T, v) z` is
   written as the value at `T` of the solution of `y' = -G(u) y` on `[v, T]` with `y(v) = z`, as in
   `GateSelect.ODE.BInstanceOK`. The paper derives the certificate from the Lipschitz bound of
@@ -195,8 +202,8 @@ certificate error equals its bound `κ = 1/8000`.
 * The certificate also allows represented forcing samples with errors `δ` (`cert_left`,
   `mass_left`, `LInstanceOK`); the paper's statement is the case `δ = 0`
   (`paper_quadrature`, `budget_disc_paper`). `Λ` is a hypothesis, any bound of `‖G(u)‖` on
-  `[0, T]` (it is not derived from the branch samples); the paper's `Λ_A = √s (η_D + η_H)` is one
-  for its sparse inputs.
+  `[0, T]` (it is not derived from the branch samples); the paper's bound `√s (η_D + η_H)` (`Λ_A`
+  above) is one for its sparse inputs.
 * The budget fields keep the released form with the quadrature mass `B_n` (as in
   `GateSelect.ODE.BInstanceOK`); `budget_disc_paper` derives them from the paper's
   `B ≤ ḡ ‖x(T)‖`, `ν = ε / (10⁴ ḡ)` and number of nodes, for a branch discretisation
@@ -218,6 +225,6 @@ certificate error equals its bound `κ = 1/8000`.
 The statement guide of `GateEfficientSelect` lists the source certificate for quadratures other
 than the left-endpoint one and the comparison `B_m ≤ 2B` as not formalised, and its
 `ODE.quad_leftEndpoint` is cruder than the paper's bound; the paper's sufficient left-endpoint
-quadrature with its constants `T² C_b / (2m)` and `T² L_b / (2m)`, and `0 < B_m ≤ 2B`, are
-formalised here.
+quadrature with its constants `T² C_b / (2m)` (with `C_b` as above) and `T² L_b / (2m)`, and
+`0 < B_m ≤ 2B`, are formalised here.
 -/

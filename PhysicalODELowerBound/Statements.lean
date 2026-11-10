@@ -9,31 +9,29 @@ set_option autoImplicit false
 # ODE lower bounds over the released solvers' physical oracles: paper-to-Lean entry point
 
 Section `odel:sec:main` of the manuscript states the access model of the dissipative-ODE lower
-bounds (lines 4105-4109: "Access is through a reversible value oracle and in-place row/column
-locators, their inverses and controls, with a coherent time address when needed") and that "The
-lower bounds thus apply to Theorems `ode:thm:main` and `ode:thm:time`" (lines 4114-4115). The
-library `AdaptiveODELowerBound` proves the lower bounds against adaptive solvers over the
-sampled-time access of the lower-bound class, with inverse and controlled calls, and connects
-Theorem `odel:thm:combined` to the physical oracle of the released general-mesh solver
-(`AdaptiveODELowerBound.Release.combined_max_release_tree`); `ConstantODELowerBound` connects the
-`g = 1` and positive semidefinite families to the physical oracle of the released
-constant-coefficient solver, without controlled calls. This library proves, over the released
-general-mesh physical oracle and its controlled and controlled-inverse call forms, Theorem
-`odel:thm:psd` (lines 4452-4466), Remark `odel:rem:homogeneous` (lines 4343-4388), eq.
-`odel:eq:hsbound` and Lemma `odel:lem:herald` (lines 4394-4407), Theorem `odel:thm:joint`
-(lines 4296-4304) and Theorem `odel:thm:combined` (lines 4133-4145), and over the released
-constant-coefficient physical oracle and its call forms the constant-coefficient results
-(Theorem `odel:thm:psd`, eq. `odel:eq:hsbound` and Lemma `odel:lem:herald`), all in family form;
-over the general-mesh oracle also the padded joint families (dense block and zero padding, proof
-of `odel:thm:joint`) and, over both oracles, the zero-padded `g = 1` families (proof of
+bounds ("The value oracle and in-place row and column locators have the canonical reversible access,
+including inverses, controls and coherent time addresses where needed") and that "the lower bounds
+apply to the upper bounds of the preceding section". The library `AdaptiveODELowerBound` proves the
+lower bounds against adaptive solvers over the sampled-time access of the lower-bound class, with
+inverse and controlled calls, and connects Theorem `odel:thm:combined` to the physical oracle of the
+released general-mesh solver (`AdaptiveODELowerBound.Release.combined_max_release_tree`);
+`ConstantODELowerBound` connects the `g = 1` and positive semidefinite families to the physical
+oracle of the released constant-coefficient solver, without controlled calls. This library proves,
+over the released general-mesh physical oracle and its controlled and controlled-inverse call forms,
+Theorem `odel:thm:psd`, Proposition `odel:rem:homogeneous`, eq. `odel:eq:hsbound` and Lemma
+`odel:lem:herald`, Theorem `odel:thm:joint` and Theorem `odel:thm:combined`, and over the released
+constant-coefficient physical oracle and its call forms the constant-coefficient results (Theorem
+`odel:thm:psd`, eq. `odel:eq:hsbound` and Lemma `odel:lem:herald`), all in family form; over the
+general-mesh oracle also the padded joint families (dense block and zero padding, proof of
+`odel:thm:joint`) and, over both oracles, the zero-padded `g = 1` families (proof of
 `odel:thm:combined`). All declarations below are in the namespace `PhysicalODELowerBound`.
 
 * Theorem `odel:thm:psd` (eq. `odel:eq:psd`): `Mesh.psd_mesh` (general-mesh oracle) and
   `Const.psd_const` (constant-coefficient oracle); max forms `Mesh.psd_max_cost_mesh`,
   `Const.psd_max_cost_const`; the max form of `ConstantODELowerBound`, restated:
   `Const.psd_max_const_tree_of_const`.
-* Remark `odel:rem:homogeneous`: `Mesh.hom_forces_mesh`, `Mesh.hom_witness_mesh`.
-* Theorem `odel:thm:joint` and its padding (lines 4335-4340): `Mesh.joint_forces_mesh`,
+* Proposition `odel:rem:homogeneous`: `Mesh.hom_forces_mesh`, `Mesh.hom_witness_mesh`.
+* Theorem `odel:thm:joint` and its padding: `Mesh.joint_forces_mesh`,
   `Mesh.joint_witness_mesh`, `Mesh.joint_forces_pad_mesh`, `Mesh.joint_witness_pad_mesh`,
   `Mesh.joint_common_dimension_mesh`, `Mesh.joint_qubit_register_mesh`.
 * Eq. `odel:eq:hsbound` and Lemma `odel:lem:herald`: `Mesh.herald_witness_mesh`,
@@ -42,17 +40,16 @@ of `odel:thm:joint`) and, over both oracles, the zero-padded `g = 1` families (p
   `Mesh.herald_max_cost_mesh`, `Mesh.herald_max_cost_pad_mesh`, `Const.herald_max_cost_const`,
   `Const.herald_max_cost_pad_const`; the max form of `ConstantODELowerBound`, restated:
   `Const.herald_max_const_tree_of_const`.
-* Theorem `odel:thm:combined` and the padding of its proof (lines 4437-4445): `Mesh.combined_mesh`,
+* Theorem `odel:thm:combined` and the padding of its proof: `Mesh.combined_mesh`,
   `Mesh.combined_pad_mesh`, `Mesh.combined_common_dimension_mesh`,
   `Mesh.combined_qubit_register_mesh`; max forms `Mesh.combined_max_cost_mesh`,
   `Mesh.combined_max_cost_pad_mesh`; the released max form, restated:
-  `Mesh.combined_max_release_tree_of_mesh`.
-  Its fourth sentence (lines 4143-4144, the precision terms witnessed by `g = 1` families):
-  `Mesh.precision_terms_witness_mesh`, `Mesh.precision_terms_witness_pad_mesh`,
-  `Const.precision_terms_witness_const`, `Const.precision_terms_witness_pad_const`.
-* Controlled and inverse calls (the encoding for the proof of Theorem `odel:thm:joint`, lines
-  4290-4294: a value query costs at most two Boolean membership queries, "The same holds for
-  inverse and controlled calls"):
+  `Mesh.combined_max_release_tree_of_mesh`. Its fourth sentence (Theorem `odel:thm:combined`, the
+  precision terms witnessed by `g = 1` families): `Mesh.precision_terms_witness_mesh`,
+  `Mesh.precision_terms_witness_pad_mesh`, `Const.precision_terms_witness_const`,
+  `Const.precision_terms_witness_pad_const`.
+* Controlled and inverse calls (the construction before Theorem `odel:thm:joint`: a value query
+  "uses at most two membership queries, also for inverse and controlled calls"):
   `Access.implementsOn_mesh_calls` (Boolean programs for every call form of the general-mesh
   oracle), `Access.searchGrowth_mesh_calls`, `Const.searchGrowth_const_calls` and
   `Access.searchGrowth_callFamily` (search-weight growth of every call form).
@@ -77,7 +74,7 @@ workspace), every call form weighted as its label.
 `SparseLinearSystems.Protocol.Tree O Fl E` (fresh measured runs, branching on the outcomes, then a
 heralded final protocol), an isometric readout, success mass at least `2/3` on every input and
 conditional output within trace distance `ε` of the normalised endpoint
-(`AdaptiveHamiltonianLowerBound.DensityAccurate`, lines 4111-4113). Retry protocols
+(`AdaptiveHamiltonianLowerBound.DensityAccurate`, Section `odel:sec:main`). Retry protocols
 (`ODELowerBoundExtensions.Release.RetrySolver`) are the trees `Tree.final`
 (`AdaptiveODELowerBound.Model.retryToTree`).
 
@@ -216,9 +213,9 @@ Every theorem of the library, and every `Prop`-valued field of `Mesh.MeshWitness
   oracle workspaces, as the package adversary does; both physical access shapes are
   finite-dimensional.
 * The time-dependent families (the joint family, its paddings and the homogeneous variant) are
-  treated over the general-mesh oracle only: they are not constant-coefficient equations (lines
-  4151-4155 and 4385-4387). The constant-coefficient families (`g = 1` and positive semidefinite,
-  and their zero paddings) are treated over both oracles.
+  treated over the general-mesh oracle only: they are not constant-coefficient equations (Section
+  `odel:sec:main` and Proposition `odel:rem:homogeneous`). The constant-coefficient families
+  (`g = 1` and positive semidefinite, and their zero paddings) are treated over both oracles.
 * Known padding registers range over `Type`, the universe of the families in `MeshForces` and
   `ConstForces` and of the released normal-form lemma
   `ODELowerBoundExtensions.Release.physicalOracle_normal_form` (the released physical oracles
@@ -227,8 +224,9 @@ Every theorem of the library, and every `Prop`-valued field of `Mesh.MeshWitness
   `LowerBoundRemarks.HamiltonianPadding.PadTo S Nd : Type`.
 * Hypotheses are those of the lifted statements, not the manuscript's (`τ ≥ 1` in `PsdRange`,
   where the manuscript has `τ ≥ 2`).
-* As in the manuscript (lines 4443-4444), the max and family forms are worst-case statements over
-  the class: the terms are witnessed by different families and are not multiplied.
+* As in the manuscript (proof of Theorem `odel:thm:combined`), the max and family forms are
+  worst-case statements over the class: the terms are witnessed by different families and are not
+  multiplied.
 
 **Not formalised.**
 
@@ -245,10 +243,10 @@ Every theorem of the library, and every `Prop`-valued field of `Mesh.MeshWitness
   Section `odel:sec:main`, require public ones).
 * One call applying different labels or call forms on different branches (as in
   `AdaptiveODELowerBound`).
-* The time-dependent families over the constant-coefficient oracle of `ode:thm:main`, and the
-  joint `ḡ √s τ` lower bound for constant-coefficient equations, which the manuscript does not
-  prove (lines 4151-4155); no constant-error `Ω(√s τ)` bound for the purely dissipative subclass
-  (lines 4573-4578).
+* The time-dependent families over the constant-coefficient oracle of `ode:thm:main`, and the joint
+  `ḡ √s τ` lower bound for constant-coefficient equations, which the manuscript does not prove
+  (Section `odel:sec:main`); no constant-error `Ω(√s τ)` bound for the purely dissipative subclass
+  (Theorem `odel:thm:psd`).
 * Measurements inside a run followed by classically controlled operations, measurements with
   more than two outcomes, and circuit, workspace and classical costs (as for the adaptive ODE
   lower bounds); source preparation calls weigh `0`.
@@ -257,12 +255,10 @@ Every theorem of the library, and every `Prop`-valued field of `Mesh.MeshWitness
 `SparseLowerBounds`, `TimeDependentExtensions`, `ODELowerBoundExtensions`,
 `AdaptiveHamiltonianLowerBound`, `AdaptiveODELowerBound` and `ConstantODELowerBound` are only
 imported; no released module is changed. `ODELowerBoundExtensions/Statements.lean`
-(released-oracle forms of Theorem `odel:thm:psd`, Remark `odel:rem:homogeneous` and the padded
+(released-oracle forms of Theorem `odel:thm:psd`, Proposition `odel:rem:homogeneous` and the padded
 families) and `AdaptiveODELowerBound/Statements.lean` (controlled calls of the released physical
 oracle, family forms and those forms over it) predate this library; the notes of these two that
 these are not formalised are superseded here, and `ConstantODELowerBound/Statements.lean` points
 to this library for controlled calls, padding and family forms over the constant-coefficient
-oracle. Line numbers in this guide and in the module docstrings refer to an earlier manuscript
-version (in Part `odel` they are about 550 lines lower than in the v15 manuscript accompanying
-this release); the paper labels are the stable references.
+oracle. References to the manuscript use its labels.
 -/

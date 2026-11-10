@@ -7,15 +7,15 @@ set_option autoImplicit false
 /-!
 # Record-selected calls of the call forms of any oracle family
 
-Manuscript Section `odel:sec:main`, lines 3669-3673 ("their inverses and controls"). The call
-forms `AdaptiveODELowerBound.Access.callFamily O` of a labelled family `O` act on
+Manuscript Section `odel:sec:main` ("including inverses, controls and coherent time addresses where
+needed"). The call forms `AdaptiveODELowerBound.Access.callFamily O` of a labelled family `O` act on
 control ⊗ workspace; plain and inverse forms act on both control sectors, controlled forms on the
 control sector `1` only. After flattening the records and the control bit into one register
 (`callFlat`), a record-selected call of the call forms is a record-selected call of `O` itself
-(`patOp_callFlat`), with the mask and direction of `formSelOf`. These are the label-generic forms
-of `DeferredMeasurementLowerBounds.Access.formSel` and `callOpt_callFamily_apply`, which are
-stated for the matrix labels `Query`: `formSel_eq_formSelOf` and
-`callOpt_callFamily_apply_query` recover them as the instance `L₀ = Query`.
+(`patOp_callFlat`), with the mask and direction of `formSelOf`. These are the label-generic forms of
+`DeferredMeasurementLowerBounds.Access.formSel` and `callOpt_callFamily_apply`, which are stated for
+the matrix labels `Query`: `formSel_eq_formSelOf` and `callOpt_callFamily_apply_query` recover them
+as the instance `L₀ = Query`.
 -/
 
 namespace ReleasedODESolverLowerBounds.Transport

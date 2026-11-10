@@ -4,8 +4,8 @@ import GateEfficientMesh.ODE.MeshTarget
 /-!
 # The gate-level time-dependent ODE solver on a nonuniform mesh
 
-Theorem `ode:thm:gates` (manuscript v15, lines 4335-4377) requires a certificate "for the same
-uniform meshes"; its scope paragraph (lines 4573-4587) notes that "an arbitrary nonuniform mesh
+Theorem `ode:thm:gates` requires a certificate "for the same
+uniform meshes"; the end of its proof notes that "an arbitrary nonuniform mesh
 obtained by inserting breakpoints does not automatically supply the equal-angle boundary
 circuit used here". Here a mesh `0 = t_0 ≤ ⋯ ≤ t_M = T` with breakpoints carries one represented
 generator sample `L_q + i H_q` and one forcing sample `b̃_q` per interval, and the released

@@ -230,8 +230,10 @@ theorem hs_all_hyps : ∃ (D : Data Unit (Cfg (Fin 0)) (Cfg (VW 1)) 1)
   exact ⟨pointData Unit 1 1, Equiv.refl _, 1, bd, _, pointData_range Unit 1 1, one_pos, hdec, hH,
     hrow, hcol, hb, h1, hz0, hz1, hz2, hz3, γ, hγ, hγ1, h.1⟩
 
-/-- **Every hypothesis of `binary_time_simulation_bits` holds at once** (the time-dependent part
-of equation `hs:eq:gate-binary`; the endpoint is not vacuous): for `s = 1 = 2^0` slot, `t = 0`,
+/-- **Every hypothesis of `binary_time_simulation_bits` holds at once** (the time-dependent
+analogue of equation `hs:eq:gate-binary`, package extension: Theorem `hs:thm:time` with the circuit
+of `hs:thm:gates` (single-label case of Lemma `ode:lem:gate-select`); the endpoint is not vacuous):
+for `s = 1 = 2^0` slot, `t = 0`,
 `ε = 1/2` and the rescaling `γ` of the endpoint, the least mesh exponent `m` with
 `steps τ' (ε/12) ≤ 2^m`, the one-point time-indexed binary data `pointData (Unit × Fin (2^m)) 1 1`
 (`b = 1`, `c₀ = 1`, zero samples) with the identity equivalence, the zero path with `β = δ = 0`,

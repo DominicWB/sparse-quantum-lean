@@ -4,8 +4,10 @@ import GateEfficientSynthesis.Binary
 /-!
 # The Hamiltonian endpoints over a finite gate set
 
-The released finite-set forms of Theorem `hs:thm:gates` (`GateSynth.native_time_simulation_synth`,
-`GateSynth.binary_time_simulation_synth`, `GateSynth.binary_time_simulation_budget_synth`)
+The released finite-set forms (`GateSynth.native_time_simulation_synth`,
+`GateSynth.binary_time_simulation_synth`, `GateSynth.binary_time_simulation_budget_synth`) of the
+package extension Theorem `hs:thm:time` with the circuit of `hs:thm:gates` (single-label case of
+Lemma `ode:lem:gate-select`)
 synthesise the native circuit with the synthesis budget `ε'` (`GateSynth.synthBudget`: every
 elementary gate at accuracy `ε'/(N+1)`) under the synthesis hypothesis `Synthesis 𝒢 X L`. The
 same synthesis applies to the endpoints of this library, with the released `synthBudget_spec`
@@ -50,13 +52,13 @@ variable {S Z Y J X : Type*} [Fintype S] [DecidableEq S] [Fintype Z] [DecidableE
 variable {R : Type*} [NormedAddCommGroup R] [InnerProductSpace ℂ R] [CompleteSpace R]
 variable {𝒢 : Set Kind} {L : ℝ → ℕ}
 
-/-- **Native time-dependent simulation under the integrated certificate over a finite gate
-set** (Theorem `hs:thm:gates`, time-dependent part, with finite-set synthesis as a hypothesis).
-Under the hypotheses of `native_time_simulation_certified` and `Synthesis 𝒢 X L`, the synthesis
-of the native circuit with the budget `ε' > 0` consists of valid gates of `𝒢` and primitive
-calls, makes exactly `12 d` times the calls of `V`, uses at most `N L(ε'/(N+1))` gates (`N` the
-native gate count), has `|X|` more qubits, and its full output with clean ancillas is within
-`ε + ε'` of `U(t)` for every integral-sense and every classical piecewise propagator whenever
+/-- **Native time-dependent simulation under the integrated certificate over a finite gate set**
+(Theorem `hs:thm:time` with the circuit of `hs:thm:gates`, with finite-set synthesis as a
+hypothesis). Under the hypotheses of `native_time_simulation_certified` and `Synthesis 𝒢 X L`, the
+synthesis of the native circuit with the budget `ε' > 0` consists of valid gates of `𝒢` and
+primitive calls, makes exactly `12 d` times the calls of `V`, uses at most `N L(ε'/(N+1))` gates
+(`N` the native gate count), has `|X|` more qubits, and its full output with clean ancillas is
+within `ε + ε'` of `U(t)` for every integral-sense and every classical piecewise propagator whenever
 the certificate on the uniform slots is at most `ε / 4`. -/
 theorem native_time_simulation_certified_synth (hS : Synthesis 𝒢 X L) (ε' : ℝ) (hε' : 0 < ε')
     (a m : ℕ) (prim : J → Reg Y R →L[ℂ] Reg Y R) (hprim : ∀ j, IsUnitary (prim j))
@@ -136,13 +138,12 @@ theorem native_time_simulation_certified_synth (hS : Synthesis 𝒢 X L) (ε' : 
     exact (norm_sysEmb _ (fun φ => by rw [io_apply, norm_bas]) ψ).le
 
 /-- **Native time-dependent simulation on a nonuniform mesh over a finite gate set** (Theorem
-`hs:thm:gates`, time-dependent part, extended by uniform refinement to nonuniform meshes with
-breakpoints, with finite-set synthesis as a hypothesis).
-Under the hypotheses of `native_time_simulation_mesh` and `Synthesis 𝒢 X L`, the synthesis of
-the native circuit with the budget `ε' > 0` has the counts of
-`native_time_simulation_certified_synth`, and its full output with clean ancillas is within
-`ε + ε'` of `U(T)` for every integral-sense and every classical piecewise propagator (one piece
-per mesh interval) whenever the mesh certificate is at most `ε / 8`. -/
+`hs:thm:time` with the circuit of `hs:thm:gates`, extended by uniform refinement to nonuniform
+meshes with breakpoints, with finite-set synthesis as a hypothesis). Under the hypotheses of
+`native_time_simulation_mesh` and `Synthesis 𝒢 X L`, the synthesis of the native circuit with the
+budget `ε' > 0` has the counts of `native_time_simulation_certified_synth`, and its full output with
+clean ancillas is within `ε + ε'` of `U(T)` for every integral-sense and every classical piecewise
+propagator (one piece per mesh interval) whenever the mesh certificate is at most `ε / 8`. -/
 theorem native_time_simulation_mesh_synth (hS : Synthesis 𝒢 X L) (ε' : ℝ) (hε' : 0 < ε')
     (a m M : ℕ) (hM : 0 < M) (prim : J → Reg Y R →L[ℂ] Reg Y R)
     (hprim : ∀ j, IsUnitary (prim j))
@@ -227,15 +228,15 @@ variable {X n : Type*} [Fintype n] [DecidableEq n] {s k b m M : ℕ}
 variable {R : Type*} [NormedAddCommGroup R] [InnerProductSpace ℂ R] [CompleteSpace R]
 variable {Xa : Type*} [Fintype Xa] [DecidableEq Xa] {𝒢 : Set Kind} {L : ℝ → ℕ}
 
-/-- **Time-dependent simulation from binary data under the integrated certificate over a finite
-gate set** (Theorem `hs:thm:gates`, time-dependent part, for time-indexed binary sparse oracles,
-with finite-set synthesis as a hypothesis). Under the hypotheses of
-`binary_time_simulation_certified` and `Synthesis 𝒢 Xa L`, the synthesis of `binaryTimeSim`
-with the budget `ε' > 0` consists of valid gates of `𝒢` and primitive calls, makes `12 d` times
-`2` row, `2` column and `1` value calls, uses at most `N L(ε'/(N+1))` gates (`N` the native
-gate count), has `|Xa|` more qubits, and its full output with clean ancillas is within
-`ε + ε'` of `U(t)` for every integral-sense and every classical piecewise propagator of the
-lifted path whenever the certificate on the uniform slots is at most `ε / 4`. -/
+/-- **Time-dependent simulation from binary data under the integrated certificate over a finite gate
+set** (Theorem `hs:thm:time` with the circuit of `hs:thm:gates`, for time-indexed binary sparse
+oracles, with finite-set synthesis as a hypothesis). Under the hypotheses of
+`binary_time_simulation_certified` and `Synthesis 𝒢 Xa L`, the synthesis of `binaryTimeSim` with the
+budget `ε' > 0` consists of valid gates of `𝒢` and primitive calls, makes `12 d` times `2` row, `2`
+column and `1` value calls, uses at most `N L(ε'/(N+1))` gates (`N` the native gate count), has
+`|Xa|` more qubits, and its full output with clean ancillas is within `ε + ε'` of `U(t)` for every
+integral-sense and every classical piecewise propagator of the lifted path whenever the certificate
+on the uniform slots is at most `ε / 4`. -/
 theorem binary_time_simulation_certified_synth (hS : Synthesis 𝒢 Xa L) (ε' : ℝ) (hε' : 0 < ε')
     (D : Data (X × Fin (2 ^ m)) n (Cfg (VW b)) s)
     (en : Cfg (Fin k) ≃ n) (σ : ℕ) (hσ : σ ≤ k) (hs : s = 2 ^ σ)
@@ -326,13 +327,13 @@ theorem binary_time_simulation_certified_synth (hS : Synthesis 𝒢 Xa L) (ε' :
     exact (norm_sysEmb _ (fun φ => by rw [io_apply, norm_bas]) ψ).le
 
 /-- **Time-dependent simulation from binary data on a nonuniform mesh over a finite gate set**
-(Theorem `hs:thm:gates`, time-dependent part, for binary sparse oracles, extended by uniform
-refinement to nonuniform meshes with breakpoints, with finite-set synthesis as a hypothesis).
-Under the hypotheses of `binary_time_simulation_mesh` and `Synthesis 𝒢 Xa L`, the synthesis of
-`binaryTimeSim` (run on the clock data `clockData D_m`) with the budget `ε' > 0` has the counts
-of `binary_time_simulation_certified_synth`, and its full output with clean ancillas is within
-`ε + ε'` of `U(T)` for every integral-sense and every classical piecewise propagator (one piece
-per mesh interval) of the lifted path whenever the mesh certificate is at most `ε / 8`. -/
+(Theorem `hs:thm:time` with the circuit of `hs:thm:gates`, for binary sparse oracles, extended by
+uniform refinement to nonuniform meshes with breakpoints, with finite-set synthesis as a
+hypothesis). Under the hypotheses of `binary_time_simulation_mesh` and `Synthesis 𝒢 Xa L`, the
+synthesis of `binaryTimeSim` (run on the clock data `clockData D_m`) with the budget `ε' > 0` has
+the counts of `binary_time_simulation_certified_synth`, and its full output with clean ancillas is
+within `ε + ε'` of `U(T)` for every integral-sense and every classical piecewise propagator (one
+piece per mesh interval) of the lifted path whenever the mesh certificate is at most `ε / 8`. -/
 theorem binary_time_simulation_mesh_synth (hS : Synthesis 𝒢 Xa L) (ε' : ℝ) (hε' : 0 < ε')
     (D : Data (X × Fin M) n (Cfg (VW b)) s) (hM : 0 < M)
     (en : Cfg (Fin k) ≃ n) (σ : ℕ) (hσ : σ ≤ k) (hs : s = 2 ^ σ)
@@ -424,20 +425,19 @@ theorem binary_time_simulation_mesh_synth (hS : Synthesis 𝒢 Xa L) (ε' : ℝ)
 
 end Binary
 
-/-- **The gate budget of the time-dependent binary construction under the integrated
-certificate over a finite gate set** (Theorem `hs:thm:gates`, time-dependent part, equation
-`hs:eq:gate-total` with the binary-data construction and finite-set synthesis as a hypothesis).
-The rescaling `γ` of `binary_time_simulation_budget_certified` is chosen from `s`, `t` and `ε`
-before the gate set, the synthesis budget, the data and the path, with `d ≤ 4608 q`. For every
-gate set with a logarithmic synthesis length `L ζ ≤ c₁ log(1/ζ) + c₀`, every synthesis budget
-`0 < ε' ≤ 1` and all data as in `binary_time_simulation_budget_certified` (the slot exponent
-constrained only by the subdivision condition), the synthesised circuit consists of valid gates
-of `𝒢` and primitive calls, makes at most `55296 q` times `2` row, `2` column and `1` value calls,
-uses at most `G (c₁ log((G+1)/ε') + c₀)` gates with the pre-synthesis budget
-`G = 200 (4608 q + 1)(G_C + (σ+1) + (k+1) + m + r + 1)`, `2^r ≤ 4 (4608 q + 1)`, and its full
-output is within `ε + ε'` of `U(t)` for every integral-sense propagator of the lift of every
-matrix path that is Hermitian almost everywhere and interval integrable with certificate at most
-`ε / 4`. -/
+/-- **The gate budget of the time-dependent binary construction under the integrated certificate
+over a finite gate set** (Theorem `hs:thm:time` with the circuit of `hs:thm:gates`, equation
+`hs:eq:gate-total` with the binary-data construction and finite-set synthesis as a hypothesis). The
+rescaling `γ` of `binary_time_simulation_budget_certified` is chosen from `s`, `t` and `ε` before
+the gate set, the synthesis budget, the data and the path, with `d ≤ 4608 q`. For every gate set
+with a logarithmic synthesis length `L ζ ≤ c₁ log(1/ζ) + c₀`, every synthesis budget `0 < ε' ≤ 1`
+and all data as in `binary_time_simulation_budget_certified` (the slot exponent constrained only by
+the subdivision condition), the synthesised circuit consists of valid gates of `𝒢` and primitive
+calls, makes at most `55296 q` times `2` row, `2` column and `1` value calls, uses at most
+`G (c₁ log((G+1)/ε') + c₀)` gates with the pre-synthesis budget
+`G = 200 (4608 q + 1)(G_C + (σ+1) + (k+1) + m + r + 1)`, `2^r ≤ 4 (4608 q + 1)`, and its full output
+is within `ε + ε'` of `U(t)` for every integral-sense propagator of the lift of every matrix path
+that is Hermitian almost everywhere and interval integrable with certificate at most `ε / 4`. -/
 theorem binary_time_simulation_budget_certified_synth (s : ℕ) (hs1 : 1 ≤ s) (t ε : ℝ)
     (ht : 0 ≤ t) (hε : 0 < ε) (hε1 : ε ≤ 1) :
     ∃ γ : ℝ, 0 < γ ∧ γ ≤ 1 ∧ 1 ≤ γ * Real.sqrt s ∧

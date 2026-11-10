@@ -7,13 +7,13 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # Value calls of the hard ODE data, their inverses and controlled forms
 
-Manuscript lines 4289-4294: "A matrix value query is implemented using at most two Boolean
-membership queries, by computing the relevant bit, writing the known entry, and uncomputing the
-bit. The same holds for inverse and controlled calls." and lines 4119-4120 (public location lists
-and unitary extensions, so the bounds hold when locators are free).
+Manuscript: the construction before Theorem `odel:thm:joint`, "A value query computes one relevant
+membership bit, writes the known entry and uncomputes the bit. It therefore uses at most two
+membership queries, also for inverse and controlled calls", and Section `odel:sec:main` (public
+location lists and unitary extensions, so the bounds hold when locators are free).
 
 For the joint family of Theorem `odel:thm:joint` (`SparseLowerBounds.ODE.jointFamily`) and the
-homogeneous family of Remark `odel:rem:homogeneous` (`Homogeneous.homFamily`), with any branch
+homogeneous family of Proposition `odel:rem:homogeneous` (`Homogeneous.homFamily`), with any branch
 register `ι`:
 
 * `implementsOn_calls_joint`, `implementsOn_calls_hom`: every call form (plain, inverse,
@@ -37,10 +37,10 @@ open ODELowerBoundExtensions.Homogeneous (homFamily homBoolean homBusy HomIndex)
 -- The nested time-addressed workspaces exceed the default instance size.
 set_option synthInstance.maxSize 1024
 
-/-- **Value calls of the joint family, their inverses and controlled forms cost at most two
-Boolean queries** (lines 4289-4294): every call form of every sampled-time label of the joint
-family is implemented on the call encoding by at most `hardCost` membership queries (two per
-value call, none per location call). -/
+/-- **Value calls of the joint family, their inverses and controlled forms cost at most two Boolean
+queries** (the construction before Theorem `odel:thm:joint`): every call form of every sampled-time
+label of the joint family is implemented on the call encoding by at most `hardCost` membership
+queries (two per value call, none per location call). -/
 theorem implementsOn_calls_joint (ι : Type*) [Fintype ι] {M n μ s : ℕ} (hμ : 1 ≤ μ)
     (hμs : 2 ^ μ ≤ s) (T : ℝ) (hT : (n : ℝ) * (Real.pi / 2) + 1 ≤ T) (c : Query × CallForm) :
     EncodedOracle.ImplementsOn
@@ -67,9 +67,10 @@ theorem calls_locator_const_joint (ι : Type*) [Fintype ι] {M n μ s : ℕ} (h�
   rw [h0] at h
   exact h.independent_of_zero (callEncoding_isometry _ ancillaEmbed_isometry) x x'
 
-/-- **Value calls of the homogeneous family, their inverses and controlled forms cost at most
-two Boolean queries** (lines 4289-4294, 4383-4385): every call form of every sampled-time label
-is implemented on the call encoding by at most `hardCost` membership queries. -/
+/-- **Value calls of the homogeneous family, their inverses and controlled forms cost at most two
+Boolean queries** (the construction before Theorem `odel:thm:joint` and Proposition
+`odel:rem:homogeneous`): every call form of every sampled-time label is implemented on the call
+encoding by at most `hardCost` membership queries. -/
 theorem implementsOn_calls_hom (ι : Type*) [Fintype ι] {M n μ s : ℕ} (hμ : 1 ≤ μ)
     (hμs : 2 ^ μ ≤ s) (T : ℝ) (hT : homBusy M n ≤ T) (c : Query × CallForm) :
     EncodedOracle.ImplementsOn

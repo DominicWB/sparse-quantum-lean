@@ -15,8 +15,8 @@ import GateEfficientNative.ODE.Time
   simulator words satisfy `2^m < 2 (2 + 4τ + √(6τ³/ε))` with `τ ≤ √s q` and
   `2^r ≤ 4 (4608 q + 1)`. With per-call costs `G_C + C_J + a` polynomial in
   the data bit length, `log (N+1)` and `log (1/ζ)`, this is the paper's
-  `q · poly(b_data, log (N+1), log ((q+1)/ε))` (using `s ≤ N` and
-  `ζ = ε/(48d)`).
+  `Q_base · poly(b_data, log (N+1), log ((Q_base+1)/ε))` with `Q_base = q` (using
+  `s ≤ N` and `ζ = ε/(48d)`).
 * `native_ode_gate_count`, `native_ode_time_gate_count` (the explicit counts
   underlying equation `ode:eq:gate-main`): the worst-case gate counts of the
   native ODE protocols are at most
@@ -133,8 +133,8 @@ rescaled time `τ = η √s t / γ`:
 
 So the gate count is `q` times the per-call cost plus logarithmic terms; with
 per-call costs polynomial in the data bit length, `log (N+1)` and `log (1/ζ)`
-this is `q · poly(b_data, log (N+1), log ((q+1)/ε))` (using `s ≤ N` and
-`ζ = ε/(48d)`). -/
+this is the paper's `Q_base · poly(b_data, log (N+1), log ((Q_base+1)/ε))` with
+`Q_base = q` (using `s ≤ N` and `ζ = ε/(48d)`). -/
 theorem native_sparse_counts (a : ℕ) (s η t ε : ℝ) (hs : 1 ≤ s) (hη : 0 ≤ η) (ht : 0 ≤ t)
     (hε : 0 < ε) (hεHalf : ε ≤ 1 / 2) :
     ∃ γ : ℝ, 0 < γ ∧ γ ≤ 1 ∧ 1 ≤ γ * Real.sqrt s ∧

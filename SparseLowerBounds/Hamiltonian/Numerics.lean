@@ -6,18 +6,19 @@ section
 /-!
 # Numeric facts for the three hard families
 
-Real analysis only (manuscript lines 2320-2335, 2379-2409 and 2413-2454).
+Real analysis only (the proofs of Lemmas `hsl:lem:mixed` and `hsl:lem:time` and of Theorem
+`hsl:thm:main`).
 
-* Search lemma at `β₀ = 1/4` (time family, lines 2399-2401):
+* Search lemma at `β₀ = 1/4` (time family, proof of Lemma `hsl:lem:time`):
   `4 β₀^{-1/n} ≤ 16` and `β₀^{1/(2n)} ≥ 1/2`.
-* Time family (lines 2379-2409): `n ≥ τ/π`, `0 < c ≤ 1`, amplitude
+* Time family (Lemma `hsl:lem:time`): `n ≥ τ/π`, `0 < c ≤ 1`, amplitude
   `sin(cτ/n)^n ≥ 1/2`, and the final `c_T √s τ ≤ (log 2/96) n √m`.
-* Mixed and precision families (lines 2320-2335): for `0 < τ ≤ n`,
+* Mixed and precision families (proof of Lemma `hsl:lem:mixed`): for `0 < τ ≤ n`,
   `(τ/(2n))^n ≤ sin(τ/n)^n`; with `β₀ = sin(τ/n)^n/2` and `n ≥ 2`,
   `4 β₀^{-1/n} ≤ 16n/τ` and `β₀^{1/(2n)} ≥ ½ √(τ/n)`.
-* Main parameters with `L ≥ 64τ` (lines 2413-2454): `log(e + z) ≤ z/8` for
+* Main parameters with `L ≥ 64τ` (proof of Theorem `hsl:thm:main`): `log(e + z) ≤ z/8` for
   `z ≥ 64`, eq. `hsl:eq:nrange`, eq. `hsl:eq:precisionchoice` in the form
-  `(τ/(2n))^n ≥ 16ε` (also used by Lemma `odel:lem:herald`, line 3991),
+  `(τ/(2n))^n ≥ 16ε` (also used by Lemma `odel:lem:herald`),
   eqs. `hsl:eq:rbound`, `hsl:eq:mixrbound`, `hsl:eq:failedmix`, and the mixed
   family's condition `m ≥ 16n/τ`.
 
@@ -40,7 +41,7 @@ variable {τ ε : ℝ} {s n : ℕ}
 
 /-! ### Elementary inequalities -/
 
-/-- `⌊x⌋ ≥ x/2` for `x ≥ 1` (used for `n ≥ τ/π`, line 2405, and `n ≥ r/8`,
+/-- `⌊x⌋ ≥ x/2` for `x ≥ 1` (used for `n ≥ τ/π`, proof of Lemma `hsl:lem:time`, and `n ≥ r/8`,
 eq. `hsl:eq:nrange`). -/
 theorem half_le_floor {x : ℝ} (hx : 1 ≤ x) : x / 2 ≤ ⌊x⌋₊ := by
   have h1 := Nat.lt_floor_add_one x
@@ -49,7 +50,8 @@ theorem half_le_floor {x : ℝ} (hx : 1 ≤ x) : x / 2 ≤ ⌊x⌋₊ := by
     exact_mod_cast this
   linarith
 
-/-- `sin x ≥ x/2` on `[0, 1]` (weaker than Jordan's `sin x ≥ 2x/π`; line 2322). -/
+/-- `sin x ≥ x/2` on `[0, 1]` (weaker than Jordan's `sin x ≥ 2x/π`; proof of Lemma
+`hsl:lem:mixed`). -/
 theorem sin_ge_half_mul {x : ℝ} (hx0 : 0 ≤ x) (hx1 : x ≤ 1) : x / 2 ≤ Real.sin x := by
   have hpi := Real.one_le_pi_div_two
   have hpi4 := Real.pi_le_four
@@ -59,7 +61,7 @@ theorem sin_ge_half_mul {x : ℝ} (hx0 : 0 ≤ x) (hx1 : x ≤ 1) : x / 2 ≤ Re
     nlinarith
   linarith
 
-/-- `sin 1 > 1/2` (line 2391). -/
+/-- `sin 1 > 1/2` (proof of Lemma `hsl:lem:time`). -/
 theorem half_lt_sin_one : 1 / 2 < Real.sin 1 := by
   have := Real.sin_gt_sub_cube (x := 1) one_pos
   norm_num at this
@@ -99,14 +101,14 @@ theorem half_le_two_rpow_neg_inv (n : ℕ) : 1 / 2 ≤ (2 : ℝ) ^ (-(1 : ℝ) /
   calc (1 / 2 : ℝ) = 2 ^ (-(1 : ℝ)) := by rw [Real.rpow_neg_one]; norm_num
     _ ≤ 2 ^ (-(1 : ℝ) / n) := Real.rpow_le_rpow_of_exponent_le (by norm_num) h
 
-/-- `2^{1/n} ≤ 2` for `n ≥ 1` (line 2327). -/
+/-- `2^{1/n} ≤ 2` for `n ≥ 1` (proof of Lemma `hsl:lem:mixed`). -/
 theorem two_rpow_inv_le_two (hn : 1 ≤ n) : (2 : ℝ) ^ (1 / (n : ℝ)) ≤ 2 := by
   have hn' : (1 : ℝ) ≤ n := by exact_mod_cast hn
   have h1 : 1 / (n : ℝ) ≤ 1 := by rw [div_le_one₀ (by linarith)]; exact hn'
   calc (2 : ℝ) ^ (1 / (n : ℝ)) ≤ 2 ^ (1 : ℝ) := Real.rpow_le_rpow_of_exponent_le (by norm_num) h1
     _ = 2 := Real.rpow_one 2
 
-/-- `2^{-1/(2n)} ≥ 1/√2` for `n ≥ 1` (line 2333). -/
+/-- `2^{-1/(2n)} ≥ 1/√2` for `n ≥ 1` (proof of Lemma `hsl:lem:mixed`). -/
 theorem inv_sqrt_two_le_two_rpow (hn : 1 ≤ n) :
     1 / Real.sqrt 2 ≤ (2 : ℝ) ^ (-(1 : ℝ) / (2 * n)) := by
   have hn' : (1 : ℝ) ≤ n := by exact_mod_cast hn
@@ -117,8 +119,8 @@ theorem inv_sqrt_two_le_two_rpow (hn : 1 ≤ n) :
   rw [neg_div, neg_le_neg_iff, div_le_div_iff₀ (by linarith) (by norm_num)]
   linarith
 
-/-- `(x^n/2)^{-1/n} = 2^{1/n}/x` for `x > 0` (the equality in line 2326, with
-`x = sin(τ/n)`). -/
+/-- `(x^n/2)^{-1/n} = 2^{1/n}/x` for `x > 0` (an equality of the proof of Lemma
+`hsl:lem:mixed`, with `x = sin(τ/n)`). -/
 theorem pow_div_two_rpow_neg_inv (hn : 1 ≤ n) {x : ℝ} (hx : 0 < x) :
     (x ^ n / 2) ^ (-(1 : ℝ) / n) = (2 : ℝ) ^ (1 / (n : ℝ)) / x := by
   have hn0 : (n : ℝ) ≠ 0 := Nat.cast_ne_zero.mpr (by omega)
@@ -128,8 +130,8 @@ theorem pow_div_two_rpow_neg_inv (hn : 1 ≤ n) {x : ℝ} (hx : 0 < x) :
   rw [e, Real.rpow_neg_one, neg_div, Real.rpow_neg (by norm_num), div_inv_eq_mul,
     inv_mul_eq_div]
 
-/-- `(x^n/2)^{1/(2n)} = 2^{-1/(2n)} √x` for `x > 0` (the equality in
-line 2333, with `x = sin(τ/n)`). -/
+/-- `(x^n/2)^{1/(2n)} = 2^{-1/(2n)} √x` for `x > 0` (an equality of
+the proof of Lemma `hsl:lem:mixed`, with `x = sin(τ/n)`). -/
 theorem pow_div_two_rpow_root (hn : 1 ≤ n) {x : ℝ} (hx : 0 < x) :
     (x ^ n / 2) ^ (1 / (2 * (n : ℝ))) = (2 : ℝ) ^ (-(1 : ℝ) / (2 * n)) * Real.sqrt x := by
   have hn0 : (n : ℝ) ≠ 0 := Nat.cast_ne_zero.mpr (by omega)
@@ -141,19 +143,19 @@ theorem pow_div_two_rpow_root (hn : 1 ≤ n) {x : ℝ} (hx : 0 < x) :
 
 /-! ### The search lemma at `β₀ = 1/4` -/
 
-/-- `4 β₀^{-1/n} ≤ 16` at `β₀ = 1/4` (line 2400). -/
+/-- `4 β₀^{-1/n} ≤ 16` at `β₀ = 1/4` (proof of Lemma `hsl:lem:time`). -/
 theorem quarter_hyp (hn : 1 ≤ n) : 4 * (1 / 4 : ℝ) ^ (-(1 : ℝ) / n) ≤ 16 := by
   rw [quarter_rpow_neg_inv]
   linarith [four_rpow_inv_le hn]
 
-/-- `β₀^{1/(2n)} ≥ 1/2` at `β₀ = 1/4` (line 2401). -/
+/-- `β₀^{1/(2n)} ≥ 1/2` at `β₀ = 1/4` (proof of Lemma `hsl:lem:time`). -/
 theorem quarter_root (n : ℕ) : (1 / 2 : ℝ) ≤ (1 / 4 : ℝ) ^ (1 / (2 * (n : ℝ))) := by
   rw [quarter_rpow_root]
   exact half_le_two_rpow_neg_inv n
 
 /-! ### Time family -/
 
-/-- For `τ < π/2`, `n = 1` (line 2390). -/
+/-- For `τ < π/2`, `n = 1` (Lemma `hsl:lem:time`). -/
 theorem timeN_eq_one_of_lt (hτ : τ < Real.pi / 2) : timeN τ = 1 := by
   unfold timeN
   have : ⌊2 * τ / Real.pi⌋₊ = 0 :=
@@ -161,7 +163,7 @@ theorem timeN_eq_one_of_lt (hτ : τ < Real.pi / 2) : timeN τ = 1 := by
   rw [this]
   rfl
 
-/-- For `0 < τ < π/2`, `c = 1` (line 2390). -/
+/-- For `0 < τ < π/2`, `c = 1` (Lemma `hsl:lem:time`). -/
 theorem timeC_eq_one_of_lt (hτ0 : 0 < τ) (hτ : τ < Real.pi / 2) : timeC τ = 1 := by
   unfold timeC
   rw [timeN_eq_one_of_lt hτ]
@@ -177,7 +179,7 @@ theorem timeN_eq_floor (hτ : Real.pi / 2 ≤ τ) : timeN τ = ⌊2 * τ / Real.
   rw [Nat.cast_one, le_div_iff₀ Real.pi_pos]
   linarith
 
-/-- For `τ ≥ π/2`, `cτ/n = π/2` (lines 2389-2390). -/
+/-- For `τ ≥ π/2`, `cτ/n = π/2` (Lemma `hsl:lem:time`). -/
 theorem timeC_mul_div_timeN (hτ : Real.pi / 2 ≤ τ) :
     timeC τ * τ / timeN τ = Real.pi / 2 := by
   have hpi := Real.pi_pos
@@ -196,7 +198,7 @@ theorem timeC_mul_div_timeN (hτ : Real.pi / 2 ≤ τ) :
   rw [hc]
   field_simp
 
-/-- `n ≥ τ/π` (line 2405). -/
+/-- `n ≥ τ/π` (proof of Lemma `hsl:lem:time`). -/
 theorem tau_div_pi_le_timeN (_hτ : 0 < τ) : τ / Real.pi ≤ timeN τ := by
   have hpi := Real.pi_pos
   have hn1 : (1 : ℝ) ≤ timeN τ := by exact_mod_cast one_le_timeN τ
@@ -209,15 +211,15 @@ theorem tau_div_pi_le_timeN (_hτ : 0 < τ) : τ / Real.pi ≤ timeN τ := by
   · have h' := lt_of_not_ge h
     linarith
 
-/-- `c > 0` (line 2386). -/
+/-- `c > 0` (proof of Lemma `hsl:lem:time`). -/
 theorem timeC_pos (hτ : 0 < τ) : 0 < timeC τ := by
   have hn : (0 : ℝ) < timeN τ := Nat.cast_pos.mpr (one_le_timeN τ)
   exact lt_min one_pos (div_pos (mul_pos Real.pi_pos hn) (by linarith))
 
-/-- `c ≤ 1` (line 2386). -/
+/-- `c ≤ 1` (proof of Lemma `hsl:lem:time`). -/
 theorem timeC_le_one (τ : ℝ) : timeC τ ≤ 1 := min_le_left _ _
 
-/-- The time family's amplitude is at least `1/2` (lines 2389-2391: exactly
+/-- The time family's amplitude is at least `1/2` (Lemma `hsl:lem:time`: exactly
 one for `τ ≥ π/2`, `sin τ ≥ sin 1 > 1/2` otherwise). -/
 theorem half_le_timeAmp (hτ : 1 ≤ τ) :
     1 / 2 ≤ Real.sin (timeC τ * τ / timeN τ) ^ timeN τ := by
@@ -242,7 +244,7 @@ theorem sqrt_div_two_lt_sqrt_hsM (hs : 2 ≤ s) :
   rw [Real.lt_sqrt (by positivity), h4]
   linarith
 
-/-- **Eq. `hsl:eq:timelower`, arithmetic** (lines 2403-2409):
+/-- **Eq. `hsl:eq:timelower`, arithmetic** (Lemma `hsl:lem:time`):
 `n ≥ τ/π` and `m > s/4` turn `(log 2/96) n √m` into `c_T √s τ`. -/
 theorem time_final (hτ : 1 ≤ τ) (hs : 32 ≤ s) :
     cT * Real.sqrt s * τ ≤ Real.log 2 / 96 * timeN τ * Real.sqrt ((2 : ℝ) ^ hsMu s) := by
@@ -267,7 +269,7 @@ theorem sin_div_pos (hn : 1 ≤ n) (hτ : 0 < τ) (hτn : τ ≤ n) : 0 < Real.s
   have : τ / n ≤ 1 := by rw [div_le_one₀ hn']; exact hτn
   linarith [Real.two_le_pi]
 
-/-- `A = sin(τ/n)^n ≥ (τ/(2n))^n` for `0 < τ ≤ n` (lines 2321-2322). -/
+/-- `A = sin(τ/n)^n ≥ (τ/(2n))^n` for `0 < τ ≤ n` (proof of Lemma `hsl:lem:mixed`). -/
 theorem amp_ge (hn : 1 ≤ n) (hτ : 0 < τ) (hτn : τ ≤ n) :
     (τ / (2 * n)) ^ n ≤ Real.sin (τ / n) ^ n := by
   have hn' : (0 : ℝ) < n := Nat.cast_pos.mpr hn
@@ -277,7 +279,7 @@ theorem amp_ge (hn : 1 ≤ n) (hτ : 0 < τ) (hτn : τ ≤ n) :
   rw [e]
   exact sin_ge_half_mul (div_pos hτ hn').le h01
 
-/-- The search-lemma hypothesis for `β₀ = A/2` (lines 2324-2329). -/
+/-- The search-lemma hypothesis for `β₀ = A/2` (proof of Lemma `hsl:lem:mixed`). -/
 theorem mixed_hyp (hn : 2 ≤ n) (hτ : 0 < τ) (hτn : τ ≤ n) :
     4 * (Real.sin (τ / n) ^ n / 2) ^ (-(1 : ℝ) / n) ≤ 16 * n / τ := by
   have hn1 : 1 ≤ n := by omega
@@ -296,7 +298,7 @@ theorem mixed_hyp (hn : 2 ≤ n) (hτ : 0 < τ) (hτn : τ ≤ n) :
       _ ≤ 16 * n * Real.sin (τ / n) := mul_le_mul_of_nonneg_left hge (by positivity)
   linarith
 
-/-- `β₀^{1/(2n)} ≥ ½ √(τ/n)` for `β₀ = A/2` (lines 2330-2335). -/
+/-- `β₀^{1/(2n)} ≥ ½ √(τ/n)` for `β₀ = A/2` (proof of Lemma `hsl:lem:mixed`). -/
 theorem mixed_root (hn : 2 ≤ n) (hτ : 0 < τ) (hτn : τ ≤ n) :
     1 / 2 * Real.sqrt (τ / n) ≤ (Real.sin (τ / n) ^ n / 2) ^ (1 / (2 * (n : ℝ))) := by
   have hn1 : 1 ≤ n := by omega
@@ -318,7 +320,7 @@ theorem mixed_root (hn : 2 ≤ n) (hτ : 0 < τ) (hτn : τ ≤ n) :
 
 /-! ### Main parameters, `L ≥ 64τ` -/
 
-/-- `log(e + 64) ≤ 8`, the base case of `log_exp_add_le` (line 2418). -/
+/-- `log(e + 64) ≤ 8`, the base case of `log_exp_add_le` (proof of Theorem `hsl:thm:main`). -/
 theorem log_exp_add_sixtyfour_le : Real.log (Real.exp 1 + 64) ≤ 8 := by
   rw [Real.log_le_iff_le_exp (by positivity)]
   have h1 : (2 : ℝ) ≤ Real.exp 1 := by linarith [Real.add_one_le_exp (1 : ℝ)]
@@ -330,7 +332,7 @@ theorem log_exp_add_sixtyfour_le : Real.log (Real.exp 1 + 64) ≤ 8 := by
   rw [h3]
   nlinarith [mul_le_mul_of_nonneg_right h4 (by linarith : (0 : ℝ) ≤ Real.exp 1)]
 
-/-- `log(e + z) ≤ z/8` for `z ≥ 64` (lines 2417-2419). -/
+/-- `log(e + z) ≤ z/8` for `z ≥ 64` (proof of Theorem `hsl:thm:main`). -/
 theorem log_exp_add_le (z : ℝ) (hz : 64 ≤ z) : Real.log (Real.exp 1 + z) ≤ z / 8 := by
   have he := Real.exp_pos 1
   have hA : 0 < Real.exp 1 + 64 := by positivity
@@ -344,7 +346,7 @@ theorem log_exp_add_le (z : ℝ) (hz : 64 ≤ z) : Real.log (Real.exp 1 + z) ≤
     nlinarith [mul_nonneg (sub_nonneg.mpr hz) (by linarith : (0 : ℝ) ≤ Real.exp 1 + 56)]
   linarith [log_exp_add_sixtyfour_le]
 
-/-- `h ≤ z/8 = L/(8τ)` when `z = L/τ ≥ 64` (lines 2417-2419). -/
+/-- `h ≤ z/8 = L/(8τ)` when `z = L/τ ≥ 64` (proof of Theorem `hsl:thm:main`). -/
 theorem HSRange.hsH_le (h : HSRange τ s ε) (hL : 64 * τ ≤ hsL ε) :
     hsH τ ε ≤ hsL ε / (8 * τ) := by
   have hτ := h.tau_pos
@@ -354,7 +356,7 @@ theorem HSRange.hsH_le (h : HSRange τ s ε) (hL : 64 * τ ≤ hsL ε) :
   calc _ ≤ hsL ε / τ / 8 := this
     _ = hsL ε / (8 * τ) := by rw [div_div, mul_comm]
 
-/-- `r ≥ 8τ` (line 2419). -/
+/-- `r ≥ 8τ` (proof of Theorem `hsl:thm:main`). -/
 theorem hsR_ge_eight_tau (h : HSRange τ s ε) (hL : 64 * τ ≤ hsL ε) : 8 * τ ≤ hsR τ ε := by
   have hτ := h.tau_pos
   have hle := h.hsH_le hL
@@ -363,7 +365,7 @@ theorem hsR_ge_eight_tau (h : HSRange τ s ε) (hL : 64 * τ ≤ hsL ε) : 8 * �
   rw [le_div_iff₀ h.hsH_pos]
   linarith
 
-/-- **Eq. `hsl:eq:nrange`** (lines 2420-2422): `n ≥ 2`, `n ≥ r/8 ≥ τ`, `n ≤ r/4`. -/
+/-- **Eq. `hsl:eq:nrange`** (eq. `hsl:eq:nrange`): `n ≥ 2`, `n ≥ r/8 ≥ τ`, `n ≤ r/4`. -/
 theorem precN_range (h : HSRange τ s ε) (hL : 64 * τ ≤ hsL ε) :
     2 ≤ precN τ ε ∧ hsR τ ε / 8 ≤ precN τ ε ∧ τ ≤ hsR τ ε / 8 ∧
       (precN τ ε : ℝ) ≤ hsR τ ε / 4 := by
@@ -378,13 +380,13 @@ theorem precN_range (h : HSRange τ s ε) (hL : 64 * τ ≤ hsL ε) :
     unfold precN
     linarith
 
-/-- `r ≤ 8n` (line 2445). -/
+/-- `r ≤ 8n` (proof of Theorem `hsl:thm:main`). -/
 theorem hsR_le_eight_precN (h : HSRange τ s ε) (hL : 64 * τ ≤ hsL ε) :
     hsR τ ε ≤ 8 * precN τ ε := by
   have := (precN_range h hL).2.1
   linarith
 
-/-- `2n/τ ≤ z/(2h) ≤ e + z` (line 2423); holds for all parameters in range. -/
+/-- `2n/τ ≤ z/(2h) ≤ e + z` (proof of Theorem `hsl:thm:main`); holds for all parameters in range. -/
 theorem two_precN_div_le (h : HSRange τ s ε) :
     2 * (precN τ ε : ℝ) / τ ≤ Real.exp 1 + hsL ε / τ := by
   have hτ := h.tau_pos
@@ -396,7 +398,7 @@ theorem two_precN_div_le (h : HSRange τ s ε) :
     (div_le_div_iff_of_pos_right hτ).mpr (by linarith)
   linarith
 
-/-- `log(2n/τ) ≤ h` (line 2423; at `n = 0` the left side is `log 0 = 0`). -/
+/-- `log(2n/τ) ≤ h` (proof of Theorem `hsl:thm:main`; at `n = 0` the left side is `log 0 = 0`). -/
 theorem log_two_precN_div_le (h : HSRange τ s ε) :
     Real.log (2 * precN τ ε / τ) ≤ hsH τ ε := by
   rcases Nat.eq_zero_or_pos (precN τ ε) with h0 | hpos
@@ -407,7 +409,7 @@ theorem log_two_precN_div_le (h : HSRange τ s ε) :
     have hn : (0 : ℝ) < precN τ ε := by exact_mod_cast hpos
     exact Real.log_le_log (div_pos (by linarith) h.tau_pos) (two_precN_div_le h)
 
-/-- **Eq. `hsl:eq:precisionchoice`** (lines 2424-2426): `n log(2n/τ) ≤ nh ≤ L/4`
+/-- **Eq. `hsl:eq:precisionchoice`** (eq. `hsl:eq:precisionchoice`): `n log(2n/τ) ≤ nh ≤ L/4`
 (for all parameters in range). -/
 theorem precision_exp_bound (h : HSRange τ s ε) :
     (precN τ ε : ℝ) * Real.log (2 * precN τ ε / τ) ≤ precN τ ε * hsH τ ε ∧
@@ -420,7 +422,7 @@ theorem precision_exp_bound (h : HSRange τ s ε) :
         mul_le_mul_of_nonneg_right h1 h3.le
     _ = hsL ε / 4 := by rw [← h2]; ring
 
-/-- `(τ/(2n))^n ≥ e^{-L/4}` (line 2429; at `n = 0` the left side is `1`). -/
+/-- `(τ/(2n))^n ≥ e^{-L/4}` (proof of Theorem `hsl:thm:main`; at `n = 0` the left side is `1`). -/
 theorem exp_neg_quarter_le_pow (h : HSRange τ s ε) :
     Real.exp (-(hsL ε / 4)) ≤ (τ / (2 * precN τ ε)) ^ precN τ ε := by
   have hτ := h.tau_pos
@@ -438,7 +440,7 @@ theorem exp_neg_quarter_le_pow (h : HSRange τ s ε) :
     linarith [hb.1, hb.2]
 
 /-- `e^{-L/4} ≥ 16 e^{-L}` for `L ≥ 4` (`e³ > 16`; the paper uses `L ≥ 64`,
-lines 2429-2431 and 3991). -/
+proof of Theorem `hsl:thm:main` and proof of Lemma `odel:lem:herald`). -/
 theorem exp_neg_quarter_ge {L : ℝ} (hL : 4 ≤ L) : 16 * Real.exp (-L) ≤ Real.exp (-(L / 4)) := by
   have h1 : Real.exp (-(L / 4)) = Real.exp (3 * L / 4) * Real.exp (-L) := by
     rw [← Real.exp_add]; congr 1; ring
@@ -454,22 +456,22 @@ theorem exp_neg_quarter_ge {L : ℝ} (hL : 4 ≤ L) : 16 * Real.exp (-L) ≤ Rea
   rw [h1]
   exact mul_le_mul_of_nonneg_right (h16.trans h34) (Real.exp_pos _).le
 
-/-- **Eq. `hsl:eq:precisionchoice`** and the line after it (lines 2424-2431),
+/-- **Eq. `hsl:eq:precisionchoice`** and the line after it (proof of Theorem `hsl:thm:main`),
 in the form `(τ/(2n))^n ≥ e^{-L/4} ≥ 16ε` used by both Lemma `hsl:lem:mixed`
-(which needs `8ε`) and Lemma `odel:lem:herald` (line 3991). -/
+(which needs `8ε`) and Lemma `odel:lem:herald`. -/
 theorem sixteen_eps_le (h : HSRange τ s ε) (_hL : 64 * τ ≤ hsL ε) :
     16 * ε ≤ (τ / (2 * precN τ ε)) ^ precN τ ε := by
   have h1 := exp_neg_quarter_ge h.four_le_hsL
   rw [exp_neg_hsL h.eps_pos] at h1
   exact h1.trans (exp_neg_quarter_le_pow h)
 
-/-- **Eq. `hsl:eq:rbound`** (lines 2436-2438): `n/4 ≥ r/32`. -/
+/-- **Eq. `hsl:eq:rbound`** (eq. `hsl:eq:rbound`): `n/4 ≥ r/32`. -/
 theorem rbound (h : HSRange τ s ε) (hL : 64 * τ ≤ hsL ε) :
     hsR τ ε / 32 ≤ (precN τ ε : ℝ) / 4 := by
   have := hsR_le_eight_precN h hL
   linarith
 
-/-- The mixed family's condition `m ≥ 16n/τ` when `s ≥ 64n/τ` (line 2440). -/
+/-- The mixed family's condition `m ≥ 16n/τ` when `s ≥ 64n/τ` (proof of Theorem `hsl:thm:main`). -/
 theorem mixed_m_cond (h : HSRange τ s ε) (hs : 64 * (precN τ ε : ℝ) / τ ≤ s) :
     16 * (precN τ ε : ℝ) / τ ≤ (2 : ℝ) ^ hsMu s := by
   have hm := (hsM_range h.s_ge).2.1
@@ -477,7 +479,7 @@ theorem mixed_m_cond (h : HSRange τ s ε) (hs : 64 * (precN τ ε : ℝ) / τ �
   rw [e]
   linarith
 
-/-- `sτr ≤ 32 mnτ` from `s < 4m` and `r ≤ 8n` (line 2443). -/
+/-- `sτr ≤ 32 mnτ` from `s < 4m` and `r ≤ 8n` (eq. `hsl:eq:mixrbound`). -/
 theorem s_mul_hsR_le (h : HSRange τ s ε) (hL : 64 * τ ≤ hsL ε) :
     (s : ℝ) * τ * hsR τ ε ≤ 32 * ((2 : ℝ) ^ hsMu s * precN τ ε * τ) := by
   have hm := (hsM_range h.s_ge).2.1
@@ -492,7 +494,7 @@ theorem s_mul_hsR_le (h : HSRange τ s ε) (hL : 64 * τ ≤ hsL ε) :
         mul_le_mul_of_nonneg_left hr (mul_pos (by positivity) hτ).le
     _ = 32 * ((2 : ℝ) ^ hsMu s * precN τ ε * τ) := by ring
 
-/-- **Eq. `hsl:eq:mixrbound`** (lines 2441-2444):
+/-- **Eq. `hsl:eq:mixrbound`** (eq. `hsl:eq:mixrbound`):
 `(log 2/96)√(mnτ) ≥ (log 2/(384√2))√(sτr)`. -/
 theorem mixrbound (h : HSRange τ s ε) (hL : 64 * τ ≤ hsL ε) :
     Real.log 2 / (384 * Real.sqrt 2) * Real.sqrt (s * τ * hsR τ ε) ≤
@@ -516,7 +518,7 @@ theorem mixrbound (h : HSRange τ s ε) (hL : 64 * τ ≤ hsL ε) :
     _ = Real.log 2 / 96 * Real.sqrt ((2 : ℝ) ^ hsMu s * precN τ ε * τ) := by
         field_simp; ring
 
-/-- `sτr < 512 n²` when `s < 64n/τ` (lines 2445-2448). -/
+/-- `sτr < 512 n²` when `s < 64n/τ` (proof of Theorem `hsl:thm:main`). -/
 theorem s_mul_hsR_lt (h : HSRange τ s ε) (hL : 64 * τ ≤ hsL ε)
     (hs : (s : ℝ) < 64 * precN τ ε / τ) :
     (s : ℝ) * τ * hsR τ ε < 512 * (precN τ ε : ℝ) ^ 2 := by
@@ -529,7 +531,7 @@ theorem s_mul_hsR_lt (h : HSRange τ s ε) (hL : 64 * τ ≤ hsL ε)
     _ ≤ 64 * precN τ ε * (8 * precN τ ε) := mul_le_mul_of_nonneg_left hr (by positivity)
     _ = 512 * (precN τ ε : ℝ) ^ 2 := by ring
 
-/-- **Eq. `hsl:eq:failedmix`** (lines 2445-2452): if `s < 64n/τ` then
+/-- **Eq. `hsl:eq:failedmix`** (proof of Theorem `hsl:thm:main`): if `s < 64n/τ` then
 `n/4 ≥ √(sτr)/(64√2)`. -/
 theorem failedmix (h : HSRange τ s ε) (hL : 64 * τ ≤ hsL ε)
     (hs : (s : ℝ) < 64 * precN τ ε / τ) :

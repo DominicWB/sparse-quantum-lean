@@ -49,7 +49,7 @@ variable {Xa : Type*} [Fintype Xa] [DecidableEq Xa] {𝒢 : Set Kind} {L : ℝ �
 
 set_option maxHeartbeats 1000000 in
 /-- **Gate-efficient sparse simulation from binary sparse oracles over a finite gate set for
-every real time** (Theorem `hs:thm:gates`, time-independent part). Under the hypotheses of the
+every real time** (Theorem `hs:thm:gates`). Under the hypotheses of the
 released `GateSynth.binary_simulation_synth` for the time `|t|` (the synthesis hypothesis
 `Synthesis 𝒢 Xa L`, a synthesis budget `ε' > 0` and the hypotheses of
 `binary_simulation_signed`), for every real `t` the synthesis

@@ -7,18 +7,17 @@ import GateEfficientSelective.ODEBudget
 `ode:eq:gate-space` with the supplied finite-set circuits charged linearly: paper-to-Lean entry
 point
 
-Theorem `hs:thm:gates` of the accompanying paper (manuscript line 3408) lets "`G_C(ξ)` and
-`A_C(ξ)` bound the additional gates and clean work qubits for a controlled private Cayley
-operation, with error at most `ξ` in the ancilla convention … Its inverse is the adjoint of the
-actual circuit" (lines 3399-3403), and with `ξ = ε/(24d)` and `G₀ = C₀[d(C_J+a+m+r) + A_C(ξ)]`
-(equation `hs:eq:gate-Gzero`, line 3416) bounds the additional gates and auxiliary qubits by
-`O(d G_C(ξ) + G₀ log((G₀+1)/ε))` and `O(A_C(ξ) + a + m + r)` (equation `hs:eq:gate-total`, line
-3424). Theorem `ode:thm:gates` (line 4998) lets "`G_src(ζ)` bound the gates for `P_w`, this
-loading, and `P_w†` … This count includes gates inside the chosen state-loading circuits. Let
-`A_src(ζ)` bound their work qubits" (lines 4989-4993), and bounds the gates and auxiliary qubits
-of the solver by `C ḡ [q P(𝔟) + G_src(ν) + A_src(ν)]` and `P(𝔟) + C A_src(ν)` (equations
-`ode:eq:gate-main`, `ode:eq:gate-space`, lines 5020-5023) for a polynomial `P` that does not depend
-on the supplied circuits.
+Theorem `hs:thm:gates` of the accompanying paper lets "`G_C(ξ)` and `A_C(ξ)` bound the additional
+gates and clean work qubits for this controlled operation to error on all output registers at most
+`ξ` [...] The inverse is the adjoint of the implemented circuit", and with `ξ = ε/(24d)` and
+`G_syn = C₀[d(C_J+a+m_slot+r_reuse) + A_C(ξ)]` (equation `hs:eq:gate-Gzero`) bounds the
+additional gates and auxiliary qubits by `O(d G_C(ξ) + G_syn log((G_syn+1)/ε))` and
+`O(A_C(ξ) + a + m_slot + r_reuse)` (equation
+`hs:eq:gate-total`). Theorem `ode:thm:gates` lets "`G_src(ζ)` count the gates for `P_w`, this
+loading and `P_w†` … This includes the non-matrix-oracle gates inside the chosen loading circuits;
+`A_src(ζ)` bounds their work qubits", and bounds the gates and auxiliary qubits of the solver by
+`C ḡ [q P(𝔟) + G_src(ν) + A_src(ν)]` and `P(𝔟) + C A_src(ν)` (equations `ode:eq:gate-main`,
+`ode:eq:gate-space`) for a polynomial `P` that does not depend on the supplied circuits.
 
 The released finite-gate-set compiler (`GateSynth.synthC`, `GateSynth.synthBudget`) synthesises
 every elementary gate of a native circuit, the gates of supplied circuits included, so its counts
@@ -26,12 +25,15 @@ are `N L(ε'/(N+1))` with `N` all the gates (`GateSynth.binary_simulation_budget
 released ODE budgets carry the synthesis factor `64(𝔟+1) + log(G_src + 1)` on the source gates
 (`GateBitBudget.binary_ode_budget_trials_bits`, `GateBinaryNodes.binary_nodes_budget_trials_bits`).
 This library adds a compiler that retains the gates already in the finite gate set and synthesises
-only the others, and proves the separated forms of both theorems with the supplied costs entering
+only the others, and proves the separated forms of both theorems (for `ode:thm:gates` a partial
+formalisation, under this package's format hypotheses, of its finite-set statement: the manuscript
+states Theorem `ode:thm:gates` over a finite gate set; the conformance endpoints count native
+gates) with the supplied costs entering
 linearly and outside every logarithm, without any assumption on their size.
 
-No result from another paper is used. The released libraries are unchanged. Manuscript lines
-refer to `sparse_quantum_algorithms.tex` (v24); the labels are the stable references. Every
-theorem of the library is axiom-audited in `GateEfficientSelective/Audit.lean`.
+No result from another paper is used. The released libraries are unchanged. References to the
+manuscript use its labels. Every theorem of the library is axiom-audited in
+`GateEfficientSelective/Audit.lean`.
 
 **Naming convention.** All declarations of this library are in the namespace
 `SparseHamiltonian.GateSelective` and are named relative to it below. Released declarations are

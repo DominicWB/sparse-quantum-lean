@@ -6,14 +6,13 @@ set_option synthInstance.maxSize 4096
 /-!
 # The lower bound of Theorem `hsl:thm:main` for the time-dependent classes
 
-The remark after Theorem `hs:thm:time` (end of the paragraph "Regularity and coherent
-parameters"): "The lower bound in Theorem `hsl:thm:main` also applies to this class, since its
-time-independent hard instances satisfy the new assumptions with `β = δ_val = 0`." Here an
-algorithm for a class is given, on each of the three hard families, by a program over the
-released oracle family of the constant data of that family (any schedule) and an isometric
-encoding, and it **meets the guarantee of the released theorem for every path of the class**
-compatible with its data. The constant hard paths are shown to belong to the class
-(`uniformHyp_hard`, `meshPath_const`, `integrablePath_const`), and this membership is used in
+The paragraphs after the proof of Theorem `hs:thm:time` end: "Finally, this input class contains the
+constant hard instances of Theorem `hsl:thm:main`, with `β = δ_val = 0`, so the lower bounds of that
+theorem continue to apply." Here an algorithm for a class is given, on each of the three hard
+families, by a program over the released oracle family of the constant data of that family (any
+schedule) and an isometric encoding, and it **meets the guarantee of the released theorem for every
+path of the class** compatible with its data. The constant hard paths are shown to belong to the
+class (`uniformHyp_hard`, `meshPath_const`, `integrablePath_const`), and this membership is used in
 the proofs, not assumed.
 
 * Uniform meshes (`TimeDependent.simulation`): `uniform_class_members` (the constant data of
@@ -33,9 +32,9 @@ the proofs, not assumed.
   and every integral-sense propagator); the data-level hypotheses are those of the general
   mesh (`mesh_class_members`).
 
-In each case `Q` is the number of value queries (inverses included), and the bound holds for
-the query counts as well; the three terms are witnessed by different families ("on one of the
-three families").
+In each case `Q` is the number of value queries (inverses included), and the bound holds for the
+query counts as well; the three terms are witnessed by different families ("We need not find one
+matrix on which all three mechanisms are simultaneously difficult").
 -/
 
 namespace TimeDependentHamiltonianLowerBound

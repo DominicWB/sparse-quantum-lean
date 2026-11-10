@@ -1,5 +1,5 @@
 name = "sparseQuantumAlgorithms"
-version = "0.1.0-rc6"
+version = "0.1.0-rc30"
 defaultTargets = ["SparseHamiltonian", "SparseODE", "SparseLinearSystems", "GateEfficientHamiltonian",
   "TimeDependentHamiltonian", "TimeDependentODE", "GateEfficientTimeDependent", "GateEfficientODE",
   "GeneralODE", "LinearSystemLowerBound", "SparseLowerBounds", "GateEfficientNative",
@@ -17,7 +17,14 @@ defaultTargets = ["SparseHamiltonian", "SparseODE", "SparseLinearSystems", "Gate
   "GateEfficientSelect", "GateEfficientQuadrature", "GateEfficientBinarySelect",
   "MeasuredUnitaryLowerBound", "DysonGeneralAccess", "TimeDependentLowerBoundExtensions",
   "ReleasedODESolverLowerBounds", "GateEfficientBinaryNodes",
-  "GateEfficientSelective", "QLSHoeffding", "GateEfficientSchedule"]
+  "GateEfficientSelective", "QLSHoeffding", "GateEfficientSchedule", "OptimalPrecision",
+  "SignedFactorSimulation", "NativeSignedFactor", "LargeSparsityCore",
+  "OptimalSparseSimulation", "TwoNormSimulation", "OptimalLowerBounds",
+  "GateOptimalPrecision", "GeneralSourceODE", "MixedOutputODE", "GateOptimalBinary",
+  "GeneralSourceExtensions", "RepresentedSampleODE", "SourceAccuracyODE", "CleanWorkODE",
+  "GeneralSparseAccess", "GeneralDecoder", "GeneralSparseODE", "GeneralDecoderODE",
+  "MeshCertificateODE", "DysonFullClass", "PrivateSpaceAbstract", "SparseGateAccounting",
+  "ManuscriptConformance"]
 
 [[require]]
 name = "mathlib"
@@ -190,3 +197,75 @@ name = "QLSHoeffding"
 
 [[lean_lib]]
 name = "GateEfficientSchedule"
+
+[[lean_lib]]
+name = "OptimalPrecision"
+
+[[lean_lib]]
+name = "SignedFactorSimulation"
+
+[[lean_lib]]
+name = "NativeSignedFactor"
+
+[[lean_lib]]
+name = "LargeSparsityCore"
+
+[[lean_lib]]
+name = "OptimalSparseSimulation"
+
+[[lean_lib]]
+name = "TwoNormSimulation"
+
+[[lean_lib]]
+name = "OptimalLowerBounds"
+
+[[lean_lib]]
+name = "GateOptimalPrecision"
+
+[[lean_lib]]
+name = "GeneralSourceODE"
+
+[[lean_lib]]
+name = "MixedOutputODE"
+
+[[lean_lib]]
+name = "GateOptimalBinary"
+
+[[lean_lib]]
+name = "GeneralSourceExtensions"
+
+[[lean_lib]]
+name = "RepresentedSampleODE"
+
+[[lean_lib]]
+name = "SourceAccuracyODE"
+
+[[lean_lib]]
+name = "CleanWorkODE"
+
+[[lean_lib]]
+name = "GeneralSparseAccess"
+
+[[lean_lib]]
+name = "GeneralDecoder"
+
+[[lean_lib]]
+name = "GeneralSparseODE"
+
+[[lean_lib]]
+name = "GeneralDecoderODE"
+
+[[lean_lib]]
+name = "MeshCertificateODE"
+
+[[lean_lib]]
+name = "DysonFullClass"
+
+[[lean_lib]]
+name = "PrivateSpaceAbstract"
+
+[[lean_lib]]
+name = "SparseGateAccounting"
+
+[[lean_lib]]
+name = "ManuscriptConformance"

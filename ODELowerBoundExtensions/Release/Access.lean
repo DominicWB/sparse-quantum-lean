@@ -9,7 +9,7 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # The release's oracle on the hard families: certificates
 
-Manuscript lines 3669-3673 and 3685-3686 (access model; public source preparation), for the
+Manuscript: Section `odel:sec:main` (access model; public source preparation), for the
 release's physical oracle `meshOracle F σ` (`Release/Normal`) on the hard families along **any**
 public placement `σ` of mesh pieces into stages (the released runs use the uniform refinement
 `releaseOracle F R = meshOracle F (stageOf K R)`). Two kinds of certificates are needed, both

@@ -8,7 +8,7 @@ set_option synthInstance.maxSize 4096
 /-!
 # The Dyson trials on the ODE lower-bound class, with their amplification shape
 
-Manuscript lines 4591-4690 (Lemma `odel:lem:dyson` on the class of `odel:thm:combined`,
+Manuscript: Lemma `odel:lem:dyson` (on the class of `odel:thm:combined`,
 `SparseLowerBounds.ODE.Family`, `Family.InClass η ḡ`, sampled-time access `Family.access ι`).
 `ODELowerBoundExtensions.Dyson.family_dyson` gives, for every family of the class, a public trial
 family over the lower-bound access (idle source vocabulary) with the released complete
@@ -116,7 +116,7 @@ theorem sourceFree_grover {X N Z : Type} [Fintype N] [DecidableEq N] [Fintype Z]
 
 set_option maxHeartbeats 4000000 in
 /-- **The Dyson trials on every family of the ODE lower-bound class, with their amplification
-shape** (Lemma `odel:lem:dyson`, lines 4591-4690): for a family in the class `InClass η ḡ` with
+shape** (Lemma `odel:lem:dyson`): for a family in the class `InClass η ḡ` with
 `η > 0`, `T > 0`, `ḡ ≥ 1` and `0 < ε ≤ 1`, a public trial family `q` over the lower-bound access
 (idle source vocabulary), cutoff `M`, seed `ψ`, output `out` and parameters `g'`, `ℓ` with
 `1274019840 g' queryShape s 0 ℓ ≤ dysonBound (s η T) ḡ ε` and the released complete certificate

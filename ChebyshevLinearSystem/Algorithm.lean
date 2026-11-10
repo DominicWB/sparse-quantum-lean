@@ -25,6 +25,9 @@ the filter changes:
 `testRun j r` is one fresh test of candidate `r` at stage `j`; `finalLeaf r` is the final
 repeat at the estimate `r`; `algorithm` is the complete adaptive protocol over the released
 physical oracle family (native sparse primitives and the controlled source preparation).
+
+Notation: the regularization parameter is `σ` here and `ξ` in the manuscript, so a subscript `σ` (as
+in `g_σ`, `r_σ`, `H_{σ,r}`) stands for the manuscript's subscript `ξ`.
 -/
 
 namespace ChebyshevLinearSystem

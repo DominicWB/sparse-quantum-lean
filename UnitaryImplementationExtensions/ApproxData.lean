@@ -5,9 +5,9 @@ set_option autoImplicit false
 /-!
 # Entry tables that represent a unitary only approximately
 
-Corollary `hs:cor:unitary` of the manuscript (lines 1769-1788) also allows a
+Corollary `hs:cor:unitary` of the manuscript also allows a
 reversible entry-value oracle whose represented entries have absolute error at
-most `ε/(πN)`; the proof (lines 1814-1831) dilates the represented matrix `Ũ`.
+most `ε/(πN)`; the proof dilates the represented matrix `Ũ`.
 This module records that access model. The oracle is the same ordinary
 reversible table with a fixed bounded decoder as in
 `SparseHamiltonian.UnitaryEntryData.Data`; the only change is the promise: the

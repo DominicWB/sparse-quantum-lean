@@ -6,11 +6,9 @@ section
 /-!
 # Counting tools for the joint search-parity adversary
 
-Helper for `ODE/JointGraph` (Lemma `odel:lem:outer`, manuscript lines
-3743-3798). The degree and the Schur-certificate row sums of the outer adversary
-matrix are computed by moving sums over promised inputs to sums over triples
-`(b, e₁, e₂)` (new odd candidate, new block of the old odd candidate, new block
-of the new one):
+Helper for `ODE/JointGraph` (Lemma `odel:lem:outer`). The degree and the Schur-certificate row sums
+of the outer adversary matrix are computed by moving sums over promised inputs to sums over triples
+`(b, e₁, e₂)` (new odd candidate, new block of the old odd candidate, new block of the new one):
 
 * `sum_le_sum_of_injOn_support`: a sum is at most a nonnegative sum over a
   set into which its support injects (used in both directions);

@@ -7,8 +7,8 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # Mesh refinement of a piecewise-constant family
 
-Manuscript lines 3686-3688 ("piecewise constant time dependence with known breakpoints is allowed,
-as in the time-dependent Theorem `ode:thm:time`") and the general-mesh released solver
+Manuscript: Section `odel:sec:main` ("The time-dependent examples are piecewise constant with
+known breakpoints, as permitted by Theorem `ode:thm:time`") and the general-mesh released solver
 `TimeDependentExtensions.ODE.solver` (Theorem `ode:thm:time` on general meshes).
 
 The released solver certifies the error

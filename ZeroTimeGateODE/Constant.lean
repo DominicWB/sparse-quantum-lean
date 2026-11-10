@@ -4,8 +4,10 @@ import SparseODE.ODEZeroEnergy
 /-!
 # Zero time or a known zero generator: the native solver, constant coefficients
 
-The remark of Theorem `ode:thm:gates`: "Zero time or a known zero generator uses direct source
-assembly and needs no matrix calls."  For `x' = A x + b`, `A = -(L + iH)`, at `T = 0` the
+The remark of Theorem `ode:thm:gates`: "At `T = 0` only the initial preparation is needed. For a
+known zero generator the solver assembles the source quadrature directly. Neither case needs a
+propagator query; any matrix queries inside the supplied preparations still count."  For
+`x' = A x + b`, `A = -(L + iH)`, at `T = 0` the
 solution is `x₀`, and for a known zero generator (public bounds `λ_H = λ_D = 0`, so `A = 0`) it
 is `x₀ + T b` (`zero_target`).  The native protocol is the released four-attempt protocol
 `GateNative.nprotocol` with the same public bound `g`, around the direct source assembly

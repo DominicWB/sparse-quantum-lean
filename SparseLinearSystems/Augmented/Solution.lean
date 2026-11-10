@@ -12,6 +12,9 @@ with appended coordinate one:
 * `solution_amplitude`: at `σ = 0`, the selected solution coordinates of
   `J† P J e` equal `(1/(1 + q² + a)) r⁻¹ A⁻¹ b`, a positive multiple of the
   normalised solution (equation `qls:eq:finalprob`).
+
+Notation: the regularization parameter is `σ` here and `ξ` in the manuscript, so a subscript `σ` (as
+in `g_σ`, `r_σ`, `H_{σ,r}`) stands for the manuscript's subscript `ξ`.
 -/
 
 namespace SparseLinearSystems.Augmented

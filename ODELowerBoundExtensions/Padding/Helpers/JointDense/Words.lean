@@ -3,12 +3,12 @@ import SparseLowerBounds.ODE.JointInstance
 /-!
 # Rescaled words and the joint generator off the core (helper of `Padding/JointDense`)
 
-Manuscript lines 3852-3856 (the joint family's dyadic
-words) and 3899-3903 (the dense block). The dense padding stores the joint family's core words
-`w ∈ (-2^μ, 2^μ]` (`SparseLowerBounds.ODE.jointTable_word_mem`) as `2^{B-μ} w ∈ (-2^B, 2^B]`,
-which decode to the same entry `w/2^μ` (`denseWord_scale_mem`, `denseWord_scale_decode`), and
-the block word `1` or `0` (`denseWord_ite_mem`). The joint generator vanishes on the rows and
-columns of the `Fin s` block (`denseJointGen_inr_left`, `denseJointGen_inr_right`, from
+Manuscript: the construction before Theorem `odel:thm:joint` (the joint family's dyadic words) and
+the end of its proof (the dense block). The dense padding stores the joint family's core words
+`w ∈ (-2^μ, 2^μ]` (`SparseLowerBounds.ODE.jointTable_word_mem`) as `2^{B-μ} w ∈ (-2^B, 2^B]`, which
+decode to the same entry `w/2^μ` (`denseWord_scale_mem`, `denseWord_scale_decode`), and the block
+word `1` or `0` (`denseWord_ite_mem`). The joint generator vanishes on the rows and columns of the
+`Fin s` block (`denseJointGen_inr_left`, `denseJointGen_inr_right`, from
 `SparseLowerBounds.ODE.jointGen_support`).
 -/
 

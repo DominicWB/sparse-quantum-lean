@@ -5,8 +5,8 @@ set_option autoImplicit false
 /-!
 # Four attempts in one program
 
-Manuscript lines 4111-4113 (Section `odel:sec:main`, output model) and 4687-4689 (proof of Lemma
-`odel:lem:dyson`). The released wrapper makes at most four fresh attempts
+Manuscript: Section `odel:sec:main` (output model) and the proof of Lemma
+`odel:lem:dyson`. The released wrapper makes at most four fresh attempts
 (`ODERepeatProtocol.fourTrials`, `ODECompleteTrial.algorithm`). `Stage.four C μ Fo i₀` makes all
 four attempts on separate registers in one program, with the first-success herald and readout;
 it reproduces `repeatTrials t 4` (`Stage.good_four`) with exactly four times the calls of one

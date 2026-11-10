@@ -4,10 +4,10 @@ set_option synthInstance.maxHeartbeats 400000
 set_option autoImplicit false
 
 /-!
-# Remark `odel:rem:homogeneous`: the source-free joint family
+# Proposition `odel:rem:homogeneous`: the source-free joint family
 
-Manuscript lines 3907-3952. The joint family of Theorem `odel:thm:joint`
-(`SparseLowerBounds.ODE.JointInstance`, lines 3800-3858) with its source replaced by a flag
+Manuscript: Proposition `odel:rem:homogeneous`. The joint family of Theorem `odel:thm:joint`
+(`SparseLowerBounds.ODE.JointInstance`) with its source replaced by a flag
 qubit, known pulses and a known dissipative stage.
 
 **Index.** `HomIndex M μ s = Bool × JointIndex M μ s`: the flag qubit (first component,
@@ -17,15 +17,18 @@ sector, gadget position; zero padding).
 **Stages** (`n + 4` stages, generator `G = -A`, `ẋ = -G x`, no source):
 
 * `k < n` (length `π/2`): `G = i (|1⟩⟨1| ⊗ H_k)` with `H_k = ⊕_a S_{j_{ak}}` the joint stage
-  Hamiltonian `stageHam` (eq. `odel:eq:stages` "controlled on flag one", line 3911);
+  Hamiltonian `stageHam` (eq. `odel:eq:stages` "only on flag one", Proposition
+  `odel:rem:homogeneous`);
 * `k = n` (length `pulseLen n = ((n+2) mod 4)π/2`): `G = i(-|1⟩⟨1| ⊗ 1)`, the phase pulse of
-  lines 3911-3914 merged with the `Z` pulse (`e^{-iπZ/2} = -i e^{iπ|1⟩⟨1|}`);
+  the proof merged with the `Z` pulse (`e^{-iπZ/2} = -i e^{iπ|1⟩⟨1|}`);
 * `k = n + 1` (length `π/4`): `G = i(Y ⊗ 1)`; with the merged pulse it implements the Hadamard
-  `e^{-iπY/4} e^{iπ|1⟩⟨1|} = (1/√2)[[1,1],[1,-1]]` on the flag (lines 3914-3920; the merge is
-  a formalization choice, explained in `ODELowerBoundExtensions.Homogeneous.Parameters`);
+  `e^{-iπY/4} e^{iπ|1⟩⟨1|} = (1/√2)[[1,1],[1,-1]]` on the flag (Proposition `odel:rem:homogeneous`;
+  the merge is a formalization choice, explained in
+  `ODELowerBoundExtensions.Homogeneous.Parameters`);
 * `k = n + 2` (length `d = log(4√M)`): the dissipative generator `G = P_reject = |0⟩⟨0| ⊗ 1`
-  (`A = -P_reject`, lines 3925-3927);
-* `k = n + 3` (length `T - homBusy M n`): known idle stage `G = 0` (line 3946).
+  (`A = -P_reject`, Proposition `odel:rem:homogeneous`);
+* `k = n + 3` (length `T - homBusy M n`): known idle stage `G = 0` (Proposition
+  `odel:rem:homogeneous`).
 
 All pulses act on the whole joint index (`P ⊗ 1`), padding included. Start
 `x₀ = |+⟩ ⊗ u_M ⊗ ω` (`homInit`).
@@ -39,7 +42,7 @@ All pulses act on the whole joint index (`P ⊗ 1`), padding included. Start
 (`yAngle`; `α' = -β`, `β' = α`), and the dissipation multiplies `α` by `e^{-clamp}`
 (`dampTime`). At the end every even candidate has flag zero with weight `e^{-d} = 1/(4√M)` and
 the odd candidate `a_*` has flag one (`homEnd`). `homHalfObs` reads the half of the candidate
-register (lines 3935-3937).
+register (Proposition `odel:rem:homogeneous`).
 -/
 
 namespace ODELowerBoundExtensions.Homogeneous
@@ -48,31 +51,34 @@ noncomputable section
 open SparseLowerBounds SparseLowerBounds.ODE SparseHamiltonian
 open scoped InnerProductSpace
 
-/-- **The index** of the homogeneous variant: flag qubit ⊗ joint index (line 3910). -/
+/-- **The index** of the homogeneous variant: flag qubit ⊗ joint index (Proposition
+`odel:rem:homogeneous`). -/
 abbrev HomIndex (M μ s : ℕ) : Type := Bool × JointIndex M μ s
 
 variable {M n μ s : ℕ}
 
 /-! ### The stage Hamiltonians and generators -/
 
-/-- **The flag-controlled stage Hamiltonian** `|1⟩⟨1| ⊗ H_k` (line 3911). -/
+/-- **The flag-controlled stage Hamiltonian** `|1⟩⟨1| ⊗ H_k` (Proposition
+`odel:rem:homogeneous`). -/
 def flagHam (j : Positions M n (2 ^ μ)) (k : Fin n) :
     Matrix (HomIndex M μ s) (HomIndex M μ s) ℂ :=
   Matrix.of fun i i' => if i.1 = true ∧ i'.1 = true then stageHam (s := s) j k i.2 i'.2 else 0
 
 variable (M μ s) in
-/-- **The phase pulse Hamiltonian** `-|1⟩⟨1| ⊗ 1` (line 3912). -/
+/-- **The phase pulse Hamiltonian** `-|1⟩⟨1| ⊗ 1` (Proposition `odel:rem:homogeneous`). -/
 def pulseHam : Matrix (HomIndex M μ s) (HomIndex M μ s) ℂ :=
   Matrix.diagonal fun i => if i.1 = true then -1 else 0
 
 variable (M μ s) in
-/-- **The Pauli `Y` pulse Hamiltonian** `Y ⊗ 1`, `Y = [[0, -i], [i, 0]]` (line 3914). -/
+/-- **The Pauli `Y` pulse Hamiltonian** `Y ⊗ 1`, `Y = [[0, -i], [i, 0]]` (Proposition
+`odel:rem:homogeneous`). -/
 def yHam : Matrix (HomIndex M μ s) (HomIndex M μ s) ℂ :=
   Matrix.of fun i i' =>
     if i.2 = i'.2 ∧ i.1 ≠ i'.1 then (if i.1 = true then Complex.I else -Complex.I) else 0
 
 variable (M μ s) in
-/-- **The rejection projection** `P_reject = |0⟩⟨0| ⊗ 1` (line 3926). -/
+/-- **The rejection projection** `P_reject = |0⟩⟨0| ⊗ 1` (Proposition `odel:rem:homogeneous`). -/
 def rejectProj : Matrix (HomIndex M μ s) (HomIndex M μ s) ℂ :=
   Matrix.diagonal fun i => if i.1 = true then 0 else 1
 
@@ -92,7 +98,7 @@ def homGen (j : Positions M n (2 ^ μ)) (k : Fin (n + 4)) :
     Matrix (HomIndex M μ s) (HomIndex M μ s) ℂ :=
   if (k : ℕ) = n + 2 then rejectProj M μ s else Complex.I • homHam j k
 
-/-- **The stage durations** (lines 3910-3914, 3927, 3946): `π/2` (hidden), `pulseLen n`
+/-- **The stage durations** (Proposition `odel:rem:homogeneous`): `π/2` (hidden), `pulseLen n`
 (merged phase pulse), `π/4` (`Y`), `d` (dissipation), `T - homBusy M n` (idle). -/
 def homLen (M n : ℕ) (T : ℝ) (k : Fin (n + 4)) : ℝ :=
   if (k : ℕ) < n then Real.pi / 2
@@ -112,7 +118,7 @@ theorem flagCand_apply (f : Bool) (a : Fin M) (i : HomIndex M μ s) :
     flagCand M μ s f a i = if i.1 = f then candState M μ s a i.2 else 0 := rfl
 
 /-- **The initial state** `x₀ = |+⟩ ⊗ u_M ⊗ ω = (2M)^{-1/2} Σ_a (|0,a,ω⟩ + |1,a,ω⟩)`
-(line 3910, with `x₀ = u_M ⊗ ω` of line 3831). -/
+(Proposition `odel:rem:homogeneous`, with `x₀ = u_M ⊗ ω` of Section `odel:sec:main`). -/
 def homInit (M μ s : ℕ) : EuclideanSpace ℂ (HomIndex M μ s) :=
   ((Real.sqrt (2 * (M : ℝ)) : ℂ))⁻¹ • ∑ a, (flagCand M μ s false a + flagCand M μ s true a)
 
@@ -147,14 +153,15 @@ def homSol (M n μ s : ℕ) (x : Promised M n (2 ^ μ)) (t : ℝ) : EuclideanSpa
 
 /-- **The final state** for odd candidate `b`:
 `x(T) = M^{-1/2} (e^{-d} Σ_{a ≠ b} |0, a, ω⟩ + |1, b, ω⟩)` with `e^{-d} = 1/(4√M)`
-(lines 3921-3933). -/
+(Proposition `odel:rem:homogeneous`). -/
 def homEnd (M μ s : ℕ) (b : Fin M) : EuclideanSpace ℂ (HomIndex M μ s) :=
   ((Real.sqrt M : ℂ))⁻¹ •
     ((((4 * Real.sqrt M)⁻¹ : ℝ) : ℂ) • ∑ a ∈ Finset.univ.erase b, flagCand M μ s false a +
       flagCand M μ s true b)
 
-/-- **The half indicator** `1 ⊗ Σ_a halfSign(a) |a⟩⟨a| ⊗ 1` (padding `0`): measure the
-candidate register and answer its half, whatever the flag (lines 3935-3937, 3887-3888). -/
+/-- **The half indicator** `1 ⊗ Σ_a halfSign(a) |a⟩⟨a| ⊗ 1` (padding `0`): measure the candidate
+register and answer its half, whatever the flag (Proposition `odel:rem:homogeneous` and proof of
+Theorem `odel:thm:joint`). -/
 def homHalfObs (M μ s : ℕ) :
     EuclideanSpace ℂ (HomIndex M μ s) →L[ℂ] EuclideanSpace ℂ (HomIndex M μ s) :=
   SparseStateOverlap.matrixOperator (Matrix.diagonal fun i : HomIndex M μ s => match i.2 with

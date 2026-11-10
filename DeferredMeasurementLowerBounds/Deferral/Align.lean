@@ -6,8 +6,8 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # Aligned merge of schedules
 
-The deferral of an instrument (manuscript lines 5185-5186: "padding to their worst-case query
-count") merges the schedules of its continuations. Each continuation acts on its own sector of
+The deferral of an instrument (proof of Lemma `qlsl:lem:xor`: "padding to their worst-case
+query count") merges the schedules of its continuations. Each continuation acts on its own sector of
 the first record register (`liftProgram`): a known unitary controlled by the record is unitary
 (`conj_masked_unitary`) and lifting keeps the weight (`cost_liftProgram`).
 

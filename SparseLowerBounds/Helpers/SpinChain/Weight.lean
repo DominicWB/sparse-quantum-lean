@@ -37,7 +37,7 @@ theorem weight_le_one (n k : ℕ) : weight n k ≤ 1 := by
       exact Nat.zero_le _
   exact_mod_cast h
 
-/-- Every genuine edge weight is positive (line 2277). -/
+/-- Every genuine edge weight is positive (the chain construction of Section `part:hsl`). -/
 theorem weight_pos {n k : ℕ} (hk : k < n) : 0 < weight n k := by
   unfold weight
   have hn : 0 < n := by omega
@@ -64,7 +64,7 @@ theorem inv_sqrt_le_weight {n k : ℕ} (hk : k < n) : (Real.sqrt n)⁻¹ ≤ wei
 /-- Two consecutive weights meet at a vertex with squared mass at most one:
 `b_k² + b_{k+1}² ≤ 1` (for every `n, k`; `n² - n - 2j(n-j) ≥ 0` with
 `j = k+1 < n`). This gives row/column Euclidean norms at most one for the
-chains (lines 2113-2114, 2282-2283). -/
+chains (Theorem `hsl:thm:main` and the chain construction of Section `part:hsl`). -/
 theorem weight_sq_add_sq_le (n k : ℕ) : weight n k ^ 2 + weight n (k + 1) ^ 2 ≤ 1 := by
   unfold weight
   rcases Nat.eq_zero_or_pos n with rfl | hn

@@ -3,6 +3,10 @@ import GateEfficientSynthesis.ODE
 /-!
 # Theorem `ode:thm:gates` over a finite gate set: the solvers
 
+The finite-gate-set forms of Theorem `ode:thm:gates` in this module are a partial formalisation of
+its finite-set statement, under this package's format hypotheses: the manuscript states Theorem
+`ode:thm:gates` over a finite gate set; the conformance endpoints count native gates.
+
 The native gate-efficient dissipative ODE solvers of `GateEfficientNative` (`native_ode_solver`,
 `native_ode_time_solver`) with every trial synthesised over a finite gate set under the
 synthesis hypothesis `Synthesis 𝒢 X len`, with the synthesis budget `ε/200` per trial
@@ -38,7 +42,9 @@ variable {S Zs Z Y J X : Type*} [Fintype S] [DecidableEq S] [Fintype Zs] [Decida
 variable {𝒢 : Set Kind} {len : ℝ → ℕ}
 
 /-- **Gate-efficient dissipative ODE solver over a finite gate set, constant coefficients**
-(Theorem `ode:thm:gates`, constant coefficients, with finite-set synthesis as a hypothesis).
+(partial formalisation, under this package's format hypotheses, of the finite-set statement of
+Theorem `ode:thm:gates`, constant coefficients, with finite-set synthesis as a
+hypothesis).
 
 The synthesised protocol `sprotocol hS (ε/200) (nprepC p UJg nd ar srcC) g` depends only on the
 public data. Its trials consist of valid gates of `𝒢` and primitive calls; one native
@@ -108,8 +114,9 @@ theorem native_ode_solver_synth (hS : Synthesis 𝒢 X len) (p : Params) (hp : p
     (hout prim D Jsrc H L x0 b ζs hprim hN hζs hsrc hbudget hI)
 
 /-- **Gate-efficient dissipative ODE solver over a finite gate set, time-dependent
-coefficients** (Theorem `ode:thm:gates`, time-dependent part, with finite-set synthesis as a
-hypothesis).
+coefficients** (partial formalisation, under this package's format hypotheses, of the finite-set
+statement of Theorem `ode:thm:gates`, time-dependent part, with finite-set
+synthesis as a hypothesis).
 
 The synthesised protocol `sprotocol hS (ε/200) (tnprepC p UJg nd ar loadC wpC) (2g)` depends
 only on the public data. Its trials consist of valid gates of `𝒢` and primitive calls;

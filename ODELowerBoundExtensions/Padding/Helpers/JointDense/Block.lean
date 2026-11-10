@@ -3,14 +3,14 @@ import SparseLowerBounds.ODE.JointInstance
 /-!
 # A constant block on the padding indices (helper of `Padding/JointDense`)
 
-Manuscript: end of the proof of Theorem `odel:thm:joint`,
-lines 3899-3903 (the appended unoccupied block `2^{-⌈log₂ s⌉} 1 1ᵀ`, "its norm is at most one",
-"it leaves the solution unchanged"). Facts about a matrix `D` on `α ⊕ Fin s` that vanishes off
+Manuscript: the end of the proof of Theorem `odel:thm:joint` (the appended unoccupied block
+`2^{-⌈log₂ s⌉} 1 1ᵀ`: "Its norm is at most one", "It requires no membership queries and leaves the
+solution unchanged"). Facts about a matrix `D` on `α ⊕ Fin s` that vanishes off
 the `Fin s` block and is the constant `c` on it (`hl`, `hr`, `hb`), used by `Padding/JointDense`
 and `Padding/JointDenseFacts` for the dense block `denseHam`:
 
 * `denseBlock_norm_le`: `‖D‖ ≤ 1` when `s ‖c‖ ≤ 1` (Schur test with the unit vector,
-  as `Hamiltonian.norm_padBlock_le`, lines 2480-2481);
+  as `Hamiltonian.norm_padBlock_le`, proof of Theorem `hsl:thm:main`);
 * `denseBlock_sum_norm_sq_row`, `denseBlock_sum_norm_sq_col`: the block rows and columns have
   squared Euclidean norm `s ‖c‖²`;
 * `denseBlock_matrixOperator_eq_zero`: `D v = 0` for `v` vanishing on the block, and

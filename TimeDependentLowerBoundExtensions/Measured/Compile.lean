@@ -6,17 +6,16 @@ set_option autoImplicit false
 # Compiling the calls of a measured algorithm into programs over another family
 
 The manuscript covers randomised and adaptive algorithms by purification and deferred measurement
-(lines 2363-2364, the end of the proof of Lemma `hsl:lem:precision`). For an oracle family whose
-calls are not themselves native calls, a measured algorithm is first rewritten call by call: if
-every label `l` of a family `O` is computed exactly, on the same workspace, by a program `P l`
-over a family `B` (`(P l).eval x = O l x`), then replacing every forward call of `l` by the
-chain of `P l`, every inverse call by the chain of the adjoint program, and keeping every
+(proof of Lemma `hsl:lem:precision`, the end of the proof of Lemma `hsl:lem:precision`). For an
+oracle family whose calls are not themselves native calls, a measured algorithm is first rewritten
+call by call: if every label `l` of a family `O` is computed exactly, on the same workspace, by a
+program `P l` over a family `B` (`(P l).eval x = O l x`), then replacing every forward call of `l`
+by the chain of `P l`, every inverse call by the chain of the adjoint program, and keeping every
 instrument, output and rejection gives a measured algorithm over `B` (`compile`) with the same
 heralded output and success mass on every input and initial vector (`successDensity_compile`,
-`successMass_compile`, `conditionalDensity_compile`), whose worst-case weighted cost is that of
-the original with the weight of `l` replaced by the cost of `P l` (`worstCost_compile`); with
-programs of cost at most `c` it is at most `c` times the worst-case number of calls
-(`worstCost_compile_le`).
+`successMass_compile`, `conditionalDensity_compile`), whose worst-case weighted cost is that of the
+original with the weight of `l` replaced by the cost of `P l` (`worstCost_compile`); with programs
+of cost at most `c` it is at most `c` times the worst-case number of calls (`worstCost_compile_le`).
 
 `callProgram P l b` is the substitution (`MultiOracleCircuit.Program.substitute`) of the one-call
 program of `l` by the programs `P`, and `compile` is its counterpart for measured algorithms.

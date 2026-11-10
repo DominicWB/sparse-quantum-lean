@@ -6,16 +6,16 @@ set_option autoImplicit false
 set_option synthInstance.maxSize 1024
 
 /-!
-# Remark `odel:rem:homogeneous`: the stage generators
+# Proposition `odel:rem:homogeneous`: the stage generators
 
-Manuscript lines 3911-3929. Facts about the generators `homGen` of
+Manuscript: the proof of Proposition `odel:rem:homogeneous`. Facts about the generators `homGen` of
 `ODELowerBoundExtensions.Homogeneous.Defs`:
 
-* **the promise** (lines 3922-3929): every generator is accretive (`D ⪰ 0`; `accretive_homGen`:
-  `i H` with `H` Hermitian on all stages but the dissipative one, where `D = P_reject ⪰ 0`), and
-  every row and column has Euclidean norm at most `η = 1` (`sum_norm_sq_homGen_row`,
-  `sum_norm_sq_homGen_col`; "each pulse Hamiltonian is one-sparse, has norm one", the hidden
-  stages by `sum_norm_sq_stageHam_row`);
+* **the promise** (Proposition `odel:rem:homogeneous`): every generator is accretive (`D ⪰ 0`;
+  `accretive_homGen`: `i H` with `H` Hermitian on all stages but the dissipative one, where
+  `D = P_reject ⪰ 0`), and every row and column has Euclidean norm at most `η = 1`
+  (`sum_norm_sq_homGen_row`, `sum_norm_sq_homGen_col`; "each pulse Hamiltonian is one-sparse, has
+  norm one", the hidden stages by `sum_norm_sq_stageHam_row`);
 * **the action on the candidate states** `|f, a, ω⟩` (`flagCand`), from the eigen relation
   `H_k |a, ω⟩ = (-1)^{j_{ak}} |a, ω⟩` (`matrixOperator_stageHam_candState`): the hidden stage
   multiplies flag one by `i(-1)^{j_{ak}}` and kills flag zero; the pulse multiplies flag one by
@@ -91,7 +91,8 @@ theorem homHam_isHermitian (j : Positions M n (2 ^ μ)) (k : Fin (n + 4)) :
     · rw [if_neg (fun h' => h h'.1.symm), if_neg (fun h' => h h'.1), star_zero]
   · exact Matrix.isHermitian_zero
 
-/-- **The dissipative promise** (lines 3925-3927): every stage generator is accretive. -/
+/-- **The dissipative promise** (Proposition `odel:rem:homogeneous`): every stage generator is
+accretive. -/
 theorem accretive_homGen (j : Positions M n (2 ^ μ)) (k : Fin (n + 4)) :
     TimeDependentODE.Accretive (SparseStateOverlap.matrixOperator (homGen (s := s) j k)) := by
   unfold homGen
@@ -156,7 +157,7 @@ theorem sum_norm_sq_homHam_col (j : Positions M n (2 ^ μ)) (k : Fin (n + 4))
       cases f <;> simp
   · simp
 
-/-- **Row norm bound** `η = 1` (lines 3928-3929). -/
+/-- **Row norm bound** `η = 1` (Proposition `odel:rem:homogeneous`). -/
 theorem sum_norm_sq_homGen_row (j : Positions M n (2 ^ μ)) (k : Fin (n + 4))
     (i : HomIndex M μ s) : ∑ i', ‖homGen j k i i'‖ ^ 2 ≤ 1 := by
   unfold homGen
@@ -168,7 +169,7 @@ theorem sum_norm_sq_homGen_row (j : Positions M n (2 ^ μ)) (k : Fin (n + 4))
   · simp only [Matrix.smul_apply, smul_eq_mul, norm_mul, Complex.norm_I, one_mul]
     exact sum_norm_sq_homHam_row j k i
 
-/-- **Column norm bound** `η = 1` (lines 3928-3929). -/
+/-- **Column norm bound** `η = 1` (Proposition `odel:rem:homogeneous`). -/
 theorem sum_norm_sq_homGen_col (j : Positions M n (2 ^ μ)) (k : Fin (n + 4))
     (i' : HomIndex M μ s) : ∑ i, ‖homGen j k i i'‖ ^ 2 ≤ 1 := by
   unfold homGen
@@ -182,7 +183,8 @@ theorem sum_norm_sq_homGen_col (j : Positions M n (2 ^ μ)) (k : Fin (n + 4))
 
 /-! ### The action on the candidate states -/
 
-/-- **Hidden stage, flag one** (line 3911): `G_k |1, a, ω⟩ = i(-1)^{j_{ak}} |1, a, ω⟩`. -/
+/-- **Hidden stage, flag one** (Proposition `odel:rem:homogeneous`):
+`G_k |1, a, ω⟩ = i(-1)^{j_{ak}} |1, a, ω⟩`. -/
 theorem homGen_hidden_true (hμ : 1 ≤ μ) (j : Positions M n (2 ^ μ)) (k : Fin (n + 4))
     (hk : (k : ℕ) < n) (a : Fin M) :
     SparseStateOverlap.matrixOperator (homGen j k) (flagCand M μ s true a) =
@@ -207,7 +209,7 @@ theorem homGen_hidden_false (j : Positions M n (2 ^ μ)) (k : Fin (n + 4)) (hk :
   rw [Fintype.sum_prod_type, Fintype.sum_bool]
   simp [flagHam, flagCand_apply]
 
-/-- **The merged phase pulse** (lines 3911-3914): `G = -i|1⟩⟨1| ⊗ 1`. -/
+/-- **The merged phase pulse** (Proposition `odel:rem:homogeneous`): `G = -i|1⟩⟨1| ⊗ 1`. -/
 theorem homGen_pulse (j : Positions M n (2 ^ μ)) (k : Fin (n + 4)) (hk : (k : ℕ) = n)
     (f : Bool) (a : Fin M) :
     SparseStateOverlap.matrixOperator (homGen j k) (flagCand M μ s f a) =
@@ -219,8 +221,8 @@ theorem homGen_pulse (j : Positions M n (2 ^ μ)) (k : Fin (n + 4)) (hk : (k : �
     flagCand_apply]
   cases f <;> cases g <;> simp
 
-/-- **The `Y` pulse** (line 3914): `G = iY ⊗ 1` sends `|0, a, ω⟩ ↦ -|1, a, ω⟩` and
-`|1, a, ω⟩ ↦ |0, a, ω⟩`. -/
+/-- **The `Y` pulse** (Proposition `odel:rem:homogeneous`): `G = iY ⊗ 1` sends
+`|0, a, ω⟩ ↦ -|1, a, ω⟩` and `|1, a, ω⟩ ↦ |0, a, ω⟩`. -/
 theorem homGen_y (j : Positions M n (2 ^ μ)) (k : Fin (n + 4)) (hk : (k : ℕ) = n + 1)
     (f : Bool) (a : Fin M) :
     SparseStateOverlap.matrixOperator (homGen j k) (flagCand M μ s f a) =
@@ -231,7 +233,7 @@ theorem homGen_y (j : Positions M n (2 ^ μ)) (k : Fin (n + 4)) (hk : (k : ℕ) 
   rw [Fintype.sum_prod_type, Fintype.sum_bool]
   cases f <;> cases g <;> simp [yHam, flagCand_apply, ← mul_assoc]
 
-/-- **The dissipation** (lines 3925-3927): `G = P_reject = |0⟩⟨0| ⊗ 1`. -/
+/-- **The dissipation** (Proposition `odel:rem:homogeneous`): `G = P_reject = |0⟩⟨0| ⊗ 1`. -/
 theorem homGen_reject (j : Positions M n (2 ^ μ)) (k : Fin (n + 4)) (hk : (k : ℕ) = n + 2)
     (f : Bool) (a : Fin M) :
     SparseStateOverlap.matrixOperator (homGen j k) (flagCand M μ s f a) =
@@ -243,7 +245,7 @@ theorem homGen_reject (j : Positions M n (2 ^ μ)) (k : Fin (n + 4)) (hk : (k : 
     flagCand_apply]
   cases f <;> cases g <;> simp
 
-/-- **The idle stage** (line 3946): `G = 0`. -/
+/-- **The idle stage** (Proposition `odel:rem:homogeneous`): `G = 0`. -/
 theorem homGen_idle (j : Positions M n (2 ^ μ)) (k : Fin (n + 4)) (hk : (k : ℕ) = n + 3) :
     homGen (s := s) j k = 0 := by
   unfold homGen homHam

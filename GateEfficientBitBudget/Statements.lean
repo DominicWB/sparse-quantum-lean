@@ -7,23 +7,22 @@ import GateEfficientBitBudget.SynthHamiltonian
 /-!
 # The gate budgets in the bit-length parameter `𝔟`: paper-to-Lean entry point
 
-Theorem `hs:thm:gates` of the accompanying paper (manuscript v15, line 2754) concludes, for
-standard efficiently decoded binary or fixed-point entries and public parameters of bit lengths
-at most `b_data`, `G_additional = q poly(b_data, log(N+1), log((q+1)/ε))` (equation
-`hs:eq:gate-binary`, line 2784). Theorem `ode:thm:gates` (line 4335) bounds the complete
-dissipative solver by `G_ODE ≤ C ḡ [q P(𝔟) + G_src(ν) + A_src(ν)]` gates and
-`A_ODE ≤ P(𝔟) + C A_src(ν)` auxiliary qubits (equations `ode:eq:gate-main`, `ode:eq:gate-space`,
-lines 4357, 4360) in the word budget
-`𝔟 = b_data + log(N+1) + log(M+1) + log(m+1) + log((q ḡ+1)/ε)` (equation
-`ode:eq:gate-word-budget`, line 4347; `b_data` bounds the bit lengths of the represented entries
-and public parameters, line 4127; the proof reads these forms off the assembly cost
-`ode:eq:gate-assembly-cost`, lines 4540–4570). The released libraries `GateEfficientBinary`,
-`GateEfficientBinaryTime`, `GateEfficientODEBudget` and `GateEfficientSynthesis` state the budgets
-as polynomials in the register words of the constructions; the guide of `GateEfficientODEBudget`
-lists the bound of the words of the arithmetic accuracy, of the LCHS grid spacing and of the
-decoder scale by `𝔟` as not formalised. This library fixes a bit-length model of the public
-parameters, defines `𝔟`, bounds every register word linearly by `𝔟`, and states the budgets in `𝔟`
-with explicit constants, keeping every released conclusion they are derived from.
+Theorem `hs:thm:gates` of the accompanying paper concludes, for standard efficiently decoded binary
+or fixed-point entries and public parameters of bit lengths at most `b_data`,
+`G_additional = q poly(b_data, log(N+1), log((q+1)/ε))` (equation `hs:eq:gate-binary`). Theorem
+`ode:thm:gates` bounds the complete dissipative solver by
+`G_ODE ≤ C ḡ [q P(𝔟) + G_src(ν) + A_src(ν)]` gates and `A_ODE ≤ P(𝔟) + C A_src(ν)` auxiliary qubits
+(equations `ode:eq:gate-main`, `ode:eq:gate-space`) in the word budget
+`𝔟 = b_data + log(N+1) + log(M+1) + log(m+1) + log((q ḡ+1)/ε)` (equation `ode:eq:gate-word-budget`;
+`b_data` bounds the bit lengths of the represented entries and public parameters; the proof reads
+these forms off the assembly cost `ode:eq:gate-assembly-cost`). The released libraries
+`GateEfficientBinary`, `GateEfficientBinaryTime`, `GateEfficientODEBudget` and
+`GateEfficientSynthesis` state the budgets as polynomials in the register words of the
+constructions; the guide of `GateEfficientODEBudget` lists the bound of the words of the arithmetic
+accuracy, of the LCHS grid spacing and of the decoder scale by `𝔟` as not formalised. This library
+fixes a bit-length model of the public parameters, defines `𝔟`, bounds every register word linearly
+by `𝔟`, and states the budgets in `𝔟` with explicit constants, keeping every released conclusion
+they are derived from. References to the manuscript use its labels.
 
 The released libraries are unchanged; their guides predate this library. Of the items that the
 `GateEfficientODEBudget` guide lists as not formalised (and the corresponding remark in the
@@ -183,8 +182,9 @@ per-call bound `2·10⁹ (𝔟_H + 1)³`, and every conclusion of `binary_time_s
 
 **Over a finite gate set.** Under `Synthesis 𝒢 Xa len` with `len ζ ≤ c₁ log(1/ζ) + c₀`
 (`c₀, c₁ ≥ 0` the synthesis constants, not the decoder scale `c₀`), `AdjClosed 𝒢` and
-`zeroTestKinds ⊆ 𝒢` (without loss of generality, `GateSynthTrials.extra_hyps`), and the
-hypotheses of `binary_ode_budget_bits`: `binary_ode_budget_trials_bits` gives
+`zeroTestKinds ⊆ 𝒢` (stated assumptions: `GateSynthTrials.extra_hyps` meets them over
+`closeKinds 𝒢₀`, and the gate counts are then over that set), and the hypotheses of
+`binary_ode_budget_bits`: `binary_ode_budget_trials_bits` gives
 `B = prepBound q srcC ≤ 2·10¹⁸ q* (𝔟+1)³ + G_src` (`prepBound_le`), at most
 `40 g (2·10¹⁸ q* (𝔟+1)³ + G_src) (c₁ (64 (𝔟+1) + log(G_src+1)) + c₀) +
 20 g (4 (3·10¹¹ (𝔟+1)³ + 2 |Zs| + |Xa|) + 3)` gates of `𝒢` in every history of the synthesised

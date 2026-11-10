@@ -24,6 +24,9 @@ released `artanh b ≥ b` and `artanh b_σ = arsinh χ_σ`):
 
 For the protocol: `dTestF_lt` (`d^fin_j < 112 √s 2^j`, at the public gap `σ_j = 2^{-j}`) and
 `dFinF_le` (`d^fin_fin ≤ k · 112 √s κ ≤ 168 √s κ log(1/ε)`, at the public gap `1/κ`).
+
+Notation: the regularization parameter is `σ` here and `ξ` in the manuscript, so a subscript `σ` (as
+in `g_σ`, `r_σ`, `H_{σ,r}`) stands for the manuscript's subscript `ξ`.
 -/
 
 namespace ChebyshevLinearSystemFinite

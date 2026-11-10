@@ -7,7 +7,7 @@ section
 # The joint hidden-input and workspace space
 
 The multiplicative adversary of `qlsl:lem:xor` and `hsl:lem:search`
-(manuscript lines 5143-5210 and 2172-2203) purifies the unknown input: it
+purifies the unknown input: it
 adjoins a register holding the hidden input `j : J`, so that the joint state
 is `Σ_j |j⟩ ⊗ Ψ_j`. We represent `ℂ^J ⊗ K` as the finite `L²` sum
 `Joint J K = PiLp 2 (fun _ : J => K)`; no tensor-product library is used, and

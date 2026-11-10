@@ -3,14 +3,13 @@ import ODELowerBoundExtensions.Padding.ZeroPad
 /-!
 # Lemma `odel:lem:herald` for the zero-padded `g = 1` families
 
-Manuscript: Lemma `odel:lem:herald` (lines 3954-3999) and the
-proof of Theorem `odel:thm:combined` ("Pad dimensions to a common known size if desired",
-lines 4005-4006). The `g = 1` families of `SparseLowerBounds/ODE/Precision` (`timeFamilyAt`,
-`mixedFamilyAt`, `precisionFamilyAt`: the hard data of the Hamiltonian lower bound read as
-homogeneous constant-coefficient ODEs `ẋ = -iH x`) are padded by known registers through the
+Manuscript: Lemma `odel:lem:herald` and the proof of Theorem `odel:thm:combined` ("Pad dimensions to
+a common known size if desired"). The `g = 1` families of `SparseLowerBounds/ODE/Precision`
+(`timeFamilyAt`, `mixedFamilyAt`, `precisionFamilyAt`: the hard data of the Hamiltonian lower bound
+read as homogeneous constant-coefficient ODEs `ẋ = -iH x`) are padded by known registers through the
 padded Hamiltonian data of `LowerBoundRemarks.HamiltonianPadding` (`timePadData`, `mixedPadData`,
-`precisionPadData`, matrices `H ⊕ 0_P`), with the initial state `ψ_in ⊕ 0`:
-`timePadFamilyAt`, `mixedPadFamilyAt`, `precisionPadFamilyAt`.
+`precisionPadData`, matrices `H ⊕ 0_P`), with the initial state `ψ_in ⊕ 0`: `timePadFamilyAt`,
+`mixedPadFamilyAt`, `precisionPadFamilyAt`.
 
 * `*PadFamilyAt_zeroPad`: each is the zero padding (`ZeroPad`) of the unpadded family, so it is in
   the class with `η = 1`, `T = τ`, `g = 1 ≤ ḡ` and keeps maximum sparsity exactly `s`
@@ -29,7 +28,7 @@ padded Hamiltonian data of `LowerBoundRemarks.HamiltonianPadding` (`timePadData`
 * `herald_max_pad`: eq. `odel:eq:hsbound` for the padded families in max form, constant
   `c₀ = log 2/(4096π)` (`Hamiltonian.assembly`); `herald_witness_pad` and
   `precision_terms_witness_pad`: the family forms (as `herald_witness`, `precision_terms_witness`),
-  the second being the fourth sentence of Theorem `odel:thm:combined` (lines 3707-3708) for the
+  the second being the fourth sentence of Theorem `odel:thm:combined` for the
   padded families. That the padded families are homogeneous, constant-coefficient, with `D = 0`
   and `g = 1` is `herald_pad_props`: the released `hamFamily_props` applied to the Hermitian
   matrices `H ⊕ 0_P` (`hard_instances_pad`) and `‖ψ_in ⊕ 0‖ = 1` (`norm_inlOp`).
@@ -138,9 +137,9 @@ theorem herald_instances_pad (h : HSRange τ s ε) {gbar : ℝ} (hg : 1 ≤ gbar
         (sparsityAttained_hamFamily hT.2.2.1 _ _ _)⟩⟩
 
 /-- **The padded `g = 1` families have `D = 0` and `g = 1`** (as the released `hamFamily_props`,
-lines 3954-3999): at every input the source vanishes, every stage generator is `i (H ⊕ 0_P)` with
-`H` the hard Hamiltonian of `hard_instances` (`D = 0`), the mass is `1`, `T = τ`, and the solution
-`x(τ) = e^{-iτ(H ⊕ 0)} (ψ_in ⊕ 0)` has norm `1`, so `g = 1`. -/
+Lemma `odel:lem:herald`): at every input the source vanishes, every stage generator is `i (H ⊕ 0_P)`
+with `H` the hard Hamiltonian of `hard_instances` (`D = 0`), the mass is `1`, `T = τ`, and the
+solution `x(τ) = e^{-iτ(H ⊕ 0)} (ψ_in ⊕ 0)` has norm `1`, so `g = 1`. -/
 theorem herald_pad_props (h : HSRange τ s ε) (PT PM PP : Type*) [Fintype PT] [DecidableEq PT]
     [Fintype PM] [DecidableEq PM] [Fintype PP] [DecidableEq PP] :
     (∀ j, (∀ k, (timePadFamilyAt τ s h.s_ge (by linarith [h.one_le_tau]) PT).src k = 0) ∧
@@ -323,11 +322,11 @@ theorem herald_max_pad (h : HSRange τ s ε) (PT PM PP : Type*) [Fintype PT] [De
       fun hs' => (precision_forces_sqrt_pad h hL hs' PP ιP GP AP).1⟩)
     (fun hL hs => (mixed_forces_pad h hL hs PM ιM GM AM).1)
 
-/-- **Eq. `odel:eq:hsbound` for the padded `g = 1` families, family form** (Lemma
-`odel:lem:herald`, lines 3954-3999; as `herald_witness`): on `HSRange`, for any `ḡ ≥ 1` and any
-known paddings, one of the padded time, mixed and precision families (homogeneous,
-constant-coefficient, `D = 0` and `g = 1` by `herald_pad_props`) is in the class (`η = 1`, `T = τ`, `g ≤ ḡ`) and forces
-`c₀ (√s τ + √(sτr) + r)` value queries (and as many matrix queries), `c₀ = log 2/(4096π)`. -/
+/-- **Eq. `odel:eq:hsbound` for the padded `g = 1` families, family form** (Lemma `odel:lem:herald`;
+as `herald_witness`): on `HSRange`, for any `ḡ ≥ 1` and any known paddings, one of the padded time,
+mixed and precision families (homogeneous, constant-coefficient, `D = 0` and `g = 1` by
+`herald_pad_props`) is in the class (`η = 1`, `T = τ`, `g ≤ ḡ`) and forces `c₀ (√s τ + √(sτr) + r)`
+value queries (and as many matrix queries), `c₀ = log 2/(4096π)`. -/
 theorem herald_witness_pad (h : HSRange τ s ε) {gbar : ℝ} (hg : 1 ≤ gbar) (PT PM PP : Type*)
     [Fintype PT] [DecidableEq PT] [Fintype PM] [DecidableEq PM] [Fintype PP] [DecidableEq PP] :
     (timePadFamilyAt τ s h.s_ge (by linarith [h.one_le_tau]) PT).Witnesses τ gbar ε
@@ -348,8 +347,8 @@ theorem herald_witness_pad (h : HSRange τ s ε) {gbar : ℝ} (hg : 1 ≤ gbar) 
   · exact Or.inr (Or.inl ⟨hI.2.1.1, hI.2.1.2.1, hf⟩)
   · exact Or.inr (Or.inr ⟨hI.2.2.1, hI.2.2.2.1, hf⟩)
 
-/-- **The precision terms of Theorem `odel:thm:combined` are witnessed by padded `g = 1`
-families** (fourth sentence of the theorem, lines 3707-3708; as `precision_terms_witness`): on
+/-- **The precision terms of Theorem `odel:thm:combined` are witnessed by padded `g = 1` families**
+(fourth sentence of the theorem, Theorem `odel:thm:combined`; as `precision_terms_witness`): on
 `HSRange`, for any `ḡ ≥ 1` and any known paddings, one of the padded homogeneous
 constant-coefficient families (`D = 0` and `g = 1` by `herald_pad_props`) witnesses
 `c₀ (√(sτr) + r)`. -/

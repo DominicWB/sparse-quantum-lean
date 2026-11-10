@@ -3,11 +3,10 @@ import ODELowerBoundExtensions.Padding.Readout
 /-!
 # Known zero padding of an ODE family
 
-Manuscript Section `part:odel`: "Known zero padding permits
-any sufficiently large qubit register" (proof of Theorem `odel:thm:joint`, line 3904) and "Pad
-dimensions to a common known size if desired" (proof of Theorem `odel:thm:combined`,
-lines 4005-4006). The class and the output model are those of `SparseLowerBounds/ODE/Model`
-(lines 3655-3695).
+Manuscript Section `part:odel`: "Known zero padding permits any sufficiently large qubit register"
+(proof of Theorem `odel:thm:joint`) and "Pad dimensions to a common known size if desired" (proof of
+Theorem `odel:thm:combined`). The class and the output model are those of
+`SparseLowerBounds/ODE/Model` (Section `odel:sec:main`).
 
 **The relation `ZeroPad F' F`.** A family `F'` on the index `N ⊕ P` is the known zero padding of
 a family `F` on `N` when every sampled matrix is `F.data.matrix y ⊕ 0_P`
@@ -47,11 +46,12 @@ open SparseHamiltonian NativeSparseBlockEncoding OracleCircuit SparseLowerBounds
   LowerBoundRemarks.HamiltonianPadding
 open scoped InnerProduct InnerProductSpace
 
-/-- **Maximum row and column sparsity exactly `s`** (line 3899, "maximum sparsity exactly
-`s`"): on every input and every stage, some row and some column of the sampled matrix have
-exactly `s` nonzero entries. The bound `≤ s` holds for every family (`Family.row_sparsity_le`,
-`Family.col_sparsity_le`). The ODE analogue of the fields `HardInstance.row_sparsity_attained`
-and `HardInstance.col_sparsity_attained` of the Hamiltonian lower bound. -/
+/-- **Maximum row and column sparsity exactly `s`** (proof of Theorem `odel:thm:joint`, "maximum
+sparsity exactly `s`"): on every input and every stage, some row and some column of the sampled
+matrix have exactly `s` nonzero entries. The bound `≤ s` holds for every family
+(`Family.row_sparsity_le`, `Family.col_sparsity_le`). The ODE analogue of the fields
+`HardInstance.row_sparsity_attained` and `HardInstance.col_sparsity_attained` of the Hamiltonian
+lower bound. -/
 def SparsityAttained {X N Z : Type*} [Fintype N] [DecidableEq N] {K s : ℕ}
     (F : Family X N Z K s) : Prop :=
   ∀ x k, (∃ i, (Finset.univ.filter fun j => F.data.matrix (x, k) i j ≠ 0).card = s) ∧
@@ -203,9 +203,9 @@ theorem solves (hF : ZeroPad F' F) {x : X} {sol : ℝ → EuclideanSpace ℂ N} 
     rw [hF.start_eq, hF.start_eq, hF.src_eq]
     exact h1
 
-/-- **Zero padding stays in the class** with the same `η` and `ḡ` (lines 3657-3669): accretive
-generators `G ⊕ 0`, row and column norms of the original block and zero on the padding block,
-and the padded solution `x(t) ⊕ 0` with the same `‖x(T)‖` and the same `B`. -/
+/-- **Zero padding stays in the class** with the same `η` and `ḡ` (Section `odel:sec:main`):
+accretive generators `G ⊕ 0`, row and column norms of the original block and zero on the padding
+block, and the padded solution `x(t) ⊕ 0` with the same `‖x(T)‖` and the same `B`. -/
 theorem inClass (hF : ZeroPad F' F) {η gbar : ℝ} (h : F.InClass η gbar) :
     F'.InClass η gbar := by
   refine ⟨fun x k v => ?_, fun x k i => ?_, fun x k j => ?_, fun x => ?_⟩
@@ -242,7 +242,7 @@ theorem sparsityAttained (hF : ZeroPad F' F) (h : SparsityAttained F) :
   · rw [hF.matrix_eq, card_padMat_row, hi]
   · rw [hF.matrix_eq, card_padMat_col, hj]
 
-/-- **Readout of a padded solver** (heralded readout transfer, lines 3675-3678): for every
+/-- **Readout of a padded solver** (heralded readout transfer, Section `odel:sec:main`): for every
 solver of `F'`, every `i₀ : N` and every solution `x(t)` of instance `x` of `F`, the output read
 through `padReadout P G i₀ ∘ out` and conditioned on the same herald is `ε`-accurate for
 `x(T)/‖x(T)‖`. -/

@@ -7,8 +7,8 @@ set_option autoImplicit false
 /-!
 # Class facts used to run the Dyson solver on the ODE lower-bound class
 
-Manuscript lines 3655-3688 (the class of Theorem `odel:thm:combined`) and lines 4155-4168
-(Lemma `odel:lem:dyson`). The Dyson solver (`ODELowerBoundExtensions.Dyson.dyson`) needs a
+Manuscript: Section `odel:sec:main` (the class of Theorem `odel:thm:combined`) and Lemma
+`odel:lem:dyson`. The Dyson solver (`ODELowerBoundExtensions.Dyson.dyson`) needs a
 positive source mass `B`, entries bounded by the public `η`, and a public mesh fine enough that
 the left-endpoint source quadrature is below the certificate budget. In the class these hold:
 
@@ -16,8 +16,8 @@ the left-endpoint source quadrature is below the certificate budget. In the clas
   `B = ‖x₀‖ + Σ_k len_k ‖b_k‖ = 0` then `x₀ = 0` and every stage has zero length or zero
   source, so the zero function solves every instance (`zero_solves`), and uniqueness of the
   endpoint (`Family.solves_endpoint_unique`) contradicts `x(T) ≠ 0`.
-* `entry_le_of_inClass`: every entry is bounded by the row-norm bound `η` (line 4172: "the known
-  bound `|A_ij(t)| ≤ η`").
+* `entry_le_of_inClass`: every entry is bounded by the row-norm bound `η` (proof of Lemma
+  `odel:lem:dyson`: "Every true entry lies in the disk" `|w| ≤ η`).
 * `exists_refinement`: a number `P > 0` of equal cells per stage with
   `s η (Σ_k len_k² ‖b_k‖ / P) / 2 ≤ ε B / (2000 ḡ)` (the released quadrature term,
   `Release.refine_quadrature`).

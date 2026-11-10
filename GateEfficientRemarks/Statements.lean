@@ -21,36 +21,41 @@ import GateEfficientBinaryODETime.Synth
 /-!
 # Remarks on the gate-level theorems: paper-to-Lean entry point
 
-This library formalises statements around Theorems `hs:thm:gates` (gate-efficient sparse
-simulation, manuscript line 2866) and `ode:thm:gates` (gate-efficient dissipative equations,
-lines 4447-4489) of the accompanying paper that the released gate-level libraries leave open. It
-has two parts.
+This library formalises statements around Theorems `hs:thm:gates` (gate-efficient sparse simulation)
+and `ode:thm:gates` (gate-efficient dissipative equations) of the accompanying paper that the
+released gate-level libraries leave open. It has two parts.
 
 The Hamiltonian part (modules `GateEfficientRemarks/*.lean`, namespace
 `SparseHamiltonian.GateRemarks`) formalises:
 
-* Lemma `hs:lem:abstract` (the general boundary-resolvent simulation lemma, line 1964, with the
-  interface `hs:eq:interface`, line 1907) under its own name, for every real time `t`;
-* the auxiliary-qubit count of equation `hs:eq:gate-total` (line 2882) in the bit-length
-  parameter of equation `hs:eq:gate-binary` (line 2896), for the binary-data constructions;
-* the remark "At `t = 0` the identity circuit suffices" (lines 2909-2910) for the binary-data
+* Lemma `hs:lem:abstract` (the general boundary-resolvent simulation lemma, with the
+  interface `hs:eq:interface`) under its own name, for every real time `t`;
+* the auxiliary-qubit count of equation `hs:eq:gate-total` in the bit-length
+  parameter of equation `hs:eq:gate-binary`, for the binary-data constructions;
+* the remark "For `t = 0` or a known zero Hamiltonian, the identity circuit suffices" (Theorem
+  `hs:thm:main`) for the binary-data
   and finite-gate-set variants of `hs:thm:gates`.
 
 The ODE part (modules `GateEfficientRemarks/ODE/*.lean`, namespace
 `SparseHamiltonian.GateRemarks.ODE`) concerns Theorem `ode:thm:gates`, which bounds the complete
 solver, in the word budget `𝔟 = b_data + log(N+1) + log(M+1) + log(m+1) + log((q ḡ+1)/ε)` of
-equation `ode:eq:gate-word-budget` (line 4459), by `G_ODE ≤ C ḡ [q P(𝔟) + G_src(ν) + A_src(ν)]`
+equation `ode:eq:gate-word-budget`, by `G_ODE ≤ C ḡ [q P(𝔟) + G_src(ν) + A_src(ν)]`
 gates and `A_ODE ≤ P(𝔟) + C A_src(ν)` auxiliary qubits (equations `ode:eq:gate-main`,
-`ode:eq:gate-space`, lines 4466-4472), and ends with two remarks (lines 4483-4488): "If the source
-gate and work costs are polynomial in `𝔟`, the total gate bound is `ḡ q poly(𝔟)`", and "Zero time
-or a known zero generator uses direct source assembly and needs no matrix calls."
+`ode:eq:gate-space`), and ends with two remarks: "If the source
+gate and work costs are polynomial in `𝔟`, the total gate bound is `ḡ q poly(𝔟)`", and "At `T = 0`
+only the initial preparation is needed. For a known zero generator the solver assembles the source
+quadrature directly. Neither case needs a propagator query; any matrix queries inside the supplied
+preparations still count." (The circuits here still apply the forcing circuit at `T = 0`, with
+weight zero.)
 The released library
 `GateEfficientBitBudget` proves the two equations in `𝔟` with explicit constants for the solvers
 from binary sparse data, with the source costs `G_src`, `|Zs|` as parameters and for `T > 0`,
 `η_H + η_D > 0`; the released library `ZeroTimeGateODE` proves the second remark with explicit
-worst-case counts (exact gates, native gates, binary data, finite gate sets with the per-trial
-claim). This part of the library `GateEfficientRemarks` states, without results from other
-papers:
+worst-case counts (exact gates, native gates, binary data, and, as a partial formalisation, under
+this package's format hypotheses, of the finite-set form of the remark of Theorem `ode:thm:gates`,
+finite gate sets with the per-trial claim). This part of the library `GateEfficientRemarks` states,
+without
+results from other papers:
 
 * **A.** the first remark: if `G_src ≤ c (𝔟+1)^j` and `|Zs| ≤ c (𝔟+1)^j`, the gate bounds of the
   released budgets in `𝔟` and of their forms for every `T ≥ 0` (C) become `C g q* (𝔟+1)^(max j 3)`
@@ -68,9 +73,8 @@ papers:
 
 The released libraries are unchanged. No result from another paper is used, except single-qubit
 synthesis and the decomposition of controlled gates through the released hypothesis
-`GateSynth.Synthesis` of the finite-gate-set forms. Manuscript lines refer to
-`sparse_quantum_algorithms.tex` (v16); the labels are the stable references. Every theorem of the
-library is axiom-audited in `GateEfficientRemarks/Audit.lean`.
+`GateSynth.Synthesis` of the finite-gate-set forms. References to the manuscript use its labels.
+Every theorem of the library is axiom-audited in `GateEfficientRemarks/Audit.lean`.
 
 ## Hamiltonian part
 
@@ -318,13 +322,13 @@ Every theorem of this part is axiom-audited in `GateEfficientRemarks/Audit.lean`
   released gate model; for a finite-dimensional system every isometry has this form
   (`exists_unitary_extension`, `abstract_simulation_isometry`). `Q` is any real `Q ≥ 1`; the lemma's
   integer `Q` is a special case (the sparse instance has the integer `Q = ⌈max(1, γ √s)⌉`,
-  `interface_binary`). The "calls to these unitaries" are the private calls (`GateCircuit.nPriv`,
-  each a call of `D` or `D†` with at most one control, inverse calls counted); the calls of the
-  known `U_J` and the elementary gates are counted separately, as in the released theorem. Negative
-  times exchange `D` and `D†` in the released circuit (the interface of `D†` holds for `-h`), rather
-  than taking the literal inverse circuit; both use only `D`, `D†` and their controls with the same
-  counts. The error is the released full-output error, which bounds the operator-norm error of the
-  simulation. The constant `3840` is explicit: the released degree bound
+  `interface_binary`). The "calls to the supplied unitaries" are the private calls
+  (`GateCircuit.nPriv`, each a call of `D` or `D†` with at most one control, inverse calls counted);
+  the calls of the known `U_J` and the elementary gates are counted separately, as in the released
+  theorem. Negative times exchange `D` and `D†` in the released circuit (the interface of `D†` holds
+  for `-h`), rather than taking the literal inverse circuit; both use only `D`, `D†` and their
+  controls with the same counts. The error is the released full-output error, which bounds the
+  operator-norm error of the simulation. The constant `3840` is explicit: the released degree bound
   `d ≤ 128 (W + Q (1 + log(3/ε)))` with `1 + log(3/ε) ≤ 5 log(1/ε)` for `ε ≤ 1/2`. The slot count
   `2^m ≥ steps(α|t|, ε/3) ≥ √(3 (α|t|)³/ε)` enters the wires and the gate count (through `m`) but
   neither `d` nor its bound.

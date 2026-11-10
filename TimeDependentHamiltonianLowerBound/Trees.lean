@@ -140,11 +140,11 @@ theorem main_max_tree_access (h : HSRange τ s ε) (MT MM MP : ℕ) (ιT ιM ιP
     ((densityAccurate_propagator_iff _ eP _ _ hτ).1 haccP)
 
 /-- **Theorem `hsl:thm:main` for adaptive algorithms over all call forms of the coherent
-sampled-time native access** (eq. `hsl:eq:main`, max form; "with inverses and coherent
-controls"): as `main_max_tree_access`, with oracle calls `1 ⊗ O_l`, `1 ⊗ O_l†`,
-`|0⟩⟨0| ⊗ 1 + |1⟩⟨1| ⊗ O_l` and `|0⟩⟨0| ⊗ 1 + |1⟩⟨1| ⊗ O_l†` of the coherent sampled-time
-oracles `O_l` of the constant data (`AdaptiveODELowerBound.Access.callFamily`), each value call
-counted once. -/
+sampled-time native access** (eq. `hsl:eq:main`, max form; with inverses and the controls of Lemma
+`access:lem:control`): as `main_max_tree_access`, with oracle calls `1 ⊗ O_l`, `1 ⊗ O_l†`,
+`|0⟩⟨0| ⊗ 1 + |1⟩⟨1| ⊗ O_l` and `|0⟩⟨0| ⊗ 1 + |1⟩⟨1| ⊗ O_l†` of the coherent sampled-time oracles
+`O_l` of the constant data (`AdaptiveODELowerBound.Access.callFamily`), each value call counted
+once. -/
 theorem main_max_tree_calls (h : HSRange τ s ε) (MT MM MP : ℕ) (ιT ιM ιP : Type)
     [Fintype ιT] [Fintype ιM] [Fintype ιP]
     {FT ET GT FM EM GM FP EP GP : Type*}

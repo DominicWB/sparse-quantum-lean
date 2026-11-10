@@ -6,13 +6,12 @@ set_option autoImplicit false
 /-!
 # The summed adversary progress and the endpoint kernel bound
 
-For the lower half of Corollary `hs:cor:unitary` of the manuscript (lines 1647-1666 and
-1711-1718), adaptive protocols `SparseLinearSystems.Protocol.Tree` over labels implemented by
-Boolean phase queries of the marked strings of a position map `c : I → Fin N`. The positive-weight
-adversary of the package (`AdaptiveODELowerBound.Adversary.abs_treeKernel_progress_le`, with the
-all-pairs search matrix and its Schur certificate
-`UnitaryImplementationExtensions.Search.schurCert`, `λ = √(N - 1)`) bounds the summed kernel deficit
-of the purified protocol (`AdaptiveODELowerBound.Adversary.treeKernel`):
+For the lower half of Corollary `hs:cor:unitary` of the manuscript, adaptive protocols
+`SparseLinearSystems.Protocol.Tree` over labels implemented by Boolean phase queries of the marked
+strings of a position map `c : I → Fin N`. The positive-weight adversary of the package
+(`AdaptiveODELowerBound.Adversary.abs_treeKernel_progress_le`, with the all-pairs search matrix and
+its Schur certificate `UnitaryImplementationExtensions.Search.schurCert`, `λ = √(N - 1)`) bounds the
+summed kernel deficit of the purified protocol (`AdaptiveODELowerBound.Adversary.treeKernel`):
 
 * `adversary_deficit_le`: `∑_{x ≠ x'} (1 - Re κ_T(x, x')) ≤ 2 √(N - 1) N worstCost_w(T)`.
 * `tree_count_ge_of_kernel_gaps`: with gaps `g` as in `Global.sum_le_of_gaps` for the kernel,

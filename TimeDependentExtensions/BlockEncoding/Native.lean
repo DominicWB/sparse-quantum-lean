@@ -5,11 +5,11 @@ set_option autoImplicit false
 /-!
 # The time-indexed block-encoding special case: the moment interface and one active layer
 
-The paragraph "Relation to time-indexed block encodings" after Theorem `hs:thm:time`: coherent
-and controlled access is supplied to Hermitian unitaries `O_r` on `K = ℂ^{B₀}` with
-`J† O_r J = H̃_r / α` for a known isometry `J`. The primitive query is the controlled
-time-indexed oracle `|c, r⟩ ⊗ v ↦ |c, r⟩ ⊗ O_r^c v` (`primitive`); one call counts once with
-`c` and `r` in superposition.
+Eqs. `hs:eq:blockspecial` and `hs:eq:blockadditive` after Theorem `hs:thm:time`:
+coherent and controlled access is supplied to Hermitian unitaries `O_r` on `K = ℂ^{B₀}` with
+`J† O_r J = H̃_r / α` for a known isometry `J`. The primitive query is the controlled time-indexed
+oracle `|c, r⟩ ⊗ v ↦ |c, r⟩ ⊗ O_r^c v` (`primitive`); one call counts once with `c` and `r` in
+superposition.
 
 * Equation `hs:eq:blockspecial` (`blockspecial`): with `D_{0,r} = i O_r`,
   `R_{0,r}(1) = (1 - D_{0,r})^{-1} = (1 + i O_r)/2`, `J† R_{0,r}(1) J = (1 + i H̃_r/α)/2` and

@@ -8,19 +8,19 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # Retry-protocol forms of the positive semidefinite, homogeneous and padded bounds
 
-Manuscript lines 4105-4118 (the output model of the solvers; the released solvers are bounded
-retry protocols) for Theorem `odel:thm:psd` (lines 4453-4571), Remark `odel:rem:homogeneous`
-(lines 4343-4388) and the padded families (lines 4335-4340, 4437-4445).
+Manuscript: Section `odel:sec:main` (the output model of the solvers; the released solvers are
+bounded retry protocols) for Theorem `odel:thm:psd`, Proposition `odel:rem:homogeneous` and the
+padded families (proof of Theorem `odel:thm:joint` and proof of Theorem `odel:thm:combined`).
 
-A retry protocol (`ODERepeatProtocol.Protocol`) is the adaptive protocol `Tree.final` with the
-same oracle family, labels, success mass, conditional output and worst-case cost
-(`Model.retryToTree`), so every tree witness is a retry witness
-(`Model.treeWitnesses_retryWitnesses`) and a witness of `SparseLowerBounds.ODE`
-(`Model.treeWitnesses_witnesses`). The retry-protocol forms below follow from the tree forms:
-`psd_retry`, `hom_witness_retry`, `joint_witness_pad_retry`, `herald_witness_pad_retry`,
-`combined_pad_retry`, and the common-dimension and qubit-register forms
-`joint_common_dimension_retry`, `joint_qubit_register_retry`, `combined_common_dimension_retry`
-and `combined_qubit_register_retry` (lines 4335-4340, 4437-4445).
+A retry protocol (`ODERepeatProtocol.Protocol`) is the adaptive protocol `Tree.final` with the same
+oracle family, labels, success mass, conditional output and worst-case cost (`Model.retryToTree`),
+so every tree witness is a retry witness (`Model.treeWitnesses_retryWitnesses`) and a witness of
+`SparseLowerBounds.ODE` (`Model.treeWitnesses_witnesses`). The retry-protocol forms below follow
+from the tree forms: `psd_retry`, `hom_witness_retry`, `joint_witness_pad_retry`,
+`herald_witness_pad_retry`, `combined_pad_retry`, and the common-dimension and qubit-register forms
+`joint_common_dimension_retry`, `joint_qubit_register_retry`, `combined_common_dimension_retry` and
+`combined_qubit_register_retry` (proof of Theorem `odel:thm:joint` and proof of Theorem
+`odel:thm:combined`).
 -/
 
 namespace AdaptiveODELowerBound
@@ -47,8 +47,8 @@ theorem psd_retry (h : PsdRange τ s ε) (hg : Real.sqrt 2 ≤ gbar) :
       RetryWitnesses (psdScalarFamilyAt h) τ gbar ε (psdBound s τ ε) :=
   (Psd.psd_tree h hg).imp treeWitnesses_retryWitnesses treeWitnesses_retryWitnesses
 
-/-- **Remark `odel:rem:homogeneous` for retry protocols**: on `HomRange`, the homogeneous family
-retry-witnesses `ḡ √s τ / 500`. -/
+/-- **Proposition `odel:rem:homogeneous` for retry protocols**: on `HomRange`, the homogeneous
+family retry-witnesses `ḡ √s τ / 500`. -/
 theorem hom_witness_retry (h : HomRange s τ gbar ε) :
     RetryWitnesses (homFamilyAt s τ gbar h.s_ge h.gbar_ge h.tau_ge) τ gbar ε
       (homConst * gbar * Real.sqrt s * τ) :=

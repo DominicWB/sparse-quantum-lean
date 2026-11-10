@@ -7,11 +7,11 @@ set_option autoImplicit false
 /-!
 # Measured solvers over a physical oracle: the plain shape
 
-Manuscript Section `odel:sec:main`, lines 3669-3681 (access with inverses and controls, success
-flag of probability at least `2/3`, conditional trace distance `ε`, worst-case query bound; "The
-lower bounds thus apply to Theorems `ode:thm:main` and `ode:thm:time`"), line 2364 ("adaptive
-algorithms are covered by purification and deferred measurement") and lines 3685-3686 (source
-preparation contains no hidden input information).
+Manuscript Section `odel:sec:main` (access with inverses and controls, success flag of probability
+at least `2/3`, conditional trace distance `ε`, worst-case query bound; "the lower bounds apply to
+the upper bounds of the preceding section"), proof of Lemma `hsl:lem:precision` ("Purification and
+deferred measurement include adaptive and randomised algorithms") and Section `odel:sec:main`
+(source preparation contains no hidden input information).
 
 A measured solver (`DeferredMeasurementLowerBounds.Corollaries.MeasuredSolver`) over a labelled
 oracle family `B : L ⊕ Bool → X → W →L[ℂ] W` (matrix labels and two input-independent source

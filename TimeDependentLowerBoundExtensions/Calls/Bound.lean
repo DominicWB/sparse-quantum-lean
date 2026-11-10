@@ -7,12 +7,13 @@ set_option synthInstance.maxSize 4096
 /-!
 # Theorem `hsl:thm:main` for all call forms of the released time-dependent oracle families
 
-The native access of the lower bound comes "with inverses and coherent controls" (the
-manuscript, lines 2078-2082), and the lower bound applies to the time-dependent class with
-time-independent hard instances (lines 1512-1516). For the physical oracle families of the
-released time-dependent simulators, `TimeDependent.oracle` (uniform meshes, Theorem
-`hs:thm:time`) and `TimeDependentExtensions.Hamiltonian.oracle` (general meshes and integrable
-paths), on the constant hard data, this module admits every call form of every label
+The native access of the lower bound comes with inverses and the controls of Lemma
+`access:lem:control` (the manuscript, Section `hsl:sec:main`), and the lower bound applies to the
+time-dependent class with time-independent hard instances (the paragraphs after the proof of Theorem
+`hs:thm:time`). For the physical oracle families of the released time-dependent simulators,
+`TimeDependent.oracle` (uniform meshes, Theorem `hs:thm:time`) and
+`TimeDependentExtensions.Hamiltonian.oracle` (general meshes and integrable paths), on the constant
+hard data, this module admits every call form of every label
 (`AdaptiveODELowerBound.Access.callFamily`: plain, inverse, controlled on a control qubit,
 controlled inverse), each value call counted once:
 

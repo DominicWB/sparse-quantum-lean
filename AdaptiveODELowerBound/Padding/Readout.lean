@@ -7,8 +7,9 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # Readout transfer of padded adaptive solvers
 
-Manuscript line 4340 ("Known zero padding permits any sufficiently large qubit register")
-and 4437-4445 ("Pad dimensions to a common known size if desired").
+Manuscript: the end of the proof of Theorem `odel:thm:joint` ("Known zero padding permits any
+sufficiently large qubit register") and the proof of Theorem `odel:thm:combined` ("Pad
+dimensions to a common known size if desired").
 
 * `densityAccurate_padReadout`: if a density operator, read through `e` on the padded system
   `N ⊕ P`, is `ε`-accurate for the padded target `ψ ⊕ 0`, then read through the released

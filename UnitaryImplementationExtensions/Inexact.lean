@@ -8,8 +8,8 @@ set_option autoImplicit false
 /-!
 # Black-box unitary implementation from inexact entries
 
-Corollary `hs:cor:unitary` of the manuscript (statement at lines 1769-1788,
-finite-precision part of the proof at lines 1814-1831). The oracle exactly
+Corollary `hs:cor:unitary` of the manuscript (statement in Corollary `hs:cor:unitary`,
+finite-precision part of the proof of Corollary `hs:cor:unitary`). The oracle exactly
 represents a matrix `Ũ` whose entries are within `ε/(πN)` of the unitary `U`.
 The dilation `H̃_U` of `Ũ` is `N`-sparse with norm at most `2`; it is simulated
 for time `π/2` with `s = N`, `η = 2` and error `ε/2` by

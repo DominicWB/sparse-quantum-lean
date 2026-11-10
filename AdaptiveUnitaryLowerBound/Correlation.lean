@@ -7,12 +7,11 @@ set_option autoImplicit false
 
 The accuracy notion is the one of the package's adaptive lower bounds
 (`AdaptiveHamiltonianLowerBound.DensityAccurate`): an adaptive protocol
-`T : SparseLinearSystems.Protocol.Tree O F E` heralds success with probability
-`T.successMass x`, and its conditional output `T.conditionalDensity x`, read
-through an isometry `e : E →L[ℂ] SysGarb S G` into system ⊗ garbage, is
-`ε₀`-accurate for a target `ψ_x` (observable form of trace distance at most
-`ε₀`). For the reduction of corollary `hs:cor:unitary` of the manuscript (lines
-1711-1718), the target on instance `m` is `|m⟩`.
+`T : SparseLinearSystems.Protocol.Tree O F E` heralds success with probability `T.successMass x`,
+and its conditional output `T.conditionalDensity x`, read through an isometry
+`e : E →L[ℂ] SysGarb S G` into system ⊗ garbage, is `ε₀`-accurate for a target `ψ_x` (observable
+form of trace distance at most `ε₀`). For the reduction of corollary `hs:cor:unitary` of the
+manuscript, the target on instance `m` is `|m⟩`.
 
 * `tree_bias_of_mass`: the step `AdaptiveHamiltonianLowerBound.tree_bias_general`
   with any success threshold `s₀ > 0` in place of `2/3`: a conditional signed

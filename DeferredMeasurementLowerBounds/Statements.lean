@@ -12,43 +12,43 @@ set_option autoImplicit false
 /-!
 # Lower bounds with measurements inside a run: paper-to-Lean entry point
 
-The lower-bound sections of the manuscript state their query bounds for unitary algorithms and
-cover measurements by a one-line reduction: "Randomised or adaptive algorithms are covered by
-purification and deferred measurement" (proof of Lemma `hsl:lem:precision`, lines 2363-2364),
-"This argument also covers controlled queries and adaptive algorithms after coherent
-purification and padding to their worst-case query count" (proof of Lemma `qlsl:lem:xor`, the
-lemma behind Theorem `qlsl:thm:main`, lines 5185-5186), and the solver class of the ODE lower
-bounds (lines 3669-3680: access with inverses and controls, a success flag of probability at
-least `2/3`, conditional trace distance `ε`, a worst-case query bound). This library formalises
-that reduction for a general model of **measured algorithms** and states the headline lower
-bounds for them. All declarations below are in the namespace `DeferredMeasurementLowerBounds`.
+The lower-bound sections of the manuscript state their query bounds for unitary algorithms and cover
+measurements by a one-line reduction: "Purification and deferred measurement include adaptive and
+randomised algorithms" (proof of Lemma `hsl:lem:precision`), "This argument also covers controlled
+queries and adaptive algorithms after coherent purification and padding to their worst-case query
+count" (proof of Lemma `qlsl:lem:xor`, the lemma behind Theorem `qlsl:thm:main`), and the solver
+class of the ODE lower bounds (Section `odel:sec:main`: access with inverses and controls, a success
+flag of probability at least `2/3`, conditional trace distance `ε`, a worst-case query bound). This
+library formalises that reduction for a general model of **measured algorithms** and states the
+headline lower bounds for them. All declarations below are in the namespace
+`DeferredMeasurementLowerBounds`.
 
 * The model and its containment of the adaptive protocols of the package: `Model.Measured`,
   `Model.ofTree` with `Model.successMass_ofTree`, `Model.successDensity_ofTree`,
   `Model.conditionalDensity_ofTree`, `Model.worstCost_ofTree`.
-* The deferral (lines 2363-2364, 5185-5186): `Deferral.deferral`, with the program
-  `Deferral.deferredProgram`, its seed `Deferral.deferredSeed`, its readout
-  `Deferral.deferredOutput` and its form as an adaptive protocol `Deferral.deferredTree`.
-* Theorem `hsl:thm:main` (lines 2102-2119, eq. `hsl:eq:main`) for measured algorithms:
+* The deferral (proof of Lemma `hsl:lem:precision` and proof of Lemma `qlsl:lem:xor`):
+  `Deferral.deferral`, with the program `Deferral.deferredProgram`, its seed
+  `Deferral.deferredSeed`, its readout `Deferral.deferredOutput` and its form as an adaptive
+  protocol `Deferral.deferredTree`.
+* Theorem `hsl:thm:main` (eq. `hsl:eq:main`) for measured algorithms:
   `Corollaries.main_max_measured` (max form), `Corollaries.main_exists_measured` (family
   form); over the coherent sampled-time access of the class of Theorem `hs:thm:time` and over
   its call forms: `Corollaries.main_max_measured_access`, `Corollaries.main_max_measured_calls`.
-* Theorem `qlsl:thm:main` (lines 5070-5100) for measured algorithms:
+* Theorem `qlsl:thm:main` for measured algorithms:
   `Corollaries.lower_bound_sharp_measured` (constant `1/1536`) and
   `Corollaries.lower_bound_measured` (the manuscript's `1/3072`).
-* Theorem `odel:thm:combined` (lines 3697-3709, eq. `odel:eq:combined`) for measured solvers:
+* Theorem `odel:thm:combined` (eq. `odel:eq:combined`) for measured solvers:
   `Corollaries.combined_measured` (family form), `Corollaries.combined_max_measured` (max form),
-  and the witnesses of its third and fourth sentences (lines 3705-3708),
-  `Corollaries.joint_witness_measured` (Theorem `odel:thm:joint`, line 3860) and
-  `Corollaries.precision_terms_witness_measured` (Lemma `odel:lem:herald`, line 3967); the
+  and the witnesses of its third and fourth sentences,
+  `Corollaries.joint_witness_measured` (Theorem `odel:thm:joint`) and
+  `Corollaries.precision_terms_witness_measured` (Lemma `odel:lem:herald`); the
   transfer of every adaptive witness, `Corollaries.measuredForces_of_treeForces`,
   `Corollaries.measuredWitnesses_of_treeWitnesses`, and its converse
   `Corollaries.treeForces_of_measuredForces`.
-* The lower half of the last sentence of Corollary `hs:cor:unitary` (lines 1647-1666, "At fixed
-  constant error, the worst-case query complexity is `Θ(√N)`", lines 1664-1665; reduction at
-  lines 1711-1718) for measured algorithms: `Corollaries.entry_count_ge_measured`,
-  `Corollaries.implementation_count_ge_measured`, their heralded forms
-  `Corollaries.entry_count_ge_measured_heralded`,
+* The lower half of the last sentence of Corollary `hs:cor:unitary` ("the constant-error worst-case
+  complexity is `Θ(√N)`"; reduction in the proof of Corollary `hs:cor:unitary`) for measured
+  algorithms: `Corollaries.entry_count_ge_measured`, `Corollaries.implementation_count_ge_measured`,
+  their heralded forms `Corollaries.entry_count_ge_measured_heralded`,
   `Corollaries.implementation_count_ge_measured_heralded`, and the search forms
   `Corollaries.search_count_ge_measured_sharp`, `Corollaries.search_count_ge_measured`,
   `Corollaries.search_count_ge_measured_heralded`.
@@ -237,25 +237,24 @@ axiom-audited in `DeferredMeasurementLowerBounds/Audit.lean`.
 * For several counted labels under general single-label controlled access, a worst-case bound
   that charges each aligned slot only for the labels it uses (`Access.selCircuit_cost` bounds
   one slot in this way; `worstCost_ctrlTreeOf` charges `2 · #{counted labels}` per slot).
-* Measured forms over the physical oracles of the released ODE solvers
+* In this library, measured forms over the physical oracles of the released ODE solvers
   (`AdaptiveODELowerBound.Release.combined_max_release_tree`, `PhysicalODELowerBound`,
   `ConstantODELowerBound`): their forcing statements quantify over single-label calls of those
   oracles, so the record-selected calls would first have to be compiled into them (a spectator
   identity for the branch register and an inverse conjugation of the physical value call, as
   `Access.TimeCircuits` does for the sampled-time access); they do not follow from
-  `measuredWitnesses_of_treeWitnesses`.
+  `measuredWitnesses_of_treeWitnesses`. The library `ReleasedODESolverLowerBounds` states them.
 * Named measured forms for the time-dependent Hamiltonian classes over the released oracle
   families of the time-dependent simulators
   (`TimeDependentHamiltonianLowerBound.main_max_tree_uniform`, `main_max_tree_mesh`); they would
   follow from `Corollaries.main_max_measured` with that library's admissibility lemmas
   (`TimeDependentHamiltonianLowerBound.admissible_uniform`, `admissible_mesh`) as in
   `Corollaries/TimeDependent`, which covers the coherent sampled-time access and its call forms.
-* Named measured forms of Theorem `odel:thm:psd`, of the padded families and of Remark
-  `odel:rem:homogeneous`, and other named measured corollaries beyond the headline bounds:
-  every `AdaptiveODELowerBound.Model.TreeWitnesses` transfers by
-  `measuredWitnesses_of_treeWitnesses`, and the deferral covers every program-level bound whose
-  access class contains the selection family and whose accuracy is a property of the output
-  with the records discarded.
+* Named measured forms of Theorem `odel:thm:psd`, of the padded families and of Proposition
+  `odel:rem:homogeneous`, and other named measured corollaries beyond the headline bounds: every
+  `AdaptiveODELowerBound.Model.TreeWitnesses` transfers by `measuredWitnesses_of_treeWitnesses`, and
+  the deferral covers every program-level bound whose access class contains the selection family and
+  whose accuracy is a property of the output with the records discarded.
 
 **Provenance.** No result from another paper is used. The libraries `SparseLinearSystems`,
 `LinearSystemLowerBound`, `SparseLowerBounds`, `AdaptiveHamiltonianLowerBound`,
@@ -263,13 +262,11 @@ axiom-audited in `DeferredMeasurementLowerBounds/Audit.lean`.
 `TimeDependentHamiltonianLowerBound` are only imported; no released module is changed. The
 linear-system, adaptive Hamiltonian and adaptive ODE lower-bound statement guides predate this
 library and list measurements inside a run followed by classically controlled operations, and
-measurements with more than two outcomes, as outside them (covered by a documented reduction);
-the reduction is proved here and the headline bounds are stated for measured algorithms. The
-statement guides of the time-dependent Hamiltonian, constant-coefficient ODE and physical-oracle
-ODE lower-bound libraries, released after the base of this library, list the same measurements
-as outside them; for the first the coherent sampled-time access and its call forms are covered
-by `Corollaries/TimeDependent`, the others remain (see Not formalised). Line numbers in this
-guide and in the module docstrings refer to an earlier manuscript version (in the v18 manuscript
-accompanying this release they are 1243 lines higher in Part `hs`, 1285 in Part `hsl` and 1305
-in Parts `odel` and `qlsl`); the paper labels are the stable references.
+measurements with more than two outcomes, as outside them (covered by a documented reduction); the
+reduction is proved here and the headline bounds are stated for measured algorithms. The statement
+guides of the time-dependent Hamiltonian, constant-coefficient ODE and physical-oracle ODE
+lower-bound libraries, released after the base of this library, list the same measurements as
+outside them; for the first the coherent sampled-time access and its call forms are covered by
+`Corollaries/TimeDependent`, the others, over the oracles of the released ODE solvers, by the library `ReleasedODESolverLowerBounds`. References to the manuscript
+use its labels.
 -/

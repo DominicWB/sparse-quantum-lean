@@ -4,9 +4,11 @@ import GateEfficientSelective.HamMacro
 # Theorem `hs:thm:gates` with a supplied controlled private circuit (equation `hs:eq:gate-total`)
 
 The manuscript's gate count for Hamiltonian simulation over a finite gate set `𝒢` is
-`O(d G_C(ξ) + G₀ log((G₀+1)/ε))`, `ξ = ε/(24d)`, where `G_C(ξ)` and `A_C(ξ)` are the gates and work
-qubits of a supplied finite-set circuit for the controlled private Cayley operation at accuracy
-`ξ`, whose inverse is its circuit adjoint, and `G₀` counts the remaining exact gates. Here:
+`O(d G_C(ξ) + G_syn log((G_syn+1)/ε))`, `ξ = ε/(24d)`,
+`G_syn = C₀[d(C_J+a+m_slot+r_reuse) + A_C(ξ)]` (equation `hs:eq:gate-Gzero`), where `G_C(ξ)` and
+`A_C(ξ)` are the gates and work qubits of a
+supplied finite-set circuit for the controlled private Cayley operation at accuracy `ξ`, whose
+inverse is its circuit adjoint. Here:
 
 * the private calls of the released circuit are implemented by the supplied circuit `pc` (and
   its literal reverse-adjoint), retained verbatim (`hcircP`);
@@ -169,7 +171,7 @@ theorem sim_supplied (a : ℕ) (prim : J → Reg Y R →L[ℂ] Reg Y R)
     ring
 
 /-- **Gate-efficient sparse Hamiltonian simulation over a finite gate set with a supplied
-controlled private circuit** (Theorem `hs:thm:gates`, time-independent part; equation
+controlled private circuit** (Theorem `hs:thm:gates`; equation
 `hs:eq:gate-total`). Under the synthesis hypothesis `Synthesis 𝒢 X L` with
 `L ζ ≤ c₁ log(1/ζ) + c₀` on `(0, 1]`, an adjoint-closed `𝒢`, the clock promises of the released
 analysis, and a valid supplied circuit `pc` over `𝒢` within `ξ` of the enable-controlled private
@@ -341,15 +343,15 @@ def selSimT (hS : Synthesis 𝒢 X L) (a m : ℕ) (τ Q qbar ε : ℝ) (UJg : Li
       Z bT bP A ⊕ X) Y J) :=
   selBudget hS (ε / 4) (simPT a m τ Q qbar ε UJg pc)
 
-/-- **Gate-efficient time-dependent simulation over a finite gate set with a supplied
-slot-selected controlled private circuit** (Theorem `hs:thm:gates`, time-dependent part;
-equation `hs:eq:gate-total`). The private Cayley operations `D k` at the slot words are
-implemented by one supplied valid circuit `pc` over `𝒢` on the slot wires, the private register
-and its work wires, within `ξ` of the enable-controlled slot-selected operation on clean work
-wires. Under the hypotheses of `GateNative.native_time_simulation` (with `24 d ξ ≤ ε` in place of
-the arithmetic budget), the synthesis hypothesis and an adjoint-closed `𝒢`: the selective circuit
-consists of valid gates of `𝒢` and primitive calls, makes exactly `6 d` times the primitive calls
-of `pc`, synthesises at most `G₀ = 200 (d+1)(a+m+r+1) + 84 d C_J` gate occurrences, has at most
+/-- **Gate-efficient time-dependent simulation over a finite gate set with a supplied slot-selected
+controlled private circuit** (Theorem `hs:thm:time` with the circuit of `hs:thm:gates`; equation
+`hs:eq:gate-total`). The private Cayley operations `D k` at the slot words are implemented by one
+supplied valid circuit `pc` over `𝒢` on the slot wires, the private register and its work wires,
+within `ξ` of the enable-controlled slot-selected operation on clean work wires. Under the
+hypotheses of `GateNative.native_time_simulation` (with `24 d ξ ≤ ε` in place of the arithmetic
+budget), the synthesis hypothesis and an adjoint-closed `𝒢`: the selective circuit consists of valid
+gates of `𝒢` and primitive calls, makes exactly `6 d` times the primitive calls of `pc`, synthesises
+at most `G₀ = 200 (d+1)(a+m+r+1) + 84 d C_J` gate occurrences, has at most
 `6 d |pc| + G₀ (c₁ log((G₀+1)/(ε/4)) + c₀ + 1)` gates and
 `|S| + (2a + 3m + 6r + 3) + (|Z| + bT + bP + A + 3) + |X|` qubits, and for every propagator `U` of
 the path its full output on the clean system embedding is within `ε` of `U(t)`. -/

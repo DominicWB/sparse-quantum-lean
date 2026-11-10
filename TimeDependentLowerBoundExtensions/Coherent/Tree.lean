@@ -7,8 +7,8 @@ set_option synthInstance.maxSize 4096
 # Theorem `hsl:thm:main` for adaptive algorithms with coherent selection
 
 The proof of Theorem `hs:thm:time` permits coherent selection of known durations and start
-times (the manuscript, lines 1505-1510), and the lower bound of Theorem `hsl:thm:main` applies
-to the time-dependent class with time-independent hard instances (lines 1512-1516).
+times (the manuscript), and the lower bound of Theorem `hsl:thm:main` applies
+to the time-dependent class with time-independent hard instances.
 
 * `main_max_tree_select`: adaptive algorithms (`SparseLinearSystems.Protocol.Tree`) whose
   oracle calls are the labels of the released selection family

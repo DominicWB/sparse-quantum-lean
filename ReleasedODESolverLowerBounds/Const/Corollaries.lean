@@ -8,13 +8,12 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # Measured solvers over the constant-coefficient physical oracle: the ODE lower bounds
 
-Manuscript Section `odel:sec:main`, lines 3669-3681 ("The lower bounds thus apply to Theorems
-`ode:thm:main` and `ode:thm:time`"), with measurements inside a run (line 2364): eq.
-`odel:eq:hsbound` and Lemma `odel:lem:herald` (line 3967), the precision terms of Theorem
-`odel:thm:combined` (lines 3705-3708) and Theorem `odel:thm:psd` (line 4016), over the physical
-oracle of the released constant-coefficient solver of Theorem `ode:thm:main` (line 2584) and
-over its call forms. The time-dependent families (joint, homogeneous) are not
-constant-coefficient equations (lines 3717-3719) and are not stated here.
+Manuscript Section `odel:sec:main` ("the lower bounds apply to the upper bounds of the preceding
+section"), with measurements inside a run (proof of Lemma `hsl:lem:precision`): eq.
+`odel:eq:hsbound` and Lemma `odel:lem:herald`, the precision terms of Theorem `odel:thm:combined`
+and Theorem `odel:thm:psd`, over the physical oracle of the released constant-coefficient solver of
+Theorem `ode:thm:main` and over its call forms. The time-dependent families (joint, homogeneous) are
+not constant-coefficient equations (Section `odel:sec:main`) and are not stated here.
 
 Every statement is the corresponding statement of `PhysicalODELowerBound.Const` with
 `MeasuredConstWitnesses` in place of `ConstWitnesses` (`measuredConstWitnesses_of_constWitnesses`), or, for the

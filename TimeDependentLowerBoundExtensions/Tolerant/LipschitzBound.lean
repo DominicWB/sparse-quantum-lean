@@ -9,16 +9,15 @@ set_option synthInstance.maxSize 4096
 /-!
 # Theorem `hsl:thm:main` for the class of piecewise Lipschitz paths
 
-The remark after Theorem `hs:thm:time` (the manuscript, lines 1513-1516): "The lower bound in
-Theorem `hsl:thm:main` also applies to this class, since its time-independent hard instances
-satisfy the new assumptions with `β = δ_val = 0`." For the class of piecewise Lipschitz paths
-with breakpoints (lines 1497-1500; `LipschitzPath`), an algorithm is given, on each of the three
-hard families, by a program over the released general-mesh oracle family of the constant data
-of that family and an isometric encoding, and it meets the guarantee of
-`TimeDependentExtensions.Hamiltonian.simulation_lipschitz` for **every** piecewise Lipschitz path
-compatible with its data (`LipschitzGuarantee`). The constant hard pieces belong to the class
-with `β = δ = 0` on every mesh (`lipschitzPath_const`), and this membership is used in the
-proof.
+The paragraphs after the proof of Theorem `hs:thm:time` end: "Finally, this input class contains the
+constant hard instances of Theorem `hsl:thm:main`, with `β = δ_val = 0`, so the lower bounds of that
+theorem continue to apply." For the class of piecewise Lipschitz paths with breakpoints
+(`LipschitzPath`), an algorithm is given, on each of the three hard families, by a program over the
+released general-mesh oracle family of the constant data of that family and an isometric encoding,
+and it meets the guarantee of `TimeDependentExtensions.Hamiltonian.simulation_lipschitz` for
+**every** piecewise Lipschitz path compatible with its data (`LipschitzGuarantee`). The constant
+hard pieces belong to the class with `β = δ = 0` on every mesh (`lipschitzPath_const`), and this
+membership is used in the proof.
 
 * `lipschitz_class_max`: `c₀ (√s τ + √(sτr) + r) ≤ max(Q_T, Q_M, Q_P)` and the same for the
   counts, through `TimeDependentHamiltonianLowerBound.main_max_mesh`;

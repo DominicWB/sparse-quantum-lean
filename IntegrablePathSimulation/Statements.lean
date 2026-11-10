@@ -8,32 +8,31 @@ set_option autoImplicit false
 /-!
 # Time-dependent simulation of integrable Hermitian paths: paper-to-Lean entry point
 
-Theorem `hs:thm:time` of the manuscript (lines 1414-1445) compares the circuit with the
-time-ordered exponential `U_H(T, 0)` (eq. `hs:eq:timeerror`, lines 1431-1435). The paragraph
-"Regularity and coherent parameters" after its proof (lines 1618-1632) states, at lines
-1622-1626: "More generally, for an integrable Hermitian path it suffices to have a certified
-bound on the sum of the integrated sample errors `∑_r ∫_{t_r}^{t_{r+1}} ‖H(u) - H̃_r‖ du`. All
-uses of regularity are confined to this classical error certificate." The library
-`TimeDependentExtensions` proves the integrated certificate for classical piecewise
-propagators. This library defines propagators of merely integrable paths (in the sense of
-Carathéodory), proves their existence, uniqueness and unitarity and the unitary Duhamel
-estimate, and proves the released time-dependent Hamiltonian theorems for such paths, with the
-released theorems as corollaries. All declarations below are in the namespace
-`IntegrablePathSimulation`.
+Theorem `hs:thm:time` of the manuscript compares the circuit with the time-ordered exponential
+`U_H(T, 0)` (eq. `hs:eq:timeerror`). The paragraphs after its proof state: "More generally, for an
+integrable Hermitian path with the same uniform sparsity and norm promises, it suffices to supply a
+known error bound on `∑_r ∫_{t_r}^{t_{r+1}} ‖H(u) - H̃_r‖ du`. This directly replaces the Lipschitz
+and representation terms in Eq. `hs:eq:timedisc`; the Cayley error and conversion analysis are
+unchanged." The library `TimeDependentExtensions` proves the integrated certificate for classical
+piecewise propagators. This library defines propagators of merely integrable paths (in the sense of
+Carathéodory), proves their existence, uniqueness and unitarity and the unitary Duhamel estimate,
+and proves the released time-dependent Hamiltonian theorems for such paths, with the released
+theorems as corollaries. All declarations below are in the namespace `IntegrablePathSimulation`.
 
 * Propagators (`Propagator.SolvesIntegralOn`, `Propagator.IsPropagator`): existence and
   uniqueness `Propagator.existsUnique_isPropagator`, the Dyson series
   `Propagator.picardSeries` (`isPropagator_picardSeries`), unitarity
   `Propagator.IsPropagator.isUnitary`.
-* The integrated sample-error certificate (eq. `hs:eq:timedisc`, line 1595, and lines
-  1622-1626): `Propagator.IsPropagator.mesh_error_integral`,
+* The integrated sample-error certificate (eq. `hs:eq:timedisc`, and the paragraphs after the proof
+  of Theorem `hs:thm:time`): `Propagator.IsPropagator.mesh_error_integral`,
   `Propagator.IsPropagator.refined_error`, `Propagator.SolvesIntegralOn.duhamel`,
   `Propagator.SolvesIntegralOn.window_error`.
 * Theorem `hs:thm:time` for integrable paths: `Hamiltonian.simulation`; against the Dyson
-  series `Hamiltonian.simulation_dyson`; with an untouched reference (lines 1442-1443)
+  series `Hamiltonian.simulation_dyson`; with an untouched reference
   `Hamiltonian.simulation_with_reference`.
-* Coherent start times and durations (lines 1627-1632): `Coherent.coherent_windows`.
-* Time-indexed block encodings (eq. `hs:eq:blockadditive`, lines 1640-1660):
+* Coherent start times and durations (the paragraphs after the proof of Theorem `hs:thm:time`):
+  `Coherent.coherent_windows`.
+* Time-indexed block encodings (eq. `hs:eq:blockadditive`):
   `BlockEncoding.simulation`.
 * Containment of the released statements: `Propagator.isPropagator_glue`,
   `Propagator.isPropagator_of_solvesOn`, and the released theorems with unchanged statements,
@@ -137,25 +136,27 @@ Every theorem of the library is axiom-audited in `IntegrablePathSimulation/Audit
 
 **Not formalised.**
 
-* Carathéodory solutions of ODEs with integrable generators. The manuscript uses the
-  integrated certificate for general generators only inside the proof of Lemma
-  `odel:lem:dyson`; the ODE solvers of the package keep classical piecewise solutions.
+* Carathéodory solutions of ODEs with integrable generators. Theorem `ode:thm:time` and Lemma
+  `odel:lem:dyson` admit certified integrated errors for generators that need not be continuous
+  inside a mesh cell; the ODE libraries of the package keep classical piecewise solutions (a
+  classical propagator on each closed mesh cell), so a jump inside a cell is not covered.
 * The two-parameter propagator `U_H(t, s)` and its group law.
 * Coherent selection of public parameters other than durations and start times at mesh points
-  (lines 1627-1628).
-* The lower bound of Theorem `hsl:thm:main` for this class (lines 1635-1638).
-* Gate and workspace costs of the additional time slots (lines 1634-1635).
-* Zero time or a known zero Hamiltonian (line 1444); nonuniform Cayley steps without
+  ("We may also select known start times, durations or other parameters in superposition").
+* The lower bound of Theorem `hsl:thm:main` for this class (proved later, in the library
+  `TimeDependentHamiltonianLowerBound`).
+* Gate and workspace costs of the additional time slots ("The mesh size can still increase the
+  number of known gates and the workspace").
+* Zero time or a known zero Hamiltonian (Theorem `hs:thm:time`; for piecewise paths in
+  `ZeroTimeRemarks`); nonuniform Cayley steps without
   refinement.
 * The uniform-mesh theorem `SparseHamiltonian.TimeDependent.simulation`, the gate-level
   time-dependent theorems and the ODE solvers keep their classical (Lipschitz or piecewise
   classical) hypotheses; only the general-mesh query theorems for Hamiltonians are lifted.
 
 **Provenance.** No result from another paper is used. The libraries `TimeDependentExtensions`,
-`TimeDependentHamiltonian` and `SparseHamiltonian` are only imported; no released module is
-changed. `TimeDependentExtensions/Statements.lean` predates this library: its sentence that
-Carathéodory propagators and solutions of general integrable paths are not formalised is
-superseded here for Hamiltonian paths, and still applies to ODE solutions. Line numbers in this
-guide refer to the manuscript used by this library; the module docstrings of the imported
-libraries cite another manuscript version, and the paper labels are the stable references.
+`TimeDependentHamiltonian` and `SparseHamiltonian` are only imported; no released module is changed.
+`TimeDependentExtensions/Statements.lean` predates this library: its sentence that Carathéodory
+propagators and solutions of general integrable paths are not formalised is superseded here for
+Hamiltonian paths, and still applies to ODE solutions. References to the manuscript use its labels.
 -/

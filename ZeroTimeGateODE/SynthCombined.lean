@@ -38,8 +38,9 @@ variable {S Zs Z Y J X : Type*} [Fintype S] [DecidableEq S] [Fintype Zs] [Decida
 variable {𝒢 : Set Kind} {len : ℝ → ℕ}
 
 /-- **Native solver over a finite gate set, with the per-trial claim, for every `T ≥ 0`,
-constant coefficients** (Theorem `ode:thm:gates` with its remark on zero time and a known zero
-generator).
+constant coefficients** (partial formalisation, under this package's format hypotheses, of the
+finite-set statement of Theorem `ode:thm:gates` with its remark on zero time
+and a known zero generator).
 
 For public data `p` with `PublicOK0 p`, the released public native data and the synthesis
 hypotheses (`Synthesis 𝒢 X len`, `𝒢` adjoint-closed and containing the kinds of the exact zero
@@ -148,8 +149,9 @@ theorem native_ode_solver_nonneg_trials (hS : Synthesis 𝒢 X len) (hadj : AdjC
     exact hout prim D Jsrc H L x0 b ζs hprim hN hζs hsrc hbud hI
 
 /-- **Native solver over a finite gate set, with the per-trial claim, for every `T ≥ 0`,
-time-dependent coefficients** (Theorem `ode:thm:gates`, time-dependent part, with its remark on
-zero time and a known zero generator).
+time-dependent coefficients** (partial formalisation, under this package's format hypotheses, of
+the finite-set statement of Theorem `ode:thm:gates`, time-dependent part,
+with its remark on zero time and a known zero generator).
 
 For public data `p` with `TPublicOK0 p`, the released public native data and the synthesis
 hypotheses, the protocol `nprotocol (synthPrep hS (ν/3) (ctprepC p UJg nd ar loadC wpC)) (2g)` on

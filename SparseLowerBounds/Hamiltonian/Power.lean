@@ -6,13 +6,12 @@ section
 /-!
 # Corollary `hsl:cor:power`: no `O(√s L^p + L)` bound at fixed time
 
-Manuscript lines 2489-2517. At `τ = 1`, Theorem `hsl:thm:main` gives
-`Ω(√s + √(sL/log(e+L)) + L/log(e+L))` (eq. `hsl:eq:fixedtime`,
-`fixedtime_sum`). The corollary: for any fixed `p < 1/2`, a uniform
-bound `O(√s L^p + L)` at `τ = 1` is impossible, even with any fixed extra
-polylogarithmic factor in `s`.
+Manuscript: Corollary `hsl:cor:power` and eq. `hsl:eq:fixedtime`. At `τ = 1`, Theorem `hsl:thm:main`
+gives `Ω(√s + √(sL/log(e+L)) + L/log(e+L))` (eq. `hsl:eq:fixedtime`, `fixedtime_sum`). The
+corollary: for any fixed `p < 1/2`, a uniform bound `O(√s L^p + L)` at `τ = 1` is impossible, even
+with any fixed extra polylogarithmic factor in `s`.
 
-* `power_separation` (the proof of the corollary, lines 2506-2511): for every
+* `power_separation` (the proof of the corollary, proof of Corollary `hsl:cor:power`): for every
   constant `C` and all thresholds `L₀` and `s₀` there are `s, ε` in the range
   of the theorem with `L ≥ max(64, L₀)`, `s ≥ s₀`, `s ≥ 64 n` (so the mixed
   family applies at `τ = 1`) and
@@ -42,9 +41,9 @@ set_option synthInstance.maxSize 1024
 
 universe u v
 
-/-- The parameters of the corollary's proof (line 2507) along integers: `L = N`
-(`ε = e^{-N}`), `s = N²`. For `N ≥ 64` they lie in the range of the theorem
-and the mixed family applies at `τ = 1` (`64 n ≤ s`, as `n ≤ r/4 ≤ N/4`). -/
+/-- The parameters of the corollary's proof (proof of Corollary `hsl:cor:power`) along integers:
+`L = N` (`ε = e^{-N}`), `s = N²`. For `N ≥ 64` they lie in the range of the theorem and the mixed
+family applies at `τ = 1` (`64 n ≤ s`, as `n ≤ r/4 ≤ N/4`). -/
 theorem power_params {N : ℕ} (hN : 64 ≤ N) :
     HSRange 1 (N ^ 2) (Real.exp (-N)) ∧ hsL (Real.exp (-N)) = N ∧
       64 * (precN 1 (Real.exp (-N)) : ℝ) ≤ ((N ^ 2 : ℕ) : ℝ) := by
@@ -64,7 +63,7 @@ theorem power_params {N : ℕ} (hN : 64 ≤ N) :
   push_cast
   nlinarith [mul_le_mul_of_nonneg_right hN' (Nat.cast_nonneg (α := ℝ) N)]
 
-/-- **The asymptotic separation** (lines 2507-2510), at `L = N`, `s = N²`,
+/-- **The asymptotic separation** (proof of Corollary `hsl:cor:power`), at `L = N`, `s = N²`,
 `r = N/log(e + N)`: for `p < 1/2`, every `k`, every `C` and every `N₀` there
 is `N ≥ max(64, N₀)` with
 `C (N · N^p + N) (log N²)^k < (log 2/(384√2)) √(N² · N/log(e+N))`; the right
@@ -199,7 +198,7 @@ theorem power_asymptotic {pw : ℝ} (hp : pw < 1 / 2) (k : ℕ) (C : ℝ) (N₀ 
     _ < c * Real.sqrt (x ^ 2 * (x / Real.log (Real.exp 1 + x))) := mul_lt_mul_of_pos_left h6 hc
 
 /-- **Separation of the mixed bound from `√s L^p + L`** (proof of Corollary
-`hsl:cor:power`, lines 2506-2511): for `p < 1/2`, every `k`, every `C` and
+`hsl:cor:power`): for `p < 1/2`, every `k`, every `C` and
 all thresholds `L₀`, `s₀` there are `s, ε` with `HSRange 1 s ε`, `L ≥ 64`,
 `L ≥ L₀`, `s ≥ s₀`, `64 n ≤ s` (`n = ⌊r/4⌋`) and
 `C (√s L^p + L) (log s)^k < (log 2/(384√2)) √(s · 1 · r)`. -/
@@ -224,14 +223,12 @@ theorem power_separation {pw : ℝ} (hp : pw < 1 / 2) (k : ℕ) (C L₀ : ℝ) (
     simp only [mul_one, div_one]
     exact hlt
 
-/-- **Corollary `hsl:cor:power`** (lines 2501-2511): a uniform
-`O(√s L^p + L)` bound at `τ = 1`, even with a fixed `polylog(s)` factor, is
-impossible. For `p < 1/2`, every `k`, every `C` and all thresholds `L₀`, `s₀`
-there is a point `(s, ε)` of the theorem's range (with `τ = 1`) with
-`L = log(1/ε) ≥ L₀` and `s ≥ s₀` (the proof takes `L → ∞` and `s = ⌈L²⌉`,
-line 2507) at which every `ε`-accurate algorithm on the mixed family, with any
-spectator `Ω` and any garbage `G`, makes more than
-`C (√s L^p + L) (log s)^k` value queries. -/
+/-- **Corollary `hsl:cor:power`** (Corollary `hsl:cor:power`): a uniform `O(√s L^p + L)` bound at
+`τ = 1`, even with a fixed `polylog(s)` factor, is impossible. For `p < 1/2`, every `k`, every `C`
+and all thresholds `L₀`, `s₀` there is a point `(s, ε)` of the theorem's range (with `τ = 1`) with
+`L = log(1/ε) ≥ L₀` and `s ≥ s₀` (the proof takes `L → ∞` and `s = ⌈L²⌉`, proof of Corollary
+`hsl:cor:power`) at which every `ε`-accurate algorithm on the mixed family, with any spectator `Ω`
+and any garbage `G`, makes more than `C (√s L^p + L) (log s)^k` value queries. -/
 theorem cor_power {pw : ℝ} (hp : pw < 1 / 2) (k : ℕ) (C L₀ : ℝ) (s₀ : ℕ) :
     ∃ s : ℕ, ∃ ε : ℝ, ∃ h : HSRange 1 s ε, L₀ ≤ hsL ε ∧ s₀ ≤ s ∧
       ∀ (Ω : Type u) [Fintype Ω] (G : Type v) [NormedAddCommGroup G] [InnerProductSpace ℂ G]

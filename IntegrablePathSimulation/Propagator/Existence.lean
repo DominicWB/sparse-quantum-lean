@@ -11,11 +11,11 @@ For an interval-integrable path `H` on `[0, T]` the Picard terms
   `picardTerm H 0 = 1`,  `picardTerm H (n + 1) s = ∫_0^s (-i) H(u) picardTerm H n u du`
 
 are continuous and obey `‖picardTerm H n s‖ ≤ K(s)^n / n!` with `K(s) = ∫_0^s ‖H‖`
-(`norm_picardTerm_le`, from the power identity `Calculus.integral_mul_primitive_pow`). Their
-sum `picardSeries H` therefore converges uniformly on `[0, T]` and is a propagator
-(`isPropagator_picardSeries`, `exists_isPropagator`). This is the existence half of the
-Carathéodory theory behind the paragraph after Theorem `hs:thm:time` of the manuscript
-(lines 1618-1632); no continuity or regularity of `H` is used.
+(`norm_picardTerm_le`, from the power identity `Calculus.integral_mul_primitive_pow`). Their sum
+`picardSeries H` therefore converges uniformly on `[0, T]` and is a propagator
+(`isPropagator_picardSeries`, `exists_isPropagator`). This is the existence half of the Carathéodory
+theory behind the paragraph after Theorem `hs:thm:time` of the manuscript; no continuity or
+regularity of `H` is used.
 -/
 
 namespace IntegrablePathSimulation.Propagator
@@ -33,10 +33,10 @@ def picardTerm (H : ℝ → P →L[ℂ] P) : ℕ → ℝ → P →L[ℂ] P
   | 0 => fun _ => 1
   | n + 1 => fun s => ∫ u in (0 : ℝ)..s, (-Complex.I) • (H u * picardTerm H n u)
 
-/-- The Picard series `∑_n picardTerm H n s`. It is the Dyson series of the time-ordered
-exponential `𝒯 exp (-i ∫_0^s H(u) du)` of the manuscript (equation `hs:eq:timeerror`,
-lines 1431-1435) in iterated-integral form: the `n`-th term is the integral of
-`(-i)^n H(u_n) ⋯ H(u_1)` over `0 ≤ u_1 ≤ ⋯ ≤ u_n ≤ s`, written as `n` nested integrals. -/
+/-- The Picard series `∑_n picardTerm H n s`. It is the Dyson series of the time-ordered exponential
+`𝒯 exp (-i ∫_0^s H(u) du)` of the manuscript (equation `hs:eq:timeerror`) in iterated-integral form:
+the `n`-th term is the integral of `(-i)^n H(u_n) ⋯ H(u_1)` over `0 ≤ u_1 ≤ ⋯ ≤ u_n ≤ s`, written as
+`n` nested integrals. -/
 def picardSeries (H : ℝ → P →L[ℂ] P) (s : ℝ) : P →L[ℂ] P :=
   ∑' n, picardTerm H n s
 

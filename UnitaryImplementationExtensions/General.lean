@@ -6,8 +6,8 @@ set_option autoImplicit false
 /-!
 # Black-box unitary implementation at general precision
 
-Corollary `hs:cor:unitary` of the manuscript (statement at lines 1769-1788,
-exact-entry part of the proof at lines 1790-1812), exact entries and general
+Corollary `hs:cor:unitary` of the manuscript (statement in Corollary `hs:cor:unitary`,
+exact-entry part of the proof of Corollary `hs:cor:unitary`), exact entries and general
 precision `0 < ε ≤ 1/2`.
 The circuit is the one of `SparseHamiltonian.UnitaryImplementation`: the
 Hermitian dilation `H_U = [[0, U], [U†, 0]]` is simulated for time `π/2` with

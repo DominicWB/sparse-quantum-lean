@@ -45,12 +45,13 @@ section Budget
 variable {X n : Type*} [Fintype n] [DecidableEq n] {Zs : Type*} [Fintype Zs] [DecidableEq Zs]
 variable {Xa : Type*} [Fintype Xa] [DecidableEq Xa] {𝒢 : Set Kind} {len : ℝ → ℕ}
 
-/-- **Source costs polynomial in `𝔟` over a finite gate set, constant coefficients** (remark of
-Theorem `ode:thm:gates`). Under the hypotheses of `GateBitBudget.binary_ode_budget_trials_bits`
-(`Synthesis 𝒢 Xa len` with `len ζ ≤ c₁ log(1/ζ) + c₀`, `c₀, c₁ ≥ 0`, `AdjClosed 𝒢`,
-`zeroTestKinds ⊆ 𝒢`, and the hypotheses of `binary_ode_budget_bits`), with
-`𝔟 = bitB b_data (2^k_x) (2^m) (2^k) q* g ε`: if `G_src = |srcC 0| + |srcC 1|` and `|Zs|` are at
-most `c (𝔟+1)^j`, then in every history the protocol
+/-- **Source costs polynomial in `𝔟` over a finite gate set, constant coefficients** (partial
+formalisation, under this package's format hypotheses, of the finite-set form of the remark of
+Theorem `ode:thm:gates`). Under the hypotheses of
+`GateBitBudget.binary_ode_budget_trials_bits` (`Synthesis 𝒢 Xa len` with `len ζ ≤ c₁ log(1/ζ) + c₀`,
+`c₀, c₁ ≥ 0`, `AdjClosed 𝒢`, `zeroTestKinds ⊆ 𝒢`, and the hypotheses of `binary_ode_budget_bits`),
+with `𝔟 = bitB b_data (2^k_x) (2^m) (2^k) q* g ε`: if `G_src = |srcC 0| + |srcC 1|` and `|Zs|` are
+at most `c (𝔟+1)^j`, then in every history the protocol
 `nprotocol (synthPrep hS (ν/3) (q.prep srcC)) g` uses at most
 `[40 (2·10¹⁸ + c) (c₁ (64 + j + c) + c₀) + 20 (12·10¹¹ + 8c + 3)] g q* (𝔟+1)^(max j 3 + 1) +
 80 g |Xa|` gates of `𝒢`, and its register has at most `(7·10¹¹ + 4c) (𝔟+1)^(max j 3) + 2 |Xa|`
@@ -102,8 +103,9 @@ theorem binary_ode_budget_trials_poly (hS : Synthesis 𝒢 Xa len) (hadj : AdjCl
   refine ⟨(hW.trans hS').trans (le_of_eq (by ring)), by linarith⟩
 
 /-- **Source costs polynomial in `𝔟` over a finite gate set, time-dependent coefficients**
-(remark of Theorem `ode:thm:gates`, time-dependent part). Under the hypotheses of
-`GateBitBudget.binary_ode_time_budget_trials_bits`, with the internal
+(partial formalisation, under this package's format hypotheses, of the finite-set form of the
+remark of Theorem `ode:thm:gates`, time-dependent part). Under the
+hypotheses of `GateBitBudget.binary_ode_time_budget_trials_bits`, with the internal
 `q* = qOf s T η_H η_D (2g) (ε/2)` and `𝔟 = bitB b_data (2^k_x) (2^m) (2^m) q* g ε`: if
 `G_src = |loadC| + 2 |wpC|` and `|Zs|` are at most `c (𝔟+1)^j`, then in every history the
 synthesised protocol (ratio `2g`) uses at most

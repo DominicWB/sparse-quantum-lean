@@ -224,7 +224,7 @@ variable {R : Type*} [NormedAddCommGroup R] [InnerProductSpace ℂ R] [CompleteS
 variable {𝒢 : Set Kind} {L : ℝ → ℕ}
 
 /-- **Theorem `hs:thm:gates` over a finite gate set from the native data, with the private
-circuit compiled selectively once** (time-independent part). Under the hypotheses of
+circuit compiled selectively once**. Under the hypotheses of
 `GateNative.native_simulation` (with `24 d (η + 4ζ) ≤ ε` for the private budget), the synthesis
 hypothesis with `L ζ ≤ c₁ log(1/ζ) + c₀` and an adjoint-closed `𝒢`: the circuit
 `selSim hS … (privSel hS η nd ar)` consists of valid gates of `𝒢` and primitive calls, makes
@@ -285,10 +285,10 @@ theorem sel_simulation_native (hS : Synthesis 𝒢 X L) (hadj : AdjClosed 𝒢) 
   · -- the same bound, up to the instance paths of the joined scratch `Z ⊕ X`
     convert herr using 4
 
-/-- **Theorem `hs:thm:gates` over a finite gate set from the native data, time-dependent
-part**: the selective time-dependent endpoint `sel_time_simulation` for the slot-selected native
-data of `GateNative.native_time_simulation`, with the private circuit compiled selectively once
-(`privSel`), under `24 d (η + 4ζ) ≤ ε`. -/
+/-- **The time-dependent gate-level simulation (Theorem `hs:thm:time` with the circuit of
+`hs:thm:gates`) over a finite gate set from the native data**: the selective time-dependent endpoint
+`sel_time_simulation` for the slot-selected native data of `GateNative.native_time_simulation`, with
+the private circuit compiled selectively once (`privSel`), under `24 d (η + 4ζ) ≤ ε`. -/
 theorem sel_time_simulation_native (hS : Synthesis 𝒢 X L) (hadj : AdjClosed 𝒢) {c₀ c₁ : ℝ}
     (hc₀ : 0 ≤ c₀) (hc₁ : 0 ≤ c₁)
     (hL : ∀ ζ : ℝ, 0 < ζ → ζ ≤ 1 → (L ζ : ℝ) ≤ c₁ * Real.log (1 / ζ) + c₀)

@@ -5,14 +5,14 @@ set_option autoImplicit false
 set_option synthInstance.maxHeartbeats 400000
 
 /-!
-# Theorem `odel:thm:joint` and Remark `odel:rem:homogeneous` over the general-mesh physical oracle
+# Theorem `odel:thm:joint` and Proposition `odel:rem:homogeneous` over the general-mesh physical oracle
 
-Manuscript lines 4290-4294 (value, inverse and controlled calls cost at most two Boolean
-membership queries), 4296-4341 (Theorem `odel:thm:joint`) and 4343-4388 (Remark
-`odel:rem:homogeneous`), for adaptive solvers over the physical oracle of the released
-general-mesh solver and over its call forms (`MeshForces`). Both families are time dependent
-(the homogeneous variant "is homogeneous but still time dependent; it is not a
-constant-coefficient reduction", lines 4385-4387), so only the general-mesh oracle applies.
+Manuscript: the construction before Theorem `odel:thm:joint` (value, inverse and controlled calls
+cost at most two Boolean membership queries), Theorem `odel:thm:joint` and Proposition
+`odel:rem:homogeneous`, for adaptive solvers over the physical oracle of the released general-mesh
+solver and over its call forms (`MeshForces`). Both families are time dependent (the homogeneous
+variant "is homogeneous but still time dependent; it is not a constant-coefficient reduction",
+Proposition `odel:rem:homogeneous`), so only the general-mesh oracle applies.
 
 * `joint_forces_mesh`, `joint_witness_mesh` (on `JointRange`): `ḡ √s τ / 400`, from
   `Families.joint_solver` through `meshForces_of_boolean` with the released certificate
@@ -49,11 +49,11 @@ theorem joint_forces_mesh (h : JointRange s τ gbar ε) :
   intro L W Fl E G B _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ P Enc hEnc O hU w hw A
   exact Families.joint_solver h P Enc hEnc hU w hw A
 
-/-- **Theorem `odel:thm:joint` over the general-mesh physical oracle** (lines 4296-4341): for
-`s ≥ 4`, `τ ≥ 4`, `ḡ ≥ 2`, `0 < ε ≤ 1/64`, the joint family is in the class (`η = 1`, `T = τ`,
-`g ≤ ḡ`) and forces `ḡ √s τ / 400` value calls (and as many matrix calls) on every adaptive
-solver over the physical oracle or its call forms (controlled and controlled-inverse calls
-included). The family has `D = 0` (`SparseLowerBounds.ODE.jointFamily_skew`), `g = √M`
+/-- **Theorem `odel:thm:joint` over the general-mesh physical oracle** (Theorem `odel:thm:joint`):
+for `s ≥ 4`, `τ ≥ 4`, `ḡ ≥ 2`, `0 < ε ≤ 1/64`, the joint family is in the class (`η = 1`, `T = τ`,
+`g ≤ ḡ`) and forces `ḡ √s τ / 400` value calls (and as many matrix calls) on every adaptive solver
+over the physical oracle or its call forms (controlled and controlled-inverse calls included). The
+family has `D = 0` (`SparseLowerBounds.ODE.jointFamily_skew`), `g = √M`
 (`SparseLowerBounds.ODE.jointFamilyAt_g`), `ḡ/√2 ≤ √M ≤ ḡ` and dimension at most `3 ḡ² s`
 (`SparseLowerBounds.ODE.joint_instance_props`). -/
 theorem joint_witness_mesh (h : JointRange s τ gbar ε) :
@@ -62,7 +62,7 @@ theorem joint_witness_mesh (h : JointRange s τ gbar ε) :
   have hW := AdaptiveODELowerBound.Joint.joint_witness_tree h
   exact ⟨hW.inClass, hW.time_eq, joint_forces_mesh h⟩
 
-/-- **Remark `odel:rem:homogeneous` over the physical oracle, forcing**: on `HomRange`, the
+/-- **Proposition `odel:rem:homogeneous` over the physical oracle, forcing**: on `HomRange`, the
 homogeneous family mesh-forces `ḡ √s τ / 500` (`c_H = homConst = 1/500`). -/
 theorem hom_forces_mesh (h : HomRange s τ gbar ε) :
     MeshForces (homFamilyAt s τ gbar h.s_ge h.gbar_ge h.tau_ge) ε
@@ -78,13 +78,13 @@ theorem hom_forces_mesh (h : HomRange s τ gbar ε) :
   intro L W Fl E G B _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ P Enc hEnc O hU w hw A
   exact Families.hom_solver h P Enc hEnc hU w hw A
 
-/-- **Remark `odel:rem:homogeneous` over the general-mesh physical oracle** (lines 4343-4388):
-for `s ≥ 4`, `ḡ ≥ 2`, `τ ≥ 20(1 + log ḡ)` and `0 < ε ≤ 1/64`, the homogeneous (`b = 0`)
-time-dependent family is in the class (`η = 1`, `T = τ`, `g ≤ ḡ`) and forces `ḡ √s τ / 500`
-value calls (and as many matrix calls) on every adaptive solver over the physical oracle of the
-released general-mesh solver or over its call forms (controlled and controlled-inverse calls
-included). The family has `(4/√17) √M ≤ g ≤ √M` (`ODELowerBoundExtensions.Homogeneous.homFamily_g`),
-`ḡ/√2 ≤ √M ≤ ḡ` and dimension at most `6 ḡ² s`
+/-- **Proposition `odel:rem:homogeneous` over the general-mesh physical oracle** (Proposition
+`odel:rem:homogeneous`): for `s ≥ 4`, `ḡ ≥ 2`, `τ ≥ 20(1 + log ḡ)` and `0 < ε ≤ 1/64`, the
+homogeneous (`b = 0`) time-dependent family is in the class (`η = 1`, `T = τ`, `g ≤ ḡ`) and forces
+`ḡ √s τ / 500` value calls (and as many matrix calls) on every adaptive solver over the physical
+oracle of the released general-mesh solver or over its call forms (controlled and controlled-inverse
+calls included). The family has `(4/√17) √M ≤ g ≤ √M`
+(`ODELowerBoundExtensions.Homogeneous.homFamily_g`), `ḡ/√2 ≤ √M ≤ ḡ` and dimension at most `6 ḡ² s`
 (`ODELowerBoundExtensions.Homogeneous.hom_instance_props`). -/
 theorem hom_witness_mesh (h : HomRange s τ gbar ε) :
     MeshWitnesses (homFamilyAt s τ gbar h.s_ge h.gbar_ge h.tau_ge) τ gbar ε

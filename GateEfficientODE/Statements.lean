@@ -7,6 +7,7 @@ import GateEfficientODE.Time.Theorem
 The exact-gate part of Theorem `ode:thm:gates` (gate-efficient dissipative
 equations) of the accompanying paper, with the analytic LCHS grid of
 `ode:eq:grid` and `ode:eq:gate-grid-size`, is formalized in two cases.
+References to the manuscript use its labels.
 
 * Constant coefficients: `SparseHamiltonian.GateODE.solver` in
   `GateEfficientODE/Theorem.lean`, with the complete protocol
@@ -87,7 +88,7 @@ on `4a + 6m + 12r + 2k + 2l + 8` qubit wires besides the system, with
 `512/ν = 5120000 g/ε`, `Params.J_le_log`), `T (λH + λD) ≤ ν 2^k` and
 `2^k < 2 (⌈T (λH + λD)/ν⌉ + 1)`. With `ℓ = log (g/ε)` the grid has
 `J = O(ℓ (T λD + ℓ))` labels; when `λD` is the row-norm bound `√(2s) η_D` this
-is the paper's `J_k = O(√s T η_D ℓ + ℓ² + 1) = O(q ℓ)`. For every
+is the paper's `N_freq = O(√s T η_D ℓ + ℓ² + 1) = O(q ℓ)` (eq. `ode:eq:gate-grid-size`). For every
 instance satisfying `InstanceOK` (`Outcome`): every trial circuit is unitary;
 the mean herald probability over the trial counts is at least `1/4`; every
 trial with nonzero success component has direction error at most `ε/500` up to
@@ -176,7 +177,10 @@ of the circuit is the left-endpoint exponential recurrence
 (`Time.TParams.target`); it is within the certified error
 `Time.TParams.discretisation` of `x(T)`, which with exact samples equals
 `T² / 2^m · (βG (‖x(0)‖ + bmax T) + βb + (λH + λD) bmax)`
-(`discretisation_exact_samples`).
+(`discretisation_exact_samples`). The positivity `L_r ≥ 0` of every represented sample is
+the hypothesis of the formal versions of Theorem `ode:thm:time`, which that theorem of the
+manuscript does not make (the formal restriction stated in `TimeDependentODE/Statements.lean`);
+the time-dependent gate-level solvers built on this one make it too.
 
 **Access model** (`Time/Model`). The instruction syntax is that of the
 constant-coefficient solver; the supplied unitaries `TOracles` are read as

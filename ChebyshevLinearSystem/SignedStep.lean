@@ -31,6 +31,9 @@ forward branch as `W`, and on an inactive branch as `1` (`signed_eq`). Hence
   the clean subspace, for entangled register and payload states alike;
 * it makes exactly the oracle calls of one forward step, label by label: `54` matrix-oracle
   calls and `2` calls of the controlled source preparation; the controls are fixed gates.
+
+Notation: the regularization parameter is `σ` here and `ξ` in the manuscript, so a subscript `σ` (as
+in `g_σ`, `r_σ`, `H_{σ,r}`) stands for the manuscript's subscript `ξ`.
 -/
 
 namespace ChebyshevLinearSystem

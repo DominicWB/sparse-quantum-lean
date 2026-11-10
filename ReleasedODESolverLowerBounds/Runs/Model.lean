@@ -7,9 +7,8 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # Runs of the released general-mesh solver with split energy bounds
 
-Manuscript Theorem `ode:thm:time` (line 2879) and Section `odel:sec:main`, lines 3678-3679 ("The
-lower bounds thus apply to Theorems `ode:thm:main` and `ode:thm:time`"); the refined upper bound
-with `Θ = τ_H + τ_D ℓ` (lines 3721-3730).
+Manuscript Theorem `ode:thm:time` and Section `odel:sec:main` ("the lower bounds apply to the upper
+bounds of the preceding section"); the refined upper bound with `Θ = τ_H + τ_D ℓ`.
 
 The released general-mesh solver `TimeDependentExtensions.ODE.solver` takes split energy bounds
 `η_H`, `η_D` on the Hermitian and dissipative parts of every generator piece and certifies its
@@ -18,7 +17,7 @@ protocol with `Θ = theta(τ η_H, τ η_D, ratio ḡ, accuracy ε) = τ η_H + 
 `(η_H, η_D) = (1, 0)` (`meshTheta_one_zero`). The package obtains such runs from the solver only
 for families with `D = 0` (`ODELowerBoundExtensions.Release.exists_releaseProtocol`, whose
 hypotheses ask for a skew-Hermitian generator). On the positive semidefinite families of Theorem
-`odel:thm:psd` (`D ⪰ 0`) and on the homogeneous family of Remark `odel:rem:homogeneous` (a
+`odel:thm:psd` (`D ⪰ 0`) and on the homogeneous family of Proposition `odel:rem:homogeneous` (a
 dissipative stage), the solver's hypotheses hold with `η_D = 1`, and its certified
 `Θ = τ η_H + τ ℓ` (`meshTheta_eq`) is at least `τ ℓ > τ`; these runs are therefore stated as
 `MeshRun`s.

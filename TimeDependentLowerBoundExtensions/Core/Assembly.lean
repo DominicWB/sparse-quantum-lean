@@ -6,7 +6,7 @@ set_option synthInstance.maxSize 4096
 /-!
 # Theorem `hsl:thm:main` for any oracle family with Boolean certificates
 
-The three hard families of Theorem `hsl:thm:main` (the manuscript, lines 2102-2119) are proved
+The three hard families of Theorem `hsl:thm:main` (the manuscript) are proved
 hard through Boolean phase-oracle certificates: every label of the algorithm's oracle family is
 implemented, on one fixed isometric encoding, by a bounded number of queries of a Boolean phase
 oracle (`SparseLowerBounds.Hamiltonian.HsRelease.PhaseAccess`), and the general family lemmas

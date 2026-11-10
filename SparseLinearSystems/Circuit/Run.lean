@@ -17,6 +17,9 @@ boundary and the solution coordinates (`finalOutput`).  For `k (N - 1) ≤ t₀ 
 * `final_amplitude`: the decoded final amplitude is `S† J† f_N(W)^k J e`.
 
 Both are stated for the walk `Ww` on the original space.
+
+Notation: the regularization parameter is `σ` here and `ξ` in the manuscript, so a subscript `σ` (as
+in `g_σ`, `r_σ`, `H_{σ,r}`) stands for the manuscript's subscript `ξ`.
 -/
 
 namespace SparseLinearSystems.Run

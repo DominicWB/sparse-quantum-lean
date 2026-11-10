@@ -6,8 +6,8 @@ section
 /-!
 # Parameters of Theorem `odel:thm:joint`
 
-Manuscript lines 3860-3885: for `s ≥ 4`, `τ ≥ 4`, `ḡ ≥ 2`, `0 < ε ≤ 1/64`
-(`JointRange`, lines 3860-3862) choose (lines 3870-3876)
+Manuscript: Theorem `odel:thm:joint` and its proof: for `s ≥ 4`, `τ ≥ 4`, `ḡ ≥ 2`, `0 < ε ≤ 1/64`
+(`JointRange`, Theorem `odel:thm:joint`) choose (proof of Theorem `odel:thm:joint`)
 
 * `M = 2⌊ḡ²/2⌋` (`jointM`): even, `M ≥ 4`, `ḡ/√2 ≤ √M ≤ ḡ`;
 * `m = 2^⌊log₂ s⌋` (`2 ^ jointMu s`): `4 ≤ m`, `s/2 < m ≤ s`;
@@ -22,7 +22,7 @@ namespace SparseLowerBounds.ODE
 
 noncomputable section
 
-/-- The parameter range of Theorem `odel:thm:joint` (lines 3860-3862). -/
+/-- The parameter range of Theorem `odel:thm:joint`. -/
 structure JointRange (s : ℕ) (τ gbar ε : ℝ) : Prop where
   s_ge : 4 ≤ s
   tau_ge : 4 ≤ τ
@@ -30,32 +30,33 @@ structure JointRange (s : ℕ) (τ gbar ε : ℝ) : Prop where
   eps_pos : 0 < ε
   eps_le : ε ≤ 1 / 64
 
-/-- `M = 2⌊ḡ²/2⌋` (line 3872). -/
+/-- `M = 2⌊ḡ²/2⌋` (proof of Theorem `odel:thm:joint`). -/
 def jointM (gbar : ℝ) : ℕ := 2 * ⌊gbar ^ 2 / 2⌋₊
 
-/-- `μ = ⌊log₂ s⌋`, so `m = 2^μ` (line 3873). -/
+/-- `μ = ⌊log₂ s⌋`, so `m = 2^μ` (proof of Theorem `odel:thm:joint`). -/
 def jointMu (s : ℕ) : ℕ := Nat.log 2 s
 
-/-- `n = ⌊2(τ - 1)/π⌋` (line 3874). -/
+/-- `n = ⌊2(τ - 1)/π⌋` (proof of Theorem `odel:thm:joint`). -/
 def jointN (τ : ℝ) : ℕ := ⌊2 * (τ - 1) / Real.pi⌋₊
 
 variable {s : ℕ} {τ gbar : ℝ}
 
-/-! ### `m = 2^μ` (lines 3873, 3876) -/
+/-! ### `m = 2^μ` (proof of Theorem `odel:thm:joint`) -/
 
 /-- `μ ≥ 1` once `s ≥ 2`. -/
 theorem one_le_jointMu (hs : 2 ≤ s) : 1 ≤ jointMu s :=
   Nat.le_log_of_pow_le (by norm_num) (by simpa using hs)
 
-/-- `μ ≥ 2`, i.e. `m = 2^μ ≥ 4`, once `s ≥ 4` (lines 3734, 3873). -/
+/-- `μ ≥ 2`, i.e. `m = 2^μ ≥ 4`, once `s ≥ 4` (Section `odel:sec:main` and proof of Theorem
+`odel:thm:joint`). -/
 theorem two_le_jointMu (hs : 4 ≤ s) : 2 ≤ jointMu s :=
   Nat.le_log_of_pow_le (by norm_num) (by simpa using hs)
 
-/-- `m = 2^μ ≤ s` (line 3876). -/
+/-- `m = 2^μ ≤ s` (proof of Theorem `odel:thm:joint`). -/
 theorem two_pow_jointMu_le (hs : 1 ≤ s) : 2 ^ jointMu s ≤ s :=
   Nat.pow_log_le_self 2 (by omega)
 
-/-- `s < 2m`, i.e. `m > s/2` (line 3876). -/
+/-- `s < 2m`, i.e. `m > s/2` (proof of Theorem `odel:thm:joint`). -/
 theorem lt_two_mul_two_pow_jointMu (s : ℕ) : s < 2 * 2 ^ jointMu s := by
   have h := Nat.lt_pow_succ_log_self (b := 2) (by norm_num) s
   rw [Nat.succ_eq_add_one, pow_succ] at h
@@ -85,7 +86,7 @@ theorem two_le_two_pow {μ : ℕ} (hμ : 1 ≤ μ) : 2 ≤ 2 ^ μ :=
 theorem even_two_pow {μ : ℕ} (hμ : 1 ≤ μ) : Even (2 ^ μ) :=
   Nat.even_pow.mpr ⟨even_two, by omega⟩
 
-/-! ### `n = ⌊2(τ-1)/π⌋` (lines 3874, 3877-3882) -/
+/-! ### `n = ⌊2(τ-1)/π⌋` (proof of Theorem `odel:thm:joint`) -/
 
 /-- The hidden stages and the unit source stage fit in `[0, τ]`. -/
 theorem jointN_time (hτ : 1 ≤ τ) : (jointN τ : ℝ) * (Real.pi / 2) + 1 ≤ τ := by
@@ -104,7 +105,7 @@ theorem le_jointN (hτ : 4 ≤ τ) : (τ - 1) / Real.pi ≤ jointN τ := by
   rw [he] at h
   exact h
 
-/-- `n > τ/5` for `τ ≥ 4` (lines 3877-3880): `n ≥ (τ-1)/π ≥ 3τ/(4π) > τ/5`. -/
+/-- `n > τ/5` for `τ ≥ 4` (proof of Theorem `odel:thm:joint`): `n ≥ (τ-1)/π ≥ 3τ/(4π) > τ/5`. -/
 theorem fifth_lt_jointN (hτ : 4 ≤ τ) : τ / 5 < jointN τ := by
   have h := le_jointN hτ
   have hlt : τ / 5 < (τ - 1) / Real.pi := by
@@ -119,7 +120,7 @@ theorem one_le_jointN (hτ : 4 ≤ τ) : 1 ≤ jointN τ := by
   have : 0 < jointN τ := by exact_mod_cast h0
   omega
 
-/-! ### `M = 2⌊ḡ²/2⌋` (line 3872) -/
+/-! ### `M = 2⌊ḡ²/2⌋` (proof of Theorem `odel:thm:joint`) -/
 
 /-- `M` is even. -/
 theorem even_jointM (gbar : ℝ) : Even (jointM gbar) := even_two_mul _
@@ -144,11 +145,11 @@ theorem half_sq_le_jointM (hg : 2 ≤ gbar) : gbar ^ 2 / 2 ≤ jointM gbar := by
   push_cast
   linarith
 
-/-- `g = √M ≤ ḡ` (line 3876). -/
+/-- `g = √M ≤ ḡ` (proof of Theorem `odel:thm:joint`). -/
 theorem sqrt_jointM_le (hg : 0 ≤ gbar) : Real.sqrt (jointM gbar) ≤ gbar :=
   (Real.sqrt_le_left hg).mpr (jointM_le gbar)
 
-/-- `g = √M ≥ ḡ/√2` for `ḡ ≥ 2` (line 3876). -/
+/-- `g = √M ≥ ḡ/√2` for `ḡ ≥ 2` (proof of Theorem `odel:thm:joint`). -/
 theorem div_sqrt_two_le_sqrt_jointM (hg : 2 ≤ gbar) :
     gbar / Real.sqrt 2 ≤ Real.sqrt (jointM gbar) := by
   have h0 : 0 ≤ gbar / Real.sqrt 2 := div_nonneg (by linarith) (Real.sqrt_nonneg 2)
@@ -168,13 +169,13 @@ theorem sqrt_jointM_mul_ge (hg : 2 ≤ gbar) :
     mul_le_mul hM hm.le (by positivity) (Nat.cast_nonneg _)
   linarith
 
-/-! ### The constant `c_J = 1/400` (lines 3895-3897) -/
+/-! ### The constant `c_J = 1/400` (proof of Theorem `odel:thm:joint`) -/
 
 /-- `β = (2/3)(1 - 2ε) ≥ 31/48` for `ε ≤ 1/64`. -/
 theorem corr_ge {ε : ℝ} (hε : ε ≤ 1 / 64) : 31 / 48 ≤ 2 / 3 * (1 - 2 * ε) := by
   linarith
 
-/-- **The numeric chain of Theorem `odel:thm:joint`** (lines 3895-3897): for
+/-- **The numeric chain of Theorem `odel:thm:joint`** (proof of Theorem `odel:thm:joint`): for
 `τ ≥ 4`, `ḡ ≥ 2` and `β ≥ 31/48`, `ḡ √s τ / 400 ≤ β² n √(M m) / 16`, since
 `n > τ/5`, `√(Mm) ≥ ḡ√s/2` and `(31/48)²/160 = 961/368640 ≥ 1/400`. -/
 theorem joint_numeric (hτ : 4 ≤ τ) (hg : 2 ≤ gbar) {β : ℝ} (hβ : 31 / 48 ≤ β) :

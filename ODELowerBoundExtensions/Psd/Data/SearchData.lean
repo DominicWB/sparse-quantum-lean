@@ -3,8 +3,8 @@ import ODELowerBoundExtensions.Psd.Data.SearchTable
 /-!
 # The gadget family as release sparse-access data
 
-Manuscript lines 4048-4077 and 4106-4107 ("each matrix
-query takes at most two membership queries"). The PSD gadget-family generator `psdSearchMat` is
+Manuscript: the proof of Theorem `odel:thm:psd` ("each matrix query costs at most two
+membership queries"). The PSD gadget-family generator `psdSearchMat` is
 packaged as `NativeSparseBlockEncoding.Data` by the one-bit builder `Hamiltonian.bitData`:
 
 * `psdSearchTable_decode`: `word/2^B` is the matrix entry on every block;
@@ -220,8 +220,8 @@ theorem psdSearchLoc_col (hn : 1 ≤ n) (hs : 2 * 2 ^ μ + 1 ≤ s) (j : Fin n �
   rw [Matrix.transpose_apply] at e
   exact psdSearchLoc_row hn hs j i' i (by rwa [e])
 
-/-- **The PSD gadget family as native sparse data** (lines 4048-4077): hidden input `n`
-one-hot strings of length `2^μ`, matrix `psdSearchMat n μ s u`, exact dyadic words,
+/-- **The PSD gadget family as native sparse data** (proof of Theorem `odel:thm:psd`): hidden input
+`n` one-hot strings of length `2^μ`, matrix `psdSearchMat n μ s u`, exact dyadic words,
 input-independent locators. -/
 def psdSearchData (n μ s : ℕ) (u : ℝ) (hn : 1 ≤ n) (hs : 2 * 2 ^ μ + 1 ≤ s) :
     Data (Fin n → Fin (2 ^ μ)) (SearchIndex n μ s) (Word (psdSearchBits n μ s u)) s :=
@@ -243,8 +243,8 @@ abbrev psdSearchSpecBoolean (Ω : Type*) [Fintype Ω] (n μ s : ℕ) (u : ℝ) :
 @[simp] theorem psdSearchData_matrix (hn : 1 ≤ n) (hs : 2 * 2 ^ μ + 1 ≤ s) :
     (psdSearchData n μ s u hn hs).matrix = psdSearchMat n μ s u := rfl
 
-/-- **Two Boolean queries per value call** (lines 4106-4107): the native primitives of the PSD
-gadget data, with an untouched spectator register, are `hardCost`-query programs over the
+/-- **Two Boolean queries per value call** (proof of Theorem `odel:thm:psd`): the native primitives
+of the PSD gadget data, with an untouched spectator register, are `hardCost`-query programs over the
 one-hot oracle of the hidden strings. -/
 theorem implementsOn_psdSearchData_spec (Ω : Type*) [Fintype Ω] (hn : 1 ≤ n)
     (hs : 2 * 2 ^ μ + 1 ≤ s) (l : Query) :
@@ -253,7 +253,7 @@ theorem implementsOn_psdSearchData_spec (Ω : Type*) [Fintype Ω] (hn : 1 ≤ n)
       (ancillaEmbed (Joint Ω (PsdSearchSpace n μ s u))) (hardCost l) :=
   implementsOn_bitData_spec Ω _ _ _ _ _ _ _ _ _ _ l
 
-/-- **The instance properties** of the PSD gadget data (lines 4074-4077, 4132-4134). -/
+/-- **The instance properties** of the PSD gadget data (proof of Theorem `odel:thm:psd`). -/
 theorem psdSearchData_hardInstance (hn : 1 ≤ n) (hs : 2 * 2 ^ μ + 1 ≤ s) :
     HardInstance (psdSearchData n μ s u hn hs) := by
   have hP := fun j => psdSearchMat_props (n := n) hs u j
@@ -283,7 +283,7 @@ theorem psdSearchData_hardInstance (hn : 1 ≤ n) (hs : 2 * 2 ^ μ + 1 ≤ s) :
         Finset.sum_congr rfl fun i _ => by rw [entry_symm_of_transpose (hR j).1 i refOne]
     _ = 1 := (hP j).2.2.2.1
 
-/-- **`D_X ⪰ 0`** for every hidden input (lines 4074-4075). -/
+/-- **`D_X ⪰ 0`** for every hidden input (proof of Theorem `odel:thm:psd`). -/
 theorem psdSearchData_posSemidef (hn : 1 ≤ n) (hs : 2 * 2 ^ μ + 1 ≤ s)
     (j : Fin n → Fin (2 ^ μ)) : ((psdSearchData n μ s u hn hs).matrix j).PosSemidef :=
   psdSearchMat_posSemidef u j

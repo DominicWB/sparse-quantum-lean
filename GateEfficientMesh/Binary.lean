@@ -4,15 +4,15 @@ import GateEfficientBinaryTime.Budget
 /-!
 # Binary sparse data: integrated certificates
 
-The time-dependent part of Theorem `hs:thm:gates` from time-indexed binary sparse oracles is
-released for Lipschitz paths (`GateBinary.binary_time_simulation`, budget form
-`GateBinary.binary_time_simulation_budget`). The released proof discharges every
-implementation hypothesis of the native theorem (the slot-selected native identity
-`sparse_nativeOK_time`, the CORDIC arithmetic `cordicArith_ok`, the Hadamard `U_J` and the clock
-promises of every sample) and then applies `GateNative.native_time_simulation`. Here the same
-public lemmas discharge the hypotheses of `native_slot_bounds`, which gives the error against
-the ordered product of the slot exponentials of the lifted samples (`binary_slot_bounds`); the
-integrated certificate on the matrix path then bounds the distance to every propagator of the
+The time-dependent gate-level simulation (Theorem `hs:thm:time` with the circuit of `hs:thm:gates`)
+from time-indexed binary sparse oracles is released for Lipschitz paths
+(`GateBinary.binary_time_simulation`, budget form `GateBinary.binary_time_simulation_budget`). The
+released proof discharges every implementation hypothesis of the native theorem (the slot-selected
+native identity `sparse_nativeOK_time`, the CORDIC arithmetic `cordicArith_ok`, the Hadamard `U_J`
+and the clock promises of every sample) and then applies `GateNative.native_time_simulation`. Here
+the same public lemmas discharge the hypotheses of `native_slot_bounds`, which gives the error
+against the ordered product of the slot exponentials of the lifted samples (`binary_slot_bounds`);
+the integrated certificate on the matrix path then bounds the distance to every propagator of the
 lifted path.
 
 * `intervalIntegrable_map`, `integral_map_le`: a contractive linear map of operators preserves

@@ -6,9 +6,8 @@ section
 /-!
 # The signed scalar family: precision lower bound
 
-Manuscript lines 2340-2370 (Lemma `hsl:lem:precision`,
-eq. `hsl:eq:precisionlower`), for **any** labelled oracle family whose labels
-are implementable on a fixed isometric encoding with `w l` Boolean bit queries
+Manuscript: Lemma `hsl:lem:precision` (eq. `hsl:eq:precisionlower`), for **any** labelled oracle
+family whose labels are implementable on a fixed isometric encoding with `w l` Boolean bit queries
 (`EncodedOracle.ImplementsOn` over `bitOracle P`).
 
 * `precision_cost_of_corr`: correlation form. If some input-independent
@@ -21,17 +20,18 @@ are implementable on a fixed isometric encoding with `w l` Boolean bit queries
   suffices), `0 < τ ≤ n` and `ε ≤ (τ/(2n))^n/8`, an `ε`-accurate algorithm has
   parity correlation `≥ 7A/8 - 2ε > 0` with the readout of eq.
   `hsl:eq:readout`, so `p.cost w ≥ n/2`. Correlation is used in its
-  arbitrarily-small positive form, not bounded-error parity (lines 2369-2370).
+  arbitrarily-small positive form, not bounded-error parity (Lemma `hsl:lem:precision`).
 
 Intermediate statements (per output vector; no isometry hypothesis on the
 readout `e` is needed, since `Readout.Accurate` already quantifies over
 Hermitian contractions of the system and `corr_of_accurate` uses only those):
 
 * `precision_corr`: an `ε`-accurate output on bits `x` has parity correlation
-  `≥ 7A/8 - 2ε ≥ 5A/8 ≥ A/2 > 0`, `A = sin(τ/n)^n` (lines 2299-2304, 2356).
-* `precision_corr_pos`: summed over all `2^n` inputs, the parity correlation of
-  an everywhere-accurate algorithm is strictly positive (line 2356, "strictly
-  positive correlation with `n`-bit parity").
+  `≥ 7A/8 - 2ε ≥ 5A/8 ≥ A/2 > 0`, `A = sin(τ/n)^n` (the chain construction of Section `part:hsl` and
+  proof of Lemma `hsl:lem:precision`).
+* `precision_corr_pos`: summed over all `2^n` inputs, the parity correlation of an
+  everywhere-accurate algorithm is strictly positive (proof of Lemma `hsl:lem:precision`, "strictly
+  positive correlation with full `n`-bit parity").
 -/
 
 namespace SparseLowerBounds.Hamiltonian
@@ -45,7 +45,7 @@ variable {K K' G L : Type*}
   [NormedAddCommGroup K'] [InnerProductSpace ℂ K'] [CompleteSpace K']
   [NormedAddCommGroup G] [InnerProductSpace ℂ G] [CompleteSpace G]
 
-/-- **Correlation form of the precision bound** (lines 2355-2365). -/
+/-- **Correlation form of the precision bound** (proof of Lemma `hsl:lem:precision`). -/
 theorem precision_cost_of_corr {n : ℕ} (P : ProjFamily K' (Fin n)) (E : K →L[ℂ] K')
     (hE : E† ∘L E = 1) (O : L → (Fin n → Bool) → K →L[ℂ] K) (hO : ∀ l x, IsUnitary (O l x))
     (w : L → ℕ) (hw : ∀ l, EncodedOracle.ImplementsOn (bitOracle P) (O l) E (w l))
@@ -69,10 +69,10 @@ theorem precision_cost_of_corr {n : ℕ} (P : ProjFamily K' (Fin n)) (E : K →L
   have h3 : (c.count : ℝ) ≤ p.cost w := by exact_mod_cast hc
   linarith
 
-/-- **Precision-family correlation** (lines 2299-2304 and 2356): for `n ≥ 1`,
-`0 < τ ≤ n` and `ε ≤ (τ/(2n))^n/8`, an `ε`-accurate output of the signed
-scalar family on bits `x` has parity correlation at least `A/2 > 0`,
-`A = sin(τ/n)^n`. No isometry hypothesis on `e` is needed.
+/-- **Precision-family correlation** (the chain construction of Section `part:hsl` and proof of
+Lemma `hsl:lem:precision`): for `n ≥ 1`, `0 < τ ≤ n` and `ε ≤ (τ/(2n))^n/8`, an `ε`-accurate output
+of the signed scalar family on bits `x` has parity correlation at least `A/2 > 0`, `A = sin(τ/n)^n`.
+No isometry hypothesis on `e` is needed.
 
 Proof sketch: `A ≥ (τ/(2n))^n > 0` (`amp_ge`), so `ε ≤ A/8`;
 `scalar_corr` gives ideal correlation `≥ 7A/8` (`chainAmp n 1 τ`
@@ -98,7 +98,7 @@ theorem precision_corr {n s : ℕ} {τ ε : ℝ} (hn : 1 ≤ n) (hτ : 0 < τ) (
     (scalarObs_contraction n s).2 (BitDegree.abs_bitParity x).le hideal
   linarith
 
-/-- **Positive parity correlation** (line 2356): if every output `Φ x` is
+/-- **Positive parity correlation** (proof of Lemma `hsl:lem:precision`): if every output `Φ x` is
 `ε`-accurate for its input, the summed parity correlation of the readout
 `outObs e (scalarObs n s)` is strictly positive (each term is
 `≥ sin(τ/n)^n/2 > 0` by `precision_corr` and `amp_ge`, and the input set is
@@ -116,7 +116,7 @@ theorem precision_corr_pos {n s : ℕ} {τ ε : ℝ} (hn : 1 ≤ n) (hτ : 0 < �
   have h := precision_corr hn hτ hτn hε e x (Φ x) (hacc x)
   linarith
 
-/-- **Lemma `hsl:lem:precision`, general form** (lines 2348-2365). Any
+/-- **Lemma `hsl:lem:precision`, general form** (Lemma `hsl:lem:precision`). Any
 algorithm over a 2-query-implementable labelled family that is `ε`-accurate
 on every input of the signed scalar family, with `0 < τ ≤ n` and
 `ε ≤ (τ/(2n))^n/8` (eq. `hsl:eq:mixepsilon`), has Boolean cost

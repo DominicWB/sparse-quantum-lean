@@ -8,17 +8,18 @@ set_option autoImplicit false
 set_option synthInstance.maxSize 4096
 
 /-!
-# The Dyson LCU target and its error (`odel:lem:dyson`, lines 4178-4190, 4234-4252)
+# The Dyson LCU target and its error (`odel:lem:dyson`)
 
 The forced solution `U(T,0) x₀ + ∫_0^T U(T,u) b(u) du` is compared with the released
 exponential left-endpoint scheme on the mesh (`TimeDependentExtensions.ODEMesh.meshRecurrence`,
 error `mesh_error`: contractive Duhamel comparison with integrated sample errors and the
-source quadrature, lines 4178-4190 and 4237-4239), whose value is the sum over the source
+source quadrature, proof of Lemma `odel:lem:dyson`), whose value is the sum over the source
 branches `q` of the masked mesh propagators applied to the source vectors
 (`meshRecurrence_eq_sum`). Each masked propagator is replaced by its Dyson series truncated at
 degree `K` (`Series.lean`), with the same coefficient sequence on every branch; the branch
 starting at the cell `q` carries the known attenuation `mask q r` of the earlier cells
-(lines 4242-4243, "the factor `((T-u)/T)^k` is a known attenuation").
+(proof of Lemma `odel:lem:dyson`: for a branch starting at `u`, "the coefficient relative to this
+common sequence is `((T-u)/T)^k`", which is "known from the branch and degree labels").
 
 * `branchRates rate t q r = rate · (t_{r+1} - t_r) · mask(q, r)`, `rate = s Λ`;
 * `dysonCoeff`: the LCU coefficients — source weight (`MeshSampling.norms`) times Dyson weight
@@ -26,11 +27,11 @@ starting at the cell `q` carries the known attenuation `mask q r` of the earlier
   on the padding branches (it doubles the coefficient mass, keeping the herald amplitude at
   most `1/2`, and adds nothing to the selected sum);
 * `lcuMass`: half the coefficient mass; `mass_le_lcuMass`, `lcuMass_le`: `B ≤ lcuMass ≤ B e^z`
-  (lines 4243-4245, "normalisation `O(e^z B)`");
+  (proof of Lemma `odel:lem:dyson`, "quadrature sum divided by `e^z B_q`");
 * `lcuTarget`: the selected LCU sum `∑_l dysonCoeff l • branchOperator l (J_{l.1} v)`;
 * `lcuTarget_error`: under the certified discretisation of `TimeDependentExtensions.ODE.solver`
   (constant `2000`) and a degree with tail at most `ε/(2000 g)`, the LCU sum is within
-  `ε B/(1000 g)` of `x(T)` (lines 4246-4250).
+  `ε B/(1000 g)` of `x(T)` (proof of Lemma `odel:lem:dyson`).
 
 Proof map: `lcuTarget_eq` (the padding pair cancels), `branch_sum_eq` (each source branch is
 the truncated Dyson series of its masked mesh propagator, via `Helpers/TargetCoef`), the
@@ -126,7 +127,7 @@ theorem mass_le_lcuMass (rate : ℝ) (t : ℕ → ℝ) (K M : ℕ) (r₀ : ℝ) 
     le_mul_of_one_le_right (MeshSampling.norms_nonneg r₀ t rb h₀ ht hb q)
       (one_le_sum_coef _ (branchRates_nonneg rate t hrate ht q) K M)
 
-/-- `lcuMass ≤ B e^{rate T}` (lines 4243-4245). -/
+/-- `lcuMass ≤ B e^{rate T}` (proof of Lemma `odel:lem:dyson`). -/
 theorem lcuMass_le (rate : ℝ) {t : ℕ → ℝ} {T : ℝ} (K : ℕ) {M : ℕ} (hmesh : IsMesh t M T)
     (r₀ : ℝ) (rb : Fin M → ℝ) (hrate : 0 ≤ rate) (h₀ : 0 ≤ r₀) (hb : ∀ q, 0 ≤ rb q) :
     lcuMass rate t K M r₀ rb ≤ MeshSampling.mass r₀ t rb * Real.exp (rate * T) := by
@@ -228,9 +229,9 @@ theorem branch_sum_eq {K M : ℕ} (σ : Fin M → Fin Ks) (D : Data (X × Fin Ks
 
 omit [Fintype Z] [AddCommGroup Z] [DecidableEq Z] in
 set_option maxHeartbeats 1000000 in
-/-- **Error of the Dyson LCU target** (lines 4230-4250): with the release's certified
-discretisation (sample errors integrated against `r₀ + b_max T`, forcing sample errors and the
-left-endpoint quadrature, at most `ε B/(2000 g)`) and a degree `K` whose factorial tail at
+/-- **Error of the Dyson LCU target** (proof of Lemma `odel:lem:dyson`): with the release's
+certified discretisation (sample errors integrated against `r₀ + b_max T`, forcing sample errors and
+the left-endpoint quadrature, at most `ε B/(2000 g)`) and a degree `K` whose factorial tail at
 `z = s Λ T` is at most `ε/(2000 g)`, the selected LCU sum is within `ε B/(1000 g)` of `x(T)`. -/
 theorem lcuTarget_error {K M : ℕ} (hM : 0 < M) (σ : Fin M → Fin Ks)
     (D : Data (X × Fin Ks) n Z s) {t : ℕ → ℝ} {T : ℝ} (hmesh : IsMesh t M T)

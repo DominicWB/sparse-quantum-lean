@@ -6,8 +6,11 @@ set_option autoImplicit false
 /-!
 # Amplitude-amplification trial families
 
-Manuscript lines 4687-4689 (proof of Lemma `odel:lem:dyson`): "Amplitude amplification with a
-known lower bound on success probability costs `O(ḡ e^z)` and gives constant heralded success."
+Manuscript: the proof of Lemma `odel:lem:dyson`: "Amplify the actual circuit using its own inverse.
+A direct trial covers amplitudes above `1/2` with constant probability; for smaller amplitudes,
+randomised amplification with a bounded schedule of `O(e^z ḡ)` calls does so. Mixing the two
+trials and repeating a constant number of times gives heralded success probability at least `2/3`
+without changing the conditional direction."
 The released trials (`ODECountedAmplification.program`, `ODEGroverProgram.amplified`) run, for
 the classically drawn cutoff `j`, the preparation `A` followed by `j` signed Grover steps
 `U₁ A U₂ A† U₃` with fixed reflections.

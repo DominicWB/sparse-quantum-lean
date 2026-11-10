@@ -19,11 +19,11 @@ eq. `hsl:eq:accuracy`): for every self-adjoint `M` with `‖M‖ ≤ 1`,
 `|Re tr(outObs e M · ρ) - Re⟪ψ, M ψ⟫| ≤ 2ε`. For a pure output `ρ = |Φ⟩⟨Φ|` it is the released
 notion `Readout.Accurate e Φ ψ ε` (`densityAccurate_pure_iff`).
 
-`tree_correlation` is the heralded-correlation step (eq. `odel:eq:heraldcorr`, lines
-3976-3983, with the random-bit convention for failures): success probability at least `2/3`,
-conditional accuracy `ε` and ideal signed expectation `σ Re⟪ψ, D ψ⟫ ≥ a₀ ≥ 2ε` give the
-signed correlation `σ Re tr(outObs e D · ρ_x) ≥ (2/3)(a₀ - 2ε)` of the unnormalised heralded
-output `ρ_x = T.successDensity x`.
+`tree_correlation` is the heralded-correlation step (eq. `odel:eq:heraldcorr`, with the random-bit
+convention for failures): success probability at least `2/3`, conditional accuracy `ε` and ideal
+signed expectation `σ Re⟪ψ, D ψ⟫ ≥ a₀ ≥ 2ε` give the signed correlation
+`σ Re tr(outObs e D · ρ_x) ≥ (2/3)(a₀ - 2ε)` of the unnormalised heralded output
+`ρ_x = T.successDensity x`.
 
 The signs of the hard families are the parity `parSign` of the weight argument:
 `parity_eq_parSign` (search families) and `bitParity_toBits` (precision family).

@@ -20,8 +20,8 @@ same wrappers (`Helpers/HsRelease/Layers`):
 Each is the homogeneous spectator `Joint.fiber (fun _ => U)`, the last one up
 to the fixed relabelling `RegisterEquivalences.productFlatten`. So the
 Boolean-access transports of `Adaptive/Access` (`BooleanAccess.spectate`,
-`BooleanAccess.conj`) apply to them at no query cost (manuscript lines
-5185-5186: spectator and controlled registers are covered by purification).
+`BooleanAccess.conj`) apply to them at no query cost (proof of Lemma
+`qlsl:lem:xor`: spectator and controlled registers are covered by purification).
 -/
 
 namespace SparseLowerBounds.Helpers.Adaptive.Access

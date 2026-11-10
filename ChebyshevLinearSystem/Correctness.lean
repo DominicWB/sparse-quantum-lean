@@ -19,6 +19,9 @@ those of the released proof (`Endpoint.rho`, `Endpoint.rho_ladder`).
   (`ChebyshevFilter.augmented_final_fact` at `δ = ε/1000`);
 * `correctness`: success probability at least `2/3` and conditional trace distance at most
   `ε`.
+
+Notation: the regularization parameter is `σ` here and `ξ` in the manuscript, so a subscript `σ` (as
+in `g_σ`, `r_σ`, `H_{σ,r}`) stands for the manuscript's subscript `ξ`.
 -/
 
 namespace ChebyshevLinearSystem

@@ -6,7 +6,7 @@ section
 /-!
 # The outer adversary matrix of the joint search-parity problem
 
-Manuscript lines 3768-3794 (proof of Lemma `odel:lem:outer`). On promised
+Manuscript: the proof of Lemma `odel:lem:outer`. On promised
 inputs (`ODE/Promise`), `Γ x x' = 1` (`outerGamma`, `OuterAdj`) when the unique
 odd candidates `a = a_*(x)` and `b = a_*(x')` lie in opposite halves (`OppHalf`,
 `Helpers/Ode/OuterGraph/Halves`), blocks
@@ -36,7 +36,7 @@ variable {M n m : ℕ}
 
 /-! ### The outer adjacency -/
 
-/-- **The outer graph** (lines 3769-3772): the odd candidate moves from `a` to
+/-- **The outer graph** (proof of Lemma `odel:lem:outer`): the odd candidate moves from `a` to
 `b` across the halves, blocks `a` and `b` each change along an inner edge, and
 all other blocks agree. -/
 def OuterAdj (x x' : Promised M n m) : Prop :=
@@ -47,7 +47,7 @@ def OuterAdj (x x' : Promised M n m) : Prop :=
 instance (x x' : Promised M n m) : Decidable (OuterAdj x x') := by
   unfold OuterAdj; infer_instance
 
-/-- **The outer adversary matrix** `Γ` (lines 3768-3776), with `0/1` entries. -/
+/-- **The outer adversary matrix** `Γ` (proof of Lemma `odel:lem:outer`), with `0/1` entries. -/
 def outerGamma (x x' : Promised M n m) : ℝ := if OuterAdj x x' then 1 else 0
 
 theorem OuterAdj.symm {x x' : Promised M n m} (h : OuterAdj x x') : OuterAdj x' x :=
@@ -297,7 +297,7 @@ theorem arith_center_opp {a b B D : ℝ} (hb : b ^ 2 = B) :
 theorem arith_leaf_opp (a b D : ℝ) :
     1 * D * 1 * (a * b) = a * D * b * (1 * 1) := by ring
 
-/-- **Schur certificates** (eq. `odel:eq:outermask`, lines 3777-3790): for `M`,
+/-- **Schur certificates** (eq. `odel:eq:outermask`): for `M`,
 `m` even, every masked matrix `Γ ∘ Δ_{c,k,z}` has a Schur certificate with
 constant `λ = √(M/2) d √(m/2)`, weights `certWeight c k z`. The four row types
 (odd candidate `c` or not, `j_{ck} = z` or not) are the centres and leaves of

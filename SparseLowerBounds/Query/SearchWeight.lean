@@ -6,13 +6,13 @@ section
 /-!
 # The search weight and Lemma `hsl:lem:search`
 
-Manuscript lines 2141-2203. On one hidden-position register `ℂ^m` (`m` even)
+Manuscript: Lemma `hsl:lem:search` and its proof. On one hidden-position register `ℂ^m` (`m` even)
 let `u = m^{-1/2} Σ_b |b⟩`, `Z |b⟩ = (-1)^b |b⟩`, `v = Z u` and
-`R = I - P_u - P_v`. For a real `a ≥ 1` the weight is (line 2170)
+`R = I - P_u - P_v`. For a real `a ≥ 1` the weight is (proof of Lemma `hsl:lem:search`)
 
   `w = P_u + a² P_v + a R`,  `w⁻¹ = P_u + a⁻² P_v + a⁻¹ R`.
 
-It is Hermitian, fixes `u` (row sums one), and (lines 2172-2184)
+It is Hermitian, fixes `u` (row sums one), and (proof of Lemma `hsl:lem:search`)
 
 * `w⁻¹ Z w⁻¹ = a⁻² Z`, so `‖w⁻¹ Z w⁻¹‖ ≤ a⁻²` (`conj_Z`, `norm_conj_Z_le`);
 * `‖w D_b w⁻¹‖ ≤ 1 + 4√2 a/√m + 4a²/m ≤ 1 + 12 a/√m` for `1 ≤ a ≤ √m`
@@ -34,12 +34,12 @@ hidden positions (`search_lemma`), and its worst-case corollary
    `Σ_b (-1)^b = 0`), so `w`, `wInv` multiply coefficientwise
    (`orth_combo_mul`). `Z P_u Z = P_v`, `Z P_v Z = P_u`, `Z R = R Z`
    (`parityZ_mul_Pu_mul_parityZ`, …) give `conj_Z`.
-2. *The query block* (lines 2174-2184). With `e = (w/a - I)|b⟩` and
+2. *The query block* (proof of Lemma `hsl:lem:search`). With `e = (w/a - I)|b⟩` and
    `f = (a w⁻¹ - I)|b⟩` (`eVec`, `fVec`): `w D_b w⁻¹ = D_b - 2(e⟨b| + |b⟩f† + e f†)`
    (`conj_D_eq`); `e = (a⁻¹-1) P_u|b⟩ + (a-1) P_v|b⟩` (`eVec_eq`), so
    `‖e‖, ‖f‖ ≤ √2 a/√m` (`norm_e_le`, `norm_f_le`), whence the display bound
    (`norm_conj_D_le_fine`) and `1 + 12a/√m` (`fine_le_twelve`).
-3. *Final arithmetic* (lines 2189-2203). `(1 + 12a/√m)^{2q} ≤ e^{24aq/√m}`
+3. *Final arithmetic* (proof of Lemma `hsl:lem:search`). `(1 + 12a/√m)^{2q} ≤ e^{24aq/√m}`
    (`lam_pow_le`); the average correlation is at most `a^{-2n} e^{24aq/√m}`
    (`avg_corr_le`) and at most `1` (`avg_corr_le_one`); with
    `a = searchA n β₀ = 2β₀^{-1/(2n)}` (`one_le_searchA`, `searchA_le_sqrt`)
@@ -62,7 +62,7 @@ def Pv (m : ℕ) : Matrix (Fin m) (Fin m) ℂ :=
 /-- `R = I - P_u - P_v`. -/
 def Rest (m : ℕ) : Matrix (Fin m) (Fin m) ℂ := 1 - XorWeight.Pu m - Pv m
 
-/-- The search weight `w = P_u + a² P_v + a R` (line 2170). -/
+/-- The search weight `w = P_u + a² P_v + a R` (proof of Lemma `hsl:lem:search`). -/
 def w (m : ℕ) (a : ℝ) : Matrix (Fin m) (Fin m) ℂ :=
   XorWeight.Pu m + ((a : ℂ) ^ 2) • Pv m + (a : ℂ) • Rest m
 
@@ -70,15 +70,15 @@ def w (m : ℕ) (a : ℝ) : Matrix (Fin m) (Fin m) ℂ :=
 def wInv (m : ℕ) (a : ℝ) : Matrix (Fin m) (Fin m) ℂ :=
   XorWeight.Pu m + ((a : ℂ) ^ 2)⁻¹ • Pv m + (a : ℂ)⁻¹ • Rest m
 
-/-- The vector `e = (w/a - I)|b⟩` of line 2175. -/
+/-- The vector `e = (w/a - I)|b⟩` of the proof of Lemma `hsl:lem:search`. -/
 def eVec (m : ℕ) (a : ℝ) (b : Fin m) : Fin m → ℂ :=
   ((a : ℂ)⁻¹ • w m a - 1) *ᵥ (Pi.single b (1 : ℂ) : Fin m → ℂ)
 
-/-- The vector `f = (a w⁻¹ - I)|b⟩` of line 2175. -/
+/-- The vector `f = (a w⁻¹ - I)|b⟩` of the proof of Lemma `hsl:lem:search`. -/
 def fVec (m : ℕ) (a : ℝ) (b : Fin m) : Fin m → ℂ :=
   ((a : ℂ) • wInv m a - 1) *ᵥ (Pi.single b (1 : ℂ) : Fin m → ℂ)
 
-/-- The weight parameter `a = 2 β₀^{-1/(2n)}` chosen at line 2200. -/
+/-- The weight parameter `a = 2 β₀^{-1/(2n)}` chosen in the proof of Lemma `hsl:lem:search`. -/
 def searchA (n : ℕ) (β₀ : ℝ) : ℝ := 2 * β₀ ^ (-(1 : ℝ) / (2 * (n : ℝ)))
 
 variable {m : ℕ}
@@ -143,7 +143,7 @@ theorem Rest_mulVec_one (hm : Even m) : Rest m *ᵥ (fun _ => 1) = 0 := by
 theorem parityZ_mul_parityZ (m : ℕ) : parityZ m * parityZ m = 1 := by
   exact Helpers.XorWeight.Z_mul_Z m
 
-/-- `Z P_u Z = P_v` (line 2172: `Z` maps `u` to `v`). -/
+/-- `Z P_u Z = P_v` (proof of Lemma `hsl:lem:search`: `Z` maps `u` to `v`). -/
 theorem parityZ_mul_Pu_mul_parityZ (m : ℕ) : parityZ m * XorWeight.Pu m * parityZ m = Pv m := by
   exact Helpers.SearchWeight.Z_P_Z m
 
@@ -159,7 +159,7 @@ theorem parityZ_mul_Pu (m : ℕ) : parityZ m * XorWeight.Pu m = Pv m * parityZ m
 theorem parityZ_mul_Pv (m : ℕ) : parityZ m * Pv m = XorWeight.Pu m * parityZ m := by
   exact Helpers.SearchWeight.Z_mul_V m
 
-/-- `Z R = R Z` (line 2172: `Z` preserves `R`). -/
+/-- `Z R = R Z` (proof of Lemma `hsl:lem:search`: `Z` preserves `R`). -/
 theorem parityZ_mul_Rest (m : ℕ) : parityZ m * Rest m = Rest m * parityZ m := by
   exact Helpers.SearchWeight.Z_mul_R m
 
@@ -188,7 +188,8 @@ theorem inv_w (hm : Even m) {a : ℝ} (ha : a ≠ 0) : (w m a)⁻¹ = wInv m a :
 theorem w_mulVec_one (hm : Even m) (a : ℝ) : w m a *ᵥ (fun _ => 1) = fun _ => 1 := by
   exact Helpers.SearchWeight.W_mulVec_one hm a
 
-/-- `w⁻¹ Z w⁻¹ = a⁻² Z` (lines 2172-2173): `Z` swaps `u` and `v` and preserves `R`. -/
+/-- `w⁻¹ Z w⁻¹ = a⁻² Z` (proof of Lemma `hsl:lem:search`): `Z` swaps `u` and `v` and preserves
+`R`. -/
 theorem conj_Z (hm : Even m) {a : ℝ} (ha : a ≠ 0) :
     (w m a)⁻¹ * parityZ m * (w m a)⁻¹ = ((a : ℂ) ^ 2)⁻¹ • parityZ m := by
   rw [inv_w hm ha]
@@ -202,7 +203,7 @@ theorem norm_conj_Z_le (hm : Even m) {a : ℝ} (ha : 0 < a) :
     _ = (a ^ 2)⁻¹ := by
         rw [mul_one, norm_inv, norm_pow, Complex.norm_real, Real.norm_eq_abs, sq_abs]
 
-/-! ### The query block (lines 2174-2184) -/
+/-! ### The query block (proof of Lemma `hsl:lem:search`) -/
 
 /-- `e = (a⁻¹ - 1) P_u|b⟩ + (a - 1) P_v|b⟩` (from `R - I = -P_u - P_v`). -/
 theorem eVec_eq {a : ℝ} (ha : a ≠ 0) (b : Fin m) :
@@ -223,12 +224,12 @@ theorem norm_combo_sq (hm : Even m) (b : Fin m) (x y : ℂ) :
       EuclideanSpace ℂ (Fin m))‖ ^ 2 = (‖x‖ ^ 2 + ‖y‖ ^ 2) / m := by
   exact Helpers.SearchWeight.norm_combo_sq hm b x y
 
-/-- `‖e‖ ≤ √2 a/√m` for `a ≥ 1` (line 2176). -/
+/-- `‖e‖ ≤ √2 a/√m` for `a ≥ 1` (proof of Lemma `hsl:lem:search`). -/
 theorem norm_e_le (hm : Even m) {a : ℝ} (ha : 1 ≤ a) (b : Fin m) :
     ‖(WithLp.toLp 2 (eVec m a b) : EuclideanSpace ℂ (Fin m))‖ ≤ Real.sqrt 2 * a / Real.sqrt m := by
   exact Helpers.SearchWeight.norm_E_le hm ha b
 
-/-- `‖f‖ ≤ √2 a/√m` for `a ≥ 1` (line 2176). -/
+/-- `‖f‖ ≤ √2 a/√m` for `a ≥ 1` (proof of Lemma `hsl:lem:search`). -/
 theorem norm_f_le (hm : Even m) {a : ℝ} (ha : 1 ≤ a) (b : Fin m) :
     ‖(WithLp.toLp 2 (fVec m a b) : EuclideanSpace ℂ (Fin m))‖ ≤ Real.sqrt 2 * a / Real.sqrt m := by
   exact Helpers.SearchWeight.norm_F_le hm ha b
@@ -246,7 +247,7 @@ theorem norm_vecMulVec_le (x y : Fin m → ℂ) :
       ‖(WithLp.toLp 2 y : EuclideanSpace ℂ (Fin m))‖ := by
   exact Helpers.SearchWeight.norm_vecMulVec_le x y
 
-/-- **The conjugated query block** (line 2178):
+/-- **The conjugated query block** (proof of Lemma `hsl:lem:search`):
 `w D_b w⁻¹ = D_b - 2(e⟨b| + |b⟩f† + e f†)`, from `w|b⟩ = a(e + |b⟩)` and
 `⟨b|w⁻¹ = a⁻¹(f + |b⟩)†` (`w⁻¹` Hermitian, `a` real). -/
 theorem conj_D_eq (hm : Even m) {a : ℝ} (ha : a ≠ 0) (b : Fin m) :
@@ -256,27 +257,27 @@ theorem conj_D_eq (hm : Even m) {a : ℝ} (ha : a ≠ 0) (b : Fin m) :
         Matrix.vecMulVec (eVec m a b) (star (fVec m a b))) := by
   exact Helpers.SearchWeight.conj_D_eq hm ha b
 
-/-- The display bound of lines 2182-2183 (first inequality):
+/-- The display bound of the proof of Lemma `hsl:lem:search` (first inequality):
 `‖w D_b w⁻¹‖ ≤ 1 + 4√2 a/√m + 4a²/m` for `a ≥ 1`. -/
 theorem norm_conj_D_le_fine (hm : Even m) {a : ℝ} (ha : 1 ≤ a) (b : Fin m) :
     ‖w m a * reflect b * (w m a)⁻¹‖ ≤ 1 + 4 * Real.sqrt 2 * a / Real.sqrt m + 4 * a ^ 2 / m := by
   exact Helpers.SearchWeight.norm_conj_D_le_fine hm ha b
 
-/-- The second inequality of line 2183: `4√2 a/√m + 4a²/m ≤ 12 a/√m` for
+/-- The second inequality of that display: `4√2 a/√m + 4a²/m ≤ 12 a/√m` for
 `0 ≤ a ≤ √m` (also at `m = 0`, where it forces `a = 0`). -/
 theorem fine_le_twelve {a : ℝ} (ha : 0 ≤ a) (ham : a ≤ Real.sqrt m) :
     1 + 4 * Real.sqrt 2 * a / Real.sqrt m + 4 * a ^ 2 / m ≤ 1 + 12 * a / Real.sqrt m := by
   exact Helpers.SearchWeight.fine_le_twelve ha ham
 
-/-- **Per-query weight growth** (lines 2174-2184): for `1 ≤ a ≤ √m`,
+/-- **Per-query weight growth** (proof of Lemma `hsl:lem:search`): for `1 ≤ a ≤ √m`,
 `‖w D_b w⁻¹‖ ≤ 1 + 12 a/√m`. -/
 theorem norm_conj_D_le (hm : Even m) {a : ℝ} (ha : 1 ≤ a) (ham : a ≤ Real.sqrt m) (b : Fin m) :
     ‖w m a * reflect b * (w m a)⁻¹‖ ≤ 1 + 12 * a / Real.sqrt m := by
   exact (norm_conj_D_le_fine hm ha b).trans (fine_le_twelve (by linarith) ham)
 
-/-! ### Final arithmetic (lines 2189-2203) -/
+/-! ### Final arithmetic (proof of Lemma `hsl:lem:search`) -/
 
-/-- `(1 + 12a/√m)^{2q} ≤ e^{24aq/√m}` (line 2192). -/
+/-- `(1 + 12a/√m)^{2q} ≤ e^{24aq/√m}` (proof of Lemma `hsl:lem:search`). -/
 theorem lam_pow_le {a : ℝ} (ha : 0 ≤ a) (m q : ℕ) :
     (1 + 12 * a / Real.sqrt m) ^ (2 * q) ≤ Real.exp (24 * a * q / Real.sqrt m) := by
   exact Helpers.SearchWeight.lam_pow_le ha m q
@@ -298,8 +299,8 @@ theorem searchA_sq {n : ℕ} {β₀ : ℝ} (hβ₀ : 0 < β₀) :
 theorem one_le_searchA {n : ℕ} {β₀ : ℝ} (hβ₀ : 0 < β₀) (hβ1 : β₀ ≤ 1) : 1 ≤ searchA n β₀ := by
   exact Helpers.SearchWeight.one_le_searchA hβ₀ hβ1
 
-/-- `a ≤ √m` is the hypothesis `m ≥ 4 β₀^{-1/n}` (line 2200: "allowed by the
-hypothesis"). -/
+/-- `a ≤ √m` is the hypothesis `m ≥ 4 β₀^{-1/n}` (proof of Lemma `hsl:lem:search`: "the hypothesis
+on `m` gives `a^2 = 4β₀^{-1/n} ≤ m`"). -/
 theorem searchA_le_sqrt {n : ℕ} {β₀ : ℝ} (hβ₀ : 0 < β₀) (hmβ : 4 * β₀ ^ (-(1 : ℝ) / n) ≤ m) :
     searchA n β₀ ≤ Real.sqrt m := by
   exact Helpers.SearchWeight.searchA_le_sqrt hβ₀ hmβ
@@ -309,7 +310,7 @@ theorem searchA_sq_inv_pow {n : ℕ} (hn : 1 ≤ n) {β₀ : ℝ} (hβ₀ : 0 < 
     ((searchA n β₀ ^ 2)⁻¹) ^ n = ((4 : ℝ) ^ n)⁻¹ * β₀ := by
   exact Helpers.SearchWeight.searchA_sq_inv_pow hn hβ₀
 
-/-- **The logarithm step** (lines 2200-2203): from
+/-- **The logarithm step** (proof of Lemma `hsl:lem:search`): from
 `β₀ ≤ a^{-2n} e^{24at/√m}` with `a = 2β₀^{-1/(2n)}` follow `24at/√m ≥ 2n log 2`
 and `t ≥ (log 2/24) n √m β₀^{1/(2n)}`. -/
 theorem search_final {n : ℕ} (hn : 1 ≤ n) {β₀ t : ℝ} (hβ₀ : 0 < β₀)
@@ -357,7 +358,7 @@ theorem avg_corr_le_one {n : ℕ} (P : ProjFamily K (Fin n × Fin m))
   have hZ : ‖parityZ m‖ ^ n ≤ 1 := pow_le_one₀ (norm_nonneg _) (Helpers.XorWeight.norm_Z_le m)
   exact (avg_re_le_norm _).trans (key.trans hZ)
 
-/-- **The adversary bound for the search weight** (lines 2189-2199): for
+/-- **The adversary bound for the search weight** (proof of Lemma `hsl:lem:search`): for
 `1 ≤ a ≤ √m` and even `m`, the average parity correlation is at most
 `a^{-2n} e^{24aq/√m}` (`Adversary.program_correlation_le` with `λ = 1 + 12a/√m`,
 `conj_Z`, `norm_conj_D_le`, `lam_pow_le`). -/
@@ -377,7 +378,7 @@ theorem avg_corr_le {n : ℕ} (hm : Even m) {a : ℝ} (ha : 1 ≤ a) (ham : a �
   refine (avg_re_le_norm _).trans (key.trans ?_)
   exact mul_le_mul hZ hL (pow_nonneg (by linarith) _) (by positivity)
 
-/-- **Lemma `hsl:lem:search`** (lines 2151-2203, eq. `hsl:eq:searchbound`),
+/-- **Lemma `hsl:lem:search`** (Lemma `hsl:lem:search`, eq. `hsl:eq:searchbound`),
 observable form. Let `m` be even. A Boolean one-hot program `q` (inverse
 queries counted), run on an input-independent seed `φ₀` with `‖φ₀‖ ≤ 1` and
 read with an input-independent operator `M`, `‖M‖ ≤ 1`, whose parity

@@ -7,12 +7,12 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # The time-dependent hard families against adaptive solvers over any Boolean-implemented oracle
 
-Manuscript lines 4296-4341 (Theorem `odel:thm:joint` and the dense block and zero padding of its
-proof, 4335-4340) and 4343-4388 (Remark `odel:rem:homogeneous`), for one adaptive solver
+Manuscript: Theorem `odel:thm:joint` (with the dense block and zero padding of its proof) and
+Proposition `odel:rem:homogeneous`, for one adaptive solver
 (`AdaptiveODELowerBound.Model.TreeSolver`) over **any** unitary oracle family `O` each of whose
-labels `l` is implemented on an isometric encoding by at most `w l` queries of a Boolean
-membership phase oracle (`EncodedOracle.ImplementsOn`, lines 4290-4294). The access shape is not
-fixed here; the general-mesh physical oracle and its call forms qualify
+labels `l` is implemented on an isometric encoding by at most `w l` queries of a Boolean membership
+phase oracle (`EncodedOracle.ImplementsOn`, the construction before Theorem `odel:thm:joint`). The
+access shape is not fixed here; the general-mesh physical oracle and its call forms qualify
 (`PhysicalODELowerBound.Mesh`).
 
 The oracle workspace is finite-dimensional, as the physical workspaces of the released solvers
@@ -52,9 +52,9 @@ variable {L W Fl E G B : Type*} [NormedAddCommGroup W] [InnerProductSpace ℂ W]
   [NormedAddCommGroup G] [InnerProductSpace ℂ G] [CompleteSpace G]
   [NormedAddCommGroup B] [InnerProductSpace ℂ B] [CompleteSpace B]
 
-/-- **Theorem `odel:thm:joint`, Boolean count** (lines 4296-4341): on `JointRange`, an adaptive
-solver of the joint family over a unitary oracle family implemented with costs `w` by membership
-programs on an isometric encoding has worst-case cost at least `2 (ḡ √s τ / 400)`. -/
+/-- **Theorem `odel:thm:joint`, Boolean count** (Theorem `odel:thm:joint`): on `JointRange`, an
+adaptive solver of the joint family over a unitary oracle family implemented with costs `w` by
+membership programs on an isometric encoding has worst-case cost at least `2 (ḡ √s τ / 400)`. -/
 theorem joint_solver (h : JointRange s τ gbar ε)
     (P : ProjFamily B (Fin (jointM gbar) × Fin (jointN τ) × Fin (2 ^ jointMu s)))
     (Enc : W →L[ℂ] B) (hEnc : Enc† ∘L Enc = 1)
@@ -76,10 +76,10 @@ theorem joint_solver (h : JointRange s τ gbar ε)
       rwa [hT', unitDirection_jointSol_T hT] at hx
   linarith [joint_bound_le h]
 
-/-- **Remark `odel:rem:homogeneous`, Boolean count** (lines 4343-4388): on `HomRange`, an
-adaptive solver of the homogeneous time-dependent family over a unitary oracle family implemented
-with costs `w` by membership programs on an isometric encoding has worst-case cost at least
-`2 (ḡ √s τ / 500)`. -/
+/-- **Proposition `odel:rem:homogeneous`, Boolean count** (Proposition `odel:rem:homogeneous`): on
+`HomRange`, an adaptive solver of the homogeneous time-dependent family over a unitary oracle family
+implemented with costs `w` by membership programs on an isometric encoding has worst-case cost at
+least `2 (ḡ √s τ / 500)`. -/
 theorem hom_solver (h : HomRange s τ gbar ε)
     (P : ProjFamily B (Fin (jointM gbar) × Fin (ODELowerBoundExtensions.Homogeneous.homN τ) ×
       Fin (2 ^ jointMu s)))
@@ -124,10 +124,10 @@ theorem hom_solver (h : HomRange s τ gbar ε)
   unfold ODELowerBoundExtensions.Homogeneous.homCorr at hc
   linarith
 
-/-- **Theorem `odel:thm:joint` after known padding, Boolean count** (lines 4335-4340): on
-`JointRange`, for any dense flag and any known padding `P'`, an adaptive solver of the padded
-joint family over a unitary oracle family implemented with costs `w` by membership programs on an
-isometric encoding has worst-case cost at least `2 (ḡ √s τ / 400)`. -/
+/-- **Theorem `odel:thm:joint` after known padding, Boolean count** (proof of Theorem
+`odel:thm:joint`): on `JointRange`, for any dense flag and any known padding `P'`, an adaptive
+solver of the padded joint family over a unitary oracle family implemented with costs `w` by
+membership programs on an isometric encoding has worst-case cost at least `2 (ḡ √s τ / 400)`. -/
 theorem joint_pad_solver (h : JointRange s τ gbar ε) (dense : Bool) (P' : Type*) [Fintype P']
     [DecidableEq P']
     (P : ProjFamily B (Fin (jointM gbar) × Fin (jointN τ) × Fin (2 ^ jointMu s)))

@@ -8,10 +8,11 @@ set_option autoImplicit false
 /-!
 # The four call forms of an oracle label
 
-Manuscript Section `odel:sec:main`, lines 4105-4108 ("Access is through a reversible value
-oracle and in-place row/column locators, their inverses and controls, with a coherent time
-address when needed"), and lines 4289-4294 and 2595-2597 (a value call, including its inverse
-or controlled form, needs at most two Boolean queries).
+Manuscript Section `odel:sec:main` ("The value oracle and in-place row and column locators have the
+canonical reversible access, including inverses, controls and coherent time addresses where
+needed"), the construction before Theorem `odel:thm:joint` and the chain construction of Section
+`part:hsl` (a value call, including its inverse or controlled form, needs at most two Boolean
+queries).
 
 For a labelled oracle family `O : L → X → W →L[ℂ] W`, the **call family** `callFamily O` has
 the labels `L × CallForm` and acts on a control qubit times the workspace, `ℂ^Bool ⊗ W`:

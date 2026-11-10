@@ -5,6 +5,10 @@ import GateEfficientNative.ODE.Time
 /-!
 # Theorem `ode:thm:gates` over a finite gate set: the four-attempt protocol
 
+The finite-gate-set forms of Theorem `ode:thm:gates` in this module are a partial formalisation of
+its finite-set statement, under this package's format hypotheses: the manuscript states Theorem
+`ode:thm:gates` over a finite gate set; the conformance endpoints count native gates.
+
 The native four-attempt protocol `nprotocol prepN g` of `GateEfficientNative` draws a uniform
 trial count `j < chosenIterations g` and runs the native trial `trialN prepN j`, a circuit of
 elementary gates and primitive oracle calls. Under the synthesis hypothesis

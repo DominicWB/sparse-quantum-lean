@@ -7,10 +7,10 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # Adaptive solvers of the dissipative ODE class
 
-Manuscript Section `odel:sec:main`, lines 4105-4120 (access with inverses and controls, success
+Manuscript Section `odel:sec:main` (access with inverses and controls, success
 flag of probability at least `2/3` on every input, conditional trace distance `ε` from the
-normalised solution, worst-case query bound), and lines 2672-2673 ("Randomised or adaptive
-algorithms are covered by purification and deferred measurement").
+normalised solution, worst-case query bound), and the end of the proof of Lemma `hsl:lem:precision`
+("Purification and deferred measurement include adaptive and randomised algorithms").
 
 The algorithm class is the adaptive protocol model of the package,
 `SparseLinearSystems.Protocol.Tree O Fl E`: a finite classical decision tree of fresh measured
@@ -80,11 +80,11 @@ end Cost
 
 /-! ### Solvers, forcing and witnessing -/
 
-/-- **An adaptive solver for the family `F` at accuracy `ε`** (lines 4105-4118), over a labelled
-oracle family `O` on the inputs of `F`: an adaptive protocol `tree` (fresh measured runs with
-classical branching, then a heralded fresh-trial protocol), an isometric readout of its output
-onto system `ℂ^N` ⊗ garbage `G`, success mass at least `2/3` on every input and, for every
-solution, conditional output `ε`-close to `x(T)/‖x(T)‖` in trace distance (observable form,
+/-- **An adaptive solver for the family `F` at accuracy `ε`** (Section `odel:sec:main`), over a
+labelled oracle family `O` on the inputs of `F`: an adaptive protocol `tree` (fresh measured runs
+with classical branching, then a heralded fresh-trial protocol), an isometric readout of its output
+onto system `ℂ^N` ⊗ garbage `G`, success mass at least `2/3` on every input and, for every solution,
+conditional output `ε`-close to `x(T)/‖x(T)‖` in trace distance (observable form,
 `DensityAccurate`). -/
 structure TreeSolver {X N Z : Type*} [Fintype N] [DecidableEq N] {K s : ℕ}
     (F : Family X N Z K s) {L W : Type*} [NormedAddCommGroup W] [InnerProductSpace ℂ W]

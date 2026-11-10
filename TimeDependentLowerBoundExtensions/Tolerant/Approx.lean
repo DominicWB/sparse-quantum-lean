@@ -6,8 +6,8 @@ set_option autoImplicit false
 # Approximate implementations: inverses and masked calls
 
 Operator facts used to add up the errors of approximately realised calls (the manuscript's gate
-model, lines 1805-1812, with the ancilla convention of lines 511-533: an implementation `A` of
-`B` on an isometric encoding `e` has error `‖A ∘ e - e ∘ B‖`).
+model, Section `hs:sec:gates`, with the convention of eq. `access:eq:full-output`: an implementation
+`A` of `B` on an isometric encoding `e` has error `‖A ∘ e - e ∘ B‖`).
 
 * `approx_adjoint`: for unitaries, the inverse of an implementation within `ξ` implements the
   inverse within `ξ` (the approximate form of `EncodedOracle.adjoint_intertwines`);

@@ -6,8 +6,8 @@ section
 /-!
 # Decorated chains and their parity amplitudes
 
-Manuscript lines 2234-2252 (eqs. `hsl:eq:dressed`, `hsl:eq:parityamp`) and
-2342-2346 (the signed scalar chain of Lemma `hsl:lem:precision`).
+Manuscript: the chain construction of Section `part:hsl` (eqs. `hsl:eq:dressed`, `hsl:eq:parityamp`)
+and the signed scalar chain of Lemma `hsl:lem:precision`.
 
 * **Search-decorated chain** on `ℂ^{n+1} ⊗ ℂ^m` (index `(clock, register)`):
   the `k`-th forward edge carries the gadget `U_{x^{(k+1)}}` of the `k`-th
@@ -46,7 +46,7 @@ def searchChain (n m : ℕ) (c : ℕ → ℝ) (j : Fin n → Fin m) :
 /-- The sign `(-1)^b` of a bit. -/
 def bitSign (b : Bool) : ℂ := if b then -1 else 1
 
-/-- The signed scalar chain of Lemma `hsl:lem:precision` (lines 2342-2343):
+/-- The signed scalar chain of Lemma `hsl:lem:precision`:
 edge `k` carries `c_k (-1)^{x_k}`. -/
 def scalarChain (n : ℕ) (c : ℕ → ℝ) (x : Fin n → Bool) : Matrix (Fin (n + 1)) (Fin (n + 1)) ℂ :=
   Matrix.of fun i j =>
@@ -58,7 +58,7 @@ def scalarChain (n : ℕ) (c : ℕ → ℝ) (x : Fin n → Bool) : Matrix (Fin (
 def chainVec (n m : ℕ) (k : Fin (n + 1)) : EuclideanSpace ℂ (Fin (n + 1) × Fin m) :=
   WithLp.toLp 2 fun p => if p.1 = k then alt m p.2 else 0
 
-/-! ### Symmetry and reality of the chains (line 2113) -/
+/-! ### Symmetry and reality of the chains (Theorem `hsl:thm:main`) -/
 
 /-- The decorated chain is symmetric (both edge directions carry `c_k U_{ab}`). -/
 theorem searchChain_transpose (n m : ℕ) (c : ℕ → ℝ) (j : Fin n → Fin m) :
@@ -159,10 +159,10 @@ theorem inner_chainVec_evolve_kronecker (hm0 : 0 < m) (B : Matrix (Fin (n + 1)) 
       evolve B τ (EuclideanSpace.single k' 1) k := by
   exact Helpers.Chains.inner_cvec_evolve_kronecker hm0 B τ k k'
 
-/-! ### The search gauge `G = Σ_k |k⟩⟨k| ⊗ V_k` (lines 2241-2244) -/
+/-! ### The search gauge `G = Σ_k |k⟩⟨k| ⊗ V_k` (the chain construction of Section `part:hsl`) -/
 
 /-- The register blocks `V_0 = I`, `V_{k+1} = U_{j k} V_k` of the gauge
-(line 2241); constant after `k = n`. -/
+(the chain construction of Section `part:hsl`); constant after `k = n`. -/
 def gaugeBlock (n m : ℕ) (j : Fin n → Fin m) : ℕ → Matrix (Fin m) (Fin m) ℂ
   | 0 => 1
   | k + 1 =>
@@ -173,7 +173,8 @@ def gaugeBlock (n m : ℕ) (j : Fin n → Fin m) : ℕ → Matrix (Fin m) (Fin m
 def gaugeSign (j : Fin n → Fin m) (k : ℕ) : ℂ :=
   ∏ i ∈ Finset.univ.filter (fun i : Fin n => (i : ℕ) < k), (-1 : ℂ) ^ (j i : ℕ)
 
-/-- The analysis-only gauge `G = Σ_k |k⟩⟨k| ⊗ V_k` (line 2242). -/
+/-- The analysis-only gauge `G = Σ_k |k⟩⟨k| ⊗ V_k` (the chain construction of Section
+`part:hsl`). -/
 def searchGauge (n m : ℕ) (j : Fin n → Fin m) :
     Matrix (Fin (n + 1) × Fin m) (Fin (n + 1) × Fin m) ℂ :=
   Matrix.of fun p q => if p.1 = q.1 then gaugeBlock n m j p.1 p.2 q.2 else 0
@@ -275,7 +276,7 @@ theorem searchGauge_mem_unitaryGroup (j : Fin n → Fin m) :
     Helpers.Chains.blockDiag_eq_comp]
   exact Helpers.Chains.comp_diagonal_mem_unitaryGroup _ fun i => gaugeBlock_mem_unitaryGroup j i
 
-/-- **The gauge identity** `G† H_X G = B ⊗ I_m` (line 2244):
+/-- **The gauge identity** `G† H_X G = B ⊗ I_m` (the chain construction of Section `part:hsl`):
 `V_{k+1}† (c_k U_{j k}) V_k = c_k I`. -/
 theorem searchGauge_conj (c : ℕ → ℝ) (j : Fin n → Fin m) :
     (searchGauge n m j)ᴴ * searchChain n m c j * searchGauge n m j =
@@ -323,7 +324,7 @@ theorem conjTranspose_searchGauge_chainVec (hm : Even m) (j : Fin n → Fin m) (
       (Chains.conjTranspose_gaugeBlock_mul j k) (gaugeSign_mul_self j k)
       (gaugeBlock_mulVec_alt hm j k)) k
 
-/-! ### The diagonal sign gauge of the scalar chain (line 2344) -/
+/-! ### The diagonal sign gauge of the scalar chain (Lemma `hsl:lem:precision`) -/
 
 theorem bitSign_mul_self (b : Bool) : bitSign b * bitSign b = 1 := by
   cases b <;> simp [bitSign]
@@ -389,7 +390,7 @@ theorem scalarChain_eq_conj (c : ℕ → ℝ) (x : Fin n → Bool) :
 
 /-! ### Parity amplitudes -/
 
-/-- **Eq. `hsl:eq:parityamp`** (lines 2246-2252): for even `m > 0`,
+/-- **Eq. `hsl:eq:parityamp`** (the chain construction of Section `part:hsl`): for even `m > 0`,
 `⟨n, v| e^{-iτ H_X} |0, v⟩ = σ(X) ⟨n| e^{-iτ B} |0⟩`. -/
 theorem searchChain_amp (hm : Even m) (hm0 : 0 < m) (c : ℕ → ℝ) (j : Fin n → Fin m) (τ : ℝ) :
     ⟪chainVec n m (Fin.last n), evolve (searchChain n m c j) τ (chainVec n m 0)⟫_ℂ =
@@ -403,8 +404,8 @@ theorem searchChain_amp (hm : Even m) (hm0 : 0 < m) (c : ℕ → ℝ) (j : Fin n
     gaugeSign_zero, one_mul, starRingEnd_apply, star_gaugeSign, gaugeSign_of_le j le_rfl]
   rfl
 
-/-- The scalar chain's endpoint amplitude is `σ(x) ⟨n| e^{-iτB} |0⟩` (lines
-2344-2345, diagonal sign gauge). -/
+/-- The scalar chain's endpoint amplitude is `σ(x) ⟨n| e^{-iτB} |0⟩` (Lemma `hsl:lem:precision`,
+diagonal sign gauge). -/
 theorem scalarChain_amp (c : ℕ → ℝ) (x : Fin n → Bool) (τ : ℝ) :
     evolve (scalarChain n c x) τ (EuclideanSpace.single 0 1) (Fin.last n) =
       (BitDegree.bitParity x : ℂ) * endAmp n c τ := by
@@ -417,8 +418,8 @@ theorem scalarChain_amp (c : ℕ → ℝ) (x : Fin n → Bool) (τ : ℝ) :
     Helpers.Chains.mO_diagonal_apply, Fin.val_last, bitGaugeSign_of_le x le_rfl]
   rfl
 
-/-- The decorated chain has the norm of its plain path (common gauge, lines
-2244-2247). -/
+/-- The decorated chain has the norm of its plain path (common gauge, the chain construction of
+Section `part:hsl`). -/
 theorem norm_searchChain (hm0 : 0 < m) (c : ℕ → ℝ) (j : Fin n → Fin m) :
     ‖searchChain n m c j‖ = ‖pathMatrix n c‖ := by
   rw [searchChain_eq_conj, norm_unitary_conj (searchGauge_mem_unitaryGroup j),

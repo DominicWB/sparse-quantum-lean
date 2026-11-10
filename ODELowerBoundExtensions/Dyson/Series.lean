@@ -8,7 +8,7 @@ set_option autoImplicit false
 /-!
 # The Dyson series of a piecewise-constant generator (`odel:lem:dyson`)
 
-Manuscript lines 4198-4228 (proof of Lemma `odel:lem:dyson`). On a mesh with `M` cells, cell `r`
+Manuscript: the proof of Lemma `odel:lem:dyson`. On a mesh with `M` cells, cell `r`
 of duration `a r` with constant generator `X r`, the propagator is the ordered product
 `exp(a_{M-1} X_{M-1}) ⋯ exp(a_0 X_0)` (`TimeDependent.evolution`, cell `0` acting first).
 Expanding every exponential and collecting the terms of total degree `k` gives the Dyson series:
@@ -17,7 +17,7 @@ its degree-`k` part is the sum over the **configurations** `c` (occupation numbe
 
   `∏_r a_r^{c_r}/c_r! · X_{M-1}^{c_{M-1}} ⋯ X_0^{c_0}`,
 
-the time-ordered product of `k` factors with the multinomial weights of lines 4208-4214
+the time-ordered product of `k` factors with the multinomial weights of the proof
 (`k!/∏ c_r!` sorted label sequences, times `1/k!`). Configurations replace sorted i.i.d. labels:
 the same operator identity, without the multinomial count.
 
@@ -25,8 +25,9 @@ the same operator identity, without the multinomial count.
 * `coef a c = ∏_r a_r^{c_r}/c_r!` and `cfgProduct X c = X_{M-1}^{c_{M-1}} ⋯ X_0^{c_0}`;
 * `truncated a X K M = ∑_{c : Cfg K M} coef a c • cfgProduct X c`, the degree-`K` truncation;
 * `truncated_error`: `‖∏ exp(a_r X_r) - truncated‖ ≤ ∑_{k>K} λ^k/k!`, `λ = ∑_r a_r ‖X_r‖`
-  (lines 4216-4217, coefficient sequence `z^k/k!`);
-* `sum_coef_le_exp`: the coefficient mass is at most `exp(∑_r a_r)` (line 4228).
+  (proof of Lemma `odel:lem:dyson`, coefficient sequence `z^k/k!`);
+* `sum_coef_le_exp`: the coefficient mass is at most `exp(∑_r a_r)` (proof of Lemma
+  `odel:lem:dyson`).
 
 The proof of `truncated_error` is an induction on the number of cells: `truncated_succ` splits
 the configurations of `M + 1` cells by the occupation of the last cell (`Cfg.extend`,
@@ -43,7 +44,7 @@ open scoped Nat BigOperators
 
 /-- **Configurations** of total degree at most `K` on `M` cells: occupation numbers
 `c r ∈ {0, …, K}` with `∑_r c r ≤ K`. This finite type is the LCU label set of the Dyson
-series truncated at degree `K` (lines 4198-4214). -/
+series truncated at degree `K` (proof of Lemma `odel:lem:dyson`). -/
 abbrev Cfg (K M : ℕ) : Type := {c : Fin M → Fin (K + 1) // ∑ r, (c r : ℕ) ≤ K}
 
 namespace Cfg
@@ -122,7 +123,7 @@ theorem count_extend_of_lt (j : ℕ) (hj : j ≤ K) (c : Cfg (K - j) M) {r : ℕ
 
 end Cfg
 
-/-- The Dyson weight `∏_r a_r^{c_r}/c_r!` of a configuration (lines 4208-4214). -/
+/-- The Dyson weight `∏_r a_r^{c_r}/c_r!` of a configuration (proof of Lemma `odel:lem:dyson`). -/
 def coef {K M : ℕ} (a : ℕ → ℝ) (c : Cfg K M) : ℝ :=
   ∏ r : Fin M, a r ^ (c.1 r : ℕ) / ((c.1 r : ℕ)! : ℝ)
 
@@ -142,7 +143,8 @@ theorem coef_extend {K M : ℕ} (a : ℕ → ℝ) (j : ℕ) (hj : j ≤ K) (c : 
   rw [Fin.prod_univ_castSucc]
   simp [Cfg.extend]
 
-/-- **Coefficient mass** (line 4228): `∑_{c : Cfg K M} coef a c ≤ exp(∑_{r<M} a r)`. -/
+/-- **Coefficient mass** (proof of Lemma `odel:lem:dyson`):
+`∑_{c : Cfg K M} coef a c ≤ exp(∑_{r<M} a r)`. -/
 theorem sum_coef_le_exp (a : ℕ → ℝ) (ha : ∀ r, 0 ≤ a r) (K M : ℕ) :
     ∑ c : Cfg K M, coef a c ≤ Real.exp (∑ r ∈ Finset.range M, a r) := by
   classical
@@ -332,8 +334,8 @@ theorem exp_sub_partial_norm_le (a : ℝ) (ha : 0 ≤ a) (Y : V →L[ℂ] V) (K 
     rw [norm_smul, Real.norm_of_nonneg ha] at h
     exact h
 
-/-- **Truncation error of the Dyson series** (lines 4216-4217): for durations `a r ≥ 0`,
-`‖exp(a_{M-1} X_{M-1}) ⋯ exp(a_0 X_0) - truncated a X K M‖ ≤ ∑_{k>K} λ^k/k!` with
+/-- **Truncation error of the Dyson series** (proof of Lemma `odel:lem:dyson`): for durations
+`a r ≥ 0`, `‖exp(a_{M-1} X_{M-1}) ⋯ exp(a_0 X_0) - truncated a X K M‖ ≤ ∑_{k>K} λ^k/k!` with
 `λ = ∑_{r<M} a_r ‖X_r‖`. -/
 theorem truncated_error (a : ℕ → ℝ) (ha : ∀ r, 0 ≤ a r) (X : ℕ → V →L[ℂ] V) (K M : ℕ) :
     ‖evolution (fun r => NormedSpace.exp (a r • X r)) M - truncated a X K M‖ ≤

@@ -8,10 +8,10 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # Released constant-coefficient protocols as solvers of the class
 
-Manuscript lines 4111-4113 (the output model of the lower bounds: success flag of probability
-at least `2/3` on every input, conditional trace distance `ε` from the normalised solution),
-lines 4114-4115 ("The lower bounds thus apply to Theorems `ode:thm:main` and `ode:thm:time`")
-and Theorem `ode:thm:main` (lines 3013-3033). The released constant-coefficient solver
+Manuscript: Section `odel:sec:main` (the output model of the lower bounds: success flag of
+probability at least `2/3` on every input, conditional trace distance `ε` from the normalised
+solution; "the lower bounds apply to the upper bounds of the preceding section") and Theorem
+`ode:thm:main`. The released constant-coefficient solver
 `SparseHamiltonian.ODECompleteEndpoint.solver` produces one public circuit family and the
 four-attempt protocol `ODECompleteTrial.algorithm` with the complete certificate
 `ODECompleteTrial.Certificate` for every input.

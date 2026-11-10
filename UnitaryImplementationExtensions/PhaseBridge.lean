@@ -6,17 +6,14 @@ set_option autoImplicit false
 /-!
 # Reversible one-bit lookups are Boolean phase oracles
 
-The search family of corollary `hs:cor:unitary` of the manuscript (lines
-1833-1840) has one-bit entries, so its ordinary reversible entry lookup
-`|a, z⟩ ↦ |a, z + f a⟩` over `ZMod 2`, with an arbitrary untouched payload
-Hilbert space `W` (`SparseHamiltonian.LookupControlledGate.oracle`), is the
-Boolean XOR oracle of the string `a ↦ (f a = 1)`. In the phase form of
-`SparseLowerBounds.ProjFamily.phase` it is `1 - 2 Σ_{f a = 1} P a` with
-`P a = |a⟩⟨a| ⊗ |−⟩⟨−| ⊗ 1_W` (`xorFamily`, `lookup_eq_phase`). The family
-`xorFamily` is the construction `|−⟩⟨−|` on the bit of
-`SparseLowerBounds.ProjFamily.withAncilla` and
-`SparseLowerBounds.Hamiltonian.bitBooleanFamily`, for the `ZMod 2` payload
-layout of `SparseHamiltonian.LookupControlledGate.oracle`; those are typed on a
+The search family of corollary `hs:cor:unitary` of the manuscript has one-bit entries, so its
+ordinary reversible entry lookup `|a, z⟩ ↦ |a, z + f a⟩` over `ZMod 2`, with an arbitrary untouched
+payload Hilbert space `W` (`SparseHamiltonian.LookupControlledGate.oracle`), is the Boolean XOR
+oracle of the string `a ↦ (f a = 1)`. In the phase form of `SparseLowerBounds.ProjFamily.phase` it
+is `1 - 2 Σ_{f a = 1} P a` with `P a = |a⟩⟨a| ⊗ |−⟩⟨−| ⊗ 1_W` (`xorFamily`, `lookup_eq_phase`). The
+family `xorFamily` is the construction `|−⟩⟨−|` on the bit of
+`SparseLowerBounds.ProjFamily.withAncilla` and `SparseLowerBounds.Hamiltonian.bitBooleanFamily`, for
+the `ZMod 2` payload layout of `SparseHamiltonian.LookupControlledGate.oracle`; those are typed on a
 `Fin 2` ancilla in front of the native space and do not apply directly.
 
 A unital star-algebra homomorphism of operator algebras (tensoring with

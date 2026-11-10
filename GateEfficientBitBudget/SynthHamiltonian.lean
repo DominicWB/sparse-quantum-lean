@@ -201,8 +201,10 @@ theorem binary_simulation_budget_synth_bits (s : ℕ) (hs1 : 1 ≤ s) (τ ε : �
 
 /-! ### Time-dependent Hamiltonians -/
 
-/-- **The time-dependent part of equation `hs:eq:gate-binary` after finite-gate-set synthesis**
-(Theorem `hs:thm:gates`, time-indexed binary sparse data). For `s ≥ 1`, `t ≥ 0`, `0 < ε ≤ 1` and
+/-- **The time-dependent analogue of equation `hs:eq:gate-binary` after finite-gate-set synthesis**
+(package extension: Theorem `hs:thm:time` with the circuit of `hs:thm:gates` (single-label case of
+Lemma `ode:lem:gate-select`), time-indexed binary sparse data). For `s ≥ 1`, `t ≥ 0`,
+`0 < ε ≤ 1` and
 `q = √s t + √(s t log(2/ε)) + log(2/ε)`, the rescaling `γ` of
 `GateSynth.binary_time_simulation_budget_synth` satisfies: under `Synthesis 𝒢 Xa L` with
 `L ζ ≤ c₁ log(1/ζ) + c₀` (`c₀, c₁ ≥ 0` the synthesis constants, not the decoder scale `c₀`),

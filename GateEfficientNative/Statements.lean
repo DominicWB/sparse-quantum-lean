@@ -9,6 +9,7 @@ libraries `GateEfficientHamiltonian`, `GateEfficientTimeDependent` and
 `GateEfficientODE`: every supplied oracle of those circuits is replaced by a
 native implementation, and the error of the implementation is propagated
 through the circuits in the paper's full-output convention.
+References to the manuscript use its labels.
 
 * Hamiltonian simulation: `SparseHamiltonian.GateNative.native_simulation`
   (constant `H`), `native_simulation_signed` (every real time),
@@ -197,7 +198,11 @@ within `ζs` of `Wp`; one preparation uses at most
 `prepGates + 84 d C_J + 6 d G_C + |loadC| + 2 |wpC|` gates; the protocol has
 ratio `2g`; the error budget is `24 d ζ + 3 ζs ≤ ν`; and `NOutcome` holds
 against `x(T)` under the released instance conditions
-(`GateODE.Time.TParams.InstanceOK`).
+(`GateODE.Time.TParams.InstanceOK`; their sample positivity `L_r ≥ 0` is the
+formal restriction stated in `TimeDependentODE/Statements.lean`; `RepresentedSampleODE` lifts it for
+the query-level mesh solvers and the common-mesh gate solver; the conformance endpoints
+`ManuscriptConformance.ode_thm_time`, `ode_thm_gates_time_cert` and
+`ode_thm_gates_time_decoder_cert` hold for represented samples of any sign).
 
 `native_ode_gate_count`, `native_ode_time_gate_count` (the explicit counts
 underlying equation `ode:eq:gate-main`): in every history the native

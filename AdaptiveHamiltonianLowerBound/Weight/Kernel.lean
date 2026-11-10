@@ -12,7 +12,7 @@ that the weight is an invertible Hermitian matrix `a` on one hidden register `�
 all hidden registers as `W = a^{⊗ι}` (`kron a`), with row sums one, and the norm
 `μ ≥ ‖a⁻¹ Z a⁻¹‖` of the conjugated parity. This file states it for every such weight; the
 Hamiltonian-simulation lower bound uses the search weight `w = P_u + a² P_v + a R` of Lemma
-`hsl:lem:search` (manuscript lines 2151-2203).
+`hsl:lem:search`.
 
 For hidden inputs `j : ι → Fin m` (`n = |ι|` one-hot strings of length `m`):
 

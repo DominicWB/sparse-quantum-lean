@@ -8,7 +8,7 @@ set_option autoImplicit false
 
 Mathlib's Grönwall inequalities (`Mathlib.Analysis.ODE.Gronwall`) bound functions through
 pointwise one-sided derivatives with a constant coefficient. Propagators of merely integrable
-paths (the paragraph after Theorem `hs:thm:time` of the manuscript, lines 1618-1632) need the
+paths (the paragraph after Theorem `hs:thm:time` of the manuscript) need the
 integral form with an integrable coefficient `k ≥ 0`:
 
 * `le_mul_exp_of_le_add_integral`: if `φ` is continuous on `[a, b]` and

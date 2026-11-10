@@ -6,16 +6,14 @@ set_option autoImplicit false
 /-!
 # The trace-distance endpoint `ε = 1/2` for adaptive algorithms
 
-Corollary `hs:cor:unitary` of the manuscript (lines 1647-1666) allows any error
-`0 < ε ≤ 1/2` and ends: "At fixed constant error, the worst-case query complexity is
-`Θ(√N)`" (lines 1664-1665), with the lower half from the reduction to unstructured search
-(lines 1711-1718) and inverse calls counted (line 1662). Adaptive algorithms and coherent
-controls follow the lower-bound setting of the manuscript (line 2080: "with inverses and
-coherent controls"; the closing sentence of the proof of `hsl:lem:precision`, lines 2363-2364:
-"Randomised or adaptive algorithms are covered by
-purification and deferred measurement").
+Corollary `hs:cor:unitary` of the manuscript allows any error `0 < ε ≤ 1/2` and ends: "the
+constant-error worst-case complexity is `Θ(√N)`", with the lower half from the reduction to
+unstructured search and inverse calls counted. Adaptive algorithms and coherent controls follow the
+lower-bound setting of the manuscript (Section `hsl:sec:main`: with inverses and the controls of
+Lemma `access:lem:control`; the closing sentence of the proof of `hsl:lem:precision`: "Purification
+and deferred measurement include adaptive and randomised algorithms").
 
-The manuscript measures the error in operator norm (`hs:eq:unitaryerror`, lines 1652-1654);
+The manuscript measures the error in operator norm (`hs:eq:unitaryerror`);
 accuracy here is trace distance (`AdaptiveHamiltonianLowerBound.DensityAccurate`), the
 package's notion for adaptive, heralded and measured algorithms. For a unitary program,
 operator-norm error `ε` gives trace distance at most `ε`

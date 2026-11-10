@@ -21,6 +21,9 @@ bound `κ` and the accuracy `ε` only.
 is the final repeat at the estimate `r`; `algorithm` is the complete adaptive
 protocol over the physical oracle family (native sparse primitives and the
 controlled source preparation).
+
+Notation: the regularization parameter is `σ` here and `ξ` in the manuscript, so a subscript `σ` (as
+in `g_σ`, `r_σ`, `H_{σ,r}`) stands for the manuscript's subscript `ξ`.
 -/
 
 namespace SparseLinearSystems.Endpoint

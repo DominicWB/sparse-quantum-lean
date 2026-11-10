@@ -4,9 +4,7 @@ import SparseLowerBounds.ODE.Precision
 /-!
 # Theorem `odel:thm:psd`: the constant-coefficient PSD precision lower bound
 
-Manuscript lines 4016-4135 (the numbering of
-`SparseLowerBounds/ODE/Statements.lean`; later versions of the manuscript shift Section
-`part:odel`, whose labels are the stable references). For `s ≥ 32`, `τ ≥ 1` (the paper: `τ ≥ 2`),
+Manuscript: Theorem `odel:thm:psd` and its proof. For `s ≥ 32`, `τ ≥ 1` (the paper: `τ ≥ 2`),
 `L = log(1/ε) ≥ 64τ` (`PsdRange`), the homogeneous equation `ẋ = -D_X x` has two hard families
 (`psdSearchFamilyAt`, `psdScalarFamilyAt`) with
 
@@ -29,18 +27,18 @@ with `ḡ ≥ √2`) follows classically by `ODE.forces_or_of_max` (with the sca
 second and third place). The per-family witnesses are `psd_search_witness` and
 `psd_scalar_witness`.
 
-**Dense padding** (lines 4132-4134). The known positive semidefinite dense padding of the
-Hamiltonian lower bound's `fullMatrix` (`2^{-⌈log₂ s⌉} 𝟙𝟙ᵀ`, a nonnegative multiple of a
-rank-one projection) is part of both generators; it keeps `D_X ⪰ 0`, `‖D_X‖ = 1` and the
-row/column norms, and makes the maximum row and column sparsity exactly `s`
-(`Hamiltonian.HardInstance.row_sparsity_attained`, `col_sparsity_attained` in
-`psd_hardInstance`).
+**Dense padding** (proof of Theorem `odel:thm:psd`). The known positive semidefinite dense padding
+of the Hamiltonian lower bound's `fullMatrix` (`2^{-⌈log₂ s⌉} 𝟙𝟙ᵀ`, a nonnegative multiple of a
+rank-one projection) is part of both generators; it keeps `D_X ⪰ 0`, `‖D_X‖ = 1` and the row/column
+norms, and makes the maximum row and column sparsity exactly `s`
+(`Hamiltonian.HardInstance.row_sparsity_attained`, `col_sparsity_attained` in `psd_hardInstance`).
 
-**Scope** (lines 4137-4142). This is precision-dependent hardness inside the purely
+**Scope** (Theorem `odel:thm:psd`). This is precision-dependent hardness inside the purely
 dissipative constant-coefficient subclass; it gives no constant-error `Ω(√s τ)` bound for that
-subclass, nor the necessity of the factor `ℓ` multiplying `τ_D` in eq. `odel:eq:refined`; no
-linear power of `L` in the sparsity-dependent dissipative cost is established. Controlled calls are covered as in `ODE/Model` (**Controlled calls**): the PSD
-families have input-independent locators (`HardInstance.locators_const`).
+subclass, nor the necessity of the factor `ℓ` multiplying `τ_D` in eq. `odel:eq:refined`; no linear
+power of `L` in the sparsity-dependent dissipative cost is established. Controlled calls are covered
+as in `ODE/Model` (**Controlled calls**): the PSD families have input-independent locators
+(`HardInstance.locators_const`).
 -/
 
 set_option autoImplicit false
@@ -62,11 +60,11 @@ variable {τ ε : ℝ} {s : ℕ}
 def psdBound (s : ℕ) (τ ε : ℝ) : ℝ :=
   psdConst * (Real.sqrt (s * τ * hsR τ ε) + hsR τ ε)
 
-/-- **Instance properties of both PSD families** (lines 4019-4025, 4074-4077, 4120-4121,
-4132-4134): `Hamiltonian.HardInstance` (real symmetric, so `H = 0`; operator norm exactly one;
-row and column Euclidean norms at most one, maximum exactly one; maximum row and column
-sparsity exactly `s` by the PSD dense padding; exact dyadic words with decode scale one;
-input-independent locators, i.e. public supports) and `D ⪰ 0` for every hidden input. -/
+/-- **Instance properties of both PSD families** (Theorem `odel:thm:psd`):
+`Hamiltonian.HardInstance` (real symmetric, so `H = 0`; operator norm exactly one; row and column
+Euclidean norms at most one, maximum exactly one; maximum row and column sparsity exactly `s` by the
+PSD dense padding; exact dyadic words with decode scale one; input-independent locators, i.e. public
+supports) and `D ⪰ 0` for every hidden input. -/
 theorem psd_hardInstance (h : PsdRange τ s ε) :
     HardInstance (psdSearchDataAt h) ∧ HardInstance (psdScalarDataAt h) ∧
       (∀ j, ((psdSearchDataAt h).matrix j).PosSemidef) ∧
@@ -79,7 +77,7 @@ theorem psd_hardInstance (h : PsdRange τ s ε) :
 `psdScalarFamilyAt h` (the one-stage data `oneStageData` of `psdSearchDataAt h`,
 `psdScalarDataAt h`) satisfy `Hamiltonian.HardInstance` (public supports, dyadic entries, norm
 one, maximum sparsity exactly `s`, ...) and are positive semidefinite at every input and time
-address (lines 4019-4025, 4132-4134). -/
+address (Theorem `odel:thm:psd`). -/
 theorem psd_family_hardInstance (h : PsdRange τ s ε) :
     HardInstance (psdSearchFamilyAt h).data ∧ HardInstance (psdScalarFamilyAt h).data ∧
       (∀ p, ((psdSearchFamilyAt h).data.matrix p).PosSemidef) ∧
@@ -90,19 +88,19 @@ theorem psd_family_hardInstance (h : PsdRange τ s ε) :
     fun p => hI.2.2.1 p.1, fun p => hI.2.2.2 p.1⟩
 
 /-- **The gadget family witnesses `(log 2/(1536√2)) √(sτr)`** for `s ≥ 512n/τ` and any
-`ḡ ≥ √2` (line 4116). -/
+`ḡ ≥ √2` (proof of Theorem `odel:thm:psd`). -/
 theorem psd_search_witness (h : PsdRange τ s ε) (hs : 512 * (precN τ ε : ℝ) / τ ≤ s)
     {gbar : ℝ} (hg : Real.sqrt 2 ≤ gbar) :
     (psdSearchFamilyAt h).Witnesses τ gbar ε (psdGadgetConst * Real.sqrt (s * τ * hsR τ ε)) :=
   ⟨psdSearchFamilyAt_inClass h hg, psdSearchFamilyAt_T h, psd_search_forces h hs⟩
 
-/-- **The scalar family witnesses `r/32`** for any `ḡ ≥ √2` (line 4125). -/
+/-- **The scalar family witnesses `r/32`** for any `ḡ ≥ √2` (proof of Theorem `odel:thm:psd`). -/
 theorem psd_scalar_witness (h : PsdRange τ s ε) {gbar : ℝ} (hg : Real.sqrt 2 ≤ gbar) :
     (psdScalarFamilyAt h).Witnesses τ gbar ε (hsR τ ε / 32) :=
   ⟨psdScalarFamilyAt_inClass h hg, psdScalarFamilyAt_T h, psd_scalar_forces h⟩
 
-/-- **Theorem `odel:thm:psd`, max form** (lines 4111-4132): for one solver of the gadget family
-and one of the scalar family at `(s, τ, ε)`, the larger value-query count is at least
+/-- **Theorem `odel:thm:psd`, max form** (proof of Theorem `odel:thm:psd`): for one solver of the
+gadget family and one of the scalar family at `(s, τ, ε)`, the larger value-query count is at least
 `psdConst (√(sτr) + r)`. -/
 theorem psd_max (h : PsdRange τ s ε) {ιG ιS GG GS : Type} [Fintype ιG] [Fintype ιS]
     [NormedAddCommGroup GG] [InnerProductSpace ℂ GG] [CompleteSpace GG]
@@ -115,7 +113,7 @@ theorem psd_max (h : PsdRange τ s ε) {ιG ιS GG GS : Type} [Fintype ιG] [Fin
     (fun hs => (psd_scalar_forces_sqrt h hs ιS GS AS).1)
     (fun hs => (psd_search_forces h hs ιG GG AG).1)
 
-/-- **Theorem `odel:thm:psd`, family form** (eq. `odel:eq:psd`, lines 4016-4030): for
+/-- **Theorem `odel:thm:psd`, family form** (eq. `odel:eq:psd`): for
 `s ≥ 32`, `τ ≥ 1`, `L ≥ 64τ` (`PsdRange`) and any `ḡ ≥ √2`, one of the two homogeneous
 constant-coefficient PSD families (`D_X ⪰ 0`, `‖D_X‖ = 1`, `T = τ`, `1 ≤ g ≤ √2`) is in the
 class (`η = 1`, `T = τ`, `g ≤ ḡ`) and forces `psdConst (√(sτr) + r)` value queries (and as many

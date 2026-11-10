@@ -3,22 +3,27 @@ import GateEfficientBinaryTime.Budget
 /-!
 # Time-dependent gate-level construction from binary data: paper-to-Lean entry point
 
-Theorem `hs:thm:gates` of the accompanying paper also covers the time-dependent setting of
-Theorem `hs:thm:time` on a uniform mesh of `2^m` slots: the same circuit with slot-selected
-private Cayley operations (the single-label case of Lemma `ode:lem:gate-select`). Its native
-form, `GateNative.native_time_simulation` (before finite-set synthesis), takes as hypotheses the
-entry decoding and the reversible angle arithmetic (`ArithOK`), the public compute circuit of
-the slot-selected private Cayley operation with its native identity (`NativeOK` for the
-slot-selected family), and `U_J` given by elementary gates. The library `GateEfficientBinary`
-constructs these for time-independent Hamiltonians given by binary sparse oracles. This library
-constructs them for time-dependent Hamiltonians given by time-indexed binary sparse oracles and
-instantiates the time-dependent part of `hs:thm:gates` and its budget with the rescaled sparse
-parameters of `hs:thm:time`. The released libraries and `GateEfficientBinary` are unchanged. No
-result from another paper is used. All declarations below are in the namespace
-`SparseHamiltonian.GateBinary`, unless stated otherwise.
+Theorem `hs:thm:gates` of the accompanying paper is "a time-independent result"; its circuit with
+slot-selected private Cayley operations covers the time-dependent setting of Theorem `hs:thm:time`
+on a uniform mesh of `2^m` slots (package extension: Theorem `hs:thm:time` with the circuit of
+`hs:thm:gates` (single-label case of Lemma `ode:lem:gate-select`)). Its native form,
+`GateNative.native_time_simulation` (before finite-set synthesis), takes as hypotheses the entry
+decoding and the reversible angle arithmetic (`ArithOK`), the public compute circuit of the
+slot-selected private Cayley operation with its native identity (`NativeOK` for the slot-selected
+family), and `U_J` given by elementary gates. The library `GateEfficientBinary` constructs these for
+time-independent Hamiltonians given by binary sparse oracles. This library constructs them for
+time-dependent Hamiltonians given by time-indexed binary sparse oracles and instantiates the
+time-dependent gate-level simulation (package extension: Theorem `hs:thm:time` with the circuit of
+`hs:thm:gates` (single-label case of Lemma `ode:lem:gate-select`)) and
+its budget with the rescaled sparse parameters of `hs:thm:time`. The released libraries and
+`GateEfficientBinary` are unchanged. No result from another paper is used. All declarations below
+are in the namespace `SparseHamiltonian.GateBinary`, unless stated otherwise.
+References to the manuscript use its labels.
 
-* The time-dependent part of Theorem `hs:thm:gates` for binary data: `binary_time_simulation`,
-  with the circuit `binaryTimeSim`; the budget form: `binary_time_simulation_budget`.
+* The time-dependent gate-level simulation (package extension: Theorem `hs:thm:time` with the
+  circuit of `hs:thm:gates` (single-label case of Lemma `ode:lem:gate-select`)) for binary data:
+  `binary_time_simulation`, with the circuit `binaryTimeSim`; the
+  budget form: `binary_time_simulation_budget`.
 * The native identity of the slot-selected private operation: `sparse_nativeOK_time`, with the
   time-indexed primitive oracles `primsT`, the compute circuit `computeVT` and the native private
   operation `sparseOpT` (public: `sparseOpT_public`; counts: `computeVT_nGates`,
@@ -63,24 +68,25 @@ of the value wires.
   at slot word `w`, `V† R_val V` acts on clean scratch as the qubit lift of the private Cayley
   operation of the sample `wordEquivFin m w` (from `sparse_nativeOK` for each sample).
 
-**The time-dependent part of Theorem `hs:thm:gates` for binary data**
-(`binary_time_simulation`). Hypotheses: the time-indexed binary data above with `b ≥ 1`; an
-input `x` whose samples are Hermitian with row and column Euclidean norms at most one; a time
-`t ≥ 0` and a matrix path `H : ℝ → Matrix n n ℂ`, Hermitian on `[0, t]`, `β`-Lipschitz in
-operator norm on `[0, t]` for some `β ≥ 0` and within `δ` of the samples at the slot times,
-`‖H(j t/2^m) - H̃_j‖ ≤ δ`; a rescaling `0 < γ ≤ 1`; accuracies `0 < ε ≤ 1` and `0 < ζ ≤ 1`; the
-mesh conditions of `native_time_simulation` with the normalisation `α = √s/γ`,
+**The time-dependent gate-level simulation (package extension: Theorem `hs:thm:time` with the
+circuit of `hs:thm:gates` (single-label case of Lemma `ode:lem:gate-select`)) for binary data**
+(`binary_time_simulation`). Hypotheses: the time-indexed binary
+data above with `b ≥ 1`; an input `x` whose samples are Hermitian with row and column Euclidean
+norms at most one; a time `t ≥ 0` and a matrix path `H : ℝ → Matrix n n ℂ`, Hermitian on `[0, t]`,
+`β`-Lipschitz in operator norm on `[0, t]` for some `β ≥ 0` and within `δ` of the samples at the
+slot times, `‖H(j t/2^m) - H̃_j‖ ≤ δ`; a rescaling `0 < γ ≤ 1`; accuracies `0 < ε ≤ 1` and
+`0 < ζ ≤ 1`; the mesh conditions of `native_time_simulation` with the normalisation `α = √s/γ`,
 `steps τ' (ε/12) ≤ 2^m` and `8 β t² ≤ ε 2^m`; the sample-error budget `8 t δ ≤ ε`; and the
 arithmetic budget `48 d ζ ≤ ε`. Here `τ' = time s t γ = t √s/γ` is the clock time of the circuit,
-`d = fDeg Q τ' qbar (ε/4)` is the filter degree and `r = simR Q τ' qbar (ε/4)` the size of the
-phase registers, for `Q = width s γ = ⌈max(1, γ √s)⌉` and `qbar = moment γ = (1 + γ²)/2`. The
-circuit `binaryTimeSim` is the native slot circuit `GateNative.nativeSimT` with `2^m` time slots,
-`U_J = hadUJ`, the native private operation `sparseOpT` and the arithmetic `binArithT` (the
-CORDIC circuit on the value wires at scale `κ = γ √s c₀`). Conclusions: every instruction is
-valid; for every selection `p : Query → Bool` of oracle labels the circuit makes exactly `12 d`
-times `2` row-location, `2` column-location and `1` value calls of the selected labels; it uses
-at most `200 (d+1)(k + 1 + m + r + 1) + 84 d (σ + 1) + 6 d (56 k + 2 |circ| + 2 bP + bT + 1)`
-elementary gates (`|circ|`, `bP`, `bT` of `binArithT`, bounded by `cordicArith_counts`); it has
+`d = fDeg Q τ' qbar (ε/4)` is the filter degree and `r = simR Q τ' qbar (ε/4)` the size of the phase
+registers, for `Q = width s γ = ⌈max(1, γ √s)⌉` and `qbar = moment γ = (1 + γ²)/2`. The circuit
+`binaryTimeSim` is the native slot circuit `GateNative.nativeSimT` with `2^m` time slots,
+`U_J = hadUJ`, the native private operation `sparseOpT` and the arithmetic `binArithT` (the CORDIC
+circuit on the value wires at scale `κ = γ √s c₀`). Conclusions: every instruction is valid; for
+every selection `p : Query → Bool` of oracle labels the circuit makes exactly `12 d` times `2`
+row-location, `2` column-location and `1` value calls of the selected labels; it uses at most
+`200 (d+1)(k + 1 + m + r + 1) + 84 d (σ + 1) + 6 d (56 k + 2 |circ| + 2 bP + bT + 1)` elementary
+gates (`|circ|`, `bP`, `bT` of `binArithT`, bounded by `cordicArith_counts`); it has
 `k + (2 (k+1) + 3 m + 6 r + 3) + (6 k + 2 b + bT + bP + A + 3)` qubits;
 `d ≤ 128 (τ' qbar + Q (1 + log (12/ε)))` and `2d + 2 ≤ 2^r ≤ 4 (d + 1)`; the propagator of the
 lifted path `u ↦ qlift en (H u)` exists; and for every such propagator `U`,

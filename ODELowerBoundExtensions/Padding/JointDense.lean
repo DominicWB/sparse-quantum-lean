@@ -5,8 +5,7 @@ import ODELowerBoundExtensions.Padding.Helpers.JointDense.Words
 /-!
 # Dense padding of the joint family to maximum sparsity exactly `s`
 
-Manuscript: end of the proof of Theorem `odel:thm:joint`,
-lines 3899-3903:
+Manuscript: end of the proof of Theorem `odel:thm:joint`:
 
 > If maximum sparsity exactly `s` is wanted, append an unoccupied known block with Hamiltonian
 > `2^{-⌈log₂ s⌉} 1 1ᵀ` of size `s × s`. Its norm is at most one and its entries are dyadic. It
@@ -25,12 +24,12 @@ construction, padded by `P` (`Padding/JointPad`), is also the zero padding of th
 `jointFamily`; at `B = μ` it stores the released words verbatim (`jointDenseFamily_table_false`).
 
 **Words.** The manuscript's `2^{-⌈log₂ s⌉}` is `2^{-(μ+1)}` when `s` is not a power of two
-(`μ = jointMu s = ⌊log₂ s⌋`), which the words `Word μ` of the joint family cannot store. The
-padded data therefore use `B ≥ μ` word bits, the core words of `jointTable` multiplied by
-`2^{B-μ}` (`jointDenseTable`, same decoded entries) and the block word `1` (`jointDenseIdle` on
-the idle and source stages), so the block entries are `i · 2^{-B}`. At `B = ⌈log₂ s⌉ =
-Hamiltonian.padExp s` (the parameters of `Padding/JointTheorem`) the block is the released
-`Hamiltonian.padBlock s` (line 2480; `denseHam_padExp`), whose facts `norm_padBlock_le`,
+(`μ = jointMu s = ⌊log₂ s⌋`), which the words `Word μ` of the joint family cannot store. The padded
+data therefore use `B ≥ μ` word bits, the core words of `jointTable` multiplied by `2^{B-μ}`
+(`jointDenseTable`, same decoded entries) and the block word `1` (`jointDenseIdle` on the idle and
+source stages), so the block entries are `i · 2^{-B}`. At `B = ⌈log₂ s⌉ = Hamiltonian.padExp s` (the
+parameters of `Padding/JointTheorem`) the block is the released `Hamiltonian.padBlock s` (the end of
+the proof of Theorem `hsl:thm:main`; `denseHam_padExp`), whose facts `norm_padBlock_le`,
 `sum_sq_padBlock_le`, `card_padBlock_row` are the case `B = padExp s` of ours.
 
 **Class and instance facts** (the class with `η = 1`, `D = 0`, maximum sparsity exactly `s`,
@@ -47,8 +46,8 @@ noncomputable section
 open SparseHamiltonian NativeSparseBlockEncoding SparseLowerBounds SparseLowerBounds.ODE
 open SparseLowerBounds.Hamiltonian (BitTable Word)
 
-/-- **The dense block** `2^{-B} 1 1ᵀ` on the `Fin s` block of `JointIndex M μ s`, zero
-elsewhere (line 3900); with `dense = false` the block is zero (no dense padding). -/
+/-- **The dense block** `2^{-B} 1 1ᵀ` on the `Fin s` block of `JointIndex M μ s`, zero elsewhere
+(proof of Theorem `odel:thm:joint`); with `dense = false` the block is zero (no dense padding). -/
 def denseHam (M μ s B : ℕ) (dense : Bool) : Matrix (JointIndex M μ s) (JointIndex M μ s) ℂ :=
   Matrix.of fun i j => match i, j with
     | Sum.inr _, Sum.inr _ => if dense then ((2 : ℂ) ^ B)⁻¹ else 0
@@ -217,8 +216,8 @@ theorem denseGen_col_covers (hμs : 2 ^ μ ≤ s) (p : Promised M n (2 ^ μ) × 
     exact ⟨k, hk⟩
 
 variable (M n μ s B dense) in
-/-- **The densely padded sampled-time data** (lines 3899-3903): `stageData` with the dense
-table, the joint locators and the matrices `denseGen`, words `Word B`. -/
+/-- **The densely padded sampled-time data** (proof of Theorem `odel:thm:joint`): `stageData` with
+the dense table, the joint locators and the matrices `denseGen`, words `Word B`. -/
 def jointDenseData (hμ : 1 ≤ μ) (hμs : 2 ^ μ ≤ s) (hμB : μ ≤ B) :
     Data (Promised M n (2 ^ μ) × Fin (n + 2)) (JointIndex M μ s) (Word B) s :=
   stageData M n μ s B (lt_of_lt_of_le (Nat.two_pow_pos μ) hμs) (jointSlot M μ s)
@@ -227,7 +226,7 @@ def jointDenseData (hμ : 1 ≤ μ) (hμs : 2 ^ μ ≤ s) (hμB : μ ≤ B) :
     (jointDense_decode hμ hμB) (denseGen_row_covers hμs) (denseGen_col_covers hμs)
 
 variable (M n μ s B dense) in
-/-- **The densely padded joint family** (lines 3899-3903): the joint family of
+/-- **The densely padded joint family** (proof of Theorem `odel:thm:joint`): the joint family of
 `odel:thm:joint` (same durations, sources and initial state as `jointFamily`) with the dense
 block added to every stage generator. -/
 def jointDenseFamily (hμ : 1 ≤ μ) (hμs : 2 ^ μ ≤ s) (hμB : μ ≤ B) (T : ℝ)

@@ -6,18 +6,18 @@ set_option autoImplicit false
 # The norm estimator with the two-sided test tolerance of equation `qls:eq:bernoulli`
 
 With approximate known gates a test probability `p_F` is no longer bounded below by the exact
-probability `p_σ(r)` of the eigenvalue-one projection: the manuscript's bound is two-sided,
-`|p_F - p_σ(r)| ≤ δ₀² + 2e ≤ 10⁻⁴` (equation `qls:eq:bernoulli`). With equation
+probability `p_ξ(r)` of the eigenvalue-one projection: the manuscript's bound is two-sided,
+`|p_F - p_ξ(r)| ≤ δ₀² + 2e ≤ 10⁻⁴` (equation `qls:eq:bernoulli`). With equation
 `qls:eq:probability` this gives
 
-`1/(2(1 + q²)) - 10⁻⁴ ≤ p_F ≤ 1/(1 + q²) + 10⁻⁴`,   `q = r_σ / r`,
+`1/(2(1 + q²)) - 10⁻⁴ ≤ p_F ≤ 1/(1 + q²) + 10⁻⁴`,   `q = r_ξ / r`,
 
 whereas the released analysis `Estimator.algorithm_bad_le` assumes the lower bound without the
 `10⁻⁴` (exact gates). The threshold arithmetic still closes with the manuscript's margins:
 
 * `reject_inv_tol`: an accurate rejection (`p̂ < 0.22`, `|p̂ - p_F| < 0.0099`) gives
-  `p_F < 0.2299`, so `1/(2(1 + q²)) < 0.2299 + 0.0001 = 0.23` and `r < 2 √(23/27) r_σ`;
-* `last_accepts_tol`: at `r ≥ r_σ`, `p_F ≥ 1/4 - 10⁻⁴`, and an accurate count is at least
+  `p_F < 0.2299`, so `1/(2(1 + q²)) < 0.2299 + 0.0001 = 0.23` and `r < 2 √(23/27) r_ξ`;
+* `last_accepts_tol`: at `r ≥ r_ξ`, `p_F ≥ 1/4 - 10⁻⁴`, and an accurate count is at least
   `0.2499 - 0.0099 = 0.24 ≥ 0.22`;
 * acceptances use only the upper bound (released `Estimator.accept_good`).
 

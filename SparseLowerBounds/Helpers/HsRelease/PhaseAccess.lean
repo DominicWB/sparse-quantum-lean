@@ -7,13 +7,11 @@ section
 /-!
 # Helper: Boolean phase-oracle access certificates for any hidden input
 
-For `Hamiltonian/ReleaseAccess`.
-`Adaptive.Access.BooleanAccess` packages a Boolean implementation of a whole
-labelled family for one-hot hidden inputs `Fin n → Fin m` only. The
-Hamiltonian-simulation lower bounds use two Boolean oracles (manuscript lines
-2143-2146 and 2283-2289), both phase oracles `Q.phase (y x)` of a fixed
-projection family `Q` (`Query/PhaseOracle`) at a pattern `y x : I → Bool` of
-the hidden input `x`:
+For `Hamiltonian/ReleaseAccess`. `Adaptive.Access.BooleanAccess` packages a Boolean implementation
+of a whole labelled family for one-hot hidden inputs `Fin n → Fin m` only. The
+Hamiltonian-simulation lower bounds use two Boolean oracles (Section `hsl:sec:main` and the chain
+construction of Section `part:hsl`), both phase oracles `Q.phase (y x)` of a fixed projection family
+`Q` (`Query/PhaseOracle`) at a pattern `y x : I → Bool` of the hidden input `x`:
 
 * search (time and mixed) families: `x = j : Fin n → Fin m`,
   `y = oneHotPattern` (`(k, a) ↦ [j k = a]`, definitionally

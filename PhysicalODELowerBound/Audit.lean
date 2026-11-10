@@ -248,7 +248,7 @@ order. Every report lists `propext`, `Classical.choice` and `Quot.sound`. -/
 #guard_msgs (whitespace := lax) in
 #print axioms PhysicalODELowerBound.Mesh.psd_mesh
 
-/-! ### Theorem `odel:thm:joint` and Remark `odel:rem:homogeneous` over the general-mesh physical
+/-! ### Theorem `odel:thm:joint` and Proposition `odel:rem:homogeneous` over the general-mesh physical
 oracle (`PhysicalODELowerBound.Mesh.Joint`) -/
 
 /-- info: 'PhysicalODELowerBound.Mesh.joint_forces_mesh' depends on axioms: [propext, Classical.choice, Quot.sound] -/

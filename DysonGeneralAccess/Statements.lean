@@ -6,18 +6,23 @@ set_option autoImplicit false
 /-!
 # A single heralded program for the Dyson solver on its general access: paper-to-Lean entry point
 
-Lemma `odel:lem:dyson` of the manuscript (lines 4155-4168, eq. `odel:eq:dyson` at lines
-4162-4165, proof 4169-4254) assumes coherent time queries, certified time discretisation, the source
-quadrature/preparation access of Theorem `ode:thm:time` and coherent matrix access on every
-finite mesh selected from the public regularity certificate, and gives a generic sparse-oracle
-solver with `Q_A = O(ḡ e^z [1 + z + L_g/log(e + L_g/z)])` matrix queries, `z = s η T`,
-`L_g = log(C ḡ/ε)`; its proof ends with amplitude amplification and constant heralded success
-(lines 4251-4253). The library `ODELowerBoundExtensions` proves the lemma on this general access
-as a public trial family with the released complete certificate
-(`ODELowerBoundExtensions.Dyson.dyson`); `DysonSingleProgram` gives one heralded program on the
-class of the ODE lower bounds (`SparseLowerBounds.ODE.Solver`). This library gives one heralded
-program on the general access. All declarations below are in the namespace
-`DysonGeneralAccess`.
+Lemma `odel:lem:dyson` of the manuscript (eq. `odel:eq:dyson` and its proof): "Assume the coherent
+time queries, attainable sample accuracy and source access of Theorem `ode:thm:time`, including
+coherent matrix access on every finite mesh selected from the public error certificate. Assume a
+supplied common row and column Euclidean-norm bound `η` for `A(t)`." It gives a generic
+sparse-oracle solver with `Q_A = O(ḡ e^z [1 + z + L_g/log(e + L_g/z)])` matrix queries,
+`z = s η T`, `L_g = log(C ḡ/ε)`; its proof ends with amplitude amplification and constant heralded
+success. This package assumes, as its own hypotheses, interval-integrable generator and forcing
+pieces on each closed mesh cell and a classical solution on each closed cell
+(`TimeDependentODE.SolvesODE`: a derivative at every point of the cell, one-sided at its ends), so
+a generator jump inside a cell that leaves the solution without a derivative there is not covered.
+The library
+`ODELowerBoundExtensions` proves the lemma on this general access, with the source access of the
+released time-dependent solver (see **Source access** below), as a public trial family with the
+released complete certificate (`ODELowerBoundExtensions.Dyson.dyson`); `DysonSingleProgram` gives
+one heralded program on the class of the ODE lower bounds (`SparseLowerBounds.ODE.Solver`). This
+library gives one heralded program on the general access. All declarations below are in the
+namespace `DysonGeneralAccess`.
 
 * Single-program class over a general access: `Model.HeraldedSolver`; the ODE lower-bound class
   as its specialisation: `Model.ofSolver`, `Model.toSolver`.
@@ -26,10 +31,10 @@ program on the general access. All declarations below are in the namespace
 * The general construction: `Core.single` (named program `Assemble.flatProg (Core.attempts …)`),
   `Core.single_success` (the released success mass), `Core.single_cost`,
   `Core.single_matrix_le`.
-* The released time-dependent class (lines 4150-4152): `Dyson.single_release_class`.
-* Eq. `odel:eq:fixed` and its consequence (lines 4256-4265), on the larger time-dependent class
-  that the lemma is included to cover (lines 4266-4268): `Dyson.single_fixed`,
-  `Dyson.single_no_uniform`.
+* The released time-dependent class: `Dyson.single_release_class`.
+* Eq. `odel:eq:fixed` and its consequence, on the larger time-dependent class that the lemma is
+  included to cover:
+  `Dyson.single_fixed`, `Dyson.single_no_uniform`.
 * The ODE lower-bound class: `Family.solver_dyson_of_core` (the conclusion of
   `DysonSingleProgram.solver_dyson` from `Core.single`), `Family.heralded_dyson_family`,
   `Family.fourAttempts_eq`.
@@ -44,18 +49,29 @@ program runs over `Register.fiberOracle J` of this access (spectator register `J
 algorithm). Valid instances (`Dyson.Valid`): `y = x(T)` for an instance meeting the premises of
 `ODELowerBoundExtensions.Dyson.Outcome` verbatim.
 
-**Algorithm model.** `Model.HeraldedSolver O Valid G ε`: one program over `O`, an
-input-independent seed of norm at most one, an isometric readout onto system `ℂ^n` ⊗ garbage
-`G`, an input-independent herald projection; on every valid instance `(x, y)` success
-probability at least `2/3` and conditional accuracy `ε` for `y/‖y‖`
-(`Readout.HeraldedAccurate`, the observable form of conditional trace distance, lines
-3675-3677). The query count is `prog.cost (matrixWeight 1)`: row, column and value calls,
-inverses included; source calls are not counted (line 4166). The controls of the access (lines
-3669-3671) are part of the released access itself: `Dyson.oracle` is built by
-`ODECoordinateNativeControl.physicalOracle` on the workspace
-`NativeControlledOracle.Workspace`, and the program language
-(`MultiOracleCircuit.Program`: fixed maps, calls and inverse calls) has no further controlled
-call. For an upper bound this only restricts the algorithm.
+**Source access.** The manuscript's proof uses the weight and data preparations of eqs.
+`ode:eq:source-interface-mass` and `ode:eq:source-interface-preparation`, including the supplied
+phases for signed or complex quadrature coefficients and a source normalisation `B_q ≤ c_q B`. The
+Lean statements use the source access of the released time-dependent solver instead: public norms
+`r₀` of the initial state and `rb_r` of one forcing sample per mesh cell, unitary interfaces `J₀`,
+`Jb` loading their directions, and the positive left-endpoint cell quadrature whose weights are the
+cell lengths (its error enters the certificate), with `B ≤ ḡ ‖x(T)‖` imposed on the quadrature
+mass `MeshSampling.mass r₀ t rb`. This is the case of positive weights without phases and with
+exactly known source norms; the lemma for the general source interface is in `DysonFullClass`,
+with this package's label-controlled loading and a classical propagator on each closed mesh
+cell (the interface itself is formalised for Theorem `ode:thm:time` in `GeneralSourceODE`).
+
+**Algorithm model.** `Model.HeraldedSolver O Valid G ε`: one program over `O`, an input-independent
+seed of norm at most one, an isometric readout onto system `ℂ^n` ⊗ garbage `G`, an input-independent
+herald projection; on every valid instance `(x, y)` success probability at least `2/3` and
+conditional accuracy `ε` for `y/‖y‖` (`Readout.HeraldedAccurate`, the observable form of conditional
+trace distance, Section `odel:sec:main`). The query count is `prog.cost (matrixWeight 1)`: row,
+column and value calls, inverses included; source calls are not counted (Lemma `odel:lem:dyson`).
+The controls of the access (Section `odel:sec:main`) are part of the released access itself:
+`Dyson.oracle` is built by `ODECoordinateNativeControl.physicalOracle` on the workspace
+`NativeControlledOracle.Workspace`, and the program language (`MultiOracleCircuit.Program`: fixed
+maps, calls and inverse calls) has no further controlled call. For an upper bound this only
+restricts the algorithm.
 
 **Quantifiers.** For every public input `D`, mesh `t` with `M` cells, cell-to-sample map `σ`,
 source norms and source interfaces meeting the hypotheses below, and every `T`, `ḡ`, `ε` in
@@ -131,21 +147,28 @@ axiom-audited in `DysonGeneralAccess/Audit.lean`.
 
 **Formalisation choices.**
 
-* The mesh, its cell-to-sample map and the source norms are public parameters of the access, as
-  in `Dyson.dyson`: the manuscript chooses the mesh classically from the public regularity
-  certificate before the run (lines 4178-4196), and register sizes may depend on it (lines
-  4166-4167). "Coherent matrix access on every finite mesh" is the universal quantification over
-  meshes. The program-internal coherent choices are the amplification cutoff (`Coherent.trial`,
+* Sample positivity: the input class assumes the used samples `D.matrix (x, σ r)` accretive
+  (implied by the release's public positivity promise on all samples, `releaseValid_valid`), in
+  line with the formal versions of Theorem `ode:thm:time`, whose positivity hypothesis on the
+  represented samples that theorem of the manuscript does not make (the formal restriction
+  stated in `TimeDependentODE/Statements.lean`); `DysonFullClass` proves the comparison for
+  represented samples of either sign, under this package's hypotheses of label-controlled loading
+  and a classical propagator on each closed mesh cell.
+* The mesh, its cell-to-sample map and the source norms are public parameters of the access, as in
+  `Dyson.dyson`: the manuscript chooses the mesh classically from the public error certificate
+  before the run (proof of Lemma `odel:lem:dyson`), and register sizes may depend on it (Lemma
+  `odel:lem:dyson`). "Coherent matrix access on every finite mesh" is the universal quantification
+  over meshes. The program-internal coherent choices are the amplification cutoff (`Coherent.trial`,
   label register `Fin M`) and the first-success selection of the herald and readout
   (`Parallel.Stage.four`).
-* `Model.HeraldedSolver` copies the fields of `SparseLowerBounds.ODE.Solver` with the access and
-  the valid-instance relation as parameters; success and accuracy are required on valid
-  instances (the manuscript's "on every input", lines 3675-3676, read for a promise class whose
-  inputs are the instances meeting the promises), so no hypothesis that every input has a valid
-  instance is added to those of `Dyson.dyson`. With every input having a solution, `Solver` is the
+* `Model.HeraldedSolver` copies the fields of `SparseLowerBounds.ODE.Solver` with the access and the
+  valid-instance relation as parameters; success and accuracy are required on valid instances (the
+  manuscript's "on every input", Section `odel:sec:main`, read for a promise class whose inputs are
+  the instances meeting the promises), so no hypothesis that every input has a valid instance is
+  added to those of `Dyson.dyson`. With every input having a solution, `Solver` is the
   specialisation (`ofSolver`, `toSolver`).
-* The count is the matrix-weighted cost (line 4166); the program's source calls are counted by
-  `Core.single_cost` for every weight but not bounded.
+* The count is the matrix-weighted cost (Lemma `odel:lem:dyson`); the program's source calls are
+  counted by `Core.single_cost` for every weight but not bounded.
 * `Dyson.single_dyson` is existential: when no instance is valid the identity program is used.
   The program on the inputs with valid instances is `Core.single` of the released Dyson trials.
   `Dyson.Valid` is not empty in general: when the sampled matrices `D.matrix (x, σ r)` are
@@ -165,16 +188,14 @@ axiom-audited in `DysonGeneralAccess/Audit.lean`.
 **Not formalised.**
 
 * A source-call bound for the single program (the manuscript counts only matrix queries).
-* Circuit size and time-register size of the single program (lines 4166-4167).
+* Circuit size and time-register size of the single program (Lemma `odel:lem:dyson`).
 * An adaptive-tree form of the upper bound on the general access.
 * Selection of the mesh inside the program (the manuscript selects it classically from the
   public certificate).
-* The remark of lines 4269-4271 (no improved comparison with eq. `ode:eq:simple` in a joint
-  large-parameter regime; no circuit-size or time-register-size bound is claimed).
+* The remark after eq. `odel:eq:fixed` (no improved comparison with eq. `ode:eq:simple` in a
+  joint large-parameter regime; no gate-complexity or time-register-size bound is claimed).
 
 **Provenance.** No result from another paper is used. The modules import `DysonSingleProgram`
 and `ODELowerBoundExtensions` and use declarations of the libraries they import; no released
-module is changed. Line numbers in this guide refer to the manuscript version accompanying this
-library, as do those of `ODELowerBoundExtensions`; the guide of `DysonSingleProgram` cites an
-earlier numbering, and the paper labels are the stable references.
+module is changed. References to the manuscript use its labels.
 -/

@@ -7,8 +7,8 @@ import ODELowerBoundExtensions.Psd.Params
 /-!
 # The imaginary-time spin-chain amplitude and its rounding
 
-Manuscript lines 4038-4047 (spin chain `B_n`, eq. `odel:eq:imaginaryamp`), 4063-4084
-(rounding, eq. `odel:eq:Dpath`, contractive Duhamel comparison).
+Manuscript: the proof of Theorem `odel:thm:psd` (spin chain `B_n`, eq. `odel:eq:imaginaryamp`;
+rounding, eq. `odel:eq:Dpath`, contractive Duhamel comparison).
 
 * The PSD generator `psdCore H = (1 - H)/2` of a Hermitian `H` with `‖H‖ ≤ 1` is positive
   semidefinite with `‖psdCore H‖ ≤ 1` (`posSemidef_psdCore`, `norm_psdCore_le`), hence
@@ -20,10 +20,11 @@ Manuscript lines 4038-4047 (spin chain `B_n`, eq. `odel:eq:imaginaryamp`), 4063-
   `f' = B_n f` on all of `ℝ`, `f(0) = |0⟩`, and `heat_apply_eq_of_hasDerivAt`; it is the
   real-time proof of `Hamiltonian.endAmp_scaled` with `cos, -i sin` replaced by `cosh, sinh`), so
   `heatEndAmp n b (2u) = e^{-u} sinh(u/n)^n = a` (`heatEndAmp_spinWeight`).
-* **Contractive Duhamel comparison** (lines 4077-4082): `‖e^{-tD} - e^{-tD'}‖ ≤ t ‖D - D'‖` for
-  accretive `D, D'` (the release's `TimeDependentODE.step_error` with constant generator,
-  no source and `‖x(u)‖ ≤ 1`), so `|heatEndAmp n b' (2u) - a| ≤ 2uδ ≤ a/8` and the rounded
-  amplitude is at least `7a/8` (`seven_eighths_le_heatEndAmp`).
+* **Contractive Duhamel comparison** (proof of Theorem `odel:thm:psd`):
+  `‖e^{-tD} - e^{-tD'}‖ ≤ t ‖D - D'‖` for accretive `D, D'` (the release's
+  `TimeDependentODE.step_error` with constant generator, no source and `‖x(u)‖ ≤ 1`), so
+  `|heatEndAmp n b' (2u) - a| ≤ 2uδ ≤ a/8` and the rounded amplitude is at least `7a/8`
+  (`seven_eighths_le_heatEndAmp`).
 -/
 
 set_option autoImplicit false
@@ -39,7 +40,7 @@ section Generator
 
 variable {S : Type*} [Fintype S] [DecidableEq S]
 
-/-- A positive semidefinite matrix is an accretive generator (`D ⪰ 0`, line 3657). -/
+/-- A positive semidefinite matrix is an accretive generator (`D ⪰ 0`, Section `odel:sec:main`). -/
 theorem accretive_of_posSemidef {D : Matrix S S ℂ} (hD : D.PosSemidef) :
     TimeDependentODE.Accretive (SparseStateOverlap.matrixOperator D) := by
   intro v
@@ -48,7 +49,7 @@ theorem accretive_of_posSemidef {D : Matrix S S ℂ} (hD : D.PosSemidef) :
   rw [matrixOperator_eq_toEuclideanCLM]
   exact h
 
-/-- `(1 - H)/2 ⪰ 0` for Hermitian `H` with `‖H‖ ≤ 1` (line 4075). -/
+/-- `(1 - H)/2 ⪰ 0` for Hermitian `H` with `‖H‖ ≤ 1` (proof of Theorem `odel:thm:psd`). -/
 theorem posSemidef_psdCore {H : Matrix S S ℂ} (hH : H.IsHermitian) (h1 : ‖H‖ ≤ 1) :
     (psdCore H).PosSemidef := by
   have h1H : (1 - H).PosSemidef := by
@@ -93,7 +94,7 @@ theorem norm_psdCore_sub (H H' : Matrix S S ℂ) : ‖psdCore H - psdCore H'‖ 
   rw [hn]
   ring
 
-/-- **Contractive Duhamel comparison** (lines 4077-4082): for accretive generators,
+/-- **Contractive Duhamel comparison** (proof of Theorem `odel:thm:psd`): for accretive generators,
 `‖e^{-tD} v - e^{-tD'} v‖ ≤ t ‖D - D'‖ ‖v‖` (`TimeDependentODE.step_error`). -/
 theorem norm_heat_sub_heat_apply_le {D D' : Matrix S S ℂ}
     (hD : TimeDependentODE.Accretive (SparseStateOverlap.matrixOperator D))
@@ -153,8 +154,8 @@ theorem hasDerivAt_hypMonomial {θ : ℝ → ℝ} {θ' t : ℝ} (hθ : HasDerivA
     push_cast
     ring
 
-/-- The explicit imaginary-time solution `f_k(t) = √binom(n,k) cosh(t/n)^{n-k} sinh(t/n)^k`
-of `f' = B_n f`, `f(0) = |0⟩` (lines 4043-4047; the symmetric-subspace restriction of
+/-- The explicit imaginary-time solution `f_k(t) = √binom(n,k) cosh(t/n)^{n-k} sinh(t/n)^k` of
+`f' = B_n f`, `f(0) = |0⟩` (proof of Theorem `odel:thm:psd`; the symmetric-subspace restriction of
 `(cosh θ |0⟩ + sinh θ |1⟩)^{⊗n}`, `θ = t/n`). -/
 def heatSpinSolution (n : ℕ) (t : ℝ) : EuclideanSpace ℂ (Fin (n + 1)) :=
   WithLp.toLp 2 fun k =>
@@ -207,8 +208,9 @@ theorem hasDerivAt_heatSpinSolution (t : ℝ) :
   simp only [one_mul] at h ⊢
   exact key _ _ _ h
 
-/-- **Eq. `odel:eq:imaginaryamp`** (lines 4043-4047): `⟨n| e^{uB_n} |0⟩ = sinh(u/n)^n` for
-every real `u` (`B_n` is `n⁻¹ Σ_j X_j` on the symmetric subspace). -/
+/-- **Eq. `odel:eq:imaginaryamp`** (proof of Theorem `odel:thm:psd`):
+`⟨n| e^{uB_n} |0⟩ = sinh(u/n)^n` for every real `u` (`B_n` is `n⁻¹ Σ_j X_j` on the symmetric
+subspace). -/
 theorem heat_neg_spinMatrix_last (hn : 1 ≤ n) (u : ℝ) :
     heat (-spinMatrix n) u (EuclideanSpace.single 0 1) (Fin.last n) =
       ((Real.sinh (u / n) ^ n : ℝ) : ℂ) := by
@@ -226,7 +228,7 @@ theorem heatEndAmp_spinWeight (hn : 1 ≤ n) (u : ℝ) :
   push_cast
   ring
 
-/-- **Rounding** (lines 4077-4082): `|heatEndAmp n b' (2u) - a| ≤ 2uδ ≤ a/8`. -/
+/-- **Rounding** (proof of Theorem `odel:thm:psd`): `|heatEndAmp n b' (2u) - a| ≤ 2uδ ≤ a/8`. -/
 theorem norm_heatEndAmp_psdWeight_sub_le (hn : 1 ≤ n) (hu : 0 < u) :
     ‖heatEndAmp n (psdWeight n u) (2 * u) - (psdAmp n u : ℂ)‖ ≤ psdAmp n u / 8 := by
   set D := psdCore (pathMatrix n (psdWeight n u))
@@ -253,7 +255,7 @@ theorem norm_heatEndAmp_psdWeight_sub_le (hn : 1 ≤ n) (hu : 0 < u) :
     _ ≤ 2 * u * (psdAmp n u / (16 * u)) * 1 := by gcongr; exact hdiff.trans hδ
     _ = psdAmp n u / 8 := by field_simp; ring
 
-/-- The rounded endpoint amplitude is at least `7a/8` (lines 4083-4084). -/
+/-- The rounded endpoint amplitude is at least `7a/8` (proof of Theorem `odel:thm:psd`). -/
 theorem seven_eighths_le_heatEndAmp (hn : 1 ≤ n) (hu : 0 < u) :
     7 * psdAmp n u / 8 ≤ (heatEndAmp n (psdWeight n u) (2 * u)).re := by
   have h := norm_heatEndAmp_psdWeight_sub_le hn hu

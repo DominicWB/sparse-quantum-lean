@@ -6,8 +6,8 @@ set_option autoImplicit false
 /-!
 # From operator-norm error to trace distance, sharply
 
-Corollary `hs:cor:unitary` of the manuscript (lines 1647-1666) measures the error of a unitary
-implementation in operator norm, `‖A_U - U‖ ≤ ε` (eq. `hs:eq:unitaryerror`, lines 1652-1654),
+Corollary `hs:cor:unitary` of the manuscript measures the error of a unitary
+implementation in operator norm, `‖A_U - U‖ ≤ ε` (eq. `hs:eq:unitaryerror`),
 for `0 < ε ≤ 1/2`. The package's lower bounds for adaptive and measured algorithms take
 trace-distance accuracy of the output. For two unit vectors at distance `d = ‖a - b‖` the trace
 distance of the pure states is `√(1 - |⟪a, b⟫|²) ≤ d √(1 - d²/4)`. The package's vector form of
@@ -24,7 +24,8 @@ module proves its observable form, for vectors of norm at most one and `ε² ≤
   `SparseLowerBounds.Hamiltonian.accurate_of_endpoint`, under the same hypotheses and
   `ε² ≤ 2`, with the sharp constant `ε √(1 - ε²/4)` in place of `ε`;
 * the constants: `ε √(1 - ε²/4) ≤ ε`, and `ε √(1 - ε²/4) ≤ √15 / 8 < 1/2` on the range
-  `0 ≤ ε ≤ 1/2`, which contains the manuscript's `0 < ε ≤ 1/2` (line 1649) (`sharp_lt_half`, a corollary of the positivity
+  `0 ≤ ε ≤ 1/2`, which contains the manuscript's `0 < ε ≤ 1/2` (Corollary `hs:cor:unitary`)
+  (`sharp_lt_half`, a corollary of the positivity
   `UnitaryImplementationExtensions.Search.near_factor_pos`), and the comparison
   `(N - 2)² ≤ 4 (N (1 - s) - 1)²` for `s ≤ 1/2` used for the `√N` forms.
 -/
@@ -100,12 +101,12 @@ theorem abs_re_inner_sub_le_sharp (L : H →L[ℂ] H) (hL : IsSelfAdjoint L) (hL
 
 end Hilbert
 
-/-- **Operator-norm error gives sharp trace-distance accuracy** (eq. `hs:eq:unitaryerror`,
-lines 1652-1654). If `‖V ∘ ι - ι ∘ U‖ ≤ ε` for a contraction `V` and an isometric encoding `ι`,
-with `ε² ≤ 2`, then for every input `ψ` with `‖ψ‖ ≤ 1` and `‖U ψ‖ ≤ 1`, the output `V (ι ψ)`
-read through `endpointReadout ι i₀` is `ε √(1 - ε²/4)`-accurate for `U ψ`. This is the analogue
-of `SparseLowerBounds.Hamiltonian.accurate_of_endpoint`, under its hypotheses and `ε² ≤ 2`, with
-the sharp constant `ε √(1 - ε²/4)` in place of `ε`. -/
+/-- **Operator-norm error gives sharp trace-distance accuracy** (eq. `hs:eq:unitaryerror`). If
+`‖V ∘ ι - ι ∘ U‖ ≤ ε` for a contraction `V` and an isometric encoding `ι`, with `ε² ≤ 2`, then for
+every input `ψ` with `‖ψ‖ ≤ 1` and `‖U ψ‖ ≤ 1`, the output `V (ι ψ)` read through
+`endpointReadout ι i₀` is `ε √(1 - ε²/4)`-accurate for `U ψ`. This is the analogue of
+`SparseLowerBounds.Hamiltonian.accurate_of_endpoint`, under its hypotheses and `ε² ≤ 2`, with the
+sharp constant `ε √(1 - ε²/4)` in place of `ε`. -/
 theorem accurate_of_endpoint_sharp {S K : Type*} [Fintype S] [DecidableEq S]
     [NormedAddCommGroup K] [InnerProductSpace ℂ K] [CompleteSpace K]
     (ι : EuclideanSpace ℂ S →L[ℂ] K) (hι : ι† ∘L ι = 1) (i₀ : S) (V : K →L[ℂ] K)
@@ -148,8 +149,8 @@ theorem sharp_le_self {ε : ℝ} (hε : 0 ≤ ε) : ε * Real.sqrt (1 - ε ^ 2 /
     (Real.sqrt_le_sqrt (by nlinarith [sq_nonneg ε] : 1 - ε ^ 2 / 4 ≤ 1)).trans_eq Real.sqrt_one
   exact mul_le_of_le_one_right hε h1
 
-/-- On the range `0 ≤ ε ≤ 1/2`, which contains the manuscript's `0 < ε ≤ 1/2` (line 1649), the
-sharp error is at most `√15 / 8`, its value at `ε = 1/2`. -/
+/-- On the range `0 ≤ ε ≤ 1/2`, which contains the manuscript's `0 < ε ≤ 1/2` (Corollary
+`hs:cor:unitary`), the sharp error is at most `√15 / 8`, its value at `ε = 1/2`. -/
 theorem sharp_le_of_le_half {ε : ℝ} (hε : 0 ≤ ε) (h : ε ≤ 1 / 2) :
     ε * Real.sqrt (1 - ε ^ 2 / 4) ≤ Real.sqrt 15 / 8 := by
   have e1 : ε ^ 2 ≤ 1 / 4 := by nlinarith
@@ -174,7 +175,7 @@ theorem sqrt_fifteen_div_eight_lt_half : Real.sqrt 15 / 8 < 1 / 2 := by
   linarith
 
 /-- **The sharp error is below `1/2`**: for `0 ≤ ε ≤ 1/2`, a range that contains the
-manuscript's `0 < ε ≤ 1/2` (line 1649),
+manuscript's `0 < ε ≤ 1/2` (Corollary `hs:cor:unitary`),
 `ε √(1 - ε²/4) < 1/2`. A one-line corollary of
 `UnitaryImplementationExtensions.Search.near_factor_pos`, `0 < 1 - 2 ε √(1 - ε²/4)`. -/
 theorem sharp_lt_half {ε : ℝ} (hε : 0 ≤ ε) (h : ε ≤ 1 / 2) :

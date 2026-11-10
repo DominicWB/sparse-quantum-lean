@@ -5,6 +5,10 @@ import GateEfficientBinaryNodes.NodeSolver
 /-!
 # Theorem `ode:thm:gates` with computed nodes and retained source circuits
 
+The finite-gate-set forms of Theorem `ode:thm:gates` in this module are a partial formalisation of
+its finite-set statement, under this package's format hypotheses: the manuscript states Theorem
+`ode:thm:gates` over a finite gate set; the conformance endpoints count native gates.
+
 The solver from binary data with coherently computed source nodes (`GateEfficientBinaryNodes`)
 prepares `prepQN q μ nd N loadC wpC`, the native time-dependent preparation `GateNative.tnprepC`
 on the branch operation `ndQN` of the node program `N`. Here the preparation is compiled
@@ -60,8 +64,9 @@ theorem prepBoundN_split (q : PubT) (mu nd : ℕ) (N : NodeProg q.m mu Zn)
   simp only [prepBoundN, nGatesN_empty, Nat.cast_zero, mul_zero, add_zero]
 
 /-- **Gate-efficient dissipative ODE solver from binary data with computed nodes and retained
-source circuits** (Theorem `ode:thm:gates`, time-dependent part with general source nodes): under
-the hypotheses of `GateBinaryNodes.binary_nodes_solver` the selective protocol
+source circuits** (partial formalisation, under this package's format hypotheses, of the finite-set
+statement of Theorem `ode:thm:gates`, time-dependent part with general
+source nodes): under the hypotheses of `GateBinaryNodes.binary_nodes_solver` the selective protocol
 `nprotocol (selPrep hS (ν/3) (prepQN q μ nd N loadC wpC)) (2g)` has the guarantees `NOutcome`
 (no hypothesis on the gate set or on the source circuits is needed for them): every successful
 trial is within `ε/500` of `x(T)/‖x(T)‖` up to a global phase, the success probability is at
@@ -101,8 +106,9 @@ theorem binary_nodes_solver_sel (hS : Synthesis 𝒢 Xa len) (q : PubT) (hq : q.
     (instanceN q mu nd hnd N hq D en hrange x hSm Jl Wp wq fv G bf xs ys βG δI κ hR)
 
 /-- **Equations `ode:eq:gate-main` and `ode:eq:gate-space` in `𝔟` with computed nodes and
-retained source circuits** (Theorem `ode:thm:gates`, time-dependent part with general source
-nodes). Under the hypotheses of `GateBinaryNodes.binary_nodes_budget_trials_bits`
+retained source circuits** (partial formalisation, under this package's format hypotheses, of the
+finite-set statement of Theorem `ode:thm:gates`, time-dependent part with
+general source nodes). Under the hypotheses of `GateBinaryNodes.binary_nodes_budget_trials_bits`
 (`Synthesis 𝒢 Xa len` with `len ζ ≤ c₁ log(1/ζ) + c₀`, `AdjClosed 𝒢`, `zeroTestKinds ⊆ 𝒢`, the
 public rescaling, `ζ ≥ ν/(196608 q*)` and the bit lengths) and loading and weight-preparation
 circuits over `𝒢`, with `𝔟 + μ = bitN b_data q μ` and `G_src = |loadC| + 2 |wpC|`, the selective

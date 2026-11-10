@@ -6,8 +6,10 @@ import GateEfficientODEBudget.Words
 # The per-call cost of the binary constructions in the bit lengths
 
 Theorem `hs:thm:gates` of the accompanying paper concludes, for efficiently decoded binary or
-fixed-point entries with bit lengths at most `b_data`, `q = √s τ + √(sτℓ) + ℓ` and private
-arithmetic of polynomial cost, that `G_additional = q poly(b_data, log(N+1), log((q+1)/ε))`
+fixed-point entries with bit lengths at most `b_data`, `Q_base = √s τ + √(sτℓ) + ℓ` (`τ = ηT`,
+`ℓ = log(1/ε)`; below, `q` is the query shape of the endpoint at hand) and private arithmetic of
+polynomial cost, that
+`G_additional = Q_base poly(b_data, log(N+1), log((Q_base+1)/ε))`
 (equation `hs:eq:gate-binary`). The released budgets bound the gates of the binary constructions
 by `200 (4608 q + 1) (G_C + (σ+1) + (k+1) + m + r + 1)`, with the per-call cost
 `G_C = 56 k + 2 |circ| + 2 bP + bT + 1` of the CORDIC arithmetic at the decoder scale

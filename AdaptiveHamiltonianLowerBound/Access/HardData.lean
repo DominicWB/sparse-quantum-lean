@@ -7,10 +7,10 @@ set_option autoImplicit false
 /-!
 # The hard families of `hsl:thm:main` as native data with one-bit entries
 
-The three hard families of the Hamiltonian-simulation lower bound are native sparse data
-built by the one-bit word-table builder `SparseLowerBounds.Hamiltonian.bitData` (manuscript
-lines 2254-2289): fixed permutation locators, and table words that depend on at most one
-hidden bit.
+The three hard families of the Hamiltonian-simulation lower bound are native sparse data built by
+the one-bit word-table builder `SparseLowerBounds.Hamiltonian.bitData` (the chain construction of
+Section `part:hsl`): fixed permutation locators, and table words that depend on at most one hidden
+bit.
 
 * Time and mixed families (`timeData`, `mixedMainData`; inputs `j : Fin n → Fin m`): the word
   of an address reads the one-hot bit `[j k = b]` (`oneHotBits`), so the access conditions

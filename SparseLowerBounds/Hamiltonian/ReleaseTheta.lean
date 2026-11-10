@@ -6,11 +6,10 @@ section
 /-!
 # The release Hamiltonian simulator on the hard families: the `Θ` bracket
 
-Manuscript lines 2120-2135: the lower bound
+Manuscript: the comparison after Theorem `hsl:thm:main`: the lower bound
 `c₀ (√s τ + √(sτr) + r)` of Theorem `hsl:thm:main` is compared with the common
 upper bound `O(√s τ + √(sτL) + L)` (eq. `hsl:eq:upper`) of the release's
-simulator; "the time term matches and the mixed term is within `√h`" (and the
-additive term within `h = L/r`).
+simulator, which has "a mixed term larger by `√h`" (and an additive term larger by `h = L/r`).
 
 **The release algorithm.** `ImprovedSparseHamiltonian.simulation_log_one D η t ε`
 is an existence theorem: it provides a schedule `γ` and a program `p` over
@@ -45,43 +44,38 @@ which is `simulation_log_one` repackaged).
 The lower half is `main_max_release` (`Hamiltonian/ReleaseBridge`) at the
 release's own input `ι = ImprovedSparseHamiltonian.input D γ 1 τ ε`.
 
-**Reading of the bracket.** As in the manuscript (lines 2121-2124: "the three
-terms can be witnessed by different families"; the theorem is a worst-case
-statement), the lower bound is on the **maximum over the three families** of
-the per-family release programs' value-query counts; no single hard family is
-claimed to force all three terms. No bound `c₀ S ≤ Q(p)` for **one** release
-program `p` is stated, for three reasons. (a) The three hard families have
-different input, index and word types (`timeData` on
-`SearchIndex (timeN τ) (hsMu s) s` with `Word (searchBits … (timeC τ) τ)`,
-`mixedMainData` on `SearchIndex (precN τ ε) (hsMu s) s` with
-`Word (searchBits … 1 τ)`, `precisionMainData` on `ScalarIndex (precN τ ε) s`
-with `Word (scalarBits …)`; compare `TimePhys`, `MixedPhys`, `PrecisionPhys`),
-so no single program over one `ImprovedSparseHamiltonian.oracle D γ 1 τ ε` can
-be run on all three. (b) The step of lines 2123-2124 ("their dimensions can be
-padded to a common known size without affecting their hardness"), which would
-put the three families into one instance class on one common space and so give
-one algorithm, is not formalised. (c)
-`simulation_log_one` is a per-data `Prop`-valued existential, so `p_T`, `p_M`,
-`p_P` are unrelated witnesses whose counts may differ; each family forces only
-part of `S` (`time_release`: `√s τ`; `mixed_release`: `√(sτr)` when `L ≥ 64τ`
-and `s ≥ 64n/τ`; `precision_release`: `r` when `L ≥ 64τ`, and `√(sτr)` when
-moreover `s < 64n/τ`; `n = precN τ ε`), so `c₀ S ≤ Q(p)` for a single `p` does not follow. The bracket is therefore on the
-worst case over the families, in the form of `main_max_endpoint` and of
-`main_max_release`. Counts: `Q = p.labelCount .value` is the
-paper's `Q` (native value queries, forward and inverse); the Boolean weighted
-cost is `p.cost hardCost = 2 Q` (`cost_hardCost`); `p.count` is the release's
-own count (row, column and value calls, inverses included), so `Q ≤ p.count`
-(`labelCount_le_count`), and the upper bound of `simulation_log_one` is on
-`p.count`.
+**Reading of the bracket.** As in the manuscript (the paragraph after Theorem `hsl:thm:main`:
+"We need not find one matrix on which all three mechanisms are simultaneously difficult"; the
+theorem is a worst-case statement), the lower
+bound is on the **maximum over the three families** of the per-family release programs' value-query
+counts; no single hard family is claimed to force all three terms. No bound `c₀ S ≤ Q(p)` for
+**one** release program `p` is stated, for three reasons. (a) The three hard families have different
+input, index and word types (`timeData` on `SearchIndex (timeN τ) (hsMu s) s` with
+`Word (searchBits … (timeC τ) τ)`, `mixedMainData` on `SearchIndex (precN τ ε) (hsMu s) s` with
+`Word (searchBits … 1 τ)`, `precisionMainData` on `ScalarIndex (precN τ ε) s` with
+`Word (scalarBits …)`; compare `TimePhys`, `MixedPhys`, `PrecisionPhys`), so no single program over
+one `ImprovedSparseHamiltonian.oracle D γ 1 τ ε` can be run on all three. (b) The padding of the
+families to a common known dimension (Theorem `hsl:thm:main`: "with further known padding allowed"),
+which would put the three families into one instance class on one common space and so give one
+algorithm, is not formalised here (see
+`LowerBoundRemarks.HamiltonianPadding.main_max_common_dimension` for programs in spectator form).
+(c) `simulation_log_one` is a per-data `Prop`-valued existential, so `p_T`, `p_M`, `p_P` are
+unrelated witnesses whose counts may differ; each family forces only part of `S` (`time_release`:
+`√s τ`; `mixed_release`: `√(sτr)` when `L ≥ 64τ` and `s ≥ 64n/τ`; `precision_release`: `r` when
+`L ≥ 64τ`, and `√(sτr)` when moreover `s < 64n/τ`; `n = precN τ ε`), so `c₀ S ≤ Q(p)` for a single
+`p` does not follow. The bracket is therefore on the worst case over the families, in the form of
+`main_max_endpoint` and of `main_max_release`. Counts: `Q = p.labelCount .value` is the paper's `Q`
+(native value queries, forward and inverse); the Boolean weighted cost is `p.cost hardCost = 2 Q`
+(`cost_hardCost`); `p.count` is the release's own count (row, column and value calls, inverses
+included), so `Q ≤ p.count` (`labelCount_le_count`), and the upper bound of `simulation_log_one` is
+on `p.count`.
 
-**The gap.** `release_shape_eq` is an exact identity: the time term matches,
-the mixed term carries `√h` (line 2130), the additive term carries `h`
-(`L = h r`). The manuscript's improvement of the additive `L` by
-Corollary `hs:cor:hybrid` (lines 2131-2135) is not part of the release
-simulator `simulation_log_one` and is not used here, and the manuscript does
-not claim the mixed term `√(sτL)` is necessary without its `√h` (lines
-2136-2137); hence the bracket is `Θ` only up to the factor `h` of
-`release_shape_le`.
+**The gap.** `release_shape_eq` is an exact identity: the time term matches, the mixed term carries
+`√h` (Section `hsl:sec:main`), the additive term carries `h` (`L = h r`). The manuscript's
+improvement of the additive `L` by Corollary `hs:cor:hybrid` (Section `hsl:sec:main`) is not part of
+the release simulator `simulation_log_one` and is not used here, and the manuscript does not claim
+the mixed term `√(sτL)` is necessary without its `√h` (Section `hsl:sec:main`); hence the bracket is
+`Θ` only up to the factor `h` of `release_shape_le`.
 
 **Relation to `Hamiltonian/ReleaseForm`.** The release simulator is not a
 program over the native primitives, so it does not instantiate the hypotheses
@@ -142,7 +136,7 @@ theorem exists_releaseSimulates {X N Z : Type*} [Fintype N] [DecidableEq N] [Fin
 
 variable {τ ε : ℝ} {s : ℕ}
 
-/-- **The release's shape in the lower bound's parameters** (lines 2126-2130): for
+/-- **The release's shape in the lower bound's parameters** (Section `hsl:sec:main`): for
 `τ ≥ 1` and `η = 1`, `√s τ + √(sτL) + L = √s τ + √h √(sτr) + h r`, where
 `L = log(1/ε)`, `h = log(e + L/τ)`, `r = L/h`. -/
 theorem release_shape_eq (h : HSRange τ s ε) :
@@ -154,7 +148,7 @@ theorem release_shape_eq (h : HSRange τ s ε) :
   have hmul : (s : ℝ) * τ * (hsH τ ε * hsR τ ε) = hsH τ ε * (s * τ * hsR τ ε) := by ring
   rw [abs_of_pos h.tau_pos, one_mul, hL, hmul, Real.sqrt_mul h.hsH_pos.le]
 
-/-- **The gap is at most `h`** (lines 2126-2136): the release's upper-bound
+/-- **The gap is at most `h`** (Section `hsl:sec:main`): the release's upper-bound
 shape is at most `h` times the lower-bound shape,
 `√s τ + √(sτL) + L ≤ h (√s τ + √(sτr) + r)` (the time term matches, the mixed
 term is within `√h ≤ h`, the additive term within `h`). -/
@@ -178,7 +172,7 @@ theorem release_shape_le (h : HSRange τ s ε) :
 
 /-! ### The bracket -/
 
-/-- **`Θ` bracket for the release simulator** (lines 2120-2135): for any
+/-- **`Θ` bracket for the release simulator** (Section `hsl:sec:main`): for any
 release simulators (`ReleaseSimulates`, `η = 1`, time `τ`, precision `ε`) of
 the time, mixed and precision families, with `S = √s τ + √(sτr) + r`:
 `c₀ S ≤ max(Q_T, Q_M, Q_P)` (value queries), `2 c₀ S ≤ max` of the Boolean
@@ -188,7 +182,7 @@ weighted costs `p.cost hardCost`, `max Q ≤ max count`, and
 The lower bound is on the maximum over the three per-family programs, not on a
 single program: the families have different input, index and word types, so
 one program over one `ImprovedSparseHamiltonian.oracle` cannot be run on all
-three; the padding to a common known dimension of lines 2123-2124, which would
+three; the padding to a common known dimension of Theorem `hsl:thm:main`, which would
 give one algorithm on one instance class, is not formalised; and
 `simulation_log_one` is a per-data existential, so `p_T`, `p_M`, `p_P` are
 unrelated witnesses and each family forces only part of `S` (module
@@ -264,7 +258,7 @@ theorem release_theta_exists (h : HSRange τ s ε) :
   exact ⟨γT, γM, γP, pT, pM, pP, hpT, hpM, hpP⟩
 
 /-- **The release simulator on the hard families is `Θ(√s τ + √(sτr) + r)` up
-to the factor `h`** (lines 2120-2135): there are release simulators of the
+to the factor `h`** (Section `hsl:sec:main`): there are release simulators of the
 time, mixed and precision families (`ReleaseSimulates`) with
 `c₀ S ≤ max(Q_T, Q_M, Q_P) ≤ max(count_T, count_M, count_P) ≤ 995328 h S`,
 `S = √s τ + √(sτr) + r`, and Boolean weighted cost

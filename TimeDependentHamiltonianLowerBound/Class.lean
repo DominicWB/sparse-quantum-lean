@@ -8,11 +8,10 @@ set_option synthInstance.maxSize 4096
 /-!
 # The time-dependent classes and the constant hard paths
 
-The hypotheses and guarantees of the three released time-dependent Hamiltonian theorems,
-bundled as predicates, and the membership of constant data with constant paths in these
-classes with `β = δ_val = 0` (the remark after Theorem `hs:thm:time`, paragraph "Regularity and
-coherent parameters": "its time-independent hard instances satisfy the new assumptions with
-`β = δ_val = 0`").
+The hypotheses and guarantees of the three released time-dependent Hamiltonian theorems, bundled as
+predicates, and the membership of constant data with constant paths in these classes with
+`β = δ_val = 0` (the paragraphs after the proof of Theorem `hs:thm:time`: "this input class contains
+the constant hard instances of Theorem `hsl:thm:main`, with `β = δ_val = 0`").
 
 * Uniform mesh, `SparseHamiltonian.TimeDependent.simulation` (Theorem `hs:thm:time`):
   `UniformHyp D Hpath η t β δ ε` collects its sixteen hypotheses on the samples, the path and

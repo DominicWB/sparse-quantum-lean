@@ -8,10 +8,10 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # The lower bounds at the released constant-coefficient solver's runs
 
-Manuscript lines 4114-4115 ("The lower bounds thus apply to Theorems `ode:thm:main` and
-`ode:thm:time`"), Theorem `ode:thm:main` (lines 3013-3033) and lines 3048-3050 ("When `η_D = 0`,
-eq. `ode:eq:main` has exactly the improved Hamiltonian structure, multiplied by the
-source/normalisation cost `ḡ`").
+Manuscript: Section `odel:sec:main` ("the lower bounds apply to the upper bounds of the preceding
+section"), Theorem `ode:thm:main` and the remark after eq. `ode:eq:simple` ("With `η_D = 0`, the
+separated expression retains exactly the baseline Hamiltonian precision structure, multiplied by
+`ḡ`").
 
 A **run** of the released constant-coefficient solver on a one-stage family (`ConstRun F τ ḡ ε η_H
 η_D`) is a released protocol (`Protocol.ConstProtocol`) over the released oracle with public
@@ -36,18 +36,17 @@ oracle `ODEFinalNativeSource.physicalOracle` of `ODECompleteEndpoint.solver`, of
   `η_D = 1`, so `Θ = τ ℓ`), `psdConst (√(sτr) + r) ≤ max(Q_G, Q_S)` and each count is at most
   `1274019840 ḡ queryShape(s, τℓ, ℓ)`; the same lower bound for the value counts, and
   `max V ≤ max Q`. The two bounds are stated side by side only: the manuscript proves no
-  matching bound for the dissipative subclass (lines 4573-4578).
+  matching bound for the dissipative subclass (Theorem `odel:thm:psd`).
 
 Runs on all five families exist (`Instances`).
 
-**Scope.** The lower halves are max forms over one solver per family: the families have
-different input, index and word types, so they are not bounds on one program. Padding to a
-common known dimension (manuscript lines 4441-4442) and a family form (one family forcing the
-bound on every solver) are not formalised in this library for the released
-constant-coefficient oracle; controlled calls, padding and family forms over this oracle are in
-the library `PhysicalODELowerBound`. The homogeneous variant of Remark `odel:rem:homogeneous` is
-time dependent and is not a constant-coefficient reduction (lines 4385-4387), so it does not
-apply here.
+**Scope.** The lower halves are max forms over one solver per family: the families have different
+input, index and word types, so they are not bounds on one program. Padding to a common known
+dimension (proof of Theorem `odel:thm:combined`) and a family form (one family forcing the bound on
+every solver) are not formalised in this library for the released constant-coefficient oracle;
+controlled calls, padding and family forms over this oracle are in the library
+`PhysicalODELowerBound`. The homogeneous variant of Proposition `odel:rem:homogeneous` is time
+dependent and is not a constant-coefficient reduction, so it does not apply here.
 -/
 
 namespace ConstantODELowerBound.Runs

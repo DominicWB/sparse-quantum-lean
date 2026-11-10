@@ -5,12 +5,11 @@ set_option autoImplicit false
 /-!
 # Norm estimates for dilations of approximate entry tables
 
-The estimates of the proof of corollary `hs:cor:unitary` in the manuscript
-(lines 1814-1823): if every represented entry is within `δ` of the unitary
-target, the two Hermitian dilations differ by at most `N δ` in operator norm
-(row and column absolute sums, `SparseValuePrecision.norm_matrixOperator_le_nonneg`),
-the dilation of the target has norm at most one, and hence the dilation of the
-represented matrix has norm at most `2` once `N δ ≤ 1`.
+The estimates of the proof of corollary `hs:cor:unitary` in the manuscript: if every represented
+entry is within `δ` of the unitary target, the two Hermitian dilations differ by at most `N δ` in
+operator norm (row and column absolute sums, `SparseValuePrecision.norm_matrixOperator_le_nonneg`),
+the dilation of the target has norm at most one, and hence the dilation of the represented matrix
+has norm at most `2` once `N δ ≤ 1`.
 -/
 
 namespace UnitaryImplementationExtensions.ApproxNorm

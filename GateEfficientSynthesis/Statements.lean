@@ -5,8 +5,11 @@ import GateEfficientSynthesis.ODESolver
 /-!
 # Synthesis over a finite gate set: paper-to-Lean entry point
 
-Theorems `hs:thm:gates` and `ode:thm:gates` of the accompanying paper count gates over a finite gate
-set. The gate-level circuits consist of elementary gates (one-qubit unitaries with at most three
+Theorems `hs:thm:gates` and `ode:thm:gates` of the accompanying paper count gates over a finite
+gate set. The finite-gate-set forms of Theorem `ode:thm:gates` here are a partial formalisation,
+under this package's format hypotheses, of its finite-set statement: the manuscript states Theorem
+`ode:thm:gates` over a finite gate set; the conformance endpoints count native gates. The
+gate-level circuits consist of elementary gates (one-qubit unitaries with at most three
 literal controls, `GateOK 3`) and primitive oracle calls; the paper finally compiles every
 elementary gate over a finite gate set admitting single-qubit synthesis of length `O(log(1/ζ))` at
 accuracy `ζ`, after decomposing controlled known gates. The native forms of the two theorems
@@ -17,6 +20,7 @@ hypotheses (`OneQubitSynthesis`, `ControlDecomposition`, combined in `Synthesis`
 libraries are unchanged. All declarations below are in the namespace `SparseHamiltonian.GateSynth`.
 `ζ` is a synthesis accuracy in `Synthesis`, `exists_rep` and `synthC`; the endpoint theorems keep
 the native name `ζ` for the accuracy of the angle arithmetic (as in `G_C` polynomial in `log(1/ζ)`).
+References to the manuscript use its labels.
 
 * The synthesis hypothesis: `Synthesis 𝒢 X L`, derived from single-qubit synthesis and the
   exact decomposition of controlled gates by `Synthesis.of_parts` (logarithmic length:
@@ -27,7 +31,8 @@ the native name `ζ` for the accuracy of the angle arithmetic (as in `G_C` polyn
   `native_simulation_signed_synth`, `native_time_simulation_synth`; from binary data:
   `binary_simulation_synth`, `binary_time_simulation_synth`; the budgets
   `binary_simulation_budget_synth`, `binary_time_simulation_budget_synth`.
-* Theorem `ode:thm:gates` over a finite gate set: `native_ode_solver_synth`,
+* Theorem `ode:thm:gates` over a finite gate set (a partial formalisation, under this package's
+  format hypotheses, of its finite-set statement): `native_ode_solver_synth`,
   `native_ode_time_solver_synth`, with the synthesised protocol `sprotocol` (`sprotocol_valid`,
   `sprotocol_worst`, `sprotocol_worst_log`, `soutcome`) and the perturbation of the
   four-attempt protocol `perturb_four`.
@@ -99,15 +104,16 @@ the error (`synthBudget_error`) and has at most `N L(ε'/(N+1))` gates (`synthBu
   is the pre-synthesis budget (`m = simM` in the time-independent case, the number of slot wires in
   the time-dependent case, which also gives `2^r ≤ 4 (4608 q + 1)` and a propagator of the path),
   and has full-output error at most `ε + ε'`. This is an upper bound of the form
-  `G₀ log((G₀ + 1)/ε)` of equation `hs:eq:gate-total`, in which the gates of the native private
-  calls (the term `d G_C(ξ)` of the paper) are synthesised together with the other gates; in the
-  time-independent case, with `G_C` polynomial in the word lengths and in `log(1/ζ)` for the
+  `G_syn log((G_syn + 1)/ε)` of equation `hs:eq:gate-total`, in which the gates of the native
+  private calls (the term `d G_C(ξ)` of the paper) are synthesised together with the other gates;
+  in the time-independent case, with `G_C` polynomial in the word lengths and in `log(1/ζ)` for the
   arithmetic accuracy `ζ`, it gives equation `hs:eq:gate-binary` after synthesis.
 
-**Theorem `ode:thm:gates` over a finite gate set** (`ODE.lean`, `ODESolver.lean`,
-`Perturb.lean`). The native four-attempt protocol `GateNative.nprotocol prepN g` draws a trial
-count `j < chosenIterations g` and runs the native trial `trialN prepN j`. The synthesised
-protocol `sprotocol hS η prepN g` is the released four-attempt wrapper with the trials
+**Theorem `ode:thm:gates` over a finite gate set** (a partial formalisation, under this package's
+format hypotheses, of its finite-set statement; `ODE.lean`,
+`ODESolver.lean`, `Perturb.lean`). The native four-attempt protocol `GateNative.nprotocol prepN g`
+draws a trial count `j < chosenIterations g` and runs the native trial `trialN prepN j`. The
+synthesised protocol `sprotocol hS η prepN g` is the released four-attempt wrapper with the trials
 `synthBudget hS η (trialN prepN j)` on the native register and the synthesis ancillas, the seed
 `sseed = cleanEmb sN` and the herald `sgood = cleanEmb ∘ goodN`; it depends only on the native
 preparation, `g`, the synthesis hypothesis and `η`.

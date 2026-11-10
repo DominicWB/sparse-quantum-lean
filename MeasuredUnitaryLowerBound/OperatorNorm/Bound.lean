@@ -7,12 +7,10 @@ set_option synthInstance.maxSize 8192
 /-!
 # The operator-norm `Ω(√N)` bound for measured algorithms
 
-Corollary `hs:cor:unitary` of the manuscript (lines 1647-1666): error `‖A_U - U‖ ≤ ε` in
-operator norm (eq. `hs:eq:unitaryerror`, lines 1652-1654) for `0 < ε ≤ 1/2` (line 1649), inverse
-calls counted (line 1662), "At fixed constant error, the worst-case query complexity is
-`Θ(√N)`" (lines 1664-1665), lower half by the reduction to unstructured search
-(`U_m |0⟩ = |m⟩`, lines 1711-1718), for measured algorithms by purification and deferred
-measurement (lines 2363-2364).
+Corollary `hs:cor:unitary` of the manuscript: error `‖A_U - U‖ ≤ ε` in operator norm (eq.
+`hs:eq:unitaryerror`) for `0 < ε ≤ 1/2`, inverse calls counted, "the constant-error worst-case
+complexity is `Θ(√N)`", lower half by the reduction to unstructured search (`U_m |0⟩ = |m⟩`), for
+measured algorithms by purification and deferred measurement (proof of Lemma `hsl:lem:precision`).
 
 A measured algorithm over the released entry oracle of the search family that implements every
 `U_m` within operator-norm error `ε₀ ≤ 1/2` (`NormImplements`) succeeds with probability one and

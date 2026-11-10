@@ -9,8 +9,8 @@ solutions (`const_homog`), every hypothesis of `cert_left` and `mass_left` holds
 `L = ‖w‖` and `δ = 0`, and both bounds are attained: the certificate error of the left-endpoint
 quadrature with `n` nodes is exactly `‖w‖ T² / (2n)` (`sharp_cert`) and
 `|B_n - B| = ‖w‖ T² / (2n)` (`sharp_mass`). So the bound `T² L_b / (2m)` of the proof of Theorem
-`ode:thm:gates` cannot be improved, and neither can `T² C_b / (2m)` for a zero generator
-(`Λ = 0`); whether the coefficient of `Λ b_*` is sharp is not addressed here.
+`ode:thm:gates` cannot be improved, and neither can `T² (Λ b_* + L_b) / (2m)` for a zero
+generator (`Λ = 0`); whether the coefficient of `Λ b_*` is sharp is not addressed here.
 -/
 
 set_option autoImplicit false

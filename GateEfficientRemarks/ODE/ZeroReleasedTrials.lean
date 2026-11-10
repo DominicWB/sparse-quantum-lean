@@ -6,6 +6,10 @@ import ZeroTimeGateODE.BinarySynth
 # Zero time or a known zero generator over a finite gate set: the budgets in `𝔟` on the released
 trial register
 
+The finite-gate-set forms of Theorem `ode:thm:gates` in this module are a partial formalisation of
+its finite-set statement, under this package's format hypotheses: the manuscript states Theorem
+`ode:thm:gates` over a finite gate set; the conformance endpoints count native gates.
+
 The finite-gate-set forms of `ZeroReleased` (equations `ode:eq:gate-main`, `ode:eq:gate-space` and
 `ode:eq:gate-word-budget` of Theorem `ode:thm:gates` with its remark on zero time and a known zero
 generator) with the per-trial claim: only the preparation is synthesised
@@ -235,7 +239,8 @@ theorem zero_gates_le_prepBound (q : Pub) (hq : BPublicOK0 q) {Zs : Type*}
 
 /-- **Equations `ode:eq:gate-main` and `ode:eq:gate-space` in `𝔟` over a finite gate set, with
 the per-trial claim, on the released trial register, for zero time or a known zero generator,
-constant coefficients** (Theorem `ode:thm:gates` with its remark).
+constant coefficients** (partial formalisation, under this package's format hypotheses, of the
+finite-set statement of Theorem `ode:thm:gates` with its remark).
 
 Under `Synthesis 𝒢 Xa len` with `len ζ ≤ c₁ log(1/ζ) + c₀` (`c₀, c₁ ≥ 0`), `AdjClosed 𝒢` and
 `zeroTestKinds ⊆ 𝒢`, for binary public data with `BPublicOK0 q` in the zero case, a rescaling `γ`
@@ -477,8 +482,9 @@ theorem binary_ode_budget_trials_bits_zero_released (hS : Synthesis 𝒢 Xa len)
 
 /-- **Equations `ode:eq:gate-main` and `ode:eq:gate-space` in `𝔟` over a finite gate set, with
 the per-trial claim, from binary sparse data for every `T ≥ 0`, constant coefficients**
-(Theorem `ode:thm:gates`, equation `ode:eq:gate-word-budget`, with its remark on zero time and a
-known zero generator).
+(partial formalisation, under this package's format hypotheses, of the finite-set statement of
+Theorem `ode:thm:gates`, equation `ode:eq:gate-word-budget`, with its remark
+on zero time and a known zero generator).
 
 Under the synthesis hypotheses of `GateBitBudget.binary_ode_budget_trials_bits`, for binary
 public data with `BPublicOK0 q` (every `T ≥ 0`), the rescaling `γ` of bit length `b_data` in the

@@ -5,8 +5,8 @@ set_option autoImplicit false
 /-!
 # Absolutely continuous Banach-valued functions and integral equations
 
-Propagators of merely integrable paths (the paragraph "Regularity and coherent parameters"
-after Theorem `hs:thm:time` of the manuscript, lines 1618-1632) are absolutely continuous
+Propagators of merely integrable paths (the paragraphs after the proof of Theorem
+`hs:thm:time` of the manuscript) are absolutely continuous
 rather than differentiable. Mathlib proves the fundamental theorem of calculus for absolutely
 continuous real functions and the Lebesgue differentiation theorem for Banach-valued
 primitives; this module supplies the Banach-valued facts used for operator-valued

@@ -3,15 +3,15 @@ import ODELowerBoundExtensions.Padding.ZeroPad
 /-!
 # Sampled-time data from a stage bit table
 
-Manuscript lines 3852-3858 (the joint family's sparse
-input) and 3899-3904 (its dense and zero padding). The joint family of Theorem `odel:thm:joint`
-(`SparseLowerBounds.ODE.jointData`) stores on hidden stage `k < n` the word of a one-bit table
-`jointTable`, selected by the membership bits `stageBits x k`, and the known word `0` on the idle
-and source stages. Its padded variants change only the table, the known words of the idle and
-source stages, the word length and the index type. This module builds the native sampled-time
-data of any such stage table once (`stageData`), so that the dense padding (`Padding/JointDense`)
-and the zero padding (`Padding/JointPad`) of the joint family are instances of it and share one
-Boolean implementation (`Padding/StageCompile`).
+Manuscript: the construction before Theorem `odel:thm:joint` (the joint family's sparse input) and
+the end of the proof of the theorem (its dense and zero padding). The joint family of Theorem
+`odel:thm:joint` (`SparseLowerBounds.ODE.jointData`) stores on hidden stage `k < n` the word of a
+one-bit table `jointTable`, selected by the membership bits `stageBits x k`, and the known word `0`
+on the idle and source stages. Its padded variants change only the table, the known words of the
+idle and source stages, the word length and the index type. This module builds the native
+sampled-time data of any such stage table once (`stageData`), so that the dense padding
+(`Padding/JointDense`) and the zero padding (`Padding/JointPad`) of the joint family are instances
+of it and share one Boolean implementation (`Padding/StageCompile`).
 
 **The builder.** For an index `N`, a bit table `T` on `N × N` with bits indexed by
 `Fin M × Fin 2^μ`, known words `W₀` on the idle and source stages, a word length `B`, fixed

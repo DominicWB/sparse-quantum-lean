@@ -23,14 +23,15 @@ import GateEfficientBinaryODETime.Synth
 /-!
 # Zero time or a known zero generator at gate level: paper-to-Lean entry point
 
-Theorem `ode:thm:gates` of the accompanying paper (gate-efficient dissipative equations,
-manuscript line 4163) ends with the remark (lines 4203-4204): "Zero time or a known zero
-generator uses direct source assembly and needs no matrix calls."  For `x' = A x + b`,
+Theorem `ode:thm:gates` of the accompanying paper (gate-efficient dissipative equations) ends
+with the remark: "At `T = 0` only the initial preparation is needed. For a known zero generator
+the solver assembles the source quadrature directly. Neither case needs a propagator query; any
+matrix queries inside the supplied preparations still count."  For `x' = A x + b`,
 `A = -(L + iH)`, the target `x(T)` is `x₀` at `T = 0` and `x₀ + T b` for a known zero generator
 (public bounds `λ_H = λ_D = 0`, so `A = 0`); direct source assembly is the two-term LCU of the
 source preparations with the weights `r₀ = ‖x₀‖` and `T r_b = T ‖b‖` (successful amplitude
 `‖x(T)‖ / B`, `B = r₀ + T r_b ≤ g ‖x(T)‖`), followed by the released bounded amplification, with
-no private Cayley operation, no `U_J` and no matrix-oracle call.
+no private Cayley operation, no `U_J` and no matrix-oracle call outside the source preparations.
 
 The released gate-level endpoints of `ode:thm:gates` assume `T > 0` and `λ_H + R λ_D > 0`
 (`GateODE.Params.PublicOK`, `GateODE.Time.TParams.PublicOK`; `η_H + η_D > 0` for binary data,
@@ -40,9 +41,10 @@ builds the direct source assembly as a new preparation circuit in the native mod
 exact-gate model, proves its agreement with the released instruction model, its decoded vector
 and a direct certificate (amplitude up to one), and states the zero case of the exact-gate and
 native solvers, their combined forms for every `T ≥ 0`, and their binary-data and
-finite-gate-set (per-trial) forms.  The released libraries are unchanged.  No result from another
-paper is used.  Manuscript lines refer to `sparse_quantum_algorithms.tex` (v13); the labels are
-the stable references.
+finite-gate-set (per-trial) forms, the latter a partial formalisation, under this package's format
+hypotheses, of the finite-set form of the remark of Theorem `ode:thm:gates`.  The released libraries
+are
+unchanged.  No result from another paper is used.  References to the manuscript use its labels.
 
 **Naming convention.** All new declarations are in the namespace
 `SparseHamiltonian.ZeroTimeGateODE` (one namespace for all modules of `ZeroTimeGateODE/`) and
@@ -55,8 +57,9 @@ are named relative to it.  Released declarations are named relative to `SparseHa
 endpoints of `ode:thm:gates` for `T > 0` and `λ_H + R λ_D > 0`: exact gates
 `GateODE.solver`, `GateODE.Time.solver`; native gates `GateNative.native_ode_solver`,
 `GateNative.native_ode_time_solver`; binary data `GateBinaryODE.binary_ode_solver`,
-`GateBinaryODETime.binary_ode_time_solver`; finite gate sets with the per-trial claim
-`GateSynthTrials.native_ode_solver_trials`, `GateSynthTrials.native_ode_time_solver_trials`,
+`GateBinaryODETime.binary_ode_time_solver`; finite gate sets (a partial formalisation, under this
+package's format hypotheses, of the finite-set statement) with the per-trial
+claim `GateSynthTrials.native_ode_solver_trials`, `GateSynthTrials.native_ode_time_solver_trials`,
 `GateSynthTrials.binary_ode_solver_trials`, `GateSynthTrials.binary_ode_time_solver_trials`.
 Reused without change: the native gate model (`GateNative.NInstr`, `GateNative.nrun`,
 `GateNative.nGatesN`, `GateNative.nCallsN`, the full-output error `GateNative.ApproxOn` with
@@ -339,6 +342,11 @@ Every theorem of the library is axiom-audited in `ZeroTimeGateODE/Audit.lean`.
 
 **Formalisation choices.**
 
+* Sample positivity (a formal restriction): the time-dependent ODE solvers assume `L_r ≥ 0` (for
+  binary data: accretive dissipative parts) for every represented sample, the hypothesis of the
+  formal versions of Theorem `ode:thm:time`, which that theorem of the manuscript does not make (it
+  asks of the represented samples only the uniform moment and norm promises; see
+  `TimeDependentODE/Statements.lean`). The manuscript's theorems are not changed.
 * Direct source assembly is a new preparation, not the released one with an empty SELECT: no
   LCHS coefficient register, no simulator, no private operation, no `U_J`, no arithmetic.  Its
   successful amplitude is `‖x(T)‖/B ∈ [1/g, 1]` (time-dependent coefficients: `‖y‖/B ∈
@@ -354,11 +362,13 @@ Every theorem of the library is axiom-audited in `ZeroTimeGateODE/Audit.lean`.
   released binary registers) in both cases; the zero case does not use the private work wires.
 * The circuit is uniform in `T`: at `T = 0` the forcing circuit is still applied (with weight
   `T r_b / B = 0`), and the counts include it.
-* "Needs no matrix calls": in the exact-gate model the matrix enters only through `U_J` and the
+* "Neither case needs a propagator query; any matrix queries inside the supplied preparations
+  still count": in the exact-gate model the matrix enters only through `U_J` and the
   private Cayley operations, and no history of the zero-case protocols calls them
-  (`exact_ode_solver_zero`, `exact_ode_time_solver_zero`); in the native model the calls of
-  every primitive kind are exactly those of the source circuits (hypotheses, as in the released
-  theorem), so the protocol makes no matrix-oracle call when the source circuits make none
+  (`exact_ode_solver_zero`, `exact_ode_time_solver_zero`); in the native model no propagator
+  query is needed and the calls of every primitive kind are exactly those of the source circuits
+  (hypotheses, as in the released theorem), so matrix queries inside the source circuits remain
+  counted, and the protocol makes no matrix-oracle call when the source circuits make none
   (`binary_zero_no_matrix_calls` for the binary oracles).
 * A known zero generator is the public bound `λ_H + R λ_D = 0` (`λ_H = λ_D = 0`), with
   `‖H‖ ≤ λ_H`, `‖L‖ ≤ λ_D` (resp. the norm bounds of every represented sample); for binary data

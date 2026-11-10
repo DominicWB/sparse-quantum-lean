@@ -40,3 +40,10 @@ import SparseLinearSystems.Endpoint.Algorithm
 import SparseLinearSystems.Endpoint.Correctness
 import SparseLinearSystems.Endpoint.Cost
 import SparseLinearSystems.Endpoint.Main
+import SparseLinearSystems.Separate.Algebra
+import SparseLinearSystems.Separate.Bounds
+import SparseLinearSystems.Separate.SolverInterface
+import SparseLinearSystems.Separate.Registers
+import SparseLinearSystems.Separate.Native
+import SparseLinearSystems.Separate.Decode
+import SparseLinearSystems.Separate.Main

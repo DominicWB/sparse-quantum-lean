@@ -7,8 +7,8 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # The released ODE solver on the hard families: the two-sided bracket
 
-Manuscript lines 3697-3730: Theorem `odel:thm:combined` and its comparison with the upper bounds
-eq. `odel:eq:upper` ("within one factor `ℓ`") and eq. `odel:eq:refined`
+Manuscript: Theorem `odel:thm:combined` and its comparison with the upper bounds
+eq. `odel:eq:upper` ("within one logarithm") and eq. `odel:eq:refined`
 (`O(ḡ [√s Θ + √(sΘℓ) + ℓ])`, `Θ = τ_H + τ_D ℓ`; "The first family in Theorem `odel:thm:combined`
 has `τ_D = 0`. It matches the time term of `odel:eq:refined`; on that subclass, the whole upper
 bound matches when `τ ≥ ℓ`"). The analogue of `SparseLowerBounds.Hamiltonian.release_theta`.
@@ -17,16 +17,16 @@ bound matches when `τ ≥ ℓ`"). The analogue of `SparseLowerBounds.Hamiltonia
 (`Release/Instances`); every output of the released general-mesh solver
 `TimeDependentExtensions.ODE.solver` on `F` with public source interfaces is one, and the structure
 asks for no more than the released certificate (it does not require the solver's preconditions or
-that the degree is the solver's output). It carries a refinement `R > 0`, a slot count, a degree
-`d` for which the certificate holds, **any** public source interfaces `J₀`, `J_b`
-(`PublicSources`: unitary and input-independent, lines 3685-3686; the solver accepts every unitary
-choice, and the lower bound needs them public), and the four-attempt protocol over the release's
-physical oracle with spectator index `Index (refineData F.data R) τ ḡ ε`, with the released complete
-certificate for every input (`ReleaseProtocol`, `Θ = τ` since `D = 0`,
-`ℓ = releaseLog ḡ ε = log(40000 ḡ/ε)`, `g = 2ḡ`); and a system index `i₀` for the clean garbage
-register of the readout. Its counts `matrixQueries` and `valueQueries` are the worst-case numbers of
-matrix queries and of value queries over all transcripts (every attempt and failure branch). Since the solver is a `Prop`-valued existence
-theorem, "the released solver" is every `ReleaseRun`, together with the existence of one
+that the degree is the solver's output). It carries a refinement `R > 0`, a slot count, a degree `d`
+for which the certificate holds, **any** public source interfaces `J₀`, `J_b` (`PublicSources`:
+unitary and input-independent, Section `odel:sec:main`; the solver accepts every unitary choice, and
+the lower bound needs them public), and the four-attempt protocol over the release's physical oracle
+with spectator index `Index (refineData F.data R) τ ḡ ε`, with the released complete certificate for
+every input (`ReleaseProtocol`, `Θ = τ` since `D = 0`, `ℓ = releaseLog ḡ ε = log(40000 ḡ/ε)`,
+`g = 2ḡ`); and a system index `i₀` for the clean garbage register of the readout. Its counts
+`matrixQueries` and `valueQueries` are the worst-case numbers of matrix queries and of value queries
+over all transcripts (every attempt and failure branch). Since the solver is a `Prop`-valued
+existence theorem, "the released solver" is every `ReleaseRun`, together with the existence of one
 (`release_theta_exists`, with the public preparations `releaseJ₀`, `releaseJb`).
 
 **Statements** (`S = ḡ √s τ + √(sτr) + r`, `c = log 2/(8192π)`):
@@ -44,13 +44,13 @@ theorem, "the released solver" is every `ReleaseRun`, together with the existenc
   `exists_release_params`), so the bracket is attained.
 * `joint_release_theta`: on the joint family alone (`D = 0`, `g = Θ(ḡ)`), when `τ ≥ ℓ`,
   `ḡ √s τ / 400 ≤ Q_J ≤ 7644119040 ḡ √s τ`: upper and lower bounds match up to an absolute
-  constant (lines 3728-3730).
+  constant (Section `odel:sec:main`).
 
-**The gap.** On the whole class the bracket is within the factor `3ℓ` of eq. `odel:eq:upper`
-(lines 3715-3716); the two precision terms of the upper bound carry the factor `ḡ` and `ℓ` in place
-of `r`, which the lower bound does not (lines 3717-3719). As for `release_theta`, the lower half is
-on the maximum over the three families, not on one program: the families have different input,
-index and word types, and the padding to a common dimension is not part of this module.
+**The gap.** On the whole class the bracket is within the factor `3ℓ` of eq. `odel:eq:upper`; the
+two precision terms of the upper bound carry the factor `ḡ` and `ℓ` in place of `r`, which the lower
+bound does not. As for `release_theta`, the lower half is on the maximum over the three families,
+not on one program: the families have different input, index and word types, and the padding to a
+common dimension is not part of this module.
 
 **Scope.** Only the general-mesh released solver (Theorem `ode:thm:time`) is connected. The
 constant-coefficient released solver `SparseHamiltonian.ODECompleteEndpoint.solver` (Theorem
@@ -210,7 +210,7 @@ theorem one_le_releaseLog (h : CombinedRange s τ gbar ε) : 1 ≤ releaseLog gb
   exact one_le_releaseLog_of (by linarith [h.gbar_ge]) h.eps_pos (by linarith [h.eps_le])
 
 /-- **The release's shape against the lower bound**: `ḡ (√s τ + √(sτℓ) + ℓ) ≤ 3 ℓ S`,
-`S = ḡ √s τ + √(sτr) + r` (within one factor `ℓ`, eq. `odel:eq:upper`, lines 3715-3716). -/
+`S = ḡ √s τ + √(sτr) + r` (within one factor `ℓ`, eq. `odel:eq:upper`). -/
 theorem release_shape_le (h : CombinedRange s τ gbar ε) :
     gbar * ImprovedODEQueryBudget.queryShape s τ (releaseLog gbar ε) ≤
       3 * releaseLog gbar ε *
@@ -231,14 +231,13 @@ theorem release_shape_le (h : CombinedRange s τ gbar ε) :
     _ = 3 * releaseLog gbar ε * (gbar * Real.sqrt s * τ) := by ring
     _ ≤ _ := by nlinarith
 
-/-- **`Θ` bracket for the released ODE solver** (lines 3697-3730): for any release runs on the
-joint, mixed and precision families, with `S = ḡ √s τ + √(sτr) + r`:
+/-- **`Θ` bracket for the released ODE solver** (Theorem `odel:thm:combined`): for any release runs
+on the joint, mixed and precision families, with `S = ḡ √s τ + √(sτr) + r`:
 `c S ≤ max(Q_J, Q_M, Q_P)` (`c = log 2/(8192π)`),
-`max(Q_J, Q_M, Q_P) ≤ 2548039680 ḡ (√s τ + √(sτℓ) + ℓ)` and the latter is at most
-`7644119040 ℓ S` and at most `7644119040 ḡ √s τ ℓ` (eq. `odel:eq:upper`, lines 3710-3716),
-`ℓ = log(40000 ḡ/ε)`. The value-query counts `V` also satisfy `c S ≤ max(V_J, V_M, V_P)`, and
-`V ≤ Q` run by run. The lower half is on the maximum over the three families (module
-docstring). -/
+`max(Q_J, Q_M, Q_P) ≤ 2548039680 ḡ (√s τ + √(sτℓ) + ℓ)` and the latter is at most `7644119040 ℓ S`
+and at most `7644119040 ḡ √s τ ℓ` (eq. `odel:eq:upper`), `ℓ = log(40000 ḡ/ε)`. The value-query
+counts `V` also satisfy `c S ≤ max(V_J, V_M, V_P)`, and `V ≤ Q` run by run. The lower half is on the
+maximum over the three families (module docstring). -/
 theorem release_theta (h : CombinedRange s τ gbar ε)
     (AJ : ReleaseRun (jointFamilyAt s τ gbar h.toJointRange.s_ge h.tau_ge) τ gbar ε)
     (AM : ReleaseRun (mixedFamilyAt τ ε s h.s_ge (by linarith [h.tau_ge])) τ gbar ε)
@@ -350,8 +349,8 @@ theorem release_theta_bracket (h : CombinedRange s τ gbar ε) :
   obtain ⟨⟨AJ⟩, ⟨AM⟩, ⟨AP⟩⟩ := release_theta_exists h
   exact ⟨AJ, AM, AP, release_theta h AJ AM AP⟩
 
-/-- **Upper and lower bounds match on the joint family when `τ ≥ ℓ`** (lines 3726-3730): every
-release run on the joint family (`D = 0`, `g = Θ(ḡ)`) has
+/-- **Upper and lower bounds match on the joint family when `τ ≥ ℓ`** (Section `odel:sec:main`):
+every release run on the joint family (`D = 0`, `g = Θ(ḡ)`) has
 `ḡ √s τ / 400 ≤ Q_J ≤ 7644119040 ḡ √s τ`. -/
 theorem joint_release_theta (h : JointRange s τ gbar ε)
     (AJ : ReleaseRun (jointFamilyAt s τ gbar h.s_ge h.tau_ge) τ gbar ε)

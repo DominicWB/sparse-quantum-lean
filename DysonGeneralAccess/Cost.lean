@@ -5,7 +5,7 @@ set_option autoImplicit false
 /-!
 # Weighted call counts of the coherent attempts
 
-Lemma `odel:lem:dyson` of the manuscript counts only matrix queries (line 4166); over an access with
+Lemma `odel:lem:dyson` of the manuscript counts only matrix queries; over an access with
 source interfaces (labels `Sum.inr`) the call count `count` also counts source calls. The package
 counts the coherent attempts and the parallel stages in total (`count_*`) and label by label
 (`labelCount_*`); this module gives the same identities for every weight `w : L → ℕ`

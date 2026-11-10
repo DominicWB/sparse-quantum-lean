@@ -7,14 +7,16 @@ if the declaration depends on any other axiom. Every report lists `propext`,
 `Classical.choice` and `Quot.sound`, except for one lemma (`andLast_cases`), whose
 report lists none of them. The audits cover every theorem of the library of
 synthesised trials with exact reflections, beginning with Theorem `ode:thm:gates`
-over a finite gate set with the per-trial claim. Single-qubit synthesis and the
-decomposition of controlled gates (`GateSynth.Synthesis`), the adjoint closure of
+over a finite gate set (a partial formalisation, under this package's format hypotheses, of its
+finite-set statement) with the per-trial claim. Single-qubit synthesis and
+the decomposition of controlled gates (`GateSynth.Synthesis`), the adjoint closure of
 the gate set (`AdjClosed`) and the kinds of the exact zero tests (`zeroTestKinds`)
-are hypotheses, not axioms; the last two are without loss of generality
-(`extra_hyps`).
+are hypotheses, not axioms; `extra_hyps` meets the last two
+over `closeKinds 𝒢₀`, and the gate counts are then over that set.
 -/
 
-/-! ### Theorem `ode:thm:gates` over a finite gate set, trial by trial -/
+/-! ### Theorem `ode:thm:gates` over a finite gate set (partial formalisation, under this package's
+format hypotheses, of its finite-set statement), trial by trial -/
 
 /-- info: 'SparseHamiltonian.GateSynthTrials.native_ode_solver_trials' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in

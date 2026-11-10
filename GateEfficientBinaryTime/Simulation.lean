@@ -6,13 +6,13 @@ import SparseHamiltonian.SparseValuePrecision
 # Native gate-efficient time-dependent sparse simulation from binary data
 
 This file instantiates the native time-dependent gate-level simulation theorem
-(`GateNative.native_time_simulation`, the time-dependent part of Theorem `hs:thm:gates`, before
-finite-set synthesis) for time-indexed binary sparse oracles (`Oracles`): the sample of slot `r`
-on input `x` is the matrix `D.matrix (x, r)` of the released native sparse data
-`D : Data (X × Fin (2^m)) n (Cfg (VW b)) s`, with `k`-bit indices, entries stored as two `b`-bit
-two's complement components with a public scale `c₀`, and `s = 2^σ` slots that are the index
-words supported on the lowest `σ` bits. Every hypothesis of the native theorem about the
-implementations is discharged:
+(`GateNative.native_time_simulation`, the time-dependent gate-level simulation (Theorem
+`hs:thm:time` with the circuit of `hs:thm:gates`), before finite-set synthesis) for time-indexed
+binary sparse oracles (`Oracles`): the sample of slot `r` on input `x` is the matrix
+`D.matrix (x, r)` of the released native sparse data `D : Data (X × Fin (2^m)) n (Cfg (VW b)) s`,
+with `k`-bit indices, entries stored as two `b`-bit two's complement components with a public scale
+`c₀`, and `s = 2^σ` slots that are the index words supported on the lowest `σ` bits. Every
+hypothesis of the native theorem about the implementations is discharged:
 
 * `U_J`: Hadamard gates (`hadUJ`, as in the time-independent case);
 * the slot-selected native private operation: the time-indexed compute circuit and the decoder
@@ -130,23 +130,23 @@ def binaryTimeSim (k b m σ : ℕ) (hσ : σ ≤ k) (s : ℕ) (γ c0 t ε ζ : �
     (binArithT k b m (γ * Real.sqrt s * c0) ζ)
 
 /-- **Native gate-efficient time-dependent sparse simulation from binary data** (Theorem
-`hs:thm:gates`, time-dependent part, for time-indexed binary sparse oracles, before finite-set
-synthesis). Let the time-indexed native sparse data `D` have `k`-bit indices (`en`), `s = 2^σ`
-slots that are exactly the index words supported on the lowest `σ ≤ k` bits (`hrange`), and
-entries stored as two `b`-bit two's complement components `X`, `Y`, `b ≥ 1`, with decoder
-`c₀ (X + i Y)`, `c₀ > 0` (`hdec`). Let the `2^m` samples `H̃_j = D.matrix (x, j)` of an input `x`
-be Hermitian with row and column norms at most one, let `t ≥ 0`, and let `H` be a Hermitian path
-on `[0, t]` that is `β`-Lipschitz in operator norm (`β ≥ 0`) and within `δ` of the samples at the
-slot times `j t/2^m`. For a rescaling `0 < γ ≤ 1`, accuracies `0 < ε ≤ 1` and `0 < ζ ≤ 1`, the
-mesh conditions `steps τ' (ε/12) ≤ 2^m` and `8 β t² ≤ ε 2^m` (`τ' = √s t/γ`), the sample-error
-budget `8 t δ ≤ ε` and the arithmetic budget `48 d ζ ≤ ε` (`d` the filter degree), the circuit
-`binaryTimeSim` consists of valid instructions; it makes `12 d` times `2` row-location,
-`2` column-location and `1` value calls of the coherent sampled-time oracles; its elementary
-gates are at most `200 (d+1)(k+1+m+r+1) + 84 d (σ+1) + 6 d (56 k + 2 |circ| + 2 bP + bT + 1)`
-(`r` the size of the phase registers; `|circ|`, `bP`, `bT` of the arithmetic); it has the
-stated qubit count; `d ≤ 128 (τ' q̄ + Q (1 + log (12/ε)))` and `2d + 2 ≤ 2^r ≤ 4 (d+1)`; the
-propagator of the lifted path exists, and the full output of the circuit on the system embedding
-is within `ε` of `U(t)` for every propagator `U` of the lifted path `qlift en (H u)`. -/
+`hs:thm:time` with the circuit of `hs:thm:gates`, for time-indexed binary sparse oracles, before
+finite-set synthesis). Let the time-indexed native sparse data `D` have `k`-bit indices (`en`),
+`s = 2^σ` slots that are exactly the index words supported on the lowest `σ ≤ k` bits (`hrange`),
+and entries stored as two `b`-bit two's complement components `X`, `Y`, `b ≥ 1`, with decoder
+`c₀ (X + i Y)`, `c₀ > 0` (`hdec`). Let the `2^m` samples `H̃_j = D.matrix (x, j)` of an input `x` be
+Hermitian with row and column norms at most one, let `t ≥ 0`, and let `H` be a Hermitian path on
+`[0, t]` that is `β`-Lipschitz in operator norm (`β ≥ 0`) and within `δ` of the samples at the slot
+times `j t/2^m`. For a rescaling `0 < γ ≤ 1`, accuracies `0 < ε ≤ 1` and `0 < ζ ≤ 1`, the mesh
+conditions `steps τ' (ε/12) ≤ 2^m` and `8 β t² ≤ ε 2^m` (`τ' = √s t/γ`), the sample-error budget
+`8 t δ ≤ ε` and the arithmetic budget `48 d ζ ≤ ε` (`d` the filter degree), the circuit
+`binaryTimeSim` consists of valid instructions; it makes `12 d` times `2` row-location, `2`
+column-location and `1` value calls of the coherent sampled-time oracles; its elementary gates are
+at most `200 (d+1)(k+1+m+r+1) + 84 d (σ+1) + 6 d (56 k + 2 |circ| + 2 bP + bT + 1)` (`r` the size of
+the phase registers; `|circ|`, `bP`, `bT` of the arithmetic); it has the stated qubit count;
+`d ≤ 128 (τ' q̄ + Q (1 + log (12/ε)))` and `2d + 2 ≤ 2^r ≤ 4 (d+1)`; the propagator of the lifted
+path exists, and the full output of the circuit on the system embedding is within `ε` of `U(t)` for
+every propagator `U` of the lifted path `qlift en (H u)`. -/
 theorem binary_time_simulation (D : Data (X × Fin (2 ^ m)) n (Cfg (VW b)) s)
     (en : Cfg (Fin k) ≃ n) (σ : ℕ) (hσ : σ ≤ k) (hs : s = 2 ^ σ)
     (hrange : ∀ j : n, (∃ q, D.slot q = j) ↔ ∃ u : Fin σ → Bool, j = en (lowWord σ u))

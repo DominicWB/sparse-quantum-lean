@@ -10,7 +10,7 @@ set_option synthInstance.maxSize 4096
 
 The common upper bound eq. `hsl:eq:upper` of Theorems `hs:thm:main` and `hs:thm:time`,
 `O(√s τ + √(sτL) + L)`, against the lower bound `c₀ (√s τ + √(sτr) + r)` of Theorem
-`hsl:thm:main` ("the time term matches and the mixed term is within `√h`"), for the released
+`hsl:thm:main` (the baseline has "a mixed term larger by `√h`"), for the released
 time-dependent simulators run on the constant data of the hard families, as the released
 `SparseLowerBounds.Hamiltonian.release_theta_bracket` for the time-independent simulator.
 

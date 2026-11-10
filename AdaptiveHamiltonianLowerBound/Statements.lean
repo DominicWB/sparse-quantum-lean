@@ -3,12 +3,12 @@ import AdaptiveHamiltonianLowerBound.Theorem
 /-!
 # Hamiltonian-simulation lower bound for adaptive algorithms: paper-to-Lean entry point
 
-Theorem `hsl:thm:main` of the accompanying paper (Section `part:hsl`, manuscript lines
-2075-2537) is formalised in the library `SparseLowerBounds` for non-adaptive programs. This
-library proves it for **adaptive algorithms**: the released adaptive protocols of the
-linear-system lower bound, with any admissible oracle labels. No result from another paper is
-used, and the libraries `SparseLowerBounds` and `LinearSystemLowerBound` are only imported.
-All declarations below are in the namespace `AdaptiveHamiltonianLowerBound`.
+Theorem `hsl:thm:main` of the accompanying paper (Section `part:hsl`) is formalised in the library
+`SparseLowerBounds` for non-adaptive programs. This library proves it for **adaptive algorithms**:
+the released adaptive protocols of the linear-system lower bound, with any admissible oracle labels.
+No result from another paper is used, and the libraries `SparseLowerBounds` and
+`LinearSystemLowerBound` are only imported. All declarations below are in the namespace
+`AdaptiveHamiltonianLowerBound`.
 
 * Eq. `hsl:eq:main`: `main_max_tree` (max form) and `main_exists_tree` (family form), from
   the per-family theorems `time_tree`, `mixed_tree`, `precision_tree`. The instance
@@ -25,9 +25,7 @@ All declarations below are in the namespace `AdaptiveHamiltonianLowerBound`.
   labels, which includes controlled calls) and `main_max_spec_programs` (the released
   spectator form, count `labelCount .value`), both for unit seeds.
 
-Line numbers in the module docstrings refer to the manuscript version used by
-`SparseLowerBounds` (where Theorem `hsl:thm:main` starts at line 2102, see
-`SparseLowerBounds/Statements.lean`); the labels are the stable references.
+References to the manuscript use its labels.
 
 **Algorithm model.** `SparseLinearSystems.Protocol.Tree O F E` (the model of Theorem
 `qls:thm:main` and of `LinearSystemLowerBound`): a finite classical decision tree of fresh
@@ -56,7 +54,7 @@ lower bound (`Access.admissible_iff_native`). The data are the released hard fam
 `Access.valueWeight` (value `1`, locations `0`: `Access.admissible_oracles`,
 `Access.admissible_specOracles`). The count is `T.worstCost w`, the maximum over all
 transcripts of the weighted number of calls, every fresh run counted; with `valueWeight` it is
-the worst-case number of value queries (locations free, lines 2079-2080).
+the worst-case number of value queries (locations free, Section `hsl:sec:main`).
 
 **Accuracy.** On every input `x`: success probability `2/3 ≤ T.successMass x`, and the
 conditional output `T.conditionalDensity x`, read through an isometry
@@ -71,7 +69,7 @@ unheralded algorithm is the case of success probability one.
 **Hypotheses.** `HSRange τ s ε` (`τ ≥ 1`, `s ≥ 32`, `0 < ε ≤ 1/64`); for the mixed family
 also `L ≥ 64τ` and `s ≥ 64n/τ`, for the precision family `L ≥ 64τ`, where `n = precN τ ε`
 (eq. `hsl:eq:nchoice`); `main_max_tree` and `main_exists_tree` use those families only in
-these ranges, as the paper (lines 2465-2474).
+these ranges, as the paper.
 
 **Guarantees** (`Q = T.worstCost w`).
 
@@ -98,7 +96,7 @@ these ranges, as the paper (lines 2465-2474).
   row sums one (`WGrowth`, closed under products, block diagonals, layouts and circuits), the
   kernel potential `wpot` (`wpot_run`, `wpot_split`), the parity bound with
   `μ ≥ ‖a⁻¹ Z a⁻¹‖` (`wparity_bound`) and the tree bound `wtree_xor`.
-* `Weight/Search`: the search weight `W_a = P_u + a² P_v + a R` (lines 2151-2203):
+* `Weight/Search`: the search weight `W_a = P_u + a² P_v + a R` (Lemma `hsl:lem:search`):
   `‖W_a D_b W_a⁻¹ - D_b‖ ≤ 4√2 a/√m + 4a²/m` (`norm_conj_reflect_sub_le`), single-bit calls
   `‖W_a Ô η‖ ≤ λ ‖W_a η‖` with `λ = 1 + 4√2 a/√m + 4a²/m` (`norm_act_w_joint_bitOp`,
   `wgrowth_bit`), `‖W_a⁻¹ Z W_a⁻¹‖ ≤ a⁻²` and `search_tree_xor`; `λ ≤ 1 + 12a/√m` for
@@ -130,11 +128,11 @@ Every theorem of the library is axiom-audited in `AdaptiveHamiltonianLowerBound/
   by two Boolean queries, so the general bounds here are twice the paper's value-query bounds
   (`log 2/48` for `log 2/96`, `n/2` for `n/4`), and the paper's constants, including `c₀`,
   follow. There is no constant deviation in the main theorems.
-* The precision family (lines 2340-2370) is handled with the same weight method instead of the
-  Fourier-degree argument of Lemma `hsl:lem:precision`: each input bit is a one-hot string of
-  length two (`toBits j k = [j k = 1]`), the search weight with `m = 2` has
-  `‖w⁻¹ Z w⁻¹‖ ≤ a⁻²` and per-call growth `λ² ≤ 49a⁴`, so a positive parity correlation
-  forces `a^{4Q-2n}` to stay bounded below as `a → ∞`, that is `Q ≥ n/2`.
+* The precision family (Lemma `hsl:lem:precision`) is handled with the same weight method instead of
+  the Fourier-degree argument of Lemma `hsl:lem:precision`: each input bit is a one-hot string of
+  length two (`toBits j k = [j k = 1]`), the search weight with `m = 2` has `‖w⁻¹ Z w⁻¹‖ ≤ a⁻²` and
+  per-call growth `λ² ≤ 49a⁴`, so a positive parity correlation forces `a^{4Q-2n}` to stay bounded
+  below as `a → ∞`, that is `Q ≥ n/2`.
 * The correlations are those of the heralded proof (Lemma `odel:lem:herald`): `≥ 1/4` (time),
   `≥ A/2` with `A ≥ 16ε` (mixed, main parameters), `> 0` (precision, main parameters).
 * Native-call layouts are indexed by `S : Type`, as in the linear-system library; the

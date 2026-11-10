@@ -3,7 +3,7 @@ import GateEfficientMesh.ODE.Target
 /-!
 # The gate-level time-dependent ODE solver under integrated certificates, exact gates
 
-Theorem `ode:thm:gates` (manuscript v15, lines 4335-4377): "For time-dependent generators,
+Theorem `ode:thm:gates`: "For time-dependent generators,
 require the Lipschitz bounds and represented-sample certificates of Lemma
 `ode:lem:gate-select`; more generally, a certificate for the same uniform meshes suffices." The
 released `GateODE.Time.solver` proves the theorem under the Lipschitz budget

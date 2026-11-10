@@ -7,15 +7,20 @@ set_option synthInstance.maxSize 4096
 /-!
 # The valid instances of the general access of Lemma `odel:lem:dyson`
 
-Manuscript, Lemma `odel:lem:dyson` (lines 4156-4159: coherent time queries, certified time
-discretisation, the source quadrature/preparation access of Theorem `ode:thm:time`, coherent
-matrix access on every finite mesh selected from the public regularity certificate) and its
-proof (lines 4178-4196: mesh chosen from the certificate, Duhamel bound, public cell-to-sample
-map; lines 4230-4232: supplied source quadrature preparation). The
-released access is `ODELowerBoundExtensions.Dyson.oracle D K M J₀ Jb` (masked coherent
-sampled-time native calls and the two supplied source interfaces) for a public time-indexed
-native input `D`, mesh `t` with `M` cells, cell-to-sample map `σ`, source norms `r₀`, `rb`,
-interfaces `J₀`, `Jb` and seed; an instance is valid when it meets the premises of
+Manuscript, Lemma `odel:lem:dyson` ("Assume the coherent time queries, attainable sample accuracy
+and source access of Theorem `ode:thm:time`, including coherent matrix access on every finite mesh
+selected from the public error certificate. Assume a supplied common row and column Euclidean-norm
+bound `η` for `A(t)`.") and its proof (mesh chosen from the certificate,
+Duhamel bound, public cell-to-sample map; supplied source quadrature preparation). This package
+assumes, as its own hypotheses, interval-integrable generator and forcing pieces on each closed
+mesh cell and a classical solution on each closed cell (`SolvesODE`: a derivative at every point of
+the cell, one-sided at its ends), so a generator jump inside a cell that leaves the solution
+without a derivative there is not covered. The released
+access is `ODELowerBoundExtensions.Dyson.oracle D K M J₀ Jb` (masked coherent sampled-time native
+calls and the two supplied source interfaces of the released time-dependent solver, a special case
+of the manuscript's source interface; see the statement guide) for a public time-indexed native
+input `D`, mesh `t` with `M` cells, cell-to-sample map `σ`, source norms `r₀`, `rb`, interfaces
+`J₀`, `Jb` and seed; an instance is valid when it meets the premises of
 `ODELowerBoundExtensions.Dyson.Outcome`.
 
 * `Valid`: `y = x(T)` for an instance on input `x` meeting the premises of `Dyson.Outcome`

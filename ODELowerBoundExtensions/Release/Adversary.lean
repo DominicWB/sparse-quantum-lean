@@ -6,10 +6,10 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # The positive-weight adversary for retry protocols
 
-Manuscript lines 3743-3798 (Lemma `odel:lem:outer` and its use of the bounded-error spectral
-adversary), for the release's retry protocols (`ODERepeatProtocol.Protocol`). This is
-`SparseLowerBounds.PositiveAdversary.decision_count_ge` with the program replaced by a protocol
-and its count by the worst-case weighted cost `Protocol.worstCost w`; the constants are unchanged.
+Manuscript: Lemma `odel:lem:outer` and its use of the bounded-error spectral adversary, for the
+release's retry protocols (`ODERepeatProtocol.Protocol`). This is
+`SparseLowerBounds.PositiveAdversary.decision_count_ge` with the program replaced by a protocol and
+its count by the worst-case weighted cost `Protocol.worstCost w`; the constants are unchanged.
 
 Route. Every label of the oracle family `O` is implemented on a fixed isometric encoding by at most
 `w l` queries of a Boolean phase oracle `x ↦ P.phase (y x)` (`EncodedOracle.ImplementsOn`, as in
@@ -58,7 +58,7 @@ theorem retry_decision_count_ge [Fintype X] [Nonempty X] [Fintype I] [FiniteDime
     (hcorr : ∀ x, β ≤ ans x * corr A (p.successDensity x)) :
     β ^ 2 / 2 * D ≤ 2 * lam * p.worstCost w := by
   obtain ⟨H, _, _, Ψ, R, hΨ, hR, hG, hC⟩ := exists_purification hO p A hA
-  -- Overlap bound on `Γ`-joined inputs (lines 3795-3797).
+  -- Overlap bound on `Γ`-joined inputs (proof of Lemma `odel:lem:outer`).
   have hsep : ∀ x x', Γ x x' ≠ 0 → (kernel p x x').re - 1 ≤ -(β ^ 2 / 2) := by
     intro x x' hΓ
     have h1 := hcorr x

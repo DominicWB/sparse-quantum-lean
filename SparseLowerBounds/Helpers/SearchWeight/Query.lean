@@ -6,7 +6,7 @@ section
 /-!
 # The conjugated query block for `SparseLowerBounds.Query.SearchWeight`
 
-Helper module of group search-weight (manuscript lines 2174-2184). With
+Helper module of group search-weight (proof of Lemma `hsl:lem:search`). With
 `e = (W/a - I)|b⟩` and `f = (a W⁻¹ - I)|b⟩` (`E`, `F`, the same terms as
 `SearchWeight.eVec`, `SearchWeight.fVec`):
 `W D_b W⁻¹ = D_b - 2(e⟨b| + |b⟩f† + e f†)` and
@@ -124,7 +124,7 @@ theorem star_single (b : Fin m) : star (Pi.single b (1 : ℂ) : Fin m → ℂ) =
   funext i
   by_cases hib : i = b <;> simp [hib]
 
-/-- **The conjugated query block** (line 2178). -/
+/-- **The conjugated query block** (proof of Lemma `hsl:lem:search`). -/
 theorem conj_D_eq (hm : Even m) {a : ℝ} (ha : a ≠ 0) (b : Fin m) :
     W m a * XorWeight.D b * (W m a)⁻¹ = XorWeight.D b - (2 : ℂ) •
       (Matrix.vecMulVec (E m a b) (Pi.single b (1 : ℂ) : Fin m → ℂ) +
@@ -164,7 +164,8 @@ theorem conj_D_eq (hm : Even m) {a : ℝ} (ha : a ≠ 0) (b : Fin m) :
         rw [D_eq, Matrix.add_vecMulVec, Matrix.vecMulVec_add, Matrix.vecMulVec_add]
         module
 
-/-- The display bound of lines 2182-2183: `‖W D_b W⁻¹‖ ≤ 1 + 4√2 a/√m + 4a²/m`. -/
+/-- The display bound of the proof of Lemma `hsl:lem:search`:
+`‖W D_b W⁻¹‖ ≤ 1 + 4√2 a/√m + 4a²/m`. -/
 theorem norm_conj_D_le_fine (hm : Even m) {a : ℝ} (ha : 1 ≤ a) (b : Fin m) :
     ‖W m a * XorWeight.D b * (W m a)⁻¹‖ ≤
       1 + 4 * Real.sqrt 2 * a / Real.sqrt m + 4 * a ^ 2 / m := by

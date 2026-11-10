@@ -7,17 +7,16 @@ set_option synthInstance.maxSize 4096
 /-!
 # The class of piecewise Lipschitz paths with breakpoints
 
-The paragraph "Regularity and coherent parameters" after Theorem `hs:thm:time` (the manuscript,
-lines 1497-1500): "The same proof covers piecewise Lipschitz paths when all breakpoints are
-supplied: include them in the mesh, take the appropriate one-sided sample on each interval, and
-use its Lipschitz bound" (likewise line 2916, in the time-dependent ODE argument; the class and
-the lower bounds of this directory are those of the Hamiltonian simulation theorem, and the ODE
-form is not stated here). The package's statement is
-`TimeDependentExtensions.Hamiltonian.simulation_lipschitz`: on a mesh `t` whose points contain
-the breakpoints, every path with `β_r`-Lipschitz Hermitian pieces on the mesh intervals and
-one-sided sample errors `‖H_r(t_r) - H̃_r‖ ≤ δ_r`, with `∑_r (β_r Δ_r² / 2 + δ_r Δ_r) ≤ ε/9`, is
-simulated within `ε` against every piecewise propagator. This module names that class and that
-guarantee, in the style of `TimeDependentHamiltonianLowerBound.MeshPath` and `MeshGuarantee`.
+The paragraphs after the proof of Theorem `hs:thm:time`: "For a piecewise Lipschitz path, we include
+its known breakpoints in the mesh and use the appropriate one-sided sample and local bound on each
+interval" (likewise in the proof of Theorem `ode:thm:time`; the class and the lower bounds of this
+directory are those of the Hamiltonian simulation theorem, and the ODE form is not stated here). The
+package's statement is `TimeDependentExtensions.Hamiltonian.simulation_lipschitz`: on a mesh `t`
+whose points contain the breakpoints, every path with `β_r`-Lipschitz Hermitian pieces on the mesh
+intervals and one-sided sample errors `‖H_r(t_r) - H̃_r‖ ≤ δ_r`, with
+`∑_r (β_r Δ_r² / 2 + δ_r Δ_r) ≤ ε/9`, is simulated within `ε` against every piecewise propagator.
+This module names that class and that guarantee, in the style of
+`TimeDependentHamiltonianLowerBound.MeshPath` and `MeshGuarantee`.
 
 * `LipschitzPath`, `LipschitzGuarantee`: the class of piecewise Lipschitz paths for given
   samples and mesh, and the error criterion of `simulation_lipschitz`;

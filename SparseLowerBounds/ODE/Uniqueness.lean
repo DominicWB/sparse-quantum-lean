@@ -6,7 +6,7 @@ section
 /-!
 # Uniqueness of solutions in the piecewise-constant ODE class
 
-Manuscript lines 3675-3678 (the output is the normalised solution `x(T)/‖x(T)‖`).
+Manuscript: Section `odel:sec:main` (the output is the normalised solution `x(T)/‖x(T)‖`).
 `ODE.Solver.accurate` (ODE/Model) demands accuracy for the endpoint of **every**
 solution of an instance (the release's `TimeDependentODE.Outcome` form), while
 the class promise `Family.InClass` provides one solution. This module shows the
@@ -55,7 +55,7 @@ namespace Family
 
 variable {X N Z : Type*} [Fintype N] [DecidableEq N] {K s : ℕ}
 
-/-- **Uniqueness of solutions** (lines 3675-3678): two solutions of the same
+/-- **Uniqueness of solutions** (Section `odel:sec:main`): two solutions of the same
 instance `x` of a piecewise-constant family agree on `[0, T]`. -/
 theorem solves_eqOn (F : Family X N Z K s) {x : X} {sol sol' : ℝ → EuclideanSpace ℂ N}
     (h : F.Solves x sol) (h' : F.Solves x sol') : EqOn sol sol' (Icc 0 F.T) := by

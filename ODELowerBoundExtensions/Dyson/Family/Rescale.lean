@@ -3,10 +3,15 @@ import SparseHamiltonian.NativeBandEncoding
 set_option autoImplicit false
 
 /-!
-# The public entry bound of native sparse data (`odel:lem:dyson`, lines 4170-4176)
+# The public entry bound of native sparse data (`odel:lem:dyson`)
 
-"Uniform row/column slot superpositions and a controlled entry rotation using the known bound
-`|A_ij(t)| ≤ η` give normalisation `s η`. The actual maximum entry need not be known."
+Proof of Lemma `odel:lem:dyson`: "If the supplied bound already gives `|Ã_{j,ab}| ≤ η` for every
+entry, set `A_mesh(t) = Ã_j` on cell `j`. Otherwise radially project each decoded entry onto the
+disk `|w| ≤ η` and use this clipped matrix on that cell. Every true entry lies in the disk." Uniform
+list positions, the original locators and a flag rotation by the queried entry then give the
+ordinary sparse block encoding of `A(t)/α` with `α = s η`, and "Each preparation and its inverse
+uses a constant number of original queries". The construction uses only the supplied `η`, and
+"no Hermiticity is used".
 
 In the ODE lower-bound class the known bound is the row/column norm bound `η` of
 `Family.InClass`, which bounds every entry; the native data carry their own public decoding bound

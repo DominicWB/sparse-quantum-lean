@@ -5,8 +5,8 @@ set_option autoImplicit false
 /-!
 # Heralded single programs over a general access
 
-Manuscript, Section `odel:sec:main` (output model, lines 3675-3677: one heralded run with success
-at least `2/3` and conditional accuracy `ε`) and Lemma `odel:lem:dyson` (lines 4155-4168: a generic
+Manuscript, Section `odel:sec:main` (output model, one heralded run with success
+at least `2/3` and conditional accuracy `ε`) and Lemma `odel:lem:dyson` (a generic
 sparse-oracle solver under the coherent access of Theorem `ode:thm:time`). The single-program class
 of the ODE lower bounds, `SparseLowerBounds.ODE.Solver`, is tied to the sampled-time access
 `Family.access ι` and to the solutions of a family. `HeraldedSolver O Valid G ε` is the same class

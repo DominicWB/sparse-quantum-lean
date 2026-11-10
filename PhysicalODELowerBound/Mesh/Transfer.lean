@@ -10,8 +10,8 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # From oracle-generic bounds to forcing over the general-mesh physical oracle
 
-Section `odel:sec:main` (manuscript lines 4105-4109: value, inverse and controlled calls) and the
-encoding for the proof of Theorem `odel:thm:joint` (lines 4290-4294: at most two Boolean
+Section `odel:sec:main` (value, inverse and controlled calls) and the
+encoding for the proof of Theorem `odel:thm:joint` (at most two Boolean
 membership queries per value call, also for inverse and controlled calls; source calls are known
 operations).
 

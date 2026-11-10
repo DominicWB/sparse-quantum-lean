@@ -7,14 +7,14 @@ set_option synthInstance.maxSize 4096
 /-!
 # Private operations realised by sparse queries within an error `ξ`
 
-The manuscript's gate model (lines 1805-1812) gives each controlled private operation an error
-at most `ξ` "in the ancilla convention", with a primitive-oracle cost that "is a fixed constant,
-independent of `ξ`". The ancilla convention (the paragraph "Temporary ancillas", lines 511-533)
-compares an implementation with its ideal operation as a map from the initialised input subspace
-to the full output space, residual ancilla state included, and absorbs known changes of encoding.
-The manuscript states this gate model for time-independent Hamiltonians (line 1849). Its use for
-the slot-selected time-dependent circuits, as in `Gate.Bound`, extends lines 1513-1516; the hard
-paths are constant in time.
+The manuscript's gate model (Section `hs:sec:gates`) bounds the costs of each controlled private
+operation "to error on all output registers at most `ξ`", with a primitive query cost that "remains
+a fixed constant independent of `ξ`" (Theorem `hs:thm:gates`). This error (the convention of eq.
+`access:eq:full-output`) compares an implementation with its ideal operation as a map from the
+initialised input subspace to the full output space, residual ancilla state included, and absorbs
+known changes of encoding. The manuscript states this gate model for time-independent Hamiltonians
+(Theorem `hs:thm:gates`). Its use for the slot-selected time-dependent circuits, as in `Gate.Bound`,
+extends the remark after the proof of Theorem `hs:thm:time`; the hard paths are constant in time.
 
 `ApproxRealization D D_x q ξ` states this for the private operations of the gate-level circuits
 of `Gate.Bound`: on one fixed isometric encoding `e` into a control qubit, a spectator register
@@ -25,7 +25,7 @@ The count `q` does not depend on `ξ`. The error is placed on the bare operation
 controlled call and every inverse call of the circuit then has error at most `ξ` as well, through
 masking and adjoints (`masked_approx`, `approx_adjoint`), as the controlled calls of
 `Gate.NativeRealization` are obtained from the bare one. The manuscript places the error on the
-controlled operation (lines 1805-1807); its hypothesis implies this one: a realisation of the
+controlled operation (Section `hs:sec:gates`); its hypothesis implies this one: a realisation of the
 controlled operation `|0⟩⟨0| ⊗ 1 + |1⟩⟨1| ⊗ D_x` within `ξ` on an isometric encoding restricts,
 on the control-one branch `v ↦ |1⟩ ⊗ v`, to a realisation of `D_x` within `ξ` with the same
 program and count (`approxRealization_of_controlled`).

@@ -7,9 +7,9 @@ set_option autoImplicit false
 set_option synthInstance.maxSize 1024
 
 /-!
-# Remark `odel:rem:homogeneous`: the explicit solution solves the family
+# Proposition `odel:rem:homogeneous`: the explicit solution solves the family
 
-Manuscript lines 3910-3927, 3946. The closed form `homSol` of
+Manuscript: the proof of Proposition `odel:rem:homogeneous`. The closed form `homSol` of
 `ODELowerBoundExtensions.Homogeneous.Defs` solves the release's `SolvesODE` on each stage
 (`ẋ = -G_k x`, no source), with the clamped ramps of
 `SparseLowerBounds.Helpers.Ode.JointFamily.Solution` (`hasDerivWithinAt_ramp_below`,
@@ -121,7 +121,8 @@ theorem homSol_zero (x : Promised M n (2 ^ μ)) : homSol M n μ s x 0 = homInit 
   simp only [homSol, homInit, homAlpha, homBeta, hθ, hδ, hP]
   simp
 
-/-- **Hidden stage `k < n`** (line 3911, eq. `odel:eq:stages` controlled on flag one). -/
+/-- **Hidden stage `k < n`** (Proposition `odel:rem:homogeneous`, eq. `odel:eq:stages` controlled on
+flag one). -/
 theorem solvesODE_hom_hidden (hμ : 1 ≤ μ) (x : Promised M n (2 ^ μ)) (k : Fin (n + 4))
     (hk : (k : ℕ) < n) :
     TimeDependentODE.SolvesODE (fun _ => SparseStateOverlap.matrixOperator (homGen x.1 k))
@@ -151,7 +152,7 @@ theorem solvesODE_hom_hidden (hμ : 1 ≤ μ) (x : Promised M n (2 ^ μ)) (k : F
   refine Finset.sum_congr rfl fun a _ => ?_
   match_scalars <;> simp [homBeta, hθ0]
 
-/-- **The merged phase pulse** (lines 3911-3914). -/
+/-- **The merged phase pulse** (Proposition `odel:rem:homogeneous`). -/
 theorem solvesODE_hom_pulse (x : Promised M n (2 ^ μ)) (k : Fin (n + 4)) (hk : (k : ℕ) = n) :
     TimeDependentODE.SolvesODE (fun _ => SparseStateOverlap.matrixOperator (homGen x.1 k))
       (fun _ => 0) (homSol M n μ s x) (n * (Real.pi / 2))
@@ -178,7 +179,7 @@ theorem solvesODE_hom_pulse (x : Promised M n (2 ^ μ)) (k : Fin (n + 4)) (hk : 
   refine Finset.sum_congr rfl fun a _ => ?_
   match_scalars <;> simp [homBeta, hθ0]
 
-/-- **The `Y` pulse** (lines 3914-3920). -/
+/-- **The `Y` pulse** (Proposition `odel:rem:homogeneous`). -/
 theorem solvesODE_hom_y (x : Promised M n (2 ^ μ)) (k : Fin (n + 4)) (hk : (k : ℕ) = n + 1) :
     TimeDependentODE.SolvesODE (fun _ => SparseStateOverlap.matrixOperator (homGen x.1 k))
       (fun _ => 0) (homSol M n μ s x) (n * (Real.pi / 2) + pulseLen n)
@@ -208,7 +209,7 @@ theorem solvesODE_hom_y (x : Promised M n (2 ^ μ)) (k : Fin (n + 4)) (hk : (k :
     ring
   · simp [homAlpha, hδ0]
 
-/-- **The dissipation** (lines 3925-3927). -/
+/-- **The dissipation** (Proposition `odel:rem:homogeneous`). -/
 theorem solvesODE_hom_damp (x : Promised M n (2 ^ μ)) (k : Fin (n + 4)) (hk : (k : ℕ) = n + 2) :
     TimeDependentODE.SolvesODE (fun _ => SparseStateOverlap.matrixOperator (homGen x.1 k))
       (fun _ => 0) (homSol M n μ s x) (n * (Real.pi / 2) + pulseLen n + Real.pi / 4)
@@ -234,7 +235,7 @@ theorem solvesODE_hom_damp (x : Promised M n (2 ^ μ)) (k : Fin (n + 4)) (hk : (
   refine Finset.sum_congr rfl fun a _ => ?_
   match_scalars <;> simp
 
-/-- **The idle stage** (line 3946). -/
+/-- **The idle stage** (Proposition `odel:rem:homogeneous`). -/
 theorem solvesODE_hom_idle (x : Promised M n (2 ^ μ)) (k : Fin (n + 4)) (hk : (k : ℕ) = n + 3)
     (T : ℝ) :
     TimeDependentODE.SolvesODE (fun _ => SparseStateOverlap.matrixOperator (homGen x.1 k))

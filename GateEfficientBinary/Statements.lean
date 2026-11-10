@@ -4,18 +4,19 @@ import GateEfficientBinary.Sparse.Budget
 # Gate-level construction from binary data: paper-to-Lean entry point
 
 The native gate-level theorems of the library `GateEfficientNative` (Theorem `hs:thm:gates` and
-Theorem `ode:thm:gates` of the accompanying paper, before finite-set synthesis) take as
-hypotheses, as the paper does ("with the implementations specified above"), the entry decoding
-and the reversible angle arithmetic (`GateNative.ArithOK`), the public compute circuit of the
-private Cayley operation with its native identity (`GateNative.NativeOK`) and the boundary
-unitary `U_J` given by elementary gates (the ODE solvers also take source circuits). This
-library constructs these three ingredients for sparse Hamiltonians given by binary sparse
-oracles, from the oracles themselves, and instantiates Theorem `hs:thm:gates` (time-independent
-Hamiltonians) and the pre-synthesis form of its consequence `hs:eq:gate-binary`. The released
-libraries are unchanged; the statement file of `GateEfficientNative` predates this library. No
-result from another paper is used. All declarations below are in the namespace
-`SparseHamiltonian.GateBinary` (subnamespace `Cordic` for the CORDIC analysis), unless stated
-otherwise.
+Theorem `ode:thm:gates` of the accompanying paper, before finite-set synthesis) take as hypotheses,
+as the paper does ("Under the assumptions of Theorem `hs:thm:main` and the implementations just
+specified"; for the ODE solvers "with the source certificates and circuits specified above"), the
+entry decoding and the reversible angle arithmetic (`GateNative.ArithOK`), the public compute
+circuit of the private Cayley operation with its native identity (`GateNative.NativeOK`) and the
+boundary unitary `U_J` given by elementary gates (the ODE solvers also take source circuits). This
+library constructs these three ingredients for sparse Hamiltonians given by binary sparse oracles,
+from the oracles themselves, and instantiates Theorem `hs:thm:gates` (time-independent Hamiltonians)
+and the pre-synthesis form of its consequence `hs:eq:gate-binary`. The released libraries are
+unchanged; the statement file of `GateEfficientNative` predates this library. No result from another
+paper is used. All declarations below are in the namespace `SparseHamiltonian.GateBinary`
+(subnamespace `Cordic` for the CORDIC analysis), unless stated otherwise.
+References to the manuscript use its labels.
 
 * Theorem `hs:thm:gates` for binary data: `binary_simulation`, with the circuit `binarySim`;
   the budget form of equation `hs:eq:gate-binary` before synthesis, with the rescaling chosen
@@ -149,9 +150,10 @@ Every theorem of the library is axiom-audited in `GateEfficientBinary/Audit.lean
 * The theorem holds for every rescaling `0 < γ ≤ 1` and every arithmetic accuracy `ζ` with
   `48 d ζ ≤ ε`; the budget form takes `γ` from the released precision budget.
 
-**Not formalised.** The time-dependent part of Theorem `hs:thm:gates`
-(`native_time_simulation`) and Theorem `ode:thm:gates` from binary data: they need slot-selected
-(time-indexed) binary oracles and, for the ODE, reversible arithmetic that combines the entries of
-`A_H` and `A_L` with the LCHS weights; these remain hypotheses of `GateEfficientNative`. Gate
-synthesis over a finite gate set (the term `G_0 log((G_0+1)/ε)` of `hs:eq:gate-total`).
+**Not formalised.** The time-dependent gate-level simulation (Theorem `hs:thm:time` with the circuit
+of `hs:thm:gates`) (`native_time_simulation`) and Theorem `ode:thm:gates` from binary data: they
+need slot-selected (time-indexed) binary oracles and, for the ODE, reversible arithmetic that
+combines the entries of `A_H` and `A_L` with the LCHS weights; these remain hypotheses of
+`GateEfficientNative`. Gate synthesis over a finite gate set (the term `G_syn log((G_syn+1)/ε)` of
+`hs:eq:gate-total`).
 -/

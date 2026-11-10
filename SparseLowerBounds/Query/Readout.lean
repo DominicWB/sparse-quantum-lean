@@ -22,8 +22,7 @@ In the heralded form the input-independent herald projection `P` is applied
 first and the conditional statement is multiplied through by the success
 probability `‖P Φ‖²`, so no division occurs and zero success is allowed.
 The heralded correlation lemma (`heralded_correlation`) is the step of
-eq. `qlsl:eq:bias` (lines 5405-5418) and of eq. `odel:eq:heraldcorr`
-(lines 3976-3983).
+eq. `qlsl:eq:bias` and of eq. `odel:eq:heraldcorr`.
 -/
 
 namespace SparseLowerBounds
@@ -130,8 +129,8 @@ def HeraldedAccurate (e : K →L[ℂ] SysGarb S G) (P : K →L[ℂ] K) (Φ : K)
     |(⟪Φ, (P ∘L outObs e M ∘L P) Φ⟫_ℂ).re - ‖P Φ‖ ^ 2 * (⟪ψ, M ψ⟫_ℂ).re| ≤
       2 * ε * ‖P Φ‖ ^ 2
 
-/-- **Heralded correlation** (eq. `qlsl:eq:bias`, lines 5405-5418, and
-eq. `odel:eq:heraldcorr`, lines 3976-3983). If the output is heralded-accurate with success
+/-- **Heralded correlation** (eq. `qlsl:eq:bias`, and
+eq. `odel:eq:heraldcorr`). If the output is heralded-accurate with success
 probability at least `p₀`, and a Hermitian contraction `D` has signed ideal
 expectation `sgn ⟪ψ, D ψ⟫ ≥ a ≥ 2 ε` with `|sgn| ≤ 1`, then the unconditional
 workspace observable `P (e† (D ⊗ 1) e) P`, a contraction, has signed

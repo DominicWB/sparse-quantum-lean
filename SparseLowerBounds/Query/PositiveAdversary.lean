@@ -6,12 +6,10 @@ section
 /-!
 # The additive (positive-weight) adversary with Schur certificates
 
-Manuscript lines 3743-3797 (proof of Lemma `odel:lem:outer`, "a direct positive
-spectral-adversary construction ... the standard spectral-adversary theorem is
-used as in [BSS]"). This module proves the bounded-error positive-weight
-adversary theorem for Boolean programs (`OracleCircuit.Program` over the phase
-oracles `x ↦ P.phase (y x)` of a projection family `P`, Query/PhaseOracle) on a
-finite input set `X`, in an elementary form: no operator norms and no
+Manuscript: the proof of Lemma `odel:lem:outer` ("We apply the positive spectral-adversary theorem
+[BSS]"). This module proves the bounded-error positive-weight adversary theorem for Boolean programs
+(`OracleCircuit.Program` over the phase oracles `x ↦ P.phase (y x)` of a projection family `P`,
+Query/PhaseOracle) on a finite input set `X`, in an elementary form: no operator norms and no
 Perron-Frobenius.
 
 * **Progress** `W(ψ) = Σ_{x,x'} Γ x x' δ x δ x' Re ⟪ψ x, ψ x'⟫` for a
@@ -246,7 +244,7 @@ theorem abs_progress_program_sub_le (P : ProjFamily K I) (y : X → I → Bool)
       _ = _ := by ring
 
 omit [CompleteSpace K] in
-/-- **Observable gap** (the bounded-error step, lines 3795-3797): for a
+/-- **Observable gap** (the bounded-error step, proof of Lemma `odel:lem:outer`): for a
 contraction `A` and vectors of equal norm at most one,
 `|Re⟪ψ, Aψ⟫ - Re⟪φ, Aφ⟫| ≤ 2 √(2‖ψ‖² - 2|⟪ψ, φ⟫|)`. -/
 theorem abs_re_inner_sub_le {A : K →L[ℂ] K} (hA : ‖A‖ ≤ 1) {ψ φ : K} (hn : ‖ψ‖ = ‖φ‖)
@@ -367,7 +365,7 @@ theorem count_ge [Nonempty X] (P : ProjFamily K I) (y : X → I → Bool) (Γ : 
   exact le_of_mul_le_mul_left key hcard
 
 /-- **Bounded-error decision form** (Lemma `odel:lem:outer`'s use of the
-spectral-adversary theorem, lines 3795-3797). If `Γ` joins only inputs with
+spectral-adversary theorem). If `Γ` joins only inputs with
 opposite answers `ans x' = -ans x`, `|ans x| = 1`, and a contraction `A` has
 signed correlation at least `β ≥ 0` with the answer on every final state, then
 `(β²/2) D ≤ 2 lam count`. -/

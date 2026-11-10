@@ -44,6 +44,9 @@ change of the success vector (`RunApprox.ampApprox`).
 * `main_improved`, `main_improved_exists`: the released exact-gate Chebyshev algorithm
   (`ChebyshevLinearSystem.algorithm`) with the improved constants `2.7·10¹⁰` and `10⁹`
   (released: `4.4·10¹⁰` and `1.7·10⁹`).
+
+Notation: the regularization parameter is `σ` here and `ξ` in the manuscript, so a subscript `σ` (as
+in `g_σ`, `r_σ`, `H_{σ,r}`) stands for the manuscript's subscript `ξ`.
 -/
 
 namespace ChebyshevLinearSystemFinite

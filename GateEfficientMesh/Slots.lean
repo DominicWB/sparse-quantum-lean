@@ -5,16 +5,16 @@ import IntegrablePathSimulation.Propagator.Released
 /-!
 # Uniform slots, slot products and integrated sample-error certificates
 
-The gate-level circuits of Theorem `hs:thm:gates` for the time-dependent setting of Theorem
-`hs:thm:time` run on a uniform clock of `2^m` slots of length `t / 2^m` (`slotMesh`). Their
-ideal output is the ordered product of the slot exponentials (`slotEvolution`):
+The gate-level circuits of the package extension combining Theorem `hs:thm:time` with the circuit
+of Theorem `hs:thm:gates` run on a uniform clock of `2^m` slots of length `t / 2^m` (`slotMesh`).
+Their ideal output is the ordered product of the slot exponentials (`slotEvolution`):
 
   `∏_k exp(-i (t / 2^m) H̃_k)`.
 
-The paragraph "Regularity and coherent parameters" after Theorem `hs:thm:time` (manuscript
-v15, lines 2420-2434) states that for an integrable Hermitian path a certified bound on the sum
-of the integrated sample errors `∑_r ∫_{t_r}^{t_{r+1}} ‖H(u) - H̃_r‖ du` suffices. This module
-bounds the distance of the slot product from every propagator by that certificate:
+The paragraphs after the proof of Theorem `hs:thm:time` state that for an integrable Hermitian path
+a certified bound on the sum of the integrated sample errors
+`∑_r ∫_{t_r}^{t_{r+1}} ‖H(u) - H̃_r‖ du` suffices. This module bounds the distance of the slot
+product from every propagator by that certificate:
 
 * uniform slots (`slot_error_integral` for integral-sense propagators of interval-integrable
   paths, `slot_error_piecewise` for classical piecewise propagators with one piece per slot,

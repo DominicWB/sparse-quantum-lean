@@ -5,7 +5,7 @@ import GateEfficientSelect.ODE.Disc
 
 The source certificate `ode:eq:gate-source-certificates` is a hypothesis of Theorem
 `ode:thm:gates`; the proof of the theorem also specifies "a sufficient positive quadrature for
-time-dependent forcing": a power-of-two left-endpoint mesh (manuscript lines 4815-4832). For
+time-dependent forcing": a power-of-two left-endpoint mesh. For
 the left-endpoint nodes `v q = q T / 2^m` with the weights `T / 2^m` and the forcing samples
 `b̃_q` of the released time-dependent solver (`ODE.vLeft`, `ODE.wLeft`), the certificate of
 `ODE.BInstanceOK` follows for every solution `x` of `x' = -G(u) x + b(u)` from the Lipschitz

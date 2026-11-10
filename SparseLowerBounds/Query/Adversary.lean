@@ -7,7 +7,7 @@ section
 # The generic multiplicative adversary
 
 This is the weight-growth argument shared by the proofs of `qlsl:lem:xor`
-(manuscript lines 5135-5209) and `hsl:lem:search` (lines 2151-2203), stated
+and `hsl:lem:search`, stated
 for an arbitrary single-register weight `w` so that both lower bounds reuse it.
 
 The hidden input `j : Fin n → Fin m` is purified into `n` registers
@@ -17,13 +17,13 @@ The hidden input `j : Fin n → Fin m` is purified into `n` registers
 * (i) one one-hot Boolean query multiplies `‖W Ψ‖` by at most `λ`
   (`norm_tensorPow_query`); in the Hadamard basis of the response the query
   is block diagonal with blocks `1` and `D_a` on one hidden register
-  (`fiber_oneHotOracle`, lines 5164-5170 and 2185-2187);
+  (`fiber_oneHotOracle`, proof of Lemma `qlsl:lem:xor` and proof of Lemma `hsl:lem:search`);
 * (ii) fixed unitaries do not change `‖W Ψ‖` (`norm_tensorPow_fixed`);
 * (iii) a whole program multiplies it by at most `λ^count`, inverse queries
   included (`norm_tensorPow_program`, eq. `qlsl:eq:weightgrowth`);
 * (iv) for Hermitian `w`, the parity correlation is controlled by
   `μ = ‖w⁻¹ Z w⁻¹‖`: `|Σ_j σ_j ⟪Ψ_j, M Ψ_j⟫| ≤ μⁿ ‖M‖ ‖W Ψ‖²`
-  (`correlation_le`, lines 5190-5205 and 2192-2199);
+  (`correlation_le`, proof of Lemma `qlsl:lem:xor` and proof of Lemma `hsl:lem:search`);
 * (v) the packaged average-correlation bound for a program run on an
   input-independent seed, when `w u = u` (`program_correlation_le`).
 
@@ -75,7 +75,7 @@ theorem tensorPow_Z_apply (Ψ : Joint (Fin n → Fin m) K) (j : Fin n → Fin m)
   push_cast
   rfl
 
-/-- **Block form of a Boolean one-hot query** (lines 5164-5170): with
+/-- **Block form of a Boolean one-hot query** (proof of Lemma `qlsl:lem:xor`): with
 `R = 1 - Σ P`, the joint query is `R ⊗ 1 + Σ_{k,a} P (k,a) ⊗ D_a^{(k)}`, where
 `D_a^{(k)}` acts on hidden register `k`. -/
 theorem fiber_oneHotOracle (P : ProjFamily K (Fin n × Fin m)) :
@@ -184,7 +184,7 @@ theorem conj_fiber_oneHotOracle (P : ProjFamily K (Fin n × Fin m))
 
 /-- **(i) One query.** If `‖w D_a w⁻¹‖ ≤ λ` for every position `a` and
 `1 ≤ λ`, one one-hot Boolean query multiplies the weighted norm by at most `λ`
-(lines 5171-5180 and 2174-2184). -/
+(proof of Lemma `qlsl:lem:xor` and proof of Lemma `hsl:lem:search`). -/
 theorem norm_tensorPow_query (P : ProjFamily K (Fin n × Fin m))
     (w : Matrix (Fin m) (Fin m) ℂ) (hw : IsUnit w) {lam : ℝ} (hlam : 1 ≤ lam)
     (hD : ∀ a, ‖w * reflect a * w⁻¹‖ ≤ lam) (Ψ : Joint (Fin n → Fin m) K) :
@@ -200,7 +200,7 @@ theorem norm_tensorPow_query (P : ProjFamily K (Fin n × Fin m))
 
 /-- **(ii) Fixed gates.** An input-independent unitary commutes with the
 weight (`Joint.tensorPow_comm_fiber_const`) and so preserves the weighted
-norm (lines 5160-5162 and 2190-2191). -/
+norm (proof of Lemma `qlsl:lem:xor` and proof of Lemma `hsl:lem:search`). -/
 theorem norm_tensorPow_fixed (w : Matrix (Fin m) (Fin m) ℂ) (U : K →L[ℂ] K)
     (hU : IsUnitary U) (Ψ : Joint (Fin n → Fin m) K) :
     ‖tensorPow w (fiber (fun _ => U) Ψ)‖ = ‖tensorPow w Ψ‖ := by
@@ -244,7 +244,7 @@ theorem norm_tensorPow_program (P : ProjFamily K (Fin n × Fin m))
 /-- **(iv) Parity correlation.** For a Hermitian invertible weight and any
 workspace operator `M`,
 `|Σ_j σ_j ⟪Ψ_j, M Ψ_j⟫| ≤ ‖w⁻¹ Z w⁻¹‖ⁿ ‖M‖ ‖W Ψ‖²`; the left side is
-`⟪Ψ, (Z^{⊗ n} ⊗ M) Ψ⟫` (lines 5190-5205 and 2192-2199). -/
+`⟪Ψ, (Z^{⊗ n} ⊗ M) Ψ⟫` (proof of Lemma `qlsl:lem:xor` and proof of Lemma `hsl:lem:search`). -/
 theorem correlation_le (w : Matrix (Fin m) (Fin m) ℂ) (hwH : w.IsHermitian) (hw : IsUnit w)
     (M : K →L[ℂ] K) (Ψ : Joint (Fin n → Fin m) K) :
     ‖∑ j, (parity j : ℂ) * ⟪Ψ j, M (Ψ j)⟫_ℂ‖ ≤
@@ -298,7 +298,7 @@ theorem correlation_le (w : Matrix (Fin m) (Fin m) ℂ) (hwH : w.IsHermitian) (h
 omit [CompleteSpace K] in
 /-- The purified initial state has weighted norm `‖W (Σ_j |j⟩ ⊗ φ)‖² = mⁿ ‖φ‖²`
 when `w` fixes the uniform vector, i.e. every row of `w` sums to one
-(lines 5161-5162: `‖W Ψ₀‖ = 1` after normalisation). -/
+(proof of Lemma `qlsl:lem:xor`: `‖W Ψ₀‖ = 1` after normalisation). -/
 theorem norm_tensorPow_const_sq (w : Matrix (Fin m) (Fin m) ℂ)
     (hfix : w *ᵥ (fun _ => 1) = fun _ => 1) (φ : K) :
     ‖(tensorPow w (const φ) : Joint (Fin n → Fin m) K)‖ ^ 2 = (m : ℝ) ^ n * ‖φ‖ ^ 2 := by
@@ -313,14 +313,12 @@ theorem norm_tensorPow_const_sq (w : Matrix (Fin m) (Fin m) ℂ)
   rw [hc, norm_const_sq]
   simp
 
-/-- **(v) The multiplicative adversary bound.** Let `w` be Hermitian and
-invertible, fix the uniform vector `u = m^{-1/2} Σ_b |b⟩` (equivalently
-`w *ᵥ 1 = 1`), and satisfy `‖w D_a w⁻¹‖ ≤ λ` for every `a`, with `1 ≤ λ`. Then
-for every one-hot Boolean program `q` (inverse queries included), every seed
-`φ₀` with `‖φ₀‖ ≤ 1` and every workspace operator with `‖M‖ ≤ 1`, the
-average parity correlation obeys
-`|m^{-n} Σ_j σ_j ⟪q_j φ₀, M q_j φ₀⟫| ≤ ‖w⁻¹ Z w⁻¹‖ⁿ λ^{2 count}`
-(the displayed bounds of lines 5203-5207 and 2194-2199). -/
+/-- **(v) The multiplicative adversary bound.** Let `w` be Hermitian and invertible, fix the uniform
+vector `u = m^{-1/2} Σ_b |b⟩` (equivalently `w *ᵥ 1 = 1`), and satisfy `‖w D_a w⁻¹‖ ≤ λ` for every
+`a`, with `1 ≤ λ`. Then for every one-hot Boolean program `q` (inverse queries included), every seed
+`φ₀` with `‖φ₀‖ ≤ 1` and every workspace operator with `‖M‖ ≤ 1`, the average parity correlation
+obeys `|m^{-n} Σ_j σ_j ⟪q_j φ₀, M q_j φ₀⟫| ≤ ‖w⁻¹ Z w⁻¹‖ⁿ λ^{2 count}` (the displayed bounds of the
+proof of Lemma `qlsl:lem:xor` and the proof of Lemma `hsl:lem:search`). -/
 theorem program_correlation_le (P : ProjFamily K (Fin n × Fin m))
     (w : Matrix (Fin m) (Fin m) ℂ) (hwH : w.IsHermitian) (hw : IsUnit w)
     (hfix : w *ᵥ (fun _ => 1) = fun _ => 1) {lam : ℝ} (hlam : 1 ≤ lam)

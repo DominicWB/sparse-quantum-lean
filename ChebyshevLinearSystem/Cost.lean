@@ -25,6 +25,9 @@ final preparation: with `L = log(1/ε)`,
 
 so `walkStepsC ≤ 8.1·10⁸ √s κ log(1/ε)`, and every transcript makes at most
 `4.4·10¹⁰ √s κ log(1/ε)` matrix-oracle calls and `1.7·10⁹ √s κ log(1/ε)` source calls.
+
+Notation: the regularization parameter is `σ` here and `ξ` in the manuscript, so a subscript `σ` (as
+in `g_σ`, `r_σ`, `H_{σ,r}`) stands for the manuscript's subscript `ξ`.
 -/
 
 namespace ChebyshevLinearSystem

@@ -7,7 +7,7 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # Every released solver is a one-attempt retry solver
 
-Manuscript lines 3675-3678 (the output model of Theorem `odel:thm:combined`). A solver of
+Manuscript: Section `odel:sec:main` (the output model of Theorem `odel:thm:combined`). A solver of
 `SparseLowerBounds.ODE.Solver` (one program, a seed of norm at most one, an isometric readout
 onto system ⊗ garbage, a herald projection) is the retry protocol with **one attempt and one
 circuit label** (`toRetryProt`, the release's `repeatTrials t 1 = freshTrial t abort`), with the

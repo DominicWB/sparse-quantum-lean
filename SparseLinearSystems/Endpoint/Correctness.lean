@@ -13,6 +13,9 @@ For an input satisfying the promise (`‖A‖ ≤ 1`, `‖v‖ ≤ κ ‖A v‖`
 * `finalLeaf_good`: from a good estimate `ρ_m ≤ r ≤ 4 ρ_m`, the final leaf
   succeeds with probability at least `97/100` and outputs a state within
   `ε/50` of the normalised solution.
+
+Notation: the regularization parameter is `σ` here and `ξ` in the manuscript, so a subscript `σ` (as
+in `g_σ`, `r_σ`, `H_{σ,r}`) stands for the manuscript's subscript `ξ`.
 -/
 
 namespace SparseLinearSystems.Endpoint

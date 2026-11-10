@@ -6,12 +6,11 @@ section
 /-!
 # Definitions of the joint ODE instance (helper of `ODE/JointInstance`)
 
-Manuscript lines 3800-3858. The index type, the hidden stage Hamiltonians, the
-candidate states, the explicit solution and the decision observable of the
-joint family, with the signatures and bodies of the `ODE/JointInstance`
-interface. They live here so that the proof helpers `Helpers/Ode/JointFamily/Eigen`
-and `Helpers/Ode/JointFamily/Solution` can use them; `ODE/JointInstance` imports
-this module, so every name is available there unchanged.
+Manuscript: the construction before Theorem `odel:thm:joint`. The index type, the hidden stage
+Hamiltonians, the candidate states, the explicit solution and the decision observable of the joint
+family, with the signatures and bodies of the `ODE/JointInstance` interface. They live here so that
+the proof helpers `Helpers/Ode/JointFamily/Eigen` and `Helpers/Ode/JointFamily/Solution` can use
+them; `ODE/JointInstance` imports this module, so every name is available there unchanged.
 -/
 
 namespace SparseLowerBounds.ODE
@@ -26,7 +25,7 @@ abbrev JointIndex (M μ s : ℕ) : Type := (Fin M × Bool × Fin (2 ^ μ)) ⊕ F
 
 variable {M n μ s : ℕ}
 
-/-- `|JointIndex| = 2 M 2^μ + s` (dimension `O(ḡ² s)`, line 3867). -/
+/-- `|JointIndex| = 2 M 2^μ + s` (dimension `O(ḡ² s)`, Theorem `odel:thm:joint`). -/
 theorem card_jointIndex : Fintype.card (JointIndex M μ s) = M * (2 * 2 ^ μ) + s := by
   simp
 
@@ -64,7 +63,7 @@ def candState (M μ s : ℕ) (a : Fin M) : EuclideanSpace ℂ (JointIndex M μ s
     | Sum.inl (a', _, c) => if a' = a then ((Real.sqrt 2 : ℂ))⁻¹ * Hamiltonian.alt (2 ^ μ) c else 0
     | Sum.inr _ => 0
 
-/-- `x₀ = u_M ⊗ ω`, `u_M = M^{-1/2} Σ_a |a⟩` (lines 3831-3832). -/
+/-- `x₀ = u_M ⊗ ω`, `u_M = M^{-1/2} Σ_a |a⟩` (Section `odel:sec:main`). -/
 def jointInit (M μ s : ℕ) : EuclideanSpace ℂ (JointIndex M μ s) :=
   ((Real.sqrt M : ℂ))⁻¹ • ∑ a, candState M μ s a
 
@@ -90,7 +89,7 @@ def jointTarget (M n μ s : ℕ) (x : Promised M n (2 ^ μ)) : EuclideanSpace �
   (-(-Complex.I) ^ n) • candState M μ s (oddCand x)
 
 /-- **The half indicator** `Σ_a halfSign(a) |a⟩⟨a| ⊗ 1` (padding: `0`), the
-decision observable of lines 3887-3888. -/
+decision observable of the proof of Theorem `odel:thm:joint`. -/
 def halfObs (M μ s : ℕ) :
     EuclideanSpace ℂ (JointIndex M μ s) →L[ℂ] EuclideanSpace ℂ (JointIndex M μ s) :=
   SparseStateOverlap.matrixOperator (Matrix.diagonal fun i => match i with

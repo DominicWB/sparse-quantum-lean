@@ -7,7 +7,7 @@ set_option autoImplicit false
 # Unitary programs implement within operator norm
 
 Containment of the operator-norm notion of the manuscript for unitary circuits
-(`‖A_U - U‖ ≤ ε`, eq. `hs:eq:unitaryerror`, lines 1652-1654; the package's form
+(`‖A_U - U‖ ≤ ε`, eq. `hs:eq:unitaryerror`; the package's form
 `‖p.eval x ∘L J - J ∘L U‖ ≤ ε` on an isometric encoding `J`, as in
 `AdaptiveUnitaryLowerBound.Theorem.implementation_count_ge_program_of_error`) in the measured
 notion `NormImplements`. A unitary program `p` followed by the output of the whole workspace is

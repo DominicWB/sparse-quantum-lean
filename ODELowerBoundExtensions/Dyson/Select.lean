@@ -6,11 +6,14 @@ set_option autoImplicit false
 set_option synthInstance.maxSize 4096
 
 /-!
-# The Dyson SELECT circuit (`odel:lem:dyson`, lines 4198-4214)
+# The Dyson SELECT circuit (`odel:lem:dyson`)
 
-"Prepare `k` independent cell labels …, sort a working copy reversibly …, and apply the selected
-matrices in chronological order. This uses `O(k)` matrix queries. Fresh encoding ancillas make
-the compressed product equal to the product of the compressed matrices" (lines 4204-4206).
+"Prepare `k` independent labels with probabilities equal to their known cell lengths divided by
+`T-u`, sort a working copy reversibly while retaining the original labels, and select the matrix
+factors in chronological order." "One degree-`k` selection uses `O(k)` matrix queries, regardless
+of the number of possible cell labels." Each factor uses "a fresh zero work register", and
+selecting all these registers gives the product of the compressed matrices (proof of Lemma
+`odel:lem:dyson`).
 
 The logical circuit acts on the branch register `Omega K M = Lab K M × Flags K`, where an LCU
 label `(q, ℓ) : Lab K M` carries a source label `q : Option (Fin M)` (initial state or forcing
@@ -274,8 +277,8 @@ theorem evolution_one {V : Type*} [NormedAddCommGroup V] [NormedSpace ℂ V] (m 
   | zero => rfl
   | succ m ih => rw [TimeDependent.evolution_succ, ih, one_mul]
 
-/-- **Compression of the logical SELECT** (lines 4200-4206): at all flags zero, the circuit
-is the branch-diagonal operator of the selected time-ordered products. -/
+/-- **Compression of the logical SELECT** (proof of Lemma `odel:lem:dyson`): at all flags zero, the
+circuit is the branch-diagonal operator of the selected time-ordered products. -/
 theorem logicalSelect_compression {M : ℕ} (hM : 0 < M) (hK : 0 < Ks) (σ : Fin M → Fin Ks)
     (D : Data (X × Fin Ks) n Z s) (K : ℕ) (x : X) :
     (zeroFlags (Λ := Lab K M) (K := K) (payloadEncoding hK D))† ∘L

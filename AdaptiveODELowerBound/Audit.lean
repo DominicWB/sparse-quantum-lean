@@ -260,7 +260,7 @@ lower bounds for adaptive solvers (125 theorems) and every `Prop`-valued field o
 #guard_msgs (whitespace := lax) in
 #print axioms AdaptiveODELowerBound.Adversary.tree_decision_count_ge
 
-/-! ### Lemma `odel:lem:outer`, Theorem `odel:thm:joint` and Remark `odel:rem:homogeneous`
+/-! ### Lemma `odel:lem:outer`, Theorem `odel:thm:joint` and Proposition `odel:rem:homogeneous`
 (`AdaptiveODELowerBound.Joint`) -/
 
 /-! #### `AdaptiveODELowerBound.Joint.General` -/

@@ -7,8 +7,9 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # Lossless purification of an adaptive protocol
 
-Manuscript lines 2672-2673 ("Randomised or adaptive algorithms are covered by purification and
-deferred measurement") and lines 4226-4234 (the bounded-error step of Lemma `odel:lem:outer`).
+Manuscript: the end of the proof of Lemma `hsl:lem:precision` ("Purification and deferred
+measurement include adaptive and randomised algorithms") and the bounded-error step of the proof of
+Lemma `odel:lem:outer`.
 
 For an adaptive protocol `T` of unitary runs on a finite-dimensional workspace, there are unit
 vectors `Ψ_x` in a Hilbert space with Gram matrix `treeKernel T` and a contraction `R` whose

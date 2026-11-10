@@ -8,9 +8,9 @@ set_option autoImplicit false
 
 The proof of Theorem `hs:thm:time` of the manuscript bounds, on each mesh interval, the
 difference between the exact propagator and `exp(-i Δ_r H̃_r)` by the unitary Duhamel formula
-(lines 1587-1590) and telescopes over the mesh (equation `hs:eq:timedisc`, lines 1595-1601).
-The paragraph after the proof (lines 1618-1632) replaces the regularity of the path by a
-certified bound on the sum of integrated sample errors `∑_r ∫_{t_r}^{t_{r+1}} ‖H(u) - H̃_r‖ du`.
+and telescopes over the mesh (equation `hs:eq:timedisc`).
+The paragraphs after the proof replace the regularity of the path by a known
+bound on the sum of integrated sample errors `∑_r ∫_{t_r}^{t_{r+1}} ‖H(u) - H̃_r‖ du`.
 This module proves these estimates for propagators of merely integrable paths.
 
 * `SolvesIntegralOn.duhamel`: on one interval, against a fixed self-adjoint sample `H̃`,

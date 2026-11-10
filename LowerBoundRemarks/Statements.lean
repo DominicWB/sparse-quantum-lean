@@ -6,46 +6,47 @@ import LowerBoundRemarks.HamiltonianPadding
 # Remarks after the lower-bound theorems: paper-to-Lean entry point
 
 Three remarks of the accompanying paper on its query lower bounds are formalised here: the
-structural remark on parity-amplitude reductions that closes the subsection "What this
-establishes, and what remains open" of Section `part:hsl` (after Theorem `hsl:thm:main` and
-Corollary `hsl:cor:power`); the remark after Theorem `qlsl:thm:main` on padding the hard linear
-systems to any larger dimension; and the remark after Theorem `hsl:thm:main` on padding the three
-hard Hamiltonian-simulation families to a common dimension, with the last clause of that theorem
-("with further known padding allowed"). The statement files of `SparseLowerBounds` and
-`AdaptiveHamiltonianLowerBound` (parity remark, Hamiltonian padding) and of
-`LinearSystemLowerBound` (linear-system padding) list these remarks as not formalised there;
-those libraries are unchanged. No result from another paper is used. Manuscript lines refer to
-the current `sparse_quantum_algorithms.tex`; the labels are the stable references.
-Declarations are named relative to the namespace given with each item and paragraph below (one
-namespace per module of `LowerBoundRemarks/`); declarations of the released lower-bound libraries
-are named relative to `LinearSystemLowerBound` and `SparseLowerBounds.Hamiltonian`, as in their
-statement files.
+structural remark on parity-amplitude reductions after Corollary `hsl:cor:power` in Section
+`part:hsl`; the remark after Theorem `qlsl:thm:main` on padding the hard linear systems to any
+larger dimension; and the padding of the three hard Hamiltonian-simulation families to a common
+dimension, the last clause of Theorem `hsl:thm:main` ("with further known padding allowed") with the
+end of its proof ("Further known zero padding equalises dimensions or accommodates a qubit
+register") and the remark after it ("We need not find one matrix on which all three mechanisms are
+simultaneously difficult"). The statement
+files of `SparseLowerBounds` and `AdaptiveHamiltonianLowerBound` (parity remark, Hamiltonian
+padding) and of `LinearSystemLowerBound` (linear-system padding) list these remarks as not
+formalised there; those libraries are unchanged. No result from another paper is used. References to
+the manuscript use its labels. Declarations are named relative to the namespace
+given with each item and paragraph below (one namespace per module of `LowerBoundRemarks/`);
+declarations of the released lower-bound libraries are named relative to `LinearSystemLowerBound`
+and `SparseLowerBounds.Hamiltonian`, as in their statement files.
 
-* Parity-amplitude reductions (lines 2796-2813; namespace `LowerBoundRemarks.ParityAmplitude`,
+* Parity-amplitude reductions (Section `part:hsl`; namespace `LowerBoundRemarks.ParityAmplitude`,
   module `ParityAmplitude.lean`): `moment_eq_zero` (`E_X[σ(X) H_X^k] = 0` for `k < n`) and
   `exp_correlation_le` (`‖E_X[σ(X) e^{-iτ H_X}]‖ ≤ e^τ τ^n/n!`), with the series form
   `exp_correlation_le_tsum`, the matrix form `matrix_exp_correlation_le` and the `hsl` parity
   forms `hsl_moment_eq_zero` and `hsl_exp_correlation_le`.
-* Padding the hard linear systems (lines 5389-5392; namespace
+* Padding the hard linear systems (remark after Theorem `qlsl:thm:main`; namespace
   `LowerBoundRemarks.LinearSystemPadding`, module `LinearSystemPadding.lean`): `padFamily_promise`
   and the other properties of `padFamily`; the lower bounds `pad_lower_bound` (constant
   `1/3072`), `pad_lower_bound_sharp` (`1/1536`) and `pad_lower_bound_sharp_clean`; in a
   prescribed dimension, `common_dimension` and `lower_bound_common_dimension`.
-* Padding the hard Hamiltonian-simulation families (lines 2398-2401, and lines 2394-2395 of the
-  theorem; namespace `LowerBoundRemarks.HamiltonianPadding`, module `HamiltonianPadding.lean`):
-  `main_max_pad`, `main_exists_pad`, `hard_instances_pad` and `third_sum_le_max`; in one common
-  dimension, `main_max_common_dimension` and `main_exists_common_dimension`.
+* Padding the hard Hamiltonian-simulation families (the last clause of Theorem `hsl:thm:main` and
+  the end of its proof; namespace `LowerBoundRemarks.HamiltonianPadding`, module
+  `HamiltonianPadding.lean`): `main_max_pad`, `main_exists_pad`, `hard_instances_pad` and
+  `third_sum_le_max`; in one common dimension, `main_max_common_dimension` and
+  `main_exists_common_dimension`.
 
 **Parity-amplitude reductions** (namespace `LowerBoundRemarks.ParityAmplitude`).
 
-* Setting. Blocks form a finite type `B`, `n = Fintype.card B`; block `b` takes values in a
-  finite type `Ω b`; inputs `X : ∀ b, Ω b` are uniformly distributed,
+* Setting. Blocks form a finite type `B`, `n = Fintype.card B`; block `b` takes values in a finite
+  type `Ω b`; inputs `X : ∀ b, Ω b` are uniformly distributed,
   `E_X[f X] = (Fintype.card (∀ b, Ω b) : ℂ)⁻¹ • ∑ X, f X`. Per-block signs `σ b : Ω b → ℝ` are
-  balanced, `∑ ω, σ b ω = 0`, and `parity σ X = ∏ b, σ b (X b)`. `H` maps inputs into a
-  `ℂ`-algebra `A`. "Each entry of `H_X` is linear in the membership bits of independent input
-  blocks" is `IsBlockAffine H`, `H X = H₀ + ∑ b, F b (X b)`; it is equivalent to
-  `H X = H₀ + ∑_b ∑_z [X b = z] G b z` (`isBlockAffine_iff_membership`) and, for matrices, to
-  every entry being `c₀ + ∑_{b,z} c_{b,z} [X b = z]` (`isBlockAffine_iff_entries`).
+  balanced, `∑ ω, σ b ω = 0`, and `parity σ X = ∏ b, σ b (X b)`. `H` maps inputs into a `ℂ`-algebra
+  `A`. "every entry [of `H_X`] is linear in the membership bits of independent blocks" is
+  `IsBlockAffine H`, `H X = H₀ + ∑ b, F b (X b)`; it is equivalent to
+  `H X = H₀ + ∑_b ∑_z [X b = z] G b z` (`isBlockAffine_iff_membership`) and, for matrices, to every
+  entry being `c₀ + ∑_{b,z} c_{b,z} [X b = z]` (`isBlockAffine_iff_entries`).
 * `moment_eq_zero`: for balanced signs and block-affine `H`,
   `∑ X, (parity σ X : ℂ) • H X ^ k = 0` for every `k < n`; `expect_moment_eq_zero` is the
   expectation form and `moment_eq_zero_membership` the literal membership-bit form.
@@ -153,8 +154,8 @@ be any finite type.
   sparsity exactly `s`, exact dyadic words with position-independent decode, input-independent
   locators) and have dimension at most `4 s (τ + r + 1) + |P|`.
 * `third_sum_le_max`: if `A ≤ Q_T`, `B ≤ Q_M` and `C ≤ Q_P`, then
-  `(A + B + C)/3 ≤ max(Q_T, Q_M, Q_P)`: the maximum of three lower bounds is at least one third
-  of their sum.
+  `(A + B + C)/3 ≤ max(Q_T, Q_M, Q_P)`: the maximum of three nonnegative lower bounds is at least a
+  third of their sum.
 * One common dimension. `PadTo S Nd = Fin (Nd - |S|)`, and `|S ⊕ PadTo S Nd| = Nd` when
   `|S| ≤ Nd` (`card_padTo`); every `Nd ≥ 4 s (τ + r + 1)` is at least the three dimensions
   (`card_le_of_dim`). For every `Nd` at least the three dimensions (for instance a large enough
@@ -187,7 +188,7 @@ Every theorem of the library is axiom-audited in `LowerBoundRemarks/Audit.lean`.
   `SparseLowerBounds`.
 * The linear systems are padded by an identity block, `A_X ⊕ I`, with the right-hand side
   extended by zero, as in the remark; the Hamiltonian families are padded by known zeros,
-  `H_X ⊕ 0`, as in the proof of Theorem `hsl:thm:main` (lines 2762-2764). In both cases the
+  `H_X ⊕ 0`, as in the proof of Theorem `hsl:thm:main`. In both cases the
   padding block is known: its entries do not depend on the input.
 * The padded linear-system bounds are proved from the counting step for an arbitrary index type
   and the access conditions `HardAccess`, with the constants of `lower_bound_sharp` and

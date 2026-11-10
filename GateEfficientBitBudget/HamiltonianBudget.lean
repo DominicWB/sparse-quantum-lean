@@ -45,8 +45,9 @@ every arithmetic accuracy `ζ ∈ (0, 1]` with `ε ≤ 442368 q ζ` and `221184 
 `ε/(442368 q) ≤ ζ ≤ ε/(221184 q)`; `ζ = ε/(442368 q)` is admissible, `hs_zeta_spec`), the circuit
 `binarySim` uses at most `10¹⁵ q (𝔟_H + 1)³` elementary gates, with
 `𝔟_H = bitH b_data (2^k) q ε = b_data + log₂(N+1) + log₂((q+1)/ε)` (equation
-`hs:eq:gate-binary`, `G_additional = q poly(b_data, log(N+1), log((q+1)/ε))` with
-`poly(x) = 10¹⁵ (x+1)³`), the private operation uses at most `2·10⁹ (𝔟_H + 1)³` gates, and every
+`hs:eq:gate-binary`, `G_additional = Q_base poly(b_data, log(N+1), log((Q_base+1)/ε))` with
+`Q_base = q` and `poly(x) = 10¹⁵ (x+1)³`), the private operation uses at most `2·10⁹ (𝔟_H + 1)³`
+gates, and every
 conclusion of `binary_simulation_budget` holds: at most `55296 q` times `2` row, `2` column and
 `1` value calls, at most `200 (4608 q + 1) (G_C + (σ+1) + (k+1) + m + r + 1)` gates, and
 full-output error at most `ε` against `exp(-iτĤ)`. -/
@@ -114,24 +115,25 @@ theorem binary_simulation_bits (s : ℕ) (hs1 : 1 ≤ s) (τ ε : ℝ) (hτ : 0 
 
 /-! ### Equation `hs:eq:gate-binary`, time-dependent Hamiltonians -/
 
-/-- **The time-dependent part of equation `hs:eq:gate-binary` for time-indexed binary sparse
-data** (Theorem `hs:thm:gates`, time-dependent part, before finite-set synthesis). For `s ≥ 1`
+/-- **The time-dependent analogue of equation `hs:eq:gate-binary` for time-indexed binary sparse
+data** (package extension: Theorem `hs:thm:time` with the circuit of `hs:thm:gates` (single-label
+case of Lemma `ode:lem:gate-select`), before finite-set synthesis). For `s ≥ 1`
 slots, a time `t ≥ 0` and `0 < ε ≤ 1`, put `q = √s t + √(s t log(2/ε)) + log(2/ε)`. The rescaling
-`γ ∈ (0, 1]` of `GateBinary.binary_time_simulation_budget` (chosen from `s`, `t` and `ε` before
-the data, the input, the path and the mesh, with `γ √s ≥ 1` and filter degree `d ≤ 4608 q`)
-satisfies: for all time-indexed binary sparse data with `s = 2^σ` slots, `k`-bit indices
-(`N = 2^k`), `M = 2^m` time slots and `b ≤ b_data` stored bits, every decoder scale `c₀ > 0` of
-bit length `b_data`, every input with Hermitian samples of row and column norms at most one,
-every Hermitian `β`-Lipschitz path within `δ` of the samples with `8 t δ ≤ ε`, the mesh conditions
-`steps τ' (ε/12) ≤ 2^m` and `8 β t² ≤ ε 2^m` (`τ' = √s t/γ`), and every arithmetic accuracy
-`ζ ∈ (0, 1]` with `ε/(442368 q) ≤ ζ ≤ ε/(221184 q)`, the circuit `binaryTimeSim` uses at most
+`γ ∈ (0, 1]` of `GateBinary.binary_time_simulation_budget` (chosen from `s`, `t` and `ε` before the
+data, the input, the path and the mesh, with `γ √s ≥ 1` and filter degree `d ≤ 4608 q`) satisfies:
+for all time-indexed binary sparse data with `s = 2^σ` slots, `k`-bit indices (`N = 2^k`), `M = 2^m`
+time slots and `b ≤ b_data` stored bits, every decoder scale `c₀ > 0` of bit length `b_data`, every
+input with Hermitian samples of row and column norms at most one, every Hermitian `β`-Lipschitz path
+within `δ` of the samples with `8 t δ ≤ ε`, the mesh conditions `steps τ' (ε/12) ≤ 2^m` and
+`8 β t² ≤ ε 2^m` (`τ' = √s t/γ`), and every arithmetic accuracy `ζ ∈ (0, 1]` with
+`ε/(442368 q) ≤ ζ ≤ ε/(221184 q)`, the circuit `binaryTimeSim` uses at most
 `10¹⁵ q (𝔟_H + log₂(M+1) + 1)³` elementary gates, `𝔟_H = bitH b_data (2^k) q ε`, the slot-selected
 private operation uses at most `2·10⁹ (𝔟_H + 1)³` gates, and every conclusion of
 `binary_time_simulation_budget` holds: at most `55296 q` times `2` row, `2` column and `1` value
 calls of the coherent sampled-time oracles, at most
-`200 (4608 q + 1) (G_C + (σ+1) + (k+1) + m + r + 1)` gates, `2^r ≤ 4 (4608 q + 1)`, the
-propagator of the lifted path exists, and the full output is within `ε` of `U(t)` for every
-propagator `U` of the lifted path. -/
+`200 (4608 q + 1) (G_C + (σ+1) + (k+1) + m + r + 1)` gates, `2^r ≤ 4 (4608 q + 1)`, the propagator
+of the lifted path exists, and the full output is within `ε` of `U(t)` for every propagator `U` of
+the lifted path. -/
 theorem binary_time_simulation_bits (s : ℕ) (hs1 : 1 ≤ s) (t ε : ℝ) (ht : 0 ≤ t)
     (hε : 0 < ε) (hε1 : ε ≤ 1) :
     ∃ γ : ℝ, 0 < γ ∧ γ ≤ 1 ∧ 1 ≤ γ * Real.sqrt s ∧

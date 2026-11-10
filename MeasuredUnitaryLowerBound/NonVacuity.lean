@@ -7,7 +7,7 @@ set_option autoImplicit false
 # Non-vacuity of the endpoint bounds
 
 The released constant-error circuit of `SparseHamiltonian.UnitaryImplementation.implementation`
-(the upper half of Corollary `hs:cor:unitary` of the manuscript, lines 1647-1666) has
+(the upper half of Corollary `hs:cor:unitary` of the manuscript) has
 operator-norm error `1/4`, hence output within trace distance `1/4`, and so `1/2`, of the
 target: the endpoint of the error range `0 < ε ≤ 1/2`. It meets every hypothesis of the
 endpoint bounds in each algorithm class of this library and makes at most

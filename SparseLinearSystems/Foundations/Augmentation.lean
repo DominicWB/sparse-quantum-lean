@@ -172,7 +172,7 @@ def kernelEquiv (M : V ≃ₗ[ℂ] V) (β : V) (c : ℂ) :
 theorem kernelEquiv_apply (M : V ≃ₗ[ℂ] V) (β : V) (c z : ℂ) :
     (kernelEquiv M β c z).val = parameter M β c z := rfl
 
-/-- The paper's operator `C_{σ,r}`, with the already invertible regularized
+/-- The paper's operator `C_{ξ,r}`, with the already invertible regularized
 matrix supplied as M.  No norm or phase-gap claim is assumed here. -/
 def withNormGuess (M : V ≃ₗ[ℂ] V) (β : V) (r : ℝ) : V × ℂ →ₗ[ℂ] V :=
   column M β ((r : ℂ)⁻¹)

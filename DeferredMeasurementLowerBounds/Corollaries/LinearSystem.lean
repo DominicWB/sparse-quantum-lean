@@ -8,10 +8,9 @@ set_option autoImplicit false
 /-!
 # Theorem `qlsl:thm:main` for measured algorithms
 
-Manuscript Theorem `qlsl:thm:main` (lines 5070-5100) and lines 5185-5186 of the proof of Lemma
-`qlsl:lem:xor`, the lemma behind it ("This argument also
-covers controlled queries and adaptive algorithms after coherent purification and padding to
-their worst-case query count").
+Manuscript Theorem `qlsl:thm:main` and the proof of Lemma `qlsl:lem:xor`, the lemma
+behind it ("This argument also covers controlled queries and adaptive algorithms after coherent
+purification and padding to their worst-case query count").
 
 For the hard family of the linear-system lower bound and native data with input-independent
 locators and an entry-determined value table, every **measured algorithm** (`Model.Measured`)

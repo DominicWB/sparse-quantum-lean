@@ -5,8 +5,8 @@ set_option autoImplicit false
 /-!
 # The first-success herald and readout reproduce the released four-attempt law
 
-Manuscript lines 4111-4113 (Section `odel:sec:main`, output model) and 4687-4689 (proof of Lemma
-`odel:lem:dyson`). For a stage `S` and a released retry
+Manuscript: Section `odel:sec:main` (output model) and the proof of Lemma
+`odel:lem:dyson`. For a stage `S` and a released retry
 protocol `k` (`ODERepeatProtocol.Protocol`), `S.Good μ k` says that the stage's herald is a
 projection, its readout is an isometry, its seed weights are unit (`∑ ‖ω_i‖² = 1`) and, on every
 input, its heralded output reproduces the protocol: success probability `k.successMass x` and,

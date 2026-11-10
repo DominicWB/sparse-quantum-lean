@@ -8,8 +8,9 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # The released ODE solver's physical oracle in normal form
 
-Manuscript lines 3669-3673 (access "through a reversible value oracle and in-place row/column
-locators, their inverses and controls, with a coherent time address"). The released general-mesh
+Manuscript: Section `odel:sec:main` ("The value oracle and in-place row and column locators have
+the canonical reversible access, including inverses, controls and coherent time addresses where
+needed"). The released general-mesh
 solver `TimeDependentExtensions.ODE.solver` is a protocol over the physical oracle family
 `TimeDependentExtensions.MeshSource.physicalOracle D N d J₀ Jb`, labelled by
 `NativeSparseBlockEncoding.Query ⊕ Bool`: matrix labels `Sum.inl l` and the two source interfaces
@@ -63,9 +64,9 @@ open scoped InnerProduct InnerProductSpace
 -- The release's physical workspace is a nested register product (as in `MeshSource`).
 set_option synthInstance.maxSize 8192
 
-/-- **Public source interfaces**: the initial-state and forcing preparations are unitary and do
-not depend on the hidden input (lines 3685-3686: "Initial and source preparation contain no
-hidden input information"). -/
+/-- **Public source interfaces**: the initial-state and forcing preparations are unitary and do not
+depend on the hidden input (Section `odel:sec:main`: "Initial and source preparations contain no
+hidden information"). -/
 structure PublicSources {X N : Type*} [Fintype N] {M : ℕ} (J₀ : X → SysOp N)
     (Jb : X → Fin M → SysOp N) : Prop where
   initial_unitary : ∀ x, IsUnitary (J₀ x)

@@ -8,13 +8,12 @@ set_option autoImplicit false
 # Masked lifts: fixed layouts of masked spectator registers
 
 The released time-dependent oracle families place an operator `A` on a workspace through fixed
-registers only: untouched spectators, fixed relabellings, and control masks that apply `A` on
-some branches of a known register and the identity on the others (the controlled time-indexed
-oracle `TimeDependentExtensions.BlockEncoding.primitive`, `|c, r⟩ ⊗ v ↦ |c, r⟩ ⊗ O_r^c v`, the
-formalisation of the coherent and controlled access of the manuscript, lines 1520-1525, in the
-paragraph "Relation to time-indexed block encodings", lines 1518-1538, eq.
-`hs:eq:blockspecial`; the controlled call forms of the
-native access "with inverses and coherent controls" of Section `hsl:sec:main`, lines 2078-2080).
+registers only: untouched spectators, fixed relabellings, and control masks that apply `A` on some
+branches of a known register and the identity on the others (the controlled time-indexed oracle
+`TimeDependentExtensions.BlockEncoding.primitive`, `|c, r⟩ ⊗ v ↦ |c, r⟩ ⊗ O_r^c v`, the
+formalisation of the coherent and controlled access of the manuscript, eq. `hs:eq:blockspecial`;
+the controlled call forms of the native access with
+inverses and the controls of Lemma `access:lem:control` of Section `hsl:sec:main`).
 
 * `IsMaskedLift Φ`: there are a finite register `Ω`, a fixed isometric identification
   `U : K ≃ ℂ^Ω ⊗ W` and a mask `m : Ω → Bool` with `Φ A = U⁻¹ (masked m A) U` for every `A`.

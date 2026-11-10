@@ -8,11 +8,11 @@ set_option synthInstance.maxSize 4096
 /-!
 # Block-encoding calls as fixed products of native calls
 
-The time-indexed block-encoding model (the paragraph "Relation to time-indexed block encodings"
-of the manuscript, lines 1518-1538, eqs. `hs:eq:blockspecial`, `hs:eq:blockadditive`: coherent
-and controlled access to Hermitian unitaries `O_r` with `J† O_r J = H̃_r / α_BE`) on the hard
-instances of Theorem `hsl:thm:main`: every sample is `beOp D x`, the Hermitian dilation
-`diag(W, W†) ∘ swap` of the released six-query block encoding `W = (program D).eval x`
+The time-indexed block-encoding model (eqs. `hs:eq:blockspecial`, `hs:eq:blockadditive` of the
+manuscript: coherent and
+controlled access to Hermitian unitaries `O_r` with `J† O_r J = H̃_r / α_BE`) on the hard instances
+of Theorem `hsl:thm:main`: every sample is `beOp D x`, the Hermitian dilation `diag(W, W†) ∘ swap`
+of the released six-query block encoding `W = (program D).eval x`
 (`TimeDependentLowerBoundExtensions.BlockEncoding.beOp`).
 
 * `beSector D (q, b)`: the native query `q` in the sector `b` of the dilation qubit (the identity

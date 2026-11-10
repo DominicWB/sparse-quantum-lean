@@ -5,9 +5,9 @@ import ODELowerBoundExtensions.Psd.Numerics
 /-!
 # The PSD families as one-stage families of the ODE model
 
-Manuscript lines 4016-4030 (the homogeneous equation
-`ẋ = -D_X x` with `D_X ⪰ 0`, `‖D_X‖ = η_D = 1`, `T = τ`, `1 ≤ g ≤ √2`, public supports, dyadic
-entries, the heralded output) and 4086-4088 (start vector, `P ∈ [1/2, 1]`).
+Manuscript: Theorem `odel:thm:psd` (the homogeneous equation `ẋ = -D_X x` with `D_X ⪰ 0`,
+`‖D_X‖ = η_D = 1`, `T = τ`, `1 ≤ g ≤ √2`, public supports, dyadic entries, the heralded output)
+and its proof (start vector, `P ∈ [1/2, 1]`).
 
 The Hamiltonian lower bound's `g = 1` families enter the ODE model through
 `ODE.hamFamily` (generator `iH`). The PSD families have generator `D` itself, so this module
@@ -231,8 +231,8 @@ def psdScalarDataAt (h : PsdRange τ s ε) :
 @[simp] theorem psdScalarDataAt_matrix (h : PsdRange τ s ε) :
     (psdScalarDataAt h).matrix = psdScalarMat (precN τ ε) s (τ / 2) := rfl
 
-/-- **The gadget family of Theorem `odel:thm:psd`** (lines 4032-4117): `ẋ = -D_X x` on
-`[0, τ]`, `D_X = psdSearchMat n μ s (τ/2) X` (`n = ⌊r/4⌋`, `m = 2^{psdMu s}`), start
+/-- **The gadget family of Theorem `odel:thm:psd`** (proof of Theorem `odel:thm:psd`): `ẋ = -D_X x`
+on `[0, τ]`, `D_X = psdSearchMat n μ s (τ/2) X` (`n = ⌊r/4⌋`, `m = 2^{psdMu s}`), start
 `(|r₀⟩ + |0, v⟩)/√2`. -/
 def psdSearchFamilyAt (h : PsdRange τ s ε) :
     Family (Fin (precN τ ε) → Fin (2 ^ psdMu s)) (SearchIndex (precN τ ε) (psdMu s) s)
@@ -240,8 +240,8 @@ def psdSearchFamilyAt (h : PsdRange τ s ε) :
   heatFamily (psdSearchDataAt h) τ (by linarith [h.one_le_tau])
     (searchInput (precN τ ε) (psdMu s) s)
 
-/-- **The scalar family of Theorem `odel:thm:psd`** (lines 4119-4127): the gadgets replaced by
-scalar signs, start `(|r₀⟩ + |0⟩)/√2`. -/
+/-- **The scalar family of Theorem `odel:thm:psd`** (proof of Theorem `odel:thm:psd`): the gadgets
+replaced by scalar signs, start `(|r₀⟩ + |0⟩)/√2`. -/
 def psdScalarFamilyAt (h : PsdRange τ s ε) :
     Family (Fin (precN τ ε) → Bool) (ScalarIndex (precN τ ε) s)
       (Word (psdScalarBits (precN τ ε) s (τ / 2))) 1 s :=
@@ -328,7 +328,7 @@ theorem psdScalarFamilyAt_inClass (h : PsdRange τ s ε) {gbar : ℝ} (hg : Real
   exact heatFamily_inClass _ _ _ _ hacc hrow hcol hne hgg
 
 /-- **The gadget family is homogeneous and constant-coefficient with `D_X ⪰ 0`, `B = 1`,
-`T = τ` and `1 ≤ g ≤ √2`** (lines 4019-4025, 4087-4088): no source, generator
+`T = τ` and `1 ≤ g ≤ √2`** (Theorem `odel:thm:psd`): no source, generator
 `psdSearchMat n μ s (τ/2) X` (positive semidefinite, `psdSearchMat_posSemidef`), and
 `g = B/‖x(T)‖ ∈ [1, √2]` for the solution `x(t) = e^{-tD_X} x₀` (`heatFamily_solves`). -/
 theorem psdSearchFamilyAt_props (h : PsdRange τ s ε)
@@ -352,7 +352,7 @@ theorem psdSearchFamilyAt_props (h : PsdRange τ s ε)
     one_div_mem_of_half_le_sq (norm_nonneg _) he.1 he.2⟩
 
 /-- **The scalar family is homogeneous and constant-coefficient with `D_x ⪰ 0`, `B = 1`,
-`T = τ` and `1 ≤ g ≤ √2`** (lines 4019-4025, 4087-4088, 4120-4121). -/
+`T = τ` and `1 ≤ g ≤ √2`** (Theorem `odel:thm:psd`). -/
 theorem psdScalarFamilyAt_props (h : PsdRange τ s ε) (x : Fin (precN τ ε) → Bool) :
     (∀ k, (psdScalarFamilyAt h).src k = 0) ∧
       (∀ k, (psdScalarFamilyAt h).data.matrix (x, k) = psdScalarMat (precN τ ε) s (τ / 2) x) ∧

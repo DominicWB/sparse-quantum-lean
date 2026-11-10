@@ -5,30 +5,28 @@ set_option autoImplicit false
 /-!
 # Black-box unitary implementation in full: paper-to-Lean entry point
 
-Corollary `hs:cor:unitary` of the manuscript (statement at lines 1769-1788, proof at lines
-1789-1840) is formalised in `SparseHamiltonian.UnitaryImplementation` for exact entries at
-error `1/4`, and in `UnitaryImplementationPrecision` (namespace
-`SparseHamiltonian.UnitaryPrecision`) at every precision with exact and inexact entries. This
-library proves the `Ω(√N)` half of the last sentence, "At fixed constant error, the
-worst-case query complexity is `Θ(√N)`", for unitary query circuits over the entry oracle,
+Corollary `hs:cor:unitary` of the manuscript is formalised in
+`SparseHamiltonian.UnitaryImplementation` for exact entries at error `1/4`, and in
+`UnitaryImplementationPrecision` (namespace `SparseHamiltonian.UnitaryPrecision`) at every precision
+with exact and inexact entries. This library proves the `Ω(√N)` half of the last sentence, "the
+constant-error worst-case complexity is `Θ(√N)`", for unitary query circuits over the entry oracle,
 and gives a second, independent proof of the upper bounds at every precision and with inexact
-entries (inexact entries with entrywise error at most `ε/(πN)`, every precision
-`0 < ε ≤ 1/2`; larger two-term constants, target family part of the data). The oracle,
-encoding and count are those of `UnitaryPrecision` (equal by `rfl` for equal tables), so the
-lower bounds also apply to its circuits. All declarations below are in the namespace
-`UnitaryImplementationExtensions`.
+entries (inexact entries with entrywise error at most `ε/(πN)`, every precision `0 < ε ≤ 1/2`;
+larger two-term constants, target family part of the data). The oracle, encoding and count are those
+of `UnitaryPrecision` (equal by `rfl` for equal tables), so the lower bounds also apply to its
+circuits. All declarations below are in the namespace `UnitaryImplementationExtensions`.
 
-* Inexact entries (eq. `hs:eq:unitaryerror`, proof lines 1814-1831): `Inexact.implementation`;
-  with an untouched finite reference, `Inexact.reference_error`; exact data as the zero-error
-  case, `Inexact.implementation_ofExact`.
+* Inexact entries (eq. `hs:eq:unitaryerror`, proof of Corollary `hs:cor:unitary`):
+  `Inexact.implementation`; with an untouched finite reference, `Inexact.reference_error`; exact
+  data as the zero-error case, `Inexact.implementation_ofExact`.
 * General precision, exact entries (eq. `hs:eq:unitarybound` without its hybrid term):
   `General.implementation`, `General.reference_error`.
-* The lower bound (lines 1786-1787, reduction sketched at lines 1833-1840):
-  `LowerBound.entry_count_ge` (programs over the ordinary entry lookup),
-  `LowerBound.implementation_count_ge` (programs over the oracle of the upper bound), and the
-  two halves together: `LowerBound.theta` (error `1/4`), `LowerBound.theta_of_error` (every
-  fixed `0 < ε ≤ 1/2`, exact model) and `LowerBound.theta_inexact` (every fixed
-  `0 < ε ≤ 1/2`, oracle model of the inexact circuit).
+* The lower bound (Corollary `hs:cor:unitary`, reduction sketched in the proof of Corollary
+  `hs:cor:unitary`): `LowerBound.entry_count_ge` (programs over the ordinary entry lookup),
+  `LowerBound.implementation_count_ge` (programs over the oracle of the upper bound), and the two
+  halves together: `LowerBound.theta` (error `1/4`), `LowerBound.theta_of_error` (every fixed
+  `0 < ε ≤ 1/2`, exact model) and `LowerBound.theta_inexact` (every fixed `0 < ε ≤ 1/2`, oracle
+  model of the inexact circuit).
 * Constant-error unstructured search: `Search.count_ge` (overlap form) and
   `Search.search_count_ge` (success-probability form).
 
@@ -97,7 +95,9 @@ axiom-audited in `UnitaryImplementationExtensions/Audit.lean`.
 
 * General `ε`: the bound proved is `C (√(N ℓ) + ℓ)` with explicit constants, from
   `simulation_log_one` and `simulation_spectral_log_one`; the manuscript's additive term
-  `ℓ/log(e + ℓ/N)` comes from `hs:cor:hybrid`, which the package does not formalise.
+  `ℓ/log(e + ℓ/N)` comes from `hs:cor:hybrid`, which the package does not formalise; the bound
+  with that term is `OptimalSparseSimulation.unitary_bound`, from Corollary
+  `hs:cor:unitary-optimal`.
 * The released corollary is the `ε = 1/4` instance of the general model (`oracle_quarter`,
   `input_quarter`); its constant `queryConstant` is kept, so it is not restated.
   `Inexact.implementation_ofExact` is the zero-error case of the inexact theorem at `η = 2` and
@@ -120,7 +120,7 @@ axiom-audited in `UnitaryImplementationExtensions/Audit.lean`.
   `SparseHamiltonian.UnitaryPrecision.implementation_inexact_uniform`.
 * The hard family is the manuscript's `U_m` with one-bit entries in `ZMod 2` and decoder
   `z ↦ [z = 1]`. Each entry query is exactly one search query, since the one-bit XOR lookup
-  equals the phase oracle (line 1837).
+  equals the phase oracle (proof of Corollary `hs:cor:unitary`).
 * The lower bound is stated for every program over the ordinary entry lookup (with an
   arbitrary untouched payload and an arbitrary isometric encoding), for every program over the
   released oracle `UnitaryEntryOracle.oracle (SearchFamily.searchData N) γ η t ε` for all
@@ -143,7 +143,9 @@ axiom-audited in `UnitaryImplementationExtensions/Audit.lean`.
 
 **Not formalised.**
 
-* The additive term `ℓ/log(e + ℓ/N)` of eq. `hs:eq:unitarybound` (Corollary `hs:cor:hybrid`).
+* Corollary `hs:cor:hybrid`, the manuscript's route to the additive term `ℓ/log(e + ℓ/N)` of eq.
+  `hs:eq:unitarybound` (that term is `OptimalSparseSimulation.unitary_bound`, from Corollary
+  `hs:cor:unitary-optimal`).
 * Lower bounds against adaptive or controlled-call algorithms (classical trees of measured
   runs, heralded success, controlled entry queries).
 * A separate lower bound over inexact tables of the hard family (exact tables are admissible
@@ -160,7 +162,5 @@ is changed. `SparseHamiltonian/Statements.lean` predates this library and descri
 `hs:cor:unitary` at error `1/4` with exact entries; the Hamiltonian and adaptive Hamiltonian
 lower-bound statement guides list the unitary `Ω(√N)` search bound as outside them. Both are
 proved here. `UnitaryImplementationPrecision/Statements.lean` lists the lower bound `Ω(√N)` as
-not formalised; it is proved here. Line numbers in this guide refer to the manuscript used by
-this library; the module docstrings of the imported libraries cite another manuscript version,
-and the paper labels are the stable references.
+not formalised; it is proved here. References to the manuscript use its labels.
 -/

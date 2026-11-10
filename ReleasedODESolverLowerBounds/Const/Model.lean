@@ -7,10 +7,10 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # Measured solvers over the constant-coefficient physical oracle
 
-Manuscript Section `odel:sec:main`, lines 3669-3681 (access with inverses and controls, success
-flag of probability at least `2/3`, conditional trace distance `ε`, worst-case query bound; the
-lower bounds apply to Theorems `ode:thm:main` and `ode:thm:time`) and line 2364 (purification
-and deferred measurement); Theorem `ode:thm:main` (line 2584).
+Manuscript Section `odel:sec:main` (access with inverses and controls, success flag of probability
+at least `2/3`, conditional trace distance `ε`, worst-case query bound; the lower bounds apply to
+Theorems `ode:thm:main` and `ode:thm:time`) and the end of the proof of Lemma `hsl:lem:precision`
+(purification and deferred measurement); Theorem `ode:thm:main`.
 
 The measured solvers (`DeferredMeasurementLowerBounds.Corollaries.MeasuredSolver`) here call the
 physical oracle of the released constant-coefficient solver

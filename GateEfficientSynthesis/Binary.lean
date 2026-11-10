@@ -18,11 +18,11 @@ circuits, so a synthesis budget `ε'` turns them into circuits over the finite g
   logarithmic synthesis length `L ζ ≤ c₁ log(1/ζ) + c₀` and every `0 < ε' ≤ 1`, the number of
   gates over `𝒢` is at most `G (c₁ log((G+1)/ε') + c₀)`, where `G` is the explicit
   pre-synthesis budget `200 (4608 q + 1)(G_C + (σ+1) + (k+1) + m + r + 1)`. This is an upper
-  bound of the form `G₀ log((G₀ + 1)/ε)` of equation `hs:eq:gate-total`, with the gates of the
+  bound of the form `G_syn log((G_syn + 1)/ε)` of equation `hs:eq:gate-total`, with the gates of the
   native private calls synthesised as well. In the time-independent case, with `m` and `r`
   logarithmic (the bounds on `2^m` and `2^r`) and `G_C` polynomial in the word lengths and in
-  `log(1/ζ)` for the arithmetic accuracy `ζ`, it is `q poly(b, log N, log((q+1)/ε))` (equation
-  `hs:eq:gate-binary` after synthesis).
+  `log(1/ζ)` for the arithmetic accuracy `ζ`, it is `Q_base poly(b, log N, log((Q_base+1)/ε))`
+  with `Q_base = q` (equation `hs:eq:gate-binary` after synthesis).
 -/
 
 set_option autoImplicit false
@@ -49,7 +49,7 @@ variable {Xa : Type*} [Fintype Xa] [DecidableEq Xa] {𝒢 : Set Kind} {L : ℝ �
 
 set_option maxHeartbeats 1000000 in
 /-- **Gate-efficient sparse simulation from binary sparse oracles over a finite gate set**
-(Theorem `hs:thm:gates`, time-independent part, with the binary-data construction of
+(Theorem `hs:thm:gates`, with the binary-data construction of
 `binary_simulation` and the synthesis budget `ε'`). -/
 theorem binary_simulation_synth (hS : Synthesis 𝒢 Xa L) (ε' : ℝ) (hε' : 0 < ε')
     (D : Data X n (Cfg (VW b)) s) (en : Cfg (Fin k) ≃ n) (σ : ℕ)
@@ -107,9 +107,9 @@ theorem binary_simulation_synth (hS : Synthesis 𝒢 Xa L) (ε' : ℝ) (hε' : 0
     exact (norm_sysEmb _ (fun φ => by rw [io_apply, norm_bas]) ψ).le
 
 set_option maxHeartbeats 1000000 in
-/-- **Gate-efficient time-dependent sparse simulation from time-indexed binary sparse oracles
-over a finite gate set** (Theorem `hs:thm:gates`, time-dependent part, with the construction of
-`binary_time_simulation` and the synthesis budget `ε'`): for every propagator `U` of the lifted
+/-- **Gate-efficient time-dependent sparse simulation from time-indexed binary sparse oracles over a
+finite gate set** (Theorem `hs:thm:time` with the circuit of `hs:thm:gates`, with the construction
+of `binary_time_simulation` and the synthesis budget `ε'`): for every propagator `U` of the lifted
 path, the synthesised circuit is within `ε + ε'` of `U(t)`. -/
 theorem binary_time_simulation_synth (hS : Synthesis 𝒢 Xa L) (ε' : ℝ) (hε' : 0 < ε')
     (D : Data (X × Fin (2 ^ m)) n (Cfg (VW b)) s)
@@ -286,7 +286,9 @@ theorem binary_simulation_budget_synth (s : ℕ) (hs1 : 1 ≤ s) (τ ε : ℝ) (
 
 set_option maxHeartbeats 1000000 in
 /-- **The time-dependent gate budget from time-indexed binary sparse oracles over a finite gate
-set** (equation `hs:eq:gate-total`, time-dependent part). The rescaling `γ` and its bound
+set** (equation `hs:eq:gate-total` in the package extension: Theorem `hs:thm:time` with the
+circuit of `hs:thm:gates` (single-label case of Lemma `ode:lem:gate-select`)). The rescaling `γ`
+and its bound
 `d ≤ 4608 q` are those of `binary_time_simulation_budget`: `γ` is chosen from `s`, `t` and `ε`
 before the gate set, the synthesis budget, the data, the path and the mesh. For every gate set
 with a logarithmic synthesis length, every synthesis budget `0 < ε' ≤ 1` and all data, paths and

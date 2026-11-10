@@ -7,11 +7,11 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # Theorem `odel:thm:psd` over the constant-coefficient physical oracle, with controlled calls
 
-Manuscript lines 4114-4115 ("The lower bounds thus apply to Theorems `ode:thm:main` and
-`ode:thm:time`") and 4452-4571 (Theorem `odel:thm:psd`, eq. `odel:eq:psd`), for the two PSD
-families (one stage, constant coefficient) and adaptive solvers over the physical oracle of the
-released constant-coefficient solver and over its call forms (`ConstForces`; retry protocols and
-the released runs by `ConstForces.retry`, `ConstForces.constRun`).
+Manuscript: Section `odel:sec:main` ("the lower bounds apply to the upper bounds of the preceding
+section") and Theorem `odel:thm:psd` (eq. `odel:eq:psd`), for the two PSD families (one stage,
+constant coefficient) and adaptive solvers over the physical oracle of the released
+constant-coefficient solver and over its call forms (`ConstForces`; retry protocols and the released
+runs by `ConstForces.retry`, `ConstForces.constRun`).
 
 * `psd_search_forces_const`, `psd_scalar_forces_const`, `psd_scalar_forces_sqrt_const`: from
   `Families.psd_search_solver`, `psd_scalar_solver` through `constForces_of_growth`
@@ -24,7 +24,7 @@ the released runs by `ConstForces.retry`, `ConstForces.constRun`).
   the call forms are included and the family form is stated. Both families have maximum sparsity
   exactly `s` by their dense PSD padding (`ODELowerBoundExtensions.Psd.psd_hardInstance`).
 
-As in the manuscript (lines 4573-4578), no constant-error `Ω(√s τ)` bound is asserted for the
+As in the manuscript (Theorem `odel:thm:psd`), no constant-error `Ω(√s τ)` bound is asserted for the
 purely dissipative subclass.
 -/
 
@@ -45,8 +45,8 @@ set_option maxRecDepth 4096
 
 variable {τ ε : ℝ} {s : ℕ}
 
-/-- **The gadget family over the constant-coefficient oracle** (lines 4547-4553): for
-`s ≥ 512n/τ`, `psdGadgetConst √(sτr)`. -/
+/-- **The gadget family over the constant-coefficient oracle** (proof of Theorem `odel:thm:psd`):
+for `s ≥ 512n/τ`, `psdGadgetConst √(sτr)`. -/
 theorem psd_search_forces_const (h : PsdRange τ s ε) (hs : 512 * (precN τ ε : ℝ) / τ ≤ s) :
     ConstForces (psdSearchFamilyAt h) ε (psdGadgetConst * Real.sqrt (s * τ * hsR τ ε)) := by
   have hm : Even (2 ^ psdMu s) :=
@@ -59,7 +59,8 @@ theorem psd_search_forces_const (h : PsdRange τ s ε) (hs : 512 * (precN τ ε 
       intro L W Fl E G _ _ _ _ _ _ _ _ _ _ _ _ _ O w hU hO A
       exact Families.psd_search_solver h hs hU w hO A)
 
-/-- **The scalar family over the constant-coefficient oracle** (lines 4555-4562): `r/32`. -/
+/-- **The scalar family over the constant-coefficient oracle** (proof of Theorem `odel:thm:psd`):
+`r/32`. -/
 theorem psd_scalar_forces_const (h : PsdRange τ s ε) :
     ConstForces (psdScalarFamilyAt h) ε (hsR τ ε / 32) := by
   exact constForces_of_growth even_two _ AdaptiveHamiltonianLowerBound.Access.toBits
@@ -70,8 +71,8 @@ theorem psd_scalar_forces_const (h : PsdRange τ s ε) :
       intro L W Fl E G _ _ _ _ _ _ _ _ _ _ _ _ _ O w hU hO A
       exact (Families.psd_scalar_solver h hU w hO A).1)
 
-/-- **The scalar family for small sparsity over the constant-coefficient oracle** (lines
-4565-4568): for `s < 512n/τ`, `√(sτr)/256`. -/
+/-- **The scalar family for small sparsity over the constant-coefficient oracle** (proof of Theorem
+`odel:thm:psd`): for `s < 512n/τ`, `√(sτr)/256`. -/
 theorem psd_scalar_forces_sqrt_const (h : PsdRange τ s ε)
     (hs : (s : ℝ) < 512 * precN τ ε / τ) :
     ConstForces (psdScalarFamilyAt h) ε (Real.sqrt (s * τ * hsR τ ε) / 256) := by

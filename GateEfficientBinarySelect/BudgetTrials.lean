@@ -5,6 +5,10 @@ import GateEfficientBitBudget.Synth
 /-!
 # The finite-gate-set budget on branch-dependent meshes
 
+The finite-gate-set forms of Theorem `ode:thm:gates` in this module are a partial formalisation of
+its finite-set statement, under this package's format hypotheses: the manuscript states Theorem
+`ode:thm:gates` over a finite gate set; the conformance endpoints count native gates.
+
 Equations `ode:eq:gate-main` and `ode:eq:gate-space` over a finite gate set, with the per-trial
 claim of Theorem `ode:thm:gates`, for the solver on branch-dependent meshes from time-indexed
 binary data (`binary_select_solver_trials`): the synthesised protocol
@@ -71,7 +75,8 @@ variable {X n : Type*} [Fintype n] [DecidableEq n] {Zs : Type*} [Fintype Zs] [De
 variable {Xa : Type*} [Fintype Xa] [DecidableEq Xa] {𝒢 : Set Kind} {len : ℝ → ℕ}
 
 /-- **The gate, call and qubit budget over a finite gate set, branch-dependent meshes**
-(Theorem `ode:thm:gates`, time-dependent part, equations `ode:eq:gate-main` and
+(partial formalisation, under this package's format hypotheses, of the finite-set statement of
+Theorem `ode:thm:gates`, time-dependent part, equations `ode:eq:gate-main` and
 `ode:eq:gate-space` over a finite gate set). Under `Synthesis 𝒢 Xa len` with
 `len ζ ≤ c₁ log(1/ζ) + c₀` on `(0, 1]`, `AdjClosed 𝒢` and `zeroTestKinds ⊆ 𝒢`, for the public
 data `q` with `γ = gammaOf T η_H η_D (2g) (ε/2)`, `q* = qOf s T η_H η_D (2g) (ε/2)`,
@@ -418,8 +423,9 @@ variable {X n : Type*} [Fintype n] [DecidableEq n] {Zs : Type*} [Fintype Zs] [De
 variable {Xa : Type*} [Fintype Xa] [DecidableEq Xa] {𝒢 : Set Kind} {len : ℝ → ℕ}
 
 /-- **Equations `ode:eq:gate-main` and `ode:eq:gate-space` in `𝔟` over a finite gate set,
-branch-dependent meshes** (Theorem `ode:thm:gates`, time-dependent part, with the branch-dependent
-meshes of Lemma `ode:lem:gate-select`). Under the synthesis hypotheses of
+branch-dependent meshes** (partial formalisation, under this package's format hypotheses, of the
+finite-set statement of Theorem `ode:thm:gates`, time-dependent part, with
+the branch-dependent meshes of Lemma `ode:lem:gate-select`). Under the synthesis hypotheses of
 `GateBitBudget.binary_ode_time_budget_trials_bits` (`c₀, c₁ ≥ 0` the synthesis constants, not
 the decoder scale `c₀`) and the hypotheses of `binary_select_budget_bits`, with
 `𝔟 = bitB b_data (2^k_x) (2^m) (2^m) q* g ε` (`q* = qOf s T η_H η_D (2g) (ε/2)`) and

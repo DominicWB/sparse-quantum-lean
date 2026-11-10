@@ -6,7 +6,7 @@ set_option autoImplicit false
 set_option synthInstance.maxSize 4096
 
 /-!
-# The Dyson access is the ODE lower-bound access (`odel:lem:dyson`, lines 4262-4265)
+# The Dyson access is the ODE lower-bound access (`odel:lem:dyson`)
 
 The consequence of Lemma `odel:lem:dyson` refutes a uniform lower bound for the class of the ODE
 lower bounds, whose access is `SparseLowerBounds.ODE.Family.access ι`: the release's coherent

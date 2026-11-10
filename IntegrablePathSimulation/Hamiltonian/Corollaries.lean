@@ -18,10 +18,10 @@ set_option autoImplicit false
   (`Propagator.isPropagator_of_solvesOn`).
 * `simulation_dyson`: the bound of `simulation` against the Dyson series
   `Propagator.picardSeries`, the time-ordered exponential `U_H(T, 0)` of equation
-  `hs:eq:timeerror` (lines 1431-1435) in iterated-integral form, with no propagator supplied.
+  `hs:eq:timeerror` in iterated-integral form, with no propagator supplied.
 * `simulation_with_reference`: the bound of `simulation` with an arbitrary untouched finite
-  reference register (Theorem `hs:thm:time` of the manuscript, lines 1414-1445: "The error
-  bound also holds with an untouched reference"), for integrable paths.
+  reference register (Theorem `hs:thm:time` of the manuscript: "The error includes all work
+  registers and is unchanged by an untouched reference system"), for integrable paths.
 -/
 
 namespace IntegrablePathSimulation.Hamiltonian

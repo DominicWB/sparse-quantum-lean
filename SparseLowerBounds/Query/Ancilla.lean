@@ -6,8 +6,8 @@ section
 /-!
 # Ancilla, spectator and native-label bookkeeping
 
-Instance-independent pieces of the compilation of native sparse primitives to
-Boolean queries (manuscript lines 5320-5338 and 2283-2289):
+Instance-independent pieces of the compilation of native sparse primitives to Boolean queries (the
+proof of Theorem `qlsl:thm:main` and the chain construction of Section `part:hsl`):
 
 * `ProjFamily.withAncilla`: the family `|−⟩⟨−| ⊗ Q i` on ancilla qubit ⊗ `K`,
   i.e. the XOR form of a Boolean oracle in the Hadamard basis of the response

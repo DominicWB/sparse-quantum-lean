@@ -14,6 +14,9 @@ For one input `x` satisfying the linear-system promise (`‖A‖ ≤ 1`,
   `0 < g ≤ g_σ`, with `q = r_σ / r`;
 * `final_fact`: at `σ = 0`, the decoded filtered amplitude is within `100^{-k}`
   of `c A⁻¹ b`, where `1/(r (1+μ)(1+q²)) ≤ c ≤ 1/(r (1+q²))`.
+
+Notation: the regularization parameter is `σ` here and `ξ` in the manuscript, so a subscript `σ` (as
+in `g_σ`, `r_σ`, `H_{σ,r}`) stands for the manuscript's subscript `ξ`.
 -/
 
 namespace SparseLinearSystems.Facts

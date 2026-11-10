@@ -22,8 +22,8 @@ unitary at every time of `[0, T]`. The adjoint obeys `U* (s) = 1 + ∫_0^s i U*(
 
 Hence `U(s)` is unitary in the sense of the released `OracleCircuit.IsUnitary`
 (`IsPropagator.isUnitary`). The Hilbert space need not be finite dimensional. This is the
-unitarity of `U_H(T, 0)` used in Theorem `hs:thm:time` of the manuscript (lines 1414-1445),
-for the integrable Hermitian paths of the paragraph after its proof (lines 1618-1632).
+unitarity of `U_H(T, 0)` used in Theorem `hs:thm:time` of the manuscript,
+for the integrable Hermitian paths of the paragraph after its proof.
 -/
 
 namespace IntegrablePathSimulation.Propagator

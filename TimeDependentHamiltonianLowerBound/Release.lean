@@ -7,7 +7,7 @@ set_option synthInstance.maxSize 4096
 /-!
 # Theorem `hsl:thm:main` for programs over the released time-dependent oracles
 
-The remark after Theorem `hs:thm:time` (paragraph "Regularity and coherent parameters"): the
+The remark after Theorem `hs:thm:time` (the paragraphs after its proof): the
 lower bound of Theorem `hsl:thm:main` applies to the time-dependent classes, since the
 time-independent hard instances satisfy their assumptions with `β = δ_val = 0`. Here the
 algorithms are programs over the oracle families of the released time-dependent simulators,

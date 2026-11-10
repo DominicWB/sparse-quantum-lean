@@ -1,13 +1,16 @@
 cff-version: 1.2.0
-message: "Please cite the associated paper and identify the software release and commit used."
+message: "Please cite this software version and the associated paper."
 type: software
 title: "Lean proofs for root-sparsity Hamiltonian simulation, dissipative differential equations and linear systems"
-version: 0.1.0-rc6
-date-released: 2026-10-09
-repository-code: "https://github.com/DominicWB/sparse-quantum-lean"
+version: 0.1.0-rc30
+date-released: 2026-11-07
 authors:
   - family-names: Berry
     given-names: Dominic W.
+  - family-names: Rawat
+    given-names: Abhishek S.
+url: "https://github.com/DominicWB/sparse-quantum-lean"
+repository-code: "https://github.com/DominicWB/sparse-quantum-lean"
 license: Apache-2.0
 keywords:
   - Lean
@@ -16,13 +19,44 @@ keywords:
   - differential equations
   - linear systems
 abstract: >-
-  Formalised sparse-oracle query bounds for Hamiltonian simulation,
-  dissipative differential equations and linear-system solving, with
-  time-dependent extensions, gate and workspace analyses, and query lower
-  bounds. Includes concrete binary-data implementations, selective finite-set
-  synthesis and explicit manuscript schedules. Finite-set results assume the
-  stated synthesis and source-preparation interfaces. The general,
-  non-dissipative constant-coefficient ODE construction is conditional on a
-  block-input linear-system solver. The project uses Lean and Mathlib 4.32.1;
-  the default build checks 10,055 strict axiom audits. See the README for
-  the precise formalisation scope and remaining exclusions.
+  Formalized primitive sparse-oracle query bounds for time-independent and
+  time-dependent Hamiltonian simulation, constant-coefficient and
+  time-dependent dissipative linear differential equations, general
+  constant-coefficient differential equations and linear-system solving,
+  time-dependent versions on nonuniform meshes with integrated sample-error
+  certificates and time-indexed block encodings, positive Chebyshev filtering
+  for the linear-system algorithm, query lower bounds for Hamiltonian
+  simulation and linear-system solving (also against adaptive algorithms and
+  algorithms with measurements inside a run) and
+  for dissipative differential equations, and gate and qubit counts for
+  gate-efficient Hamiltonian simulation and dissipative differential
+  equations, with exact gates, with native oracle implementations, for
+  time-independent and time-dependent Hamiltonian simulation and
+  constant-coefficient dissipative differential equations from binary sparse
+  oracles, and over a finite gate set with single-qubit synthesis and the
+  decomposition of controlled gates as hypotheses, also with supplied
+  finite-set circuits retained and charged linearly, and with the manuscript's
+  filter schedule, slot counts and repetition counts, together with the
+  finite clock weights, the operator tail estimate, the simulation theorem
+  for indefinite factors, the native sparse factor, the large-sparsity core and
+  the combined upper bound of optimal-precision Hamiltonian simulation and of
+  refined-precision unitary implementation, and two-norm Hamiltonian simulation
+  with a supplied entry bound, together with their matching query lower bounds
+  (also against adaptive algorithms and algorithms with measurements inside a
+  run), and gate and qubit counts for optimal-precision and two-norm
+  Hamiltonian simulation, with exact gates and with native private calls,
+  including stable local signed factors and controlled native locators, and
+  time-dependent dissipative differential equations with a general source
+  interface, also on nonuniform meshes, with approximately implemented
+  preparations, in the zero-time and zero-generator cases and with represented
+  samples of any sign and with preparations on temporary work registers,
+  gate-level dissipative differential equations with source circuits at the
+  manuscript's precision, and general constant-coefficient differential equations
+  from a mixed-output linear-system solver, gate-level Hamiltonian simulation
+  from sparse access of general size with general decoders, gate-level dissipative
+  ODE solvers from sparse access of general size with exact binary entry
+  decoding, also under the manuscript's source and sample certificates,
+  together with conformance
+  statements of the headline results, with additional formal hypotheses and
+  restrictions identified in the statement guides.
+  The project targets Lean and Mathlib 4.32.1 and includes checked axiom audits.

@@ -9,7 +9,7 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # The positive semidefinite families against adaptive protocols: access and transfer
 
-Manuscript lines 4453-4571 (Theorem `odel:thm:psd`), the access conditions of the two hard
+Manuscript: Theorem `odel:thm:psd`, the access conditions of the two hard
 families for the weight method of the adaptive Hamiltonian lower bound.
 
 * `hardAccess_psdSearchData`, `hardAccess_psdScalarData`: the gadget data have

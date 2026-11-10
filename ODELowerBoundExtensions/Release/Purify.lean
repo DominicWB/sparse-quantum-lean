@@ -7,7 +7,7 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # Lossless purification of a retry protocol
 
-Manuscript lines 3795-3797 (the bounded-error step of Lemma `odel:lem:outer`): an expectation gap
+Manuscript: the bounded-error step of the proof of Lemma `odel:lem:outer`: an expectation gap
 of a contraction between two final states bounds their overlap
 (`PositiveAdversary.norm_inner_le_of_gap`). For a retry protocol the output is mixed, so the step
 needs genuine vectors whose Gram matrix is the protocol kernel (`Release/Kernel`) and a contraction

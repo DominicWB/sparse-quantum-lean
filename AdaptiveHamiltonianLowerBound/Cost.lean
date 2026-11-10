@@ -12,14 +12,14 @@ set_option autoImplicit false
 the weighted norm squared by at most `(λ²)^{w l}` (`λ = searchLam m a`) in both directions.
 Admissible labels over data with one-bit entries have it (`searchGrowth_admissible`).
 
-* `search_tree_cost` (Lemma `hsl:lem:search` for adaptive protocols, lines 2151-2203): if
+* `search_tree_cost` (Lemma `hsl:lem:search` for adaptive protocols): if
   the heralded output has parity correlation with a contraction at least `β₀ ∈ (0, 1]` on
   average over the `mⁿ` hidden inputs, `n ≥ 1` and `m ≥ 4 β₀^{-1/n}`, then
   `worstCost ≥ (log 2/24) n √m β₀^{1/(2n)}`; `search_tree_cost_worst` assumes the
   correlation on every input. The weight parameter is the paper's `a = 2β₀^{-1/(2n)}`; one
   call costs one factor `λ² ≤ (1 + 12a/√m)²`.
 * `precision_tree_cost` (the counting step of Lemma `hsl:lem:precision` for adaptive
-  protocols, lines 2348-2370, proved with the weight method instead of the polynomial degree):
+  protocols, proved with the weight method instead of the polynomial degree):
   for one hidden bit per position (`m = 2`), a positive total parity correlation forces
   `worstCost ≥ n/2`. With `λ ≤ 7a²` the parity sum is at most `2ⁿ 49^Q a^{4Q-2n}`, which
   tends to `0` as `a → ∞` unless `2Q ≥ n`.

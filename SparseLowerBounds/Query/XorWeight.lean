@@ -7,9 +7,9 @@ section
 # The XOR weight and Lemma `qlsl:lem:xor`
 
 On one hidden-position register `ℂ^m`, with `u = m^{-1/2} Σ_b |b⟩` and
-`P_u = |u⟩⟨u|`, the manuscript (lines 5154-5159) uses the weight
+`P_u = |u⟩⟨u|`, the manuscript (proof of Lemma `qlsl:lem:xor`) uses the weight
 `w = 2I - P_u`, whose inverse is `(I + P_u)/2`. It is Hermitian and fixes `u`.
-The adversary constants are (lines 5171-5196)
+The adversary constants are (proof of Lemma `qlsl:lem:xor`)
 
 * `‖w D_a w⁻¹‖ ≤ 1 + 2/√m` for every position `a`, from
   `‖[P_u, D_a]‖ = 2√(m-1)/m ≤ 2/√m` and `‖w⁻¹‖ = 1`;
@@ -18,7 +18,7 @@ The adversary constants are (lines 5171-5196)
   (eq. `qlsl:eq:paritynorm`).
 
 With the generic adversary (`Adversary.program_correlation_le`) these give
-Lemma `qlsl:lem:xor` (lines 5135-5144) in observable form (`xor_lemma`), also
+Lemma `qlsl:lem:xor` in observable form (`xor_lemma`), also
 for classical mixtures of programs (`xor_lemma_mixture`).
 -/
 
@@ -31,7 +31,7 @@ open scoped InnerProductSpace Matrix Matrix.Norms.L2Operator
 /-- `P_u = |u⟩⟨u|` for the uniform unit vector `u`: every entry is `1/m`. -/
 def Pu (m : ℕ) : Matrix (Fin m) (Fin m) ℂ := Matrix.of fun _ _ => (m : ℂ)⁻¹
 
-/-- The XOR weight `w = 2I - P_u` (line 5157). -/
+/-- The XOR weight `w = 2I - P_u` (proof of Lemma `qlsl:lem:xor`). -/
 def w (m : ℕ) : Matrix (Fin m) (Fin m) ℂ := (2 : ℂ) • 1 - Pu m
 
 /-- The explicit inverse `(I + P_u)/2` of the weight. -/
@@ -63,7 +63,7 @@ theorem w_mulVec_one (m : ℕ) : w m *ᵥ (fun _ => 1) = fun _ => 1 := by
   simp only [Pi.sub_apply, Pi.smul_apply, smul_eq_mul]
   norm_num
 
-/-- `‖[P_u, D_a]‖ ≤ 2/√m` (the exact value is `2√(m-1)/m`, line 5172). -/
+/-- `‖[P_u, D_a]‖ ≤ 2/√m` (the exact value is `2√(m-1)/m`, proof of Lemma `qlsl:lem:xor`). -/
 theorem norm_commutator_le {m : ℕ} (a : Fin m) :
     ‖Pu m * reflect a - reflect a * Pu m‖ ≤ 2 / Real.sqrt m :=
   Helpers.XorWeight.norm_commutator_le a
@@ -72,7 +72,7 @@ theorem norm_commutator_le {m : ℕ} (a : Fin m) :
 theorem norm_wInv_le (m : ℕ) : ‖wInv m‖ ≤ 1 :=
   Helpers.XorWeight.norm_wInv_le m
 
-/-- **Per-query weight growth** (line 5177): `‖w D_a w⁻¹‖ ≤ 1 + 2/√m`.
+/-- **Per-query weight growth** (proof of Lemma `qlsl:lem:xor`): `‖w D_a w⁻¹‖ ≤ 1 + 2/√m`.
 No hypothesis on `m` is needed: for `m = 0` there is no position `a`. -/
 theorem norm_conj_D_le {m : ℕ} (a : Fin m) :
     ‖w m * reflect a * (w m)⁻¹‖ ≤ 1 + 2 / Real.sqrt m := by
@@ -196,7 +196,7 @@ theorem mixture_bound {n m : ℕ} (hm : Even m) (hm0 : 0 < m)
         gcongr
         exact lam_pow_le m t
 
-/-- **Lemma `qlsl:lem:xor`** (lines 5135-5144), observable form. Let `m` be
+/-- **Lemma `qlsl:lem:xor`** (Lemma `qlsl:lem:xor`), observable form. Let `m` be
 even and positive. A Boolean one-hot program `q` with at most `t` queries
 (inverse queries included), run on an input-independent seed `φ₀`,
 `‖φ₀‖ ≤ 1`, and measured with an output observable `M`, `‖M‖ ≤ 1`, whose
@@ -220,14 +220,13 @@ theorem xor_lemma {n m : ℕ} (hm : Even m) (hm0 : 0 < m) (P : ProjFamily K (Fin
     (by simp) (fun _ => ht) φ₀ hφ₀ M hM (fun j => ?_)
   simpa using hcorr j
 
-/-- **Lemma `qlsl:lem:xor` for classical mixtures of programs** (lines
-5135-5144; the purification remark of lines 5185-5186). A finite family of
-Boolean one-hot programs `q c`, each with at most `t` queries, chosen with
-probabilities `prob c` (`prob ≥ 0`, `Σ prob = 1`), run on a common seed and measured
-with a common observable, whose **mixture** parity correlation is at least
-`β > 0` on every hidden input obeys the same bounds as `xor_lemma`. The
-correlation is linear in the output state, so this follows from
-`Adversary.program_correlation_le` branch by branch.
+/-- **Lemma `qlsl:lem:xor` for classical mixtures of programs** (Lemma `qlsl:lem:xor`; the
+purification remark of the proof of Lemma `qlsl:lem:xor`). A finite family of Boolean one-hot
+programs `q c`, each with at most `t` queries, chosen with probabilities `prob c` (`prob ≥ 0`,
+`Σ prob = 1`), run on a common seed and measured with a common observable, whose **mixture** parity
+correlation is at least `β > 0` on every hidden input obeys the same bounds as `xor_lemma`. The
+correlation is linear in the output state, so this follows from `Adversary.program_correlation_le`
+branch by branch.
 
 This is the form needed for the release's repeat-until-success trials: an
 `ODERepeatProtocol.TrialFamily` with `choices > 1` picks one of several

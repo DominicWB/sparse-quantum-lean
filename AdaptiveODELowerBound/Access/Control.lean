@@ -9,8 +9,10 @@ set_option autoImplicit false
 /-!
 # Call forms cost no more Boolean queries than the call
 
-Manuscript lines 4289-4294 ("A matrix value query is implemented using at most two Boolean
-membership queries [...] The same holds for inverse and controlled calls") and 2595-2597.
+Manuscript: the construction before Theorem `odel:thm:joint` ("A value query computes one relevant
+membership bit, writes the known entry and uncomputes the bit. It therefore uses at most two
+membership queries, also for inverse and controlled calls") and the chain construction of Section
+`part:hsl`.
 
 If every label `l` of a unitary family `O` is implemented on an encoding `Enc` by at most
 `w l` queries of a Boolean phase oracle `x ↦ P.phase (y x)` (`EncodedOracle.ImplementsOn`),
@@ -225,11 +227,12 @@ theorem implementsOn_controlledForm [Fintype I] (P : ProjFamily B I) {X : Type*}
 theorem star_ctrlOp (U : W →L[ℂ] W) : star (ctrlOp U) = ctrlOp (star U) := by
   simp only [ctrlOp, ContinuousLinearMap.star_eq_adjoint, MaskedProgram.masked_adjoint]
 
-/-- **Call forms cost no more Boolean queries than the call** (lines 4289-4294, 2595-2597): if
-every label `l` of the unitary family `O` is implemented on the encoding `Enc` by at
-most `w l` queries of the Boolean phase oracle `x ↦ P.phase (y x)`, then every call form of every
-label (`callFamily O`) is implemented on `callEncoding Enc` by at most `w l` queries of the single
-Boolean phase oracle `x ↦ (callBoolean P).phase (y x)`. -/
+/-- **Call forms cost no more Boolean queries than the call** (the construction before Theorem
+`odel:thm:joint` and the chain construction of Section `part:hsl`): if every label `l` of the
+unitary family `O` is implemented on the encoding `Enc` by at most `w l` queries of the Boolean
+phase oracle `x ↦ P.phase (y x)`, then every call form of every label (`callFamily O`) is
+implemented on `callEncoding Enc` by at most `w l` queries of the single Boolean phase oracle
+`x ↦ (callBoolean P).phase (y x)`. -/
 theorem implementsOn_callFamily [Fintype I] (P : ProjFamily B I) {X : Type*} (y : X → I → Bool)
     (Enc : W →L[ℂ] B) {L : Type*} (O : L → X → W →L[ℂ] W)
     (hO : ∀ l x, IsUnitary (O l x)) (w : L → ℕ)

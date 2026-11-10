@@ -134,8 +134,9 @@ theorem card_SX (nP : ℕ) :
   ring
 
 /-- **The gate, call and qubit budget over a finite gate set, constant coefficients**
-(Theorem `ode:thm:gates`, equations `ode:eq:gate-main` and `ode:eq:gate-space` over a finite
-gate set). Under `Synthesis 𝒢 Xa len` with `len ζ ≤ c₁ log(1/ζ) + c₀` on `(0, 1]`,
+(partial formalisation, under this package's format hypotheses, of the finite-set statement of
+Theorem `ode:thm:gates`, equations `ode:eq:gate-main` and `ode:eq:gate-space`
+over a finite gate set). Under `Synthesis 𝒢 Xa len` with `len ζ ≤ c₁ log(1/ζ) + c₀` on `(0, 1]`,
 `AdjClosed 𝒢` and `zeroTestKinds ⊆ 𝒢`, for the public data `q` with `γ = gammaOf T η_H η_D g ε`,
 `q* = qOf s T η_H η_D g ε`, `ℓ = log(1/ν)` and the binary data and source circuits of
 `binary_ode_solver`, with `B = prepBound q srcC`
@@ -292,7 +293,8 @@ theorem binary_ode_budget_trials (hS : Synthesis 𝒢 Xa len) (hadj : AdjClosed 
     linarith
 
 /-- **The gate, call and qubit budget over a finite gate set, time-dependent coefficients**
-(Theorem `ode:thm:gates`, time-dependent part, equations `ode:eq:gate-main` and
+(partial formalisation, under this package's format hypotheses, of the finite-set statement of
+Theorem `ode:thm:gates`, time-dependent part, equations `ode:eq:gate-main` and
 `ode:eq:gate-space` over a finite gate set). Under `Synthesis 𝒢 Xa len` with
 `len ζ ≤ c₁ log(1/ζ) + c₀` on `(0, 1]`, `AdjClosed 𝒢` and `zeroTestKinds ⊆ 𝒢`, for the public
 data `q` with `γ = gammaOf T η_H η_D (2g) (ε/2)`, `q* = qOf s T η_H η_D (2g) (ε/2)`,

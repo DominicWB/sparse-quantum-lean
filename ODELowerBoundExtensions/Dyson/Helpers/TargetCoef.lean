@@ -6,14 +6,13 @@ set_option autoImplicit false
 /-!
 # Helpers for the Dyson LCU target: rescaled weights and prepared sources
 
-Auxiliary identities for `Dyson/Target.lean` (Lemma `odel:lem:dyson`, manuscript lines
-4198-4214 and 4234-4245):
+Auxiliary identities for `Dyson/Target.lean` (Lemma `odel:lem:dyson`):
 
 * `coef_mul_const`: rescaling every cell duration by `κ` multiplies the Dyson weight of a
   configuration by `κ ^ degree`;
-* `truncated_eq_of_smul`: when every cell generator is `-κ` times a sample (on the cells
-  `r < M` that a configuration reads), the truncated Dyson series is the signed, rescaled
-  combination of the time-ordered sample products (the LCU form of lines 4208-4214);
+* `truncated_eq_of_smul`: when every cell generator is `-κ` times a sample (on the cells `r < M`
+  that a configuration reads), the truncated Dyson series is the signed, rescaled combination of the
+  time-ordered sample products (the LCU form of the proof of Lemma `odel:lem:dyson`);
 * `norms_smul_eq_sources`: a public weight times the prepared unit source is the source vector
   of the mesh (a zero source has zero weight).
 -/

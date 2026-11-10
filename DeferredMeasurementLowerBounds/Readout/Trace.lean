@@ -6,13 +6,12 @@ set_option autoImplicit false
 /-!
 # Partial traces with a classical record register
 
-The accuracy notion of Theorem `qlsl:thm:main` (manuscript eq. `qlsl:eq:target`, line
-5076) identifies the output space `E` with output register ⊗ finite garbage by an
-isometric equivalence `V : E ≃ ℂ^{I × G}` and bounds the trace distance of the partial trace
-over `G`. For the deferred output `a : Joint J E` (records `J`), `liftEquiv J V` identifies
-`Joint J E` with `ℂ^{I × (G × J)}`: the record register joins the garbage, and the partial trace
-of the pure deferred output is the partial trace of the record-discarded mixture
-(`ptrace_liftEquiv`), with any common normalisation.
+The accuracy notion of Theorem `qlsl:thm:main` (manuscript eq. `qlsl:eq:target`) identifies the
+output space `E` with output register ⊗ finite garbage by an isometric equivalence
+`V : E ≃ ℂ^{I × G}` and bounds the trace distance of the partial trace over `G`. For the deferred
+output `a : Joint J E` (records `J`), `liftEquiv J V` identifies `Joint J E` with `ℂ^{I × (G × J)}`:
+the record register joins the garbage, and the partial trace of the pure deferred output is the
+partial trace of the record-discarded mixture (`ptrace_liftEquiv`), with any common normalisation.
 -/
 
 namespace DeferredMeasurementLowerBounds.Readout

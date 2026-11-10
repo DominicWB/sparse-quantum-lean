@@ -39,8 +39,9 @@ variable {X n : Type*} [Fintype n] [DecidableEq n] {Zs : Type*} [Fintype Zs] [De
 variable {Xa : Type*} [Fintype Xa] [DecidableEq Xa] {𝒢 : Set Kind} {len : ℝ → ℕ}
 
 /-- **Dissipative ODE from binary sparse data over a finite gate set, with the per-trial claim,
-for every `T ≥ 0`, constant coefficients** (Theorem `ode:thm:gates` with its remark on zero time
-and a known zero generator).
+for every `T ≥ 0`, constant coefficients** (partial formalisation, under this package's format
+hypotheses, of the finite-set statement of Theorem `ode:thm:gates` with its
+remark on zero time and a known zero generator).
 
 For binary public data with `BPublicOK0 q` and the synthesis hypotheses, the protocol
 `nprotocol (synthPrep hS (ν/3) (bprepC q srcC)) g` on the released trial register: every trial
@@ -166,8 +167,9 @@ theorem binary_ode_solver_nonneg_trials (hS : Synthesis 𝒢 Xa len) (hadj : Adj
       exact hout x hrH hcH hrD hcD hPSD Jsrc x0 v ζs hJ hζs hsrc hbud hx0 hv hpx hpv hne hB
 
 /-- **Dissipative ODE from time-indexed binary sparse data over a finite gate set, with the
-per-trial claim, for every `T ≥ 0`** (Theorem `ode:thm:gates`, time-dependent part, with its
-remark on zero time and a known zero generator).
+per-trial claim, for every `T ≥ 0`** (partial formalisation, under this package's format
+hypotheses, of the finite-set statement of Theorem `ode:thm:gates`, time-dependent
+part, with its remark on zero time and a known zero generator).
 
 For binary public data with `BTPublicOK0 q` and the synthesis hypotheses, the protocol
 `nprotocol (synthPrep hS (ν/3) (btprepC q loadC wpC)) (2g)` on the released trial register: every

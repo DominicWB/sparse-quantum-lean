@@ -9,18 +9,18 @@ set_option autoImplicit false
 set_option synthInstance.maxSize 1024
 
 /-!
-# Remark `odel:rem:homogeneous`: the homogeneous variant of Theorem `odel:thm:joint`
+# Proposition `odel:rem:homogeneous`: the homogeneous variant of Theorem `odel:thm:joint`
 
-Manuscript lines 3907-3952. For `s ≥ 4`, `ḡ ≥ 2`, `τ ≥ 20(1 + log ḡ)` and `0 < ε ≤ 1/64`
-(`HomRange`), the source-free family `homFamilyAt` (no source, `b = 0`: `homFamilyAt_src`;
-time dependent, with one dissipative stage `D = P_reject`) is in the class with `η = 1`,
-`T = τ` and `g ≤ ḡ`, and forces `ḡ √s τ / 500` matrix queries (`hom_witness`, explicit
+Manuscript: Proposition `odel:rem:homogeneous`. For `s ≥ 4`, `ḡ ≥ 2`, `τ ≥ 20(1 + log ḡ)` and
+`0 < ε ≤ 1/64` (`HomRange`), the source-free family `homFamilyAt` (no source, `b = 0`:
+`homFamilyAt_src`; time dependent, with one dissipative stage `D = P_reject`) is in the class with
+`η = 1`, `T = τ` and `g ≤ ḡ`, and forces `ḡ √s τ / 500` matrix queries (`hom_witness`, explicit
 constant `c_H = 1/500`, `homConst`): eq. `odel:eq:joint` for this homogeneous family. Moreover
-`g = Θ(ḡ)`: `(4/√17)√M ≤ g ≤ √M` (`homFamily_g`, line 3933), hence
+`g = Θ(ḡ)`: `(4/√17)√M ≤ g ≤ √M` (`homFamily_g`, Proposition `odel:rem:homogeneous`), hence
 `(4/√34) ḡ ≤ g ≤ ḡ` (`hom_g_theta`), and the dimension is `2(2Mm + s) ≤ 6 ḡ² s`
 (`hom_instance_props`).
 
-Route (lines 3935-3937, 3946-3949). Run the solver; on success measure the half indicator
+Route (Proposition `odel:rem:homogeneous`). Run the solver; on success measure the half indicator
 (`homHalfObs`) of the candidate register, on failure output a fair bit. The normalised solution
 has probability at least `16/17` on `a_*`, so the ideal signed correlation is at least `15/17`
 (`homEnd_ideal_corr`), and `Readout.heralded_correlation` gives the unconditional correlation
@@ -41,8 +41,8 @@ section Family
 
 variable {M n μ s : ℕ} {hμ : 1 ≤ μ} {hμs : 2 ^ μ ≤ s} {T : ℝ} {hT : homBusy M n ≤ T}
 
-/-- **The promises of the class** (lines 3925-3933): accretive generators, row and column
-norms at most `η = 1`, and the nonzero solution `homSol` with `B = 1 ≤ ḡ ‖x(T)‖` whenever
+/-- **The promises of the class** (Proposition `odel:rem:homogeneous`): accretive generators, row
+and column norms at most `η = 1`, and the nonzero solution `homSol` with `B = 1 ≤ ḡ ‖x(T)‖` whenever
 `√M ≤ ḡ` (`‖x(T)‖ ≥ 1/√M`). -/
 theorem homFamily_inClass (hM : 1 ≤ M) {gbar : ℝ} (hg : Real.sqrt M ≤ gbar) :
     (homFamily M n μ s hμ hμs T hT).InClass 1 gbar := by
@@ -61,7 +61,7 @@ theorem homFamily_inClass (hM : 1 ≤ M) {gbar : ℝ} (hg : Real.sqrt M ≤ gbar
           rw [div_le_iff₀ hpos] at h
           nlinarith [mul_le_mul_of_nonneg_right hg hpos.le] }
 
-/-- **The normalisation parameter of the family** (line 3933):
+/-- **The normalisation parameter of the family** (Proposition `odel:rem:homogeneous`):
 `(4/√17)√M ≤ g = B/‖x(T)‖ ≤ √M` on every input. -/
 theorem homFamily_g (hM : 1 ≤ M) (x : Promised M n (2 ^ μ)) :
     4 / Real.sqrt 17 * Real.sqrt M ≤
@@ -70,7 +70,7 @@ theorem homFamily_g (hM : 1 ≤ M) (x : Promised M n (2 ^ μ)) :
   rw [homFamily_mass, norm_homInit hM, homSol_of_busy_le hM x hT]
   exact homEnd_g_bounds hM (oddCand x)
 
-/-- **Remark `odel:rem:homogeneous`, native form**: the homogeneous family forces
+/-- **Proposition `odel:rem:homogeneous`, native form**: the homogeneous family forces
 `β² n √(M 2^μ) / 16` value queries (and as many matrix queries), `β = (2/3)(15/17 - 2ε)`. -/
 theorem hom_forces (hM : 2 ≤ M) (hMe : Even M) (hn : 1 ≤ n) {ε : ℝ} (hε : 2 * ε ≤ 15 / 17) :
     (homFamily M n μ s hμ hμs T hT).Forces ε
@@ -91,7 +91,7 @@ theorem hom_forces (hM : 2 ≤ M) (hMe : Even M) (hn : 1 ≤ n) {ε : ℝ} (hε 
 
 end Family
 
-/-- **The hard family at the parameters** `(s, τ, ḡ)` (lines 3909-3910, 3946):
+/-- **The hard family at the parameters** `(s, τ, ḡ)` (Proposition `odel:rem:homogeneous`):
 `M = jointM ḡ`, `m = 2^{jointMu s}`, `n = homN τ = ⌊τ/π⌋`, on `[0, τ]`. -/
 def homFamilyAt (s : ℕ) (τ gbar : ℝ) (hs : 4 ≤ s) (hg : 2 ≤ gbar)
     (hτ : 20 * (1 + Real.log gbar) ≤ τ) :
@@ -100,7 +100,7 @@ def homFamilyAt (s : ℕ) (τ gbar : ℝ) (hs : 4 ≤ s) (hg : 2 ≤ gbar)
   homFamily (jointM gbar) (homN τ) (jointMu s) s (one_le_jointMu (by omega))
     (two_pow_jointMu_le (by omega)) τ (homN_time hg hτ)
 
-/-- **The hard family is homogeneous** (line 3929, `b = 0`). -/
+/-- **The hard family is homogeneous** (Proposition `odel:rem:homogeneous`, `b = 0`). -/
 theorem homFamilyAt_src {s : ℕ} {τ gbar : ℝ} (hs : 4 ≤ s) (hg : 2 ≤ gbar)
     (hτ : 20 * (1 + Real.log gbar) ≤ τ) (k : Fin (homN τ + 4)) :
     (homFamilyAt s τ gbar hs hg hτ).src k = 0 := rfl
@@ -110,8 +110,8 @@ theorem card_homIndex {M μ s : ℕ} :
     Fintype.card (HomIndex M μ s) = 2 * (M * (2 * 2 ^ μ) + s) := by
   simp only [HomIndex, Fintype.card_prod, Fintype.card_bool, card_jointIndex]
 
-/-- **The instance size** (lines 3866-3867, 3909): for `s ≥ 4` and `ḡ ≥ 2`,
-`ḡ/√2 ≤ √M ≤ ḡ` and the dimension is `|HomIndex| = 2(2Mm + s) ≤ 6 ḡ² s`. -/
+/-- **The instance size** (Theorem `odel:thm:joint` and Proposition `odel:rem:homogeneous`): for
+`s ≥ 4` and `ḡ ≥ 2`, `ḡ/√2 ≤ √M ≤ ḡ` and the dimension is `|HomIndex| = 2(2Mm + s) ≤ 6 ḡ² s`. -/
 theorem hom_instance_props {s : ℕ} {gbar : ℝ} (hs : 4 ≤ s) (hg : 2 ≤ gbar) :
     gbar / Real.sqrt 2 ≤ Real.sqrt (jointM gbar) ∧ Real.sqrt (jointM gbar) ≤ gbar ∧
       (Fintype.card (HomIndex (jointM gbar) (jointMu s) s) : ℝ) ≤ 6 * gbar ^ 2 * s := by
@@ -126,7 +126,8 @@ theorem hom_instance_props {s : ℕ} {gbar : ℝ} (hs : 4 ≤ s) (hg : 2 ≤ gba
   have h2 := mul_le_mul_of_nonneg_right hg2 hs0
   linarith
 
-/-- **`g = Θ(ḡ)`** (lines 3933, 3949): on the range, `(4/√34) ḡ ≤ g ≤ ḡ` on every input. -/
+/-- **`g = Θ(ḡ)`** (Proposition `odel:rem:homogeneous`): on the range, `(4/√34) ḡ ≤ g ≤ ḡ` on every
+input. -/
 theorem hom_g_theta {s : ℕ} {τ gbar ε : ℝ} (h : HomRange s τ gbar ε)
     (x : Promised (jointM gbar) (homN τ) (2 ^ jointMu s)) :
     4 / Real.sqrt 34 * gbar ≤ (homFamilyAt s τ gbar h.s_ge h.gbar_ge h.tau_ge).mass /
@@ -156,13 +157,13 @@ theorem hom_bound_le {s : ℕ} {τ gbar ε : ℝ} (h : HomRange s τ gbar ε) :
       homCorr ε ^ 2 * homN τ * Real.sqrt ((jointM gbar : ℝ) * 2 ^ jointMu s) / 16 :=
   hom_numeric (by linarith [twenty_le_tau h]) h.gbar_ge (homCorr_ge h.eps_le)
 
-/-- **Remark `odel:rem:homogeneous`** (lines 3907-3952): for `s ≥ 4`, `ḡ ≥ 2`,
-`τ ≥ 20(1 + log ḡ)` and `0 < ε ≤ 1/64`, the homogeneous (`b = 0`) time-dependent family is in
-the class (`η = 1`, `T = τ`, `g ≤ ḡ`; `g = Θ(ḡ)` is `hom_g_theta`) and forces `ḡ √s τ / 500`
-matrix queries (explicit constant `c_H = 1/500`, `homConst`), both value queries and total
-count: eq. `odel:eq:joint` without a source. The remark's other claims are separate lemmas, as
-for `joint_witness`: `b = 0` is `homFamilyAt_src`, `g = Θ(ḡ)` is `homFamily_g` / `hom_g_theta`,
-and the dimension `2(2Mm + s) ≤ 6ḡ²s` is `hom_instance_props`. -/
+/-- **Proposition `odel:rem:homogeneous`** (Proposition `odel:rem:homogeneous`): for `s ≥ 4`,
+`ḡ ≥ 2`, `τ ≥ 20(1 + log ḡ)` and `0 < ε ≤ 1/64`, the homogeneous (`b = 0`) time-dependent family is
+in the class (`η = 1`, `T = τ`, `g ≤ ḡ`; `g = Θ(ḡ)` is `hom_g_theta`) and forces `ḡ √s τ / 500`
+matrix queries (explicit constant `c_H = 1/500`, `homConst`), both value queries and total count:
+eq. `odel:eq:joint` without a source. The remark's other claims are separate lemmas, as for
+`joint_witness`: `b = 0` is `homFamilyAt_src`, `g = Θ(ḡ)` is `homFamily_g` / `hom_g_theta`, and the
+dimension `2(2Mm + s) ≤ 6ḡ²s` is `hom_instance_props`. -/
 theorem hom_witness {s : ℕ} {τ gbar ε : ℝ} (h : HomRange s τ gbar ε) :
     (homFamilyAt s τ gbar h.s_ge h.gbar_ge h.tau_ge).Witnesses τ gbar ε
       (homConst * gbar * Real.sqrt s * τ) := by

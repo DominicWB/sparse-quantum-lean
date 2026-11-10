@@ -7,9 +7,9 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # From adaptive to measured solvers over the general-mesh physical oracle
 
-Manuscript lines 2363-2364 (proof of Lemma `hsl:lem:precision`: "Randomised or adaptive
-algorithms are covered by purification and deferred measurement") and Section `odel:sec:main`,
-lines 3669-3681 (the lower bounds apply to Theorems `ode:thm:main` and `ode:thm:time`).
+Manuscript: the end of the proof of Lemma `hsl:lem:precision` ("Purification and deferred
+measurement include adaptive and randomised algorithms") and Section `odel:sec:main` (the lower
+bounds apply to Theorems `ode:thm:main` and `ode:thm:time`).
 
 A measured solver over `meshOracle F σ ι N d J₀ J_b` (or over its call forms) is deferred, its
 record-selected calls are compiled into controlled calls of the spectator lift

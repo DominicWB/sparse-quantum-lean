@@ -3,8 +3,8 @@ import SparseLowerBounds.Hamiltonian.Theorem
 /-!
 # Parameters and rounding of Theorem `odel:thm:psd`
 
-Manuscript lines 4016-4030 (statement), 4045-4047 (eq. `odel:eq:imaginaryamp`), 4063-4068
-(the rounding precision), 4111-4112 (choice of `m`).
+Manuscript: Theorem `odel:thm:psd` and, in its proof, eq. `odel:eq:imaginaryamp`, the rounding
+precision and the choice of `m`.
 Real analysis only; no quantum objects.
 
 * `PsdRange τ s ε`: `s ≥ 32`, `τ ≥ 1`, `ε > 0`, `L = log(1/ε) ≥ 64τ` (the paper assumes
@@ -14,9 +14,9 @@ Real analysis only; no quantum objects.
   `h = log(e + L/τ)`, `r = L/h` (`Hamiltonian.hsR`) and `n = ⌊r/4⌋` (`Hamiltonian.precN`);
   `u = τ/2`.
 * `psdMu s = hsMu (s - 1)`: `m = 2^{psdMu s}` is the largest power of two at most `(s-1)/2`,
-  so `2m + 1 ≤ s` and `m > s/8` (lines 4111-4112).
+  so `2m + 1 ≤ s` and `m > s/8` (proof of Theorem `odel:thm:psd`).
 * `psdAmp n u = e^{-u} sinh(u/n)^n` (eq. `odel:eq:imaginaryamp`, the amplitude `a`), the
-  rounding precision `psdDelta n u = min{1/(2√n), a/(16u)}` (line 4065; `1/(2√n) ≤ ½ min_k b_k`)
+  rounding precision `psdDelta n u = min{1/(2√n), a/(16u)}` (`1/(2√n) ≤ ½ min_k b_k`)
   and the rounded dyadic weights `psdWeight n u k = N_k/2^F` of `b_k` (`Hamiltonian.roundNum`,
   `Hamiltonian.roundBits`, as `Hamiltonian.chainWeight`).
 * The numerics at the main parameters are in `Psd/Numerics`.
@@ -33,7 +33,7 @@ open scoped Matrix.Norms.L2Operator
 
 /-! ### The parameter range -/
 
-/-- **The parameter range of Theorem `odel:thm:psd`** (line 4018): `s ≥ 32`, `τ ≥ 1`,
+/-- **The parameter range of Theorem `odel:thm:psd`** (Theorem `odel:thm:psd`): `s ≥ 32`, `τ ≥ 1`,
 `ε > 0` and `L = log(1/ε) ≥ 64τ`. The paper states `τ ≥ 2`; the proof never uses more than
 `τ ≥ 1`, so this range contains the paper's (`PsdRange.of_paper`). -/
 structure PsdRange (τ : ℝ) (s : ℕ) (ε : ℝ) : Prop where
@@ -44,7 +44,7 @@ structure PsdRange (τ : ℝ) (s : ℕ) (ε : ℝ) : Prop where
 
 variable {τ ε : ℝ} {s : ℕ}
 
-/-- The paper's range `s ≥ 32`, `τ ≥ 2`, `L ≥ 64τ` (line 4018) is inside `PsdRange`. -/
+/-- The paper's range `s ≥ 32`, `τ ≥ 2`, `L ≥ 64τ` (Theorem `odel:thm:psd`) is inside `PsdRange`. -/
 theorem PsdRange.of_paper (hs : 32 ≤ s) (hτ : 2 ≤ τ) (hε : 0 < ε) (hL : 64 * τ ≤ hsL ε) :
     PsdRange τ s ε :=
   ⟨hs, by linarith, hε, hL⟩
@@ -64,9 +64,9 @@ theorem PsdRange.toHSRange (h : PsdRange τ s ε) : HSRange τ s ε := by
 theorem PsdRange.of_HSRange (h : HSRange τ s ε) (hL : 64 * τ ≤ hsL ε) : PsdRange τ s ε :=
   ⟨h.s_ge, h.one_le_tau, h.eps_pos, hL⟩
 
-/-! ### The register size `m` (lines 4111-4112) -/
+/-! ### The register size `m` (proof of Theorem `odel:thm:psd`) -/
 
-/-- `log₂ m` for the largest power of two `m ≤ (s-1)/2` (line 4111). -/
+/-- `log₂ m` for the largest power of two `m ≤ (s-1)/2` (proof of Theorem `odel:thm:psd`). -/
 def psdMu (s : ℕ) : ℕ := hsMu (s - 1)
 
 /-- `μ ≥ 1` (indeed `m ≥ 8`) for `s ≥ 32`. -/
@@ -83,7 +83,7 @@ theorem two_mul_psdM_add_one_le (hs : 32 ≤ s) : 2 * 2 ^ psdMu s + 1 ≤ s := b
   generalize 2 ^ hsMu (s - 1) = m at h ⊢
   omega
 
-/-- `m > s/8` (line 4112). -/
+/-- `m > s/8` (proof of Theorem `odel:thm:psd`). -/
 theorem psdM_gt (hs : 32 ≤ s) : (s : ℝ) / 8 < (2 : ℝ) ^ psdMu s := by
   have h1 := lt_two_pow_hsMu_add_two (s := s - 1) (by omega)
   rw [pow_add] at h1
@@ -96,13 +96,13 @@ theorem psdM_gt (hs : 32 ≤ s) : (s : ℝ) / 8 < (2 : ℝ) ^ psdMu s := by
   have h4 : (0 : ℝ) < (2 : ℝ) ^ psdMu s := by positivity
   linarith
 
-/-! ### The amplitude and the rounded weights (lines 4045-4047, 4063-4068) -/
+/-! ### The amplitude and the rounded weights (eq. `odel:eq:imaginaryamp` and proof of Theorem `odel:thm:psd`) -/
 
 /-- **The imaginary-time amplitude** `a = e^{-u} sinh(u/n)^n` (eq. `odel:eq:imaginaryamp`). -/
 def psdAmp (n : ℕ) (u : ℝ) : ℝ := Real.exp (-u) * Real.sinh (u / n) ^ n
 
-/-- The rounding precision `δ = min{1/(2√n), a/(16u)}` (line 4065; `1/(2√n) ≤ ½ min_k b_k`
-since `b_k ≥ 1/√n`, `Hamiltonian.inv_sqrt_le_spinWeight`). -/
+/-- The rounding precision `δ = min{1/(2√n), a/(16u)}` (proof of Theorem `odel:thm:psd`;
+`1/(2√n) ≤ ½ min_k b_k` since `b_k ≥ 1/√n`, `Hamiltonian.inv_sqrt_le_spinWeight`). -/
 def psdDelta (n : ℕ) (u : ℝ) : ℝ := min (1 / (2 * Real.sqrt n)) (psdAmp n u / (16 * u))
 
 /-- The fractional bits `F` of the rounded weights, `2^{-F} ≤ δ`. -/
@@ -111,7 +111,8 @@ def psdBits (n : ℕ) (u : ℝ) : ℕ := roundBits (psdDelta n u)
 /-- The integer numerator `N_k` of the rounded weight `b'_k = N_k/2^F` of `b_k`. -/
 def psdNum (n : ℕ) (u : ℝ) (k : ℕ) : ℕ := roundNum (psdBits n u) (spinWeight n k)
 
-/-- **The rounded dyadic weight** `b'_k = N_k/2^F` (line 4063: `b_k` rounded down). -/
+/-- **The rounded dyadic weight** `b'_k = N_k/2^F` (proof of Theorem `odel:thm:psd`: `b_k` rounded
+down). -/
 def psdWeight (n : ℕ) (u : ℝ) (k : ℕ) : ℝ := (psdNum n u k : ℝ) / 2 ^ psdBits n u
 
 variable {n : ℕ} {u : ℝ}
@@ -121,8 +122,8 @@ theorem psdAmp_pos (hn : 1 ≤ n) (hu : 0 < u) : 0 < psdAmp n u := by
   have hn' : (0 : ℝ) < n := Nat.cast_pos.mpr hn
   exact mul_pos (Real.exp_pos _) (pow_pos (Real.sinh_pos_iff.mpr (div_pos hu hn')) _)
 
-/-- **Eq. `odel:eq:alower`, first step** (lines 4055-4057): `a ≥ (u/(en))^n` for `0 < u ≤ n`
-(`sinh z ≥ z`, `e^{-u} ≥ e^{-n}`). -/
+/-- **Eq. `odel:eq:alower`, first step** (proof of Theorem `odel:thm:psd`): `a ≥ (u/(en))^n` for
+`0 < u ≤ n` (`sinh z ≥ z`, `e^{-u} ≥ e^{-n}`). -/
 theorem psdAmp_ge (hn : 1 ≤ n) (hu : 0 < u) (hun : u ≤ n) :
     (u / (Real.exp 1 * n)) ^ n ≤ psdAmp n u := by
   have hn' : (0 : ℝ) < n := Nat.cast_pos.mpr hn
@@ -155,7 +156,7 @@ theorem psdWeight_le (n : ℕ) (u : ℝ) (k : ℕ) :
   rw [div_le_iff₀ (by positivity)]
   exact roundNum_le_mul (spinWeight_nonneg n k) _
 
-/-- Every edge stays nonzero and within `δ` of `b_k` (lines 4063-4065). -/
+/-- Every edge stays nonzero and within `δ` of `b_k` (proof of Theorem `odel:thm:psd`). -/
 theorem psdWeight_pos (hn : 1 ≤ n) (hu : 0 < u) {k : ℕ} (hk : k < n) :
     spinWeight n k - psdWeight n u k ≤ psdDelta n u ∧ 0 < psdWeight n u k := by
   have h1 : spinWeight n k - psdWeight n u k ≤ psdDelta n u :=
@@ -172,11 +173,12 @@ theorem psdWeight_pos (hn : 1 ≤ n) (hu : 0 < u) {k : ℕ} (hk : k < n) :
   have h4 := spinWeight_pos hk
   linarith
 
-/-- The rounded path has norm at most one (lines 4067-4068, entrywise comparison with `B_n`). -/
+/-- The rounded path has norm at most one (proof of Theorem `odel:thm:psd`, entrywise comparison
+with `B_n`). -/
 theorem norm_pathMatrix_psdWeight_le (n : ℕ) (u : ℝ) : ‖pathMatrix n (psdWeight n u)‖ ≤ 1 := by
   exact norm_pathMatrix_le (fun k => (psdWeight_le n u k).1) (fun k _ => (psdWeight_le n u k).2)
 
-/-- `‖B_n - B'_n‖ ≤ 2δ` (line 4068, `Hamiltonian.norm_pathMatrix_sub_le`). -/
+/-- `‖B_n - B'_n‖ ≤ 2δ` (proof of Theorem `odel:thm:psd`, `Hamiltonian.norm_pathMatrix_sub_le`). -/
 theorem norm_pathMatrix_sub_psdWeight_le (hn : 1 ≤ n) (hu : 0 < u) :
     ‖pathMatrix n (spinWeight n) - pathMatrix n (psdWeight n u)‖ ≤ 2 * psdDelta n u := by
   refine norm_pathMatrix_sub_le (psdDelta_pos hn hu).le fun k hk => ?_

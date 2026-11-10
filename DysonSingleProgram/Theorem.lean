@@ -8,9 +8,9 @@ set_option synthInstance.maxSize 4096
 /-!
 # Lemma `odel:lem:dyson` for single heralded programs
 
-Manuscript lines 4591-4690 (Lemma `odel:lem:dyson`, eq. `odel:eq:dyson`), on the class of the ODE
+Manuscript: Lemma `odel:lem:dyson` and eq. `odel:eq:dyson`, on the class of the ODE
 lower bounds (`SparseLowerBounds.ODE.Family`, `Family.InClass η ḡ`, access `Family.access ι`,
-lines 4091-4132) and in its single-program solver class `SparseLowerBounds.ODE.Solver` (one
+Section `odel:sec:main`) and in its single-program solver class `SparseLowerBounds.ODE.Solver` (one
 program, a seed, a herald projection with success at least `2/3`, heralded conditional accuracy
 `ε`).
 
@@ -38,7 +38,7 @@ of Lemma `odel:lem:dyson` (time-indexed native input, mesh, cell-to-sample map, 
 interfaces), the package has the trial-family form `ODELowerBoundExtensions.Dyson.dyson` and its
 amplification shape `Explicit.dyson_grover`. Only oracle calls of the access are counted (the
 sources of the class are public); gate costs and time-register sizes may depend on the
-discretisation and are not bounded (lines 4602-4603 and 4705-4707).
+discretisation and are not bounded (Lemma `odel:lem:dyson`).
 -/
 
 namespace DysonSingleProgram
@@ -84,7 +84,7 @@ theorem exists_solver_of_isEmpty {X N Z : Type} [Fintype N] [DecidableEq N] [Fin
       success := fun x => isEmptyElim x
       accurate := fun x => isEmptyElim x }, rfl⟩
 
-/-- **Lemma `odel:lem:dyson` for single heralded programs** (lines 4591-4690, eq.
+/-- **Lemma `odel:lem:dyson` for single heralded programs** (Lemma `odel:lem:dyson`, eq.
 `odel:eq:dyson`): every family of the class `InClass η ḡ` with `η > 0` and `T > 0` has, for
 `ḡ ≥ 1` and `0 < ε ≤ 1`, a single-program solver (`SparseLowerBounds.ODE.Solver`) over its own
 access `F.access ι` making at most `dysonBound (s η T) ḡ ε` calls. -/

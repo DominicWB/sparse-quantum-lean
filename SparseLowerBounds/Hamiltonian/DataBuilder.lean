@@ -8,9 +8,8 @@ section
 
 A generic builder of the release's `NativeSparseBlockEncoding.Data` for hard
 families whose every entry is a known function of **at most one** hidden
-Boolean bit (manuscript lines 2214-2215: "each entry depends on just one
-membership bit"; lines 2286-2289: "a value call ... needs at most two Boolean
-queries").
+Boolean bit (the chain construction of Section `part:hsl`: "Its entry calculation uses only the
+queried membership bit and known constants"; "A value query requires at most two Boolean queries").
 
 * **Words.** `Word B = ZMod (2^{B+1})` with the position-independent signed
   fixed-point decode `z ↦ valMinAbs z / 2^B` (`wordDecode`), which represents
@@ -237,7 +236,7 @@ theorem bitData_table (x : X) (a : N × N) :
     (bitData s B hs slot loc T y H hbound hdec hrow hcol).table x a =
       ((T.value (y x) a : ℤ) : Word B) := rfl
 
-/-- **Locators are input-independent** (lines 2283-2286). -/
+/-- **Locators are input-independent** (the chain construction of Section `part:hsl`). -/
 theorem bitData_locators_const (x x' : X) :
     (bitData s B hs slot loc T y H hbound hdec hrow hcol).rowloc x =
         (bitData s B hs slot loc T y H hbound hdec hrow hcol).rowloc x' ∧

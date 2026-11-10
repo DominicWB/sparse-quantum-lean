@@ -16,6 +16,9 @@ satisfies the hypotheses of Lemma `qls:lem:walk` with `α = 32√s`,
 branch of the manuscript is the zero operator.  With the nonzero-eigenvalue gap
 `g_σ` of `H_{σ,r}`, the walk satisfies the chord bound with
 `χ_σ = 4 g_σ /(165 √s)` (`augmented_chord_gap`), i.e. equation `qls:eq:augsine`.
+
+Notation: the regularization parameter is `σ` here and `ξ` in the manuscript, so a subscript `σ` (as
+in `g_σ`, `r_σ`, `H_{σ,r}`) stands for the manuscript's subscript `ξ`.
 -/
 
 namespace SparseLinearSystems.Augmented

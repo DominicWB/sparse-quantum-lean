@@ -12,11 +12,11 @@ set_option synthInstance.maxSize 4096
 /-!
 # The measured time-dependent lower bounds are not vacuous
 
-The measured forms of Theorem `hsl:thm:main` in this directory (the manuscript, lines 2102-2119,
-eq. `hsl:eq:main`; measured algorithms, lines 2363-2364) assume success probability at least
-`2/3` and eq. `hsl:eq:accuracy` (line 2092) against every propagator of the constant path. This
-module shows that the released time-dependent simulators, run as measured algorithms, meet
-these hypotheses on constant data.
+The measured forms of Theorem `hsl:thm:main` in this directory (the manuscript, eq. `hsl:eq:main`;
+measured algorithms, proof of Lemma `hsl:lem:precision`) assume success probability at least `2/3`
+and eq. `hsl:eq:accuracy` against every propagator of the constant path. This module shows that the
+released time-dependent simulators, run as measured algorithms, meet these hypotheses on constant
+data.
 
 * `programRun p`: a program `p`, run as a measured algorithm
   (`DeferredMeasurementLowerBounds.Model.ofProgram`) and followed by the output of the whole
@@ -25,7 +25,7 @@ these hypotheses on constant data.
   encoding `ι`, then from the unit vector `ι ψ` the run succeeds with probability one, its
   conditional output read through `endpointReadout ι i₀` is `ε`-accurate for `U(τ) ψ` for every
   propagator `U` of the constant path from the identity, and its worst-case cost is the cost of
-  `p` (operator-norm error implies eq. `hsl:eq:accuracy`, lines 2096-2097).
+  `p` (operator-norm error implies eq. `hsl:eq:accuracy`).
 * `released_uniform_measured`, `released_mesh_measured`, `released_integrable_measured`,
   `released_select_measured`, `released_block_measured`: the released uniform-mesh,
   general-mesh, integrable-path, duration-selection and block-encoding simulators on constant
@@ -65,14 +65,13 @@ this library does not depend on that one. -/
 def programRun {O : L → X → K →L[ℂ] K} (p : MultiOracleCircuit.Program O) : Measured O K :=
   ofProgram p (.output 1 adjoint_one_comp_one)
 
-/-- **Endpoint error makes a program run meet the hypotheses of the measured forms** (lines
-2096-2097: an operator-norm error at most `ε` implies eq. `hsl:eq:accuracy`): if `p` is
-unitary on every input, `ι` is an isometry, `H_x` is Hermitian and
-`‖p.eval x ∘ ι - ι ∘ exp(-iτH_x)‖ ≤ ε` on every input, then from the unit vector `ι ψ` the run
-`programRun p` succeeds with probability one, its conditional output read through the
-isometry `endpointReadout ι i₀` is `ε`-accurate for `U(τ) ψ` for every propagator `U` of the
-constant path from the identity, and its worst-case cost is the cost of `p` for every
-weight. -/
+/-- **Endpoint error makes a program run meet the hypotheses of the measured forms** (Section
+`hsl:sec:main`: an operator-norm error at most `ε` implies eq. `hsl:eq:accuracy`): if `p` is unitary
+on every input, `ι` is an isometry, `H_x` is Hermitian and `‖p.eval x ∘ ι - ι ∘ exp(-iτH_x)‖ ≤ ε` on
+every input, then from the unit vector `ι ψ` the run `programRun p` succeeds with probability one,
+its conditional output read through the isometry `endpointReadout ι i₀` is `ε`-accurate for `U(τ) ψ`
+for every propagator `U` of the constant path from the identity, and its worst-case cost is the cost
+of `p` for every weight. -/
 theorem programRun_meets [FiniteDimensional ℂ K] (D : Data X N Z s)
     (hH : ∀ x, (D.matrix x).IsHermitian) {O : L → X → K →L[ℂ] K}
     (p : MultiOracleCircuit.Program O) (hp : ∀ x, IsUnitary (p.eval x))

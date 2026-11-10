@@ -6,7 +6,7 @@ set_option autoImplicit false
 # Heralded and unheralded adaptive algorithms over the released entry oracle
 
 The lower half of the last sentence of corollary `hs:cor:unitary` of the
-manuscript (lines 1664-1665, reduction at lines 1711-1718) for adaptive
+manuscript (reduction in the proof of Corollary `hs:cor:unitary`) for adaptive
 algorithms whose only oracle is the released entry oracle of the search family
 (`entryOracles`: one label, `UnitaryEntryOracle.oracle (searchData N) γ η t ε`
 for any parameters, on its own workspace), with the count of entry calls

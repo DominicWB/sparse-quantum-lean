@@ -6,8 +6,9 @@ section
 /-!
 # Theorem `hsl:thm:main` in the release's endpoint form
 
-Manuscript lines 2090-2097 ("an operator-norm error at most `ε` implies
-eq. `hsl:eq:accuracy`"). The release's simulation theorem
+Manuscript: Section `hsl:sec:main`, after eq. `hsl:eq:accuracy` ("The complete-output norm
+guarantee of our upper bounds implies this weaker requirement after the work registers are
+discarded"). The release's simulation theorem
 `ImprovedSparseHamiltonian.simulation_log_one` certifies an algorithm by the
 endpoint error
 

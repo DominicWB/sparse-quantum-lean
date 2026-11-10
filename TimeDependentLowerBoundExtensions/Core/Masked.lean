@@ -8,10 +8,11 @@ set_option autoImplicit false
 /-!
 # Masked calls, call forms and spectator wrappers of certified families
 
-The manuscript's access (lines 2078-2082: "reversible matrix-value queries and in-place row and
-column locators, with inverses and coherent controls") admits inverse and controlled calls. For
-Boolean certificates (`SparseLowerBounds.Hamiltonian.HsRelease.PhaseAccess`) this module records
-three closure properties, all with the **same** per-label weights:
+The manuscript's access (Section `hsl:sec:main`: the native access of Section `hs:sec:control`,
+value queries and in-place locators "together with its inverse", controls by Lemma
+`access:lem:control`) admits inverse and controlled calls. For Boolean certificates
+(`SparseLowerBounds.Hamiltonian.HsRelease.PhaseAccess`) this module records three closure
+properties, all with the **same** per-label weights:
 
 * `implementsOn_masked`, `maskedAccess`: a call executed only in the branches of a fixed mask
   `m : ι → Bool` of a branch register (`SparseHamiltonian.MaskedProgram.masked m`), as

@@ -6,9 +6,9 @@ set_option autoImplicit false
 /-!
 # Spectator forms and spectator absorption
 
-Manuscript Section `odel:sec:main`, lines 3669-3673 (access "through a reversible value oracle
-and in-place row/column locators, their inverses and controls") and line 2364 (purification and
-deferred measurement).
+Manuscript Section `odel:sec:main` (access "including inverses, controls and coherent time addresses
+where needed") and the end of the proof of Lemma `hsl:lem:precision` (purification and deferred
+measurement).
 
 The matrix labels of the released solvers' physical oracles are, after one fixed isometric
 identification of the workspace with `ℂ^S ⊗ V`, the spectator lifts `1_S ⊗ P_l(x)` of one

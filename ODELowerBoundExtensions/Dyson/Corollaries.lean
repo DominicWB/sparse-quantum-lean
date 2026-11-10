@@ -8,9 +8,9 @@ set_option synthInstance.maxSize 4096
 /-!
 # Corollaries of Lemma `odel:lem:dyson`: the released input class and `Q_A` at fixed parameters
 
-Manuscript lines 4150-4152 ("covers the entire time-dependent class under the coherent access,
-regularity, and source-preparation assumptions of Theorem `ode:thm:time`") and lines 4256-4261
-(eq. `odel:eq:fixed`).
+Manuscript: the sentence before Lemma `odel:lem:dyson` ("the following lemma uses the coherent
+access, certified discretisation and source-preparation assumptions of Theorem `ode:thm:time`")
+and eq. `odel:eq:fixed`.
 
 * `dyson_release_class`: every instance accepted by the released solver
   `TimeDependentExtensions.ODE.solver` (its `Outcome` premises, for any slot count `N`) is
@@ -60,12 +60,13 @@ theorem quadrature_le_publicError (D : Data (X × Fin M) n Z s) (t : ℕ → ℝ
   linarith
 
 set_option maxHeartbeats 1000000 in
-/-- **The Dyson solver covers the released time-dependent class** (lines 4150-4152): for the
-data shape of `TimeDependentExtensions.ODE.solver` (`Ks = M`, `σ = id`), under `dyson`'s
-hypotheses and the release's public PSD promise on the sampled dissipative parts, the Dyson
-solver's bound holds and one public trial family satisfies the released complete certificate
-(`Θ = 0`, `ℓ = shapeLength`, `g' = ampFactor`) for every instance satisfying the premises of the
-released `TimeDependentExtensions.ODE.Outcome`, verbatim, at any slot count `N`. -/
+/-- **The Dyson solver covers the released time-dependent class** (the text after eq.
+`odel:eq:fixed`): for the data shape of `TimeDependentExtensions.ODE.solver`
+(`Ks = M`, `σ = id`), under `dyson`'s hypotheses and the release's public PSD promise on the sampled
+dissipative parts, the Dyson solver's bound holds and one public trial family satisfies the released
+complete certificate (`Θ = 0`, `ℓ = shapeLength`, `g' = ampFactor`) for every instance satisfying
+the premises of the released `TimeDependentExtensions.ODE.Outcome`, verbatim, at any slot count
+`N`. -/
 theorem dyson_release_class (D : Data (X × Fin M) n Z s) (hM : 0 < M) (t : ℕ → ℝ) (N : ℕ)
     (T g ε r₀ : ℝ) (rb : Fin M → ℝ) (hmesh : IsMesh t M T) (hT : 0 < T) (hg : 1 ≤ g)
     (hε : 0 < ε) (hε1 : ε ≤ 1) (h₀ : 0 ≤ r₀) (hb : ∀ r, 0 ≤ rb r)
@@ -138,11 +139,11 @@ theorem certificate_queries_le {Ks : ℕ}
       dysonBound (rate D * T) g ε :=
   c.matrix_queries.trans hO.1
 
-/-- **Eq. `odel:eq:fixed` for `Q_A` on the general time-dependent class** (lines 4256-4261): at
-fixed `z = s Λ T > 0` and `ḡ ≥ 1` there are `C` and `ε₀ ∈ (0, 1)` such that, for every
-`ε ≤ ε₀`, every input with `rate D * T = z` satisfying `Outcome` (as `dyson` provides for every
-valid input) and every released complete certificate with the Dyson parameters, the worst-case
-matrix queries are at most `C log(1/ε)/log log(1/ε)`. -/
+/-- **Eq. `odel:eq:fixed` for `Q_A` on the general time-dependent class**: at fixed `z = s Λ T > 0`
+and `ḡ ≥ 1` there are `C` and
+`ε₀ ∈ (0, 1)` such that, for every `ε ≤ ε₀`, every input with `rate D * T = z` satisfying `Outcome`
+(as `dyson` provides for every valid input) and every released complete certificate with the Dyson
+parameters, the worst-case matrix queries are at most `C log(1/ε)/log log(1/ε)`. -/
 theorem queries_fixed (z g : ℝ) (hz : 0 < z) (hg : 1 ≤ g) :
     ∃ C ε₀ : ℝ, 0 < ε₀ ∧ ε₀ < 1 ∧ ∀ ε, 0 < ε → ε ≤ ε₀ →
       ∀ {X n Z : Type} [Fintype n] [DecidableEq n] [Fintype Z] [AddCommGroup Z] [DecidableEq Z]

@@ -6,11 +6,11 @@ set_option autoImplicit false
 /-!
 # Coherent start times and durations for integrable Hermitian paths
 
-The paragraph "Regularity and coherent parameters" after the proof of Theorem `hs:thm:time`
-of the manuscript (lines 1618-1632): for an integrable Hermitian path it suffices to have a
-certified bound on the integrated sample errors, all uses of regularity are confined to this
-classical certificate, and the proof also permits coherent selection of known durations and
-start times with one schedule fixed for the largest duration.
+The paragraphs after the proof of Theorem `hs:thm:time` of the manuscript: for an integrable
+Hermitian path it suffices to supply a known bound on the integrated sample errors, and "We may
+also select known start times, durations or other parameters in superposition, provided the
+corresponding coherent sampled-time access is supplied", with one schedule chosen from the
+largest total coupling.
 
 `coherent_windows` states the coherent selection of windows `[t_{a_i}, t_{b_i}]` (start times
 and durations at mesh points) of the released `TimeDependentExtensions.Coherent.coherent_windows`

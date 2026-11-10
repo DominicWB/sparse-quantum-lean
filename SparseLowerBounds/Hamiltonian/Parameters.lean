@@ -6,8 +6,8 @@ section
 /-!
 # Parameters of Theorem `hsl:thm:main`
 
-Manuscript lines 2102-2112 (Theorem `hsl:thm:main`, eqs. `hsl:eq:parameters`
-and `hsl:eq:main`), 2379-2409 (time family) and 2413-2416 (eq. `hsl:eq:nchoice`).
+Manuscript: Theorem `hsl:thm:main` (eqs. `hsl:eq:parameters` and `hsl:eq:main`), Lemma
+`hsl:lem:time` (time family) and eq. `hsl:eq:nchoice`.
 Real analysis only; no quantum objects.
 
 * `HSRange τ s ε`: exactly `τ ≥ 1`, `s ≥ 32`, `0 < ε ≤ 1/64`;
@@ -33,7 +33,7 @@ namespace SparseLowerBounds.Hamiltonian
 
 noncomputable section
 
-/-- The parameter range of Theorem `hsl:thm:main` (lines 2103-2104). -/
+/-- The parameter range of Theorem `hsl:thm:main`. -/
 structure HSRange (τ : ℝ) (s : ℕ) (ε : ℝ) : Prop where
   one_le_tau : 1 ≤ τ
   s_ge : 32 ≤ s
@@ -55,10 +55,10 @@ def hsMu (s : ℕ) : ℕ := Nat.log 2 s - 1
 /-- `m = 2^{hsMu s}`, the largest power of two at most `s/2`. -/
 def hsM (s : ℕ) : ℕ := 2 ^ hsMu s
 
-/-- The time family's clock length `n = max{1, ⌊2τ/π⌋}` (line 2385). -/
+/-- The time family's clock length `n = max{1, ⌊2τ/π⌋}` (proof of Lemma `hsl:lem:time`). -/
 def timeN (τ : ℝ) : ℕ := max 1 ⌊2 * τ / Real.pi⌋₊
 
-/-- The time family's weight scale `c = min{1, π n/(2τ)}` (line 2386). -/
+/-- The time family's weight scale `c = min{1, π n/(2τ)}` (proof of Lemma `hsl:lem:time`). -/
 def timeC (τ : ℝ) : ℝ := min 1 (Real.pi * timeN τ / (2 * τ))
 
 /-- The mixed and precision families' clock length `n = ⌊r/4⌋`
@@ -73,7 +73,7 @@ def cT : ℝ := Real.log 2 / (192 * Real.pi)
 
 variable {τ ε : ℝ} {s : ℕ}
 
-/-! ### The power of two `m = 2^{hsMu s}` (eq. `hsl:eq:mrange`, lines 2379-2382) -/
+/-! ### The power of two `m = 2^{hsMu s}` (eq. `hsl:eq:mrange`) -/
 
 /-- `hsMu s + 1 = ⌊log₂ s⌋` as soon as `s ≥ 2` (the truncated subtraction in
 `hsMu` does not bite). -/
@@ -93,7 +93,7 @@ theorem lt_two_pow_hsMu_add_two (hs : 2 ≤ s) : s < 2 ^ (hsMu s + 2) := by
   rw [show hsMu s + 2 = Nat.log 2 s + 1 by omega]
   exact Nat.lt_pow_succ_log_self (by norm_num) s
 
-/-- `hsMu s ≥ 4` for `s ≥ 32` (so `m ≥ 16`, line 2381). -/
+/-- `hsMu s ≥ 4` for `s ≥ 32` (so `m ≥ 16`, eq. `hsl:eq:mrange`). -/
 theorem four_le_hsMu (hs : 32 ≤ s) : 4 ≤ hsMu s := by
   have h5 : 5 ≤ Nat.log 2 s := Nat.le_log_of_pow_le (by norm_num) (by norm_num; omega)
   unfold hsMu
@@ -110,7 +110,7 @@ theorem two_mul_hsM_le (hs : 32 ≤ s) : 2 * 2 ^ hsMu s ≤ s := by
   rw [pow_succ] at h
   linarith
 
-/-- **Eq. `hsl:eq:mrange`** (lines 2379-2382): `m ≥ 16` and `s/4 < m ≤ s/2`. -/
+/-- **Eq. `hsl:eq:mrange`** (Lemma `hsl:lem:time`): `m ≥ 16` and `s/4 < m ≤ s/2`. -/
 theorem hsM_range (hs : 32 ≤ s) :
     16 ≤ 2 ^ hsMu s ∧ (s : ℝ) / 4 < (2 : ℝ) ^ hsMu s ∧ (2 : ℝ) ^ hsMu s ≤ s / 2 := by
   refine ⟨?_, ?_, ?_⟩
@@ -125,17 +125,17 @@ theorem hsM_range (hs : 32 ≤ s) :
     have h' : (2 : ℝ) * 2 ^ hsMu s ≤ s := by exact_mod_cast h
     linarith
 
-/-- The time family's clock length is positive (line 2385). -/
+/-- The time family's clock length is positive (proof of Lemma `hsl:lem:time`). -/
 theorem one_le_timeN (τ : ℝ) : 1 ≤ timeN τ := le_max_left _ _
 
-/-! ### `L`, `h`, `r` (eq. `hsl:eq:parameters`, lines 2105-2107) -/
+/-! ### `L`, `h`, `r` (eq. `hsl:eq:parameters`) -/
 
 /-- `L = log(1/ε) = -log ε` (any `ε`; `Real.log` is even and `log 0 = 0`). -/
 theorem hsL_eq_neg_log (ε : ℝ) : hsL ε = -Real.log ε := by
   unfold hsL
   rw [one_div, Real.log_inv]
 
-/-- `ε = e^{-L}` (used in the form `8ε = 8e^{-L}`, line 2429). -/
+/-- `ε = e^{-L}` (used in the form `8ε = 8e^{-L}`, proof of Theorem `hsl:thm:main`). -/
 theorem exp_neg_hsL (hε : 0 < ε) : Real.exp (-hsL ε) = ε := by
   rw [hsL_eq_neg_log, neg_neg, Real.exp_log hε]
 
@@ -172,7 +172,7 @@ theorem HSRange.four_le_hsL (h : HSRange τ s ε) : 4 ≤ hsL ε := by
 theorem HSRange.hsL_pos (h : HSRange τ s ε) : 0 < hsL ε := by
   linarith [h.four_le_hsL]
 
-/-- `h ≥ 1` (line 2423). -/
+/-- `h ≥ 1` (proof of Theorem `hsl:thm:main`). -/
 theorem HSRange.one_le_hsH (h : HSRange τ s ε) : 1 ≤ hsH τ ε := by
   have hpos : 0 < hsL ε / τ := div_pos h.hsL_pos h.tau_pos
   unfold hsH

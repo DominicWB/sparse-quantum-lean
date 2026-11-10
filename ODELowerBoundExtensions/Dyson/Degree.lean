@@ -9,9 +9,8 @@ set_option autoImplicit false
 /-!
 # The truncation degree of the Dyson series (`odel:lem:dyson`, eq. `odel:eq:degree`)
 
-Manuscript, proof of Lemma `odel:lem:dyson`
-(lines 4216-4228): truncating the Dyson series at degree `K` leaves the factorial tail
-`∑_{k>K} z^k/k!`, and for `K + 2 ≥ 2z`
+Manuscript, proof of Lemma `odel:lem:dyson`: truncating the Dyson series at degree `K` leaves the
+factorial tail `∑_{k>K} z^k/k!`, and for `K + 2 ≥ 2z`
 
   `∑_{k>K} z^k/k! ≤ 2 z^{K+1}/(K+1)! ≤ 2 (e z/(K+1))^{K+1}`.
 
@@ -19,7 +18,7 @@ Choosing `K` so that this is at most a small constant times `ε/ḡ` gives eq. `
 `K = O(1 + z + L_g / log(e + L_g/z))`.
 
 * `expTail y K = exp y - ∑_{k ≤ K} y^k/k!` is the tail in finite form;
-* `expTail_le`: the displayed tail bound (lines 4218-4222);
+* `expTail_le`: the displayed tail bound (proof of Lemma `odel:lem:dyson`);
 * `dysonLog g ε = log (4000 g / ε)` is the precision logarithm `L_g = log(C ḡ/ε)` with
   `C = 4000`;
 * `truncDegree z g ε = ⌈e² z + 4 L_g / log(e + L_g/z)⌉₊` is the explicit public degree;
@@ -36,11 +35,12 @@ noncomputable section
 open scoped Nat BigOperators
 
 /-- The exponential tail `∑_{k > K} y^k/k!`, written in the finite form
-`exp y - ∑_{k ≤ K} y^k/k!` (proof of `odel:lem:dyson`, line 4217). -/
+`exp y - ∑_{k ≤ K} y^k/k!` (proof of `odel:lem:dyson`). -/
 def expTail (y : ℝ) (K : ℕ) : ℝ :=
   Real.exp y - ∑ k ∈ Finset.range (K + 1), y ^ k / (k ! : ℝ)
 
-/-- `expTail y K` is the series tail `∑_{n ≥ 0} y^{n+K+1}/(n+K+1)!` (line 4217). -/
+/-- `expTail y K` is the series tail `∑_{n ≥ 0} y^{n+K+1}/(n+K+1)!` (proof of Lemma
+`odel:lem:dyson`). -/
 theorem hasSum_expTail (y : ℝ) (K : ℕ) :
     HasSum (fun n : ℕ => y ^ (n + (K + 1)) / ((n + (K + 1))! : ℝ)) (expTail y K) := by
   rw [expTail]
@@ -57,7 +57,7 @@ theorem expTail_mono (K : ℕ) {y y' : ℝ} (hy : 0 ≤ y) (hyy : y ≤ y') :
   refine hasSum_le (fun n => ?_) (hasSum_expTail y K) (hasSum_expTail y' K)
   gcongr
 
-/-- **The factorial tail bound** (lines 4216-4222): for `0 ≤ y` and `K + 2 ≥ 2 y`,
+/-- **The factorial tail bound** (proof of Lemma `odel:lem:dyson`): for `0 ≤ y` and `K + 2 ≥ 2 y`,
 `∑_{k>K} y^k/k! ≤ 2 y^{K+1}/(K+1)! ≤ 2 (e y/(K+1))^{K+1}` (both displayed inequalities). -/
 theorem expTail_le (y : ℝ) (K : ℕ) (hy : 0 ≤ y) (hK : 2 * y ≤ (K : ℝ) + 2) :
     expTail y K ≤ 2 * y ^ (K + 1) / ((K + 1)! : ℝ) ∧
@@ -119,7 +119,7 @@ theorem one_le_log_exp_one_add (a : ℝ) (ha : 0 ≤ a) : 1 ≤ Real.log (Real.e
   rw [Real.le_log_iff_exp_le (by positivity)]
   linarith
 
-/-- The degree inequality behind eq. `odel:eq:degree` (lines 4223-4227): for `z, L > 0` and
+/-- The degree inequality behind eq. `odel:eq:degree`: for `z, L > 0` and
 `m > e² z + 4L/log(e + L/z)`, `L ≤ m log(m/(e z))`. -/
 theorem le_mul_log_of_gt (z L m : ℝ) (hz : 0 < z) (hL : 0 < L)
     (hm : Real.exp 2 * z + 4 * L / Real.log (Real.exp 1 + L / z) < m) :
@@ -182,12 +182,12 @@ theorem le_mul_log_of_gt (z L m : ℝ) (hz : 0 < z) (hL : 0 < L)
       _ ≤ m * Real.log (m / (E * z)) := by gcongr
 
 /-- **The public truncation degree** `K = ⌈e² z + 4 L_g / log(e + L_g/z)⌉₊`
-(eq. `odel:eq:degree`, lines 4225-4227). -/
+(eq. `odel:eq:degree`). -/
 def truncDegree (z g ε : ℝ) : ℕ :=
   ⌈Real.exp 2 * z + 4 * dysonLog g ε / Real.log (Real.exp 1 + dysonLog g ε / z)⌉₊
 
 /-- At the public degree the truncation error is at most `ε/(2000 g)`, a sufficiently small
-constant times `ε/ḡ` (lines 4223-4224). -/
+constant times `ε/ḡ` (proof of Lemma `odel:lem:dyson`). -/
 theorem expTail_truncDegree_le (z g ε : ℝ) (hz : 0 < z) (hg : 1 ≤ g) (hε : 0 < ε) (hε1 : ε ≤ 1) :
     expTail z (truncDegree z g ε) ≤ ε / (2000 * g) := by
   have hL := dysonLog_pos g ε hg hε hε1

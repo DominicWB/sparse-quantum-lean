@@ -8,7 +8,7 @@ set_option synthInstance.maxSize 8192
 /-!
 # Non-vacuity of the measured operator-norm bounds
 
-Corollary `hs:cor:unitary` of the manuscript (lines 1647-1666): both halves of `Θ(√N)` in one
+Corollary `hs:cor:unitary` of the manuscript: both halves of `Θ(√N)` in one
 oracle model. The released constant-error circuit
 (`AdaptiveUnitaryLowerBound.NonVacuity.released`, `released_calls`: operator-norm error `1/4`,
 at most `queryConstant · √N` entry calls), run and output in full (`runAll`) and read through the

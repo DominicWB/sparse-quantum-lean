@@ -6,32 +6,31 @@ import GateEfficientSelect.ODE.NonVacuity
 /-!
 # Lemma `ode:lem:gate-select` on branch-dependent meshes: paper-to-Lean entry point
 
-Lemma `ode:lem:gate-select` of the accompanying paper (gate-efficient coherent selection,
-manuscript line 4487) selects, coherently from a label `z` that specifies a frequency
-`|k_z| ≤ R` and a start time `0 ≤ v_z ≤ T`, the propagator of `H(t) + k_z D(t)` from `v_z` to
-`T`: the controlled direct sum `ode:eq:gate-select-target` has a clean-input implementation with
-full-output error at most `δ`, at most `6d` private Cayley calls and no factor equal to the
-number of source labels or time slots in its gate count. In its proof every branch has its own
-mesh: "For fixed `z`, choose `M` equal time steps of length `u_z/M`" (line 4543), with the
-sample addresses `v_z + r u_z/M`. The released libraries formalise the single-label case
-(`GateCircuit.SlotSim.gate_efficient_time_simulation`, used for the time-dependent part of
-`hs:thm:gates`, line 3103) and, for the time-dependent part of Theorem `ode:thm:gates` (line
-4684), mask every source branch on one common mesh "instead of using the branch-dependent meshes
-of Lemma `ode:lem:gate-select`" (the manuscript's description of the formalisation, lines 1688
-and 4458). This library formalises the branch-dependent meshes in an exact-gate form in which
-the step of each branch is folded into its private operation (see *Formalisation choices*):
+Lemma `ode:lem:gate-select` of the accompanying paper (gate-efficient coherent selection) selects,
+coherently from a label `z` that specifies a frequency `|k_z| ≤ R` and a start time `0 ≤ v_z ≤ T`,
+the propagator of `H(t) + k_z D(t)` from `v_z` to `T`: the controlled direct sum
+`ode:eq:gate-select-target` has a clean-input implementation with full-output error at most `δ`, at
+most `6d` private Cayley calls and no factor equal to the number of source labels or time slots in
+its gate count. In its proof every branch has its own mesh: "For fixed `z`, choose `M` equal time
+steps of length `u_z/M`", with the sample addresses `v_z + r u_z/M`. The released libraries
+formalise the single-label case (`GateCircuit.SlotSim.gate_efficient_time_simulation`, used for the
+time-dependent gate-level simulation, Theorem `hs:thm:time` with the circuit of `hs:thm:gates`) and,
+for the time-dependent part of Theorem `ode:thm:gates`, mask every source branch on one common mesh
+instead of using the branch-dependent meshes of Lemma `ode:lem:gate-select`. This library formalises
+the branch-dependent meshes in an exact-gate form in which the step of each branch is folded into
+its private operation (see *Formalisation choices*):
 
 * the lemma's exact-gate conclusion for an arbitrary label register, against the exact
   propagators of the branch paths (`gate_select`);
 * the time-dependent part of Theorem `ode:thm:gates` with branch-dependent meshes and a positive
-  source quadrature under the source certificate `ode:eq:gate-source-certificates` (line 4665),
+  source quadrature under the source certificate `ode:eq:gate-source-certificates`,
   for the released protocol, with exact gates (`ODE.solverB`) and natively
   (`ODE.native_ode_time_solverB`), and the certificate for the left-endpoint quadrature from the
   Lipschitz bounds (`ODE.quad_leftEndpoint`).
 
-No result from another paper is used. The released libraries are unchanged. Manuscript lines
-refer to `sparse_quantum_algorithms.tex` (v19); the labels are the stable references. Every
-theorem of the library is axiom-audited in `GateEfficientSelect/Audit.lean`.
+No result from another paper is used. The released libraries are unchanged. References to the
+manuscript use its labels. Every theorem of the library is axiom-audited in
+`GateEfficientSelect/Audit.lean`.
 
 **Naming convention.** All declarations of this library are in the namespace
 `SparseHamiltonian.GateSelect` (the differential-equation part in
@@ -42,7 +41,7 @@ those of the library `TimeDependentExtensions`, which are named in full.
 
 **Notation.** In `gate_select` the error `ε` is the lemma's `δ`, the bound `δ` is a uniform bound
 on the sample errors, `2^m` is `M`, `α T` is the common normalised time, `βH + R βD` plays the
-role of `L_*`, and `d = GateCircuit.Sim.fDeg Q (α T) qbar (ε/2)` is the released filter degree.
+role of `L_*`, and `d = GateCircuit.Sim.fDeg Q (α T) qbar (ε/2)` is the package's own filter degree.
 In the differential-equation endpoints `B = p.mass` is the quadrature normalisation `B_m` of the
 paper, the budget `B ≤ g ‖x(T)‖` is stated with `B_m` (the paper's `B/‖x(T)‖ ≤ ḡ` and
 `B_m ≤ 2B` give it with `g = 2ḡ`, as in the released solvers), and the certificate bound `κ`
@@ -127,7 +126,7 @@ plays the role of `ν B`.
   forcing label `(true, q)` is `w_q f_q` (`ODE.zsrc_bsW`, through `ODE.bsW` in the released
   source format) and `B = ‖x(0)‖ + ∑_q w_q ‖f_q‖` (`ODE.mass_bsW`); the released
   weight-preparation promise and loading of the directions of `x(0)` and of every `f_q` with
-  `w_q ≠ 0` ("Zero-weight terms are omitted").
+  `w_q ≠ 0` ("Terms of zero weight are omitted").
 * Certificate (`ODE.BInstanceOK`): a solution `x` of `x' = -G(u) x + b(u)` on `[0, T]` with
   `x(T) ≠ 0` and `B ≤ g ‖x(T)‖`; homogeneous solutions `y_s` of `y' = -G(u) y` on
   `[startB s, T]` with `y_s(startB s) = z_s` (informally `y_s(T) = U(T, v_s) z_s` for the
@@ -139,13 +138,14 @@ plays the role of `ν B`.
   `x(0)`, `x(T)` and this certificate (the field `solves` records that `x` solves the forced
   equation; `ODE.quad_leftEndpoint` uses it, `ODE.solverB` does not).
 * Left-endpoint quadrature (`ODE.quad_leftEndpoint`, the sufficient positive quadrature of the
-  proof, lines 4815-4832): for the nodes `ODE.vLeft q = q T / 2^m`, the weights
+  proof of Theorem `ode:thm:gates`): for the nodes `ODE.vLeft q = q T / 2^m`, the weights
   `ODE.wLeft q = T / 2^m` and the forcing samples `b̃_q` of the released solver, the certificate
   holds for every solution `x` of the forced equation with a `βb`-Lipschitz forcing bounded by
   `bmax`, `‖b(q T/2^m) - b̃_q‖ ≤ δb`, and the samples of the initial branch, with
   `κ = discretisation + T (βG T / 2^m + δG) B` (`GateODE.Time.TParams.discretisation` the
   released certified error of the left-endpoint recurrence). Here the number of nodes is the
-  number `2^m` of slots, and the bound is cruder than the paper's `T² C_b/(2m)`: with the budget
+  number `2^m` of slots, and the bound is cruder than the paper's
+  `T² [√s (η_D + η_H) b_* + L_b]/(2m)`: with the budget
   of `ODE.BInstanceOK` the generator terms are paid twice,
   `discretisation + 2 T (βG T / 2^m + δG) B ≤ ε B / (2000 g)`, which is stricter than the
   condition of the released masked solver for the same quadrature.
@@ -217,6 +217,14 @@ dynamics.
 
 **Formalisation choices.**
 
+* Sample positivity (a formal restriction): the time-dependent ODE solvers assume `Lb ≥ 0` for every
+  represented sample, the hypothesis of the formal versions of Theorem `ode:thm:time`, which that
+  theorem of the manuscript does not make (it asks of the represented samples only the uniform
+  moment and norm promises; see `TimeDependentODE/Statements.lean`). `RepresentedSampleODE` lifts it
+  for the query-level mesh solvers and the common-mesh gate solver; the conformance endpoints
+  `ManuscriptConformance.ode_thm_time`, `ode_thm_gates_time_cert` and
+  `ode_thm_gates_time_decoder_cert` hold for represented samples of any sign. The manuscript's
+  theorems are not changed.
 * The step `u_z/2^m` of branch `z` enters through the rescaled normalised sample `(u_z/(α T)) X`
   of its private operation, simulated with the common step `α T/2^m`, rather than through the
   boundary rotation parameter `c_z = (1 - w_z/2)/(1 + w_z/2)`, `w_z = α u_z/2^m`, of the proof.
@@ -231,11 +239,12 @@ dynamics.
   in the angle arithmetic) with clock constants `Q`, `qbar` independent of the label is
   assumed, not derived (the released binary-data constant-coefficient solver derives it for
   its branch durations).
-* The released degree `d = GateCircuit.Sim.fDeg Q (α T) qbar (ε/2)`, the released subdivision
-  condition and the freezing condition `4 (βH + R βD) T² ≤ ε 2^m` replace the schedule
-  `ode:eq:gate-select-schedule` and the mesh condition `ode:eq:gate-select-mesh`; the error
-  budget is `ε/2` for the simulation, `ε/4` for freezing and `ε/4` for the samples, and the
-  sample errors are bounded uniformly by `δ` (the lemma allows an integrated certificate).
+* The package's own filter degree `d = GateCircuit.Sim.fDeg Q (α T) qbar (ε/2)` and mesh
+  condition (the released subdivision condition and the freezing condition
+  `4 (βH + R βD) T² ≤ ε 2^m`) replace the schedule `ode:eq:gate-select-schedule` and the mesh
+  condition `ode:eq:gate-select-mesh`; the error budget is `ε/2` for the simulation, `ε/4` for
+  freezing and `ε/4` for the samples, and the sample errors are bounded uniformly by `δ` (the lemma
+  allows an integrated certificate).
 * The differential-equation endpoints keep the released protocol, so the source label has
   `m` bits: a quadrature with at most `2^m` nodes is padded with zero weights, and one with more
   nodes needs a larger `m` (a finer mesh of every branch, which keeps the mesh conditions). They

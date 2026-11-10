@@ -10,6 +10,7 @@ with the uniform statement `SparseHamiltonian.TimeDependentODE.Outcome`.
 The constant-coefficient endpoint `ode:thm:main` is the released
 `SparseHamiltonian.ODECompleteEndpoint.solver` (library `SparseODE`); its
 statement file predates this extension.
+References to the manuscript use its labels.
 
 **Equation and access model.** The equation is `x' = -G(u) x + b(u)` on
 `[0, T]`; the generator `G(u)` is accretive (`Accretive`: `Re ⟪v, G v⟫ ≥ 0`),
@@ -32,7 +33,8 @@ complete primitive oracle family is `NativeSource.physicalOracle D d J₀ Jb`
 * `0 ≤ η_H`, `0 ≤ η_D`, `0 < T`, `1 ≤ g`, `0 < ε ≤ 1` and `0 < M`;
 * every sample has Hermitian imaginary and real parts with row and column
   Euclidean norms at most `η_H` and `η_D`, and a positive semidefinite real
-  part; the sparsity bound `s` is part of the data;
+  part (the formal restriction stated below); the sparsity bound `s` is part
+  of the data;
 * with `g' = 2 g`, `ε' = ε / 2`, `R = radius g ε = 4 log (20000 g' / ε')` and
   `ν = precision g ε = ε' / (10000 g')`: `ρ = η_H + R η_D > 0` and the mesh
   conditions `8 s ρ T ≤ M` and `3 (√(2s) ρ T)³ ≤ ν M²`;
@@ -51,6 +53,21 @@ and of every nonzero `b̃_r` from the seed; `x(T) ≠ 0` and `B ≤ g ‖x(T)‖
 and the certified discretisation error
 `T ((β_G T/M + δ_G)(r₀ + b_max T) + β_b T/M + δ_b + (T/M) s D.scale (b_max + δ_b))`
 (`Sampling.discretisation`) is at most `ε B / (2000 g)`.
+
+**Formal restriction (sample positivity).** The hypothesis `hPSD` that the dissipative part
+`(G̃_r + G̃_r†)/2` of every represented sample is positive semidefinite is not a hypothesis of
+Theorem `ode:thm:time` of the manuscript, which assumes the exact generator path accretive and
+asks of the represented samples only the uniform moment and norm promises. The released circuit
+propagates every LCHS branch by the represented samples, and the formal proof applies the
+Gaussian LCHS identity to these sampled propagators (`GaussianLCHS.table_certificate` with
+`Sampling.family_norm_le_one`), which needs every sample dissipative. The manuscript's theorem
+is not changed: this library proves it for represented samples with positive semidefinite
+dissipative parts, which include samples that are exact values of the path. The libraries
+built on this solver (`GeneralSourceODE`, `GeneralSourceExtensions`, `TimeDependentExtensions`,
+`ZeroTimeRemarks`) make the same hypothesis, the time-dependent gate-level ODE theorems
+(`GateEfficientODE` and the libraries built on it) assume `L_r ≥ 0` for every represented
+sample, and the input class of the truncated Dyson-series solver (`DysonGeneralAccess`,
+`ODELowerBoundExtensions`) assumes the used samples accretive.
 
 **Guarantees.** There are a filter degree `d`, a clean source encoding `E`
 and one trial family `q` over the primitive oracle family, all depending only
@@ -123,8 +140,13 @@ Solutions exist for Lipschitz paths: `exists_solvesODE_of_lipschitz`.
 * `8 s ρ T ≤ M` gives the clock condition `w ≤ 1/4` for every admissible
   rescaling; `3 (√(2s) ρ T)³ ≤ ν M²` bounds the accumulated Cayley error by
   `ν / 3`.
-* Not formalised: nonuniform meshes, breakpoints of piecewise Lipschitz
-  inputs, integrated sample-error certificates, the zero-time and zero-energy
-  degenerate branches of `ode:thm:main`, the general-generator extension
-  `ode:thm:general`, gate and workspace costs, and lower bounds.
+* Not formalised in this library: represented samples whose dissipative parts
+  are not positive semidefinite (the formal restriction above), nonuniform
+  meshes, breakpoints of piecewise Lipschitz inputs and integrated
+  sample-error certificates (`TimeDependentExtensions`), the zero-time and
+  zero-energy degenerate branches of `ode:thm:main` (`ZeroTimeRemarks`), the
+  general source interface (`GeneralSourceODE`), the general-generator
+  extension `ode:thm:general` (`GeneralODE`, `MixedOutputODE`), gate and
+  workspace costs (the gate-level ODE libraries), and lower bounds (the ODE
+  lower-bound libraries).
 -/

@@ -8,15 +8,15 @@ set_option synthInstance.maxSize 4096
 /-!
 # Theorem `hsl:thm:main` for measured algorithms over time-indexed block encodings
 
-The paragraph "Relation to time-indexed block encodings" (the manuscript, lines 1518-1538, eqs.
-`hs:eq:blockspecial`, `hs:eq:blockadditive`) supplies coherent and controlled access to
-Hermitian unitaries `O_r` with `J† O_r J = H̃_r / α_BE`; the lower bound of Theorem
-`hsl:thm:main` (lines 2102-2119, eq. `hsl:eq:main`) applies to the time-dependent class with
-time-independent hard instances (lines 1512-1516), and randomised or adaptive algorithms are
-covered by purification and deferred measurement (lines 2363-2364). This module states the
-block-encoding form of `TimeDependentLowerBoundExtensions.BlockEncoding` for **measured
-algorithms** (`DeferredMeasurementLowerBounds.Model.Measured`) on the constant Hermitian block
-encodings `beConst D M` of the time, mixed and precision families:
+The model of eqs. `hs:eq:blockspecial` and `hs:eq:blockadditive` supplies coherent and controlled
+access to Hermitian unitaries `O_r` with
+`J† O_r J = H̃_r / α_BE`; the lower bound of Theorem `hsl:thm:main` (eq. `hsl:eq:main`) applies to
+the time-dependent class with time-independent hard instances (the paragraphs after the proof of
+Theorem `hs:thm:time`), and randomised or adaptive algorithms are covered by purification and
+deferred measurement (proof of Lemma `hsl:lem:precision`). This module states the block-encoding
+form of `TimeDependentLowerBoundExtensions.BlockEncoding` for **measured algorithms**
+(`DeferredMeasurementLowerBounds.Model.Measured`) on the constant Hermitian block encodings
+`beConst D M` of the time, mixed and precision families:
 
 * `main_max_measured_block`: over the released aligned block-encoding family
   `TimeDependentExtensions.BlockEncoding.alignedOracle (beConst D M) N α T ε'`, the oracle family
@@ -33,18 +33,17 @@ form counted once). The factor `8` is the number of value calls of one block-enc
 the reduction (`beOp`, the dilation of the six-query block encoding), not a constant of the
 manuscript, which states no lower bound in block-encoding calls.
 
-The constant hard paths belong to the block-encoding class: `beConst D M` has
-`α_BE J† O_r J = H_x` with `J = beJ D` and `α_BE = beAlpha D` (`beJ_compress`,
-`blockSample_beOp`), so the sample error is zero. The bound concerns these specific block
-encodings, each call two masked runs of the released six-query block encoding (`8` value
-calls), with normalisation `beAlpha D = s·scale`,
-the `α_BE = sη` of a standard sparse block encoding (lines 1553-1560); it is consistent with eq.
-`hs:eq:blockadditive` (line 1533) for that normalisation and is not claimed for block encodings
-of smaller normalisation. The accuracy hypothesis is eq. `hsl:eq:accuracy`
-against every propagator `U` of the constant path from the identity, `U(τ) ψ_in`, as in the
-`TimeDependentHamiltonianLowerBound` tree forms; it is the manuscript's own accuracy condition, and
-it replaces the program criterion `BECriterion` of `main_max_block`, which a measured algorithm
-has no output operator to state. Accuracy against every propagator of the constant path is
+The constant hard paths belong to the block-encoding class: `beConst D M` has `α_BE J† O_r J = H_x`
+with `J = beJ D` and `α_BE = beAlpha D` (`beJ_compress`, `blockSample_beOp`), so the sample error is
+zero. The bound concerns these specific block encodings, each call two masked runs of the released
+six-query block encoding (`8` value calls), with normalisation `beAlpha D = s·scale`, the
+`α_BE = sη` of a standard sparse block encoding (the text after eq. `hs:eq:blockadditive`); it is
+consistent with eq. `hs:eq:blockadditive` for that normalisation and is
+not claimed for block encodings of smaller normalisation. The accuracy hypothesis is eq.
+`hsl:eq:accuracy` against every propagator `U` of the constant path from the identity, `U(τ) ψ_in`,
+as in the `TimeDependentHamiltonianLowerBound` tree forms; it is the manuscript's own accuracy
+condition, and it replaces the program criterion `BECriterion` of `main_max_block`, which a measured
+algorithm has no output operator to state. Accuracy against every propagator of the constant path is
 accuracy for `exp(-iτH_x) ψ_in`
 (`TimeDependentHamiltonianLowerBound.densityAccurate_propagator_iff`), the target whose endpoint
 error `BECriterion` controls for programs (`beCriterion_endpoint`).
@@ -75,20 +74,22 @@ open scoped InnerProduct InnerProductSpace
 variable {τ ε : ℝ} {s : ℕ}
 
 /-- **Theorem `hsl:thm:main` for measured algorithms over time-indexed block encodings** (eq.
-`hsl:eq:main`, max form; an extension of the manuscript's lines 1512-1516 to the model of lines
-1518-1538): for any three measured algorithms whose oracle calls are the released aligned
-block-encoding families `TimeDependentExtensions.BlockEncoding.alignedOracle (beConst D M) N α T ε'`
-(the oracle family of `TimeDependentExtensions.BlockEncoding.simulation` and
-`IntegrablePathSimulation.BlockEncoding.simulation`) of the constant Hermitian block encodings
-of the time, mixed and precision families (any numbers of samples, slot counts and schedules),
-with unit initial vectors, success probability at least `2/3` on every input and conditional
-output `ε`-accurate for `U(τ) ψ_in` for every propagator `U` of the constant path from the
-identity, `c₀ (√s τ + √(sτr) + r) ≤ 8 · max(Q_T, Q_M, Q_P)`, `Q` the worst-case number of
-block-encoding calls, inverses included. The factor `8` comes from the reduction. The bound
-concerns the block encodings `beConst D M`, each call two masked runs of the released six-query
-block encoding (`8` value calls), with normalisation `beAlpha D = s·scale`, the `α_BE = sη` of a standard sparse block encoding (the
-manuscript, lines 1553-1560); it is consistent with eq. `hs:eq:blockadditive` (line 1533) for
-that normalisation and is not claimed for block encodings of smaller normalisation. -/
+`hsl:eq:main`, max form; an extension of the remark after the proof of Theorem `hs:thm:time` to the
+model of eqs. `hs:eq:blockspecial` and `hs:eq:blockadditive`): for any three
+measured algorithms whose oracle calls are the released aligned block-encoding families
+`TimeDependentExtensions.BlockEncoding.alignedOracle (beConst D M) N α T ε'` (the oracle family of
+`TimeDependentExtensions.BlockEncoding.simulation` and
+`IntegrablePathSimulation.BlockEncoding.simulation`) of the constant Hermitian block encodings of
+the time, mixed and precision families (any numbers of samples, slot counts and schedules), with
+unit initial vectors, success probability at least `2/3` on every input and conditional output
+`ε`-accurate for `U(τ) ψ_in` for every propagator `U` of the constant path from the identity,
+`c₀ (√s τ + √(sτr) + r) ≤ 8 · max(Q_T, Q_M, Q_P)`, `Q` the worst-case number of block-encoding
+calls, inverses included. The factor `8` comes from the reduction. The bound concerns the block
+encodings `beConst D M`, each call two masked runs of the released six-query block encoding (`8`
+value calls), with normalisation `beAlpha D = s·scale`, the `α_BE = sη` of a standard sparse block
+encoding (the manuscript, the text after eq. `hs:eq:blockadditive`); it
+is consistent with eq. `hs:eq:blockadditive` for that normalisation and is not claimed for block
+encodings of smaller normalisation. -/
 theorem main_max_measured_block (h : HSRange τ s ε) (MT MM MP NT NM NP : ℕ)
     (αT TT εT αM TM εM αP TP εP : ℝ) {ET GT EM GM EP GP : Type*}
     [NormedAddCommGroup ET] [InnerProductSpace ℂ ET] [CompleteSpace ET] [FiniteDimensional ℂ ET]
@@ -147,12 +148,13 @@ theorem main_max_measured_block (h : HSRange τ s ε) (MT MM MP NT NM NP : ℕ)
     ((TimeDependentHamiltonianLowerBound.densityAccurate_propagator_iff _ eP _ _ hτ).1 haccP)
   exact_mod_cast key
 
-/-- **Theorem `hsl:thm:main` for measured algorithms over the controlled time-indexed oracle**
-(eq. `hsl:eq:main`, max form; an extension of the manuscript's lines 1512-1516 to the access
-model of lines 1520-1525): as `main_max_measured_block`, with oracle calls the controlled
-time-indexed oracle `TimeDependentExtensions.BlockEncoding.primitive (beConst D M)`
-(`|c, r⟩ ⊗ v ↦ |c, r⟩ ⊗ O_r^c v`, the formalisation of the coherent and controlled access of
-those lines; any number `M` of samples). -/
+/-- **Theorem `hsl:thm:main` for measured algorithms over the controlled time-indexed oracle** (eq.
+`hsl:eq:main`, max form; an extension of the remark after the proof of Theorem `hs:thm:time` to the
+access model of eqs. `hs:eq:blockspecial` and `hs:eq:blockadditive`): as
+`main_max_measured_block`, with oracle calls the controlled time-indexed oracle
+`TimeDependentExtensions.BlockEncoding.primitive (beConst D M)` (`|c, r⟩ ⊗ v ↦ |c, r⟩ ⊗ O_r^c v`,
+the formalisation of the coherent and controlled access of those lines; any number `M` of
+samples). -/
 theorem main_max_measured_block_primitive (h : HSRange τ s ε) (MT MM MP : ℕ)
     {ET GT EM GM EP GP : Type*}
     [NormedAddCommGroup ET] [InnerProductSpace ℂ ET] [CompleteSpace ET] [FiniteDimensional ℂ ET]
@@ -213,10 +215,10 @@ theorem main_max_measured_block_primitive (h : HSRange τ s ε) (MT MM MP : ℕ)
 
 set_option synthInstance.maxSize 8192 in
 /-- **Theorem `hsl:thm:main` for measured algorithms over all call forms of the aligned
-block-encoding family** (eq. `hsl:eq:main`, max form; an extension of the manuscript's lines
-1512-1516): as `main_max_measured_block`, with oracle calls the plain, inverse, controlled and
-controlled-inverse calls (`AdaptiveODELowerBound.Access.callFamily`) of the aligned family, every
-call form counted once. -/
+block-encoding family** (eq. `hsl:eq:main`, max form; an extension of the manuscript's the
+paragraphs after the proof of Theorem `hs:thm:time`): as `main_max_measured_block`, with oracle
+calls the plain, inverse, controlled and controlled-inverse calls
+(`AdaptiveODELowerBound.Access.callFamily`) of the aligned family, every call form counted once. -/
 theorem main_max_measured_calls_block (h : HSRange τ s ε) (MT MM MP NT NM NP : ℕ)
     (αT TT εT αM TM εM αP TP εP : ℝ) {ET GT EM GM EP GP : Type*}
     [NormedAddCommGroup ET] [InnerProductSpace ℂ ET] [CompleteSpace ET] [FiniteDimensional ℂ ET]

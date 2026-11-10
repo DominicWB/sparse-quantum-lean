@@ -6,7 +6,8 @@ section
 /-!
 # Native primitives of one-bit data from Boolean queries
 
-Manuscript lines 2283-2289 (and the QLS analogue, lines 5320-5338). For data
+Manuscript: the chain construction of Section `part:hsl` (and the QLS analogue, proof of Theorem
+`qlsl:thm:main`). For data
 built by `bitData` from a one-bit word table `T` and hidden bits `y x`, every
 native primitive (`NativeSparseBlockEncoding.oracles`) is implemented exactly,
 on the clean-ancilla encoding `v ↦ |0⟩ ⊗ v` (`ancillaEmbed`), by a program over
@@ -15,13 +16,12 @@ the Boolean phase oracle `x ↦ (bitBooleanFamily T Z).phase (y x)`:
 * the row and column **location** oracles are input-independent permutation
   unitaries, hence fixed gates: **0** Boolean queries
   (`oracles_bitData_rowLocation`, `oracles_bitData_columnLocation`);
-* the **value** oracle costs **2** Boolean queries: query the one bit the
-  address depends on into the ancilla, add the word selected by that bit (a
-  fixed gate, `bitWordGate`), unquery (lines 2287-2289). Known words make no
-  query. The two branch identities of `PhaseCircuit.circuit_intertwines` are
-  `bitValue_branch_zero/one` (and `bitValue_spec_branch_zero/one` with a
-  spectator); at a single address the value oracle *is* the word gate of the
-  queried bit (`oracles_bitData_value_apply_eq_gate`).
+* the **value** oracle costs **2** Boolean queries: query the one bit the address depends on into
+  the ancilla, add the word selected by that bit (a fixed gate, `bitWordGate`), unquery (the chain
+  construction of Section `part:hsl`). Known words make no query. The two branch identities of
+  `PhaseCircuit.circuit_intertwines` are `bitValue_branch_zero/one` (and
+  `bitValue_spec_branch_zero/one` with a spectator); at a single address the value oracle *is* the
+  word gate of the queried bit (`oracles_bitData_value_apply_eq_gate`).
 
 `Π_i` (`bitAddressFamily`) projects onto the addresses whose word depends on
 bit `i`; the Boolean family is `|−⟩⟨−| ⊗ Π_i` (`ProjFamily.withAncilla`), so its
@@ -165,14 +165,16 @@ variable {X : Type*} {s B : ℕ} {hs : 0 < s} {slot : Fin s ↪ N} {loc : N → 
   {hcol : ∀ x i j, H x i j ≠ 0 → i ∈ Set.range (loc j)}
 
 omit [Fintype I] [DecidableEq I] in
-/-- The row location primitive is one fixed unitary (lines 2283-2286). -/
+/-- The row location primitive is one fixed unitary (the chain construction of Section
+`part:hsl`). -/
 theorem oracles_bitData_rowLocation (x : X) :
     oracles (bitData s B hs slot loc T y H hbound hdec hrow hcol) .rowLocation x =
       SparseFlagEmbedding.location (Z := Word B) (fun _ : Unit => permCLM (rowEquiv slot loc)) () :=
   rfl
 
 omit [Fintype I] [DecidableEq I] in
-/-- The column location primitive is one fixed unitary (lines 2283-2286). -/
+/-- The column location primitive is one fixed unitary (the chain construction of Section
+`part:hsl`). -/
 theorem oracles_bitData_columnLocation (x : X) :
     oracles (bitData s B hs slot loc T y H hbound hdec hrow hcol) .columnLocation x =
       SparseFlagEmbedding.location (Z := Word B) (fun _ : Unit => permCLM (colEquiv slot loc)) () :=
@@ -263,7 +265,7 @@ variable {X : Type*} {s B : ℕ}
 
 /-- **Every native primitive of one-bit data is a `hardCost`-query Boolean
 program** on the clean-ancilla encoding: `0` for the location oracles, `2` for
-the value oracle (lines 2283-2289). -/
+the value oracle (the chain construction of Section `part:hsl`). -/
 theorem implementsOn_bitData (hs : 0 < s) (slot : Fin s ↪ N) (loc : N → Fin s ↪ N)
     (T : BitTable I (N × N)) (y : X → I → Bool) (H : X → Matrix N N ℂ)
     (hbound : ∀ a b, -(2 : ℤ) ^ B < T.word a b ∧ T.word a b ≤ 2 ^ B)

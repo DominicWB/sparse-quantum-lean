@@ -4,6 +4,10 @@ import GateEfficientSynthesis.ODE
 /-!
 # Zero time or a known zero generator over a finite gate set, every trial synthesised
 
+The finite-gate-set forms of Theorem `ode:thm:gates` in this module are a partial formalisation of
+its finite-set statement, under this package's format hypotheses: the manuscript states Theorem
+`ode:thm:gates` over a finite gate set; the conformance endpoints count native gates.
+
 The finite-gate-set forms of Theorem `ode:thm:gates` of the accompanying paper that synthesise
 every trial (`GateSynth.native_ode_solver_synth`, `GateSynth.native_ode_time_solver_synth`) run
 the protocol `GateSynth.sprotocol hS (ε/200) prepN g`: every gate of every trial (the
@@ -11,8 +15,11 @@ preparation, its inverse, the zero tests and the sign) is synthesised over the f
 `𝒢` under the hypothesis `GateSynth.Synthesis 𝒢 X len`, with the synthesis budget `ε/200` per
 trial; its guarantee is `GateSynth.SOutcome` (success probability at least `2/3`, conditional
 output within trace distance `ε`). The released library `ZeroTimeGateODE` proves the remark of
-`ode:thm:gates` ("Zero time or a known zero generator uses direct source assembly and needs no
-matrix calls") with the direct source assembly `zprepC (srcRot T r₀ r_b) srcC` (resp.
+`ode:thm:gates` ("At `T = 0` only the initial preparation is needed. For a known zero generator
+the solver assembles the source quadrature directly. Neither case needs a propagator query; any
+matrix queries inside the supplied preparations still count."; the forcing circuit is still applied
+at `T = 0`, with weight zero) with the direct source assembly
+`zprepC (srcRot T r₀ r_b) srcC` (resp.
 `tzprepC loadC wpC`) on every native register `ZNW …`, and lists its every-trial synthesised forms
 as not formalised. They follow from its `GateNative.NOutcome` statements by the released
 `GateSynth.soutcome`:
@@ -52,8 +59,9 @@ variable {S Zs Z Y J X : Type*} [Fintype S] [DecidableEq S] [Fintype Zs] [Decida
 variable {𝒢 : Set Kind} {len : ℝ → ℕ}
 
 /-- **Zero time or a known zero generator over a finite gate set, every trial synthesised,
-constant coefficients** (remark of Theorem `ode:thm:gates`: direct source assembly, no matrix
-calls).
+constant coefficients** (partial formalisation, under this package's format hypotheses, of the
+finite-set form of the remark of Theorem `ode:thm:gates`: direct source
+assembly, no matrix calls).
 
 With the synthesis hypothesis `Synthesis 𝒢 X len`, on every native ODE register
 `ZNW a m r K k l f S Zs Z bT bP A` with the `|X|` synthesis ancillas, the synthesised protocol
@@ -144,7 +152,9 @@ theorem native_ode_solver_synth_zero (hS : Synthesis 𝒢 X len) (a m r K k l f 
       (hout prim Jsrc x0 b ζs hprim hJ hζs hsrc hbud h₀ hb hJ0 hJb hne hbudg)
 
 /-- **Zero time or a known zero generator over a finite gate set, every trial synthesised,
-time-dependent coefficients** (remark of Theorem `ode:thm:gates`, time-dependent part).
+time-dependent coefficients** (partial formalisation, under this package's format hypotheses, of
+the finite-set form of the remark of Theorem `ode:thm:gates`,
+time-dependent part).
 
 For time-dependent public data `p` with `T ≥ 0`, `g ≥ 1`, `0 < ε ≤ 1/2`, `λ_H, λ_D ≥ 0` and
 `T = 0 ∨ λ_H + R λ_D = 0`, with the synthesis hypothesis `Synthesis 𝒢 X len`, on every native

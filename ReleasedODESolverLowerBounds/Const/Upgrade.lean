@@ -9,8 +9,8 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # From adaptive to measured solvers over the constant-coefficient physical oracle
 
-Manuscript line 2364 (purification and deferred measurement) and Section `odel:sec:main`, lines
-3669-3681; Theorem `ode:thm:main` (line 2584).
+Manuscript: the end of the proof of Lemma `hsl:lem:precision` (purification and deferred
+measurement) and Section `odel:sec:main`; Theorem `ode:thm:main`.
 
 As for the general-mesh oracle (`ReleasedODESolverLowerBounds.Mesh`): a measured solver over
 `constOracle F ι N_m T_sl d J₀ J_b` or its call forms is deferred and compiled into an adaptive

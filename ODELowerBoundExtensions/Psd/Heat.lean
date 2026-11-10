@@ -4,7 +4,7 @@ import SparseLowerBounds.Hamiltonian.Amplitude
 /-!
 # The dissipative flow `e^{-tD}` of a matrix generator
 
-Helper of Theorem `odel:thm:psd` (manuscript lines 4016-4135). The homogeneous equation
+Helper of Theorem `odel:thm:psd`. The homogeneous equation
 `ẋ = -D x` of the PSD families has the solution `x(t) = e^{-tD} x₀`; in the release's
 convention (`TimeDependentODE.SolvesODE`, generator
 `G = D`) this is `heat D t x₀ = exp(t • (-D)) x₀`, the exponential of
@@ -19,12 +19,12 @@ convention (`TimeDependentODE.SolvesODE`, generator
   uniqueness `SparseLowerBounds.ODE.solvesODE_const_eqOn`); `heat_apply_eq_of_hasDerivAt`:
   the global form (from `Hamiltonian.evolve_apply_eq_of_hasDerivAt`);
 * block and gauge transport, for every real `t`: `heat_fullMatrix_coreVec`,
-  `heat_fullMatrix_refZero` (the reference vertex `r₀` of `Hamiltonian.fullMatrix` has
-  eigenvalue zero, lines 4074-4075), `heat_unitary_conj` (common gauge, lines 4048-4053),
-  `inner_chainVec_heat_kronecker`;
-* `psdCore H = (1 - H)/2` (eq. `odel:eq:Dpath`, lines 4071-4073) and `heat_psdCore`:
+  `heat_fullMatrix_refZero` (the reference vertex `r₀` of `Hamiltonian.fullMatrix` has eigenvalue
+  zero, proof of Theorem `odel:thm:psd`), `heat_unitary_conj` (common gauge, proof of Theorem
+  `odel:thm:psd`), `inner_chainVec_heat_kronecker`;
+* `psdCore H = (1 - H)/2` (eq. `odel:eq:Dpath`) and `heat_psdCore`:
   `e^{-t(1-H)/2} = e^{-t/2} e^{(t/2) H}`, the imaginary-time form used with `u = τ/2`
-  (eq. `odel:eq:imaginaryamp`, lines 4045-4047).
+  (eq. `odel:eq:imaginaryamp`).
 -/
 
 set_option autoImplicit false
@@ -138,8 +138,7 @@ section Core
 
 variable {S : Type*} [Fintype S] [DecidableEq S]
 
-/-- **The PSD generator of a path block** `D = (I - H)/2` (eq. `odel:eq:Dpath`,
-lines 4071-4073). -/
+/-- **The PSD generator of a path block** `D = (I - H)/2` (eq. `odel:eq:Dpath`). -/
 def psdCore (H : Matrix S S ℂ) : Matrix S S ℂ := (1 / 2 : ℂ) • (1 - H)
 
 /-- `psdCore` commutes with unitary similarity: `(1 - U K U†)/2 = U ((1 - K)/2) U†`. -/
@@ -150,7 +149,7 @@ theorem psdCore_unitary_conj {U : Matrix S S ℂ} (hU : U ∈ Matrix.unitaryGrou
   unfold psdCore
   rw [Matrix.mul_smul, Matrix.smul_mul, Matrix.mul_sub, Matrix.mul_one, Matrix.sub_mul, hUU]
 
-/-- **Imaginary-time form** (lines 4045-4047, 4071-4073):
+/-- **Imaginary-time form** (eq. `odel:eq:imaginaryamp` and eq. `odel:eq:Dpath`):
 `e^{-t(1-H)/2} = e^{-t/2} e^{(t/2) H}`, the second factor written `heat (-H) (t/2)`. -/
 theorem heat_psdCore (H : Matrix S S ℂ) (t : ℝ) :
     heat (psdCore H) t = ((Real.exp (-(t / 2)) : ℝ) : ℂ) • heat (-H) (t / 2) := by
@@ -198,7 +197,7 @@ theorem heat_fullMatrix_coreVec (H : Matrix C C ℂ) (s : ℕ) (t : ℝ) (v : Eu
   ext i
   rcases i with c | r <;> simp [coreVec]
 
-/-- **`r₀` is a fixed vertex of eigenvalue zero** (lines 4074-4075):
+/-- **`r₀` is a fixed vertex of eigenvalue zero** (proof of Theorem `odel:thm:psd`):
 `e^{-t fullMatrix H s} |r₀⟩ = |r₀⟩` for every real `t`. -/
 theorem heat_fullMatrix_refZero (H : Matrix C C ℂ) (s : ℕ) (t : ℝ) :
     heat (fullMatrix H s) t (EuclideanSpace.single refZero 1) =

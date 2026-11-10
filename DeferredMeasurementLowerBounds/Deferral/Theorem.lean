@@ -6,12 +6,12 @@ set_option autoImplicit false
 /-!
 # The deferral theorem
 
-Manuscript lines 2363-2364 and 5185-5186. Every measured algorithm `M` (mid-run and
-multi-outcome measurements, classical control, randomness, resets of finite-dimensional
-registers, any workspace) over a unitary
-oracle family `O` is simulated by **one unitary oracle program** over the selection family
-(`deferredProgram`), on the workspace with `M.depth` record registers of width `M.width`, run on
-a unit seed (`deferredSeed`) and read through one output isometry (`deferredOutput`):
+Manuscript: the proofs of Lemmas `hsl:lem:precision` and `qlsl:lem:xor`. Every measured algorithm
+`M` (mid-run and multi-outcome measurements, classical control, randomness, resets of
+finite-dimensional registers, any workspace) over a unitary oracle family `O` is simulated by **one
+unitary oracle program** over the selection family (`deferredProgram`), on the workspace with
+`M.depth` record registers of width `M.width`, run on a unit seed (`deferredSeed`) and read through
+one output isometry (`deferredOutput`):
 
 * the decoded final vector `amplitude` (indexed by the output records) has the success mass of
   `M` as squared norm (`norm_sq_amplitude`), and its record-wise projectors sum to the heralded

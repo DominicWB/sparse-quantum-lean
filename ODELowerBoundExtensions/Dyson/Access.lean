@@ -9,10 +9,11 @@ set_option synthInstance.maxSize 4096
 /-!
 # Coherent sampled-time native access for the Dyson solver (`odel:lem:dyson`)
 
-Manuscript lines 4170-4176 and 4191-4196: "the ordinary sparse-matrix construction gives a block
-encoding of `A(t)/α`, `α = sη`, with a constant number of queries" (uniform row/column slot
-superpositions and a controlled entry rotation; no Hermiticity), and "one coherent call at the
-selected sample time accesses `A_h`".
+Manuscript: the proof of Lemma `odel:lem:dyson`: uniform superpositions over the row and column
+list positions and a flag rotation by the queried entry give the ordinary sparse block encoding of
+`A(t)/α` with `α = sη`, each preparation and its inverse using a constant number of queries and no
+Hermiticity, and "one coherent selection implements the corresponding block at constant query
+cost, even when the mesh has many cells".
 
 The data convention is the release's: the time-indexed native data
 `D : Data (X × Fin Kₛ) n Z s` (`D.matrix (x, r)` is the sample `r`, the convention of
@@ -69,8 +70,8 @@ theorem flatGate_mul
     flatGate (U * V) = flatGate U * flatGate V := by
   simp [flatGate]
 
-/-- **One coherent sampled-time native call** `∑_r |r⟩⟨r| ⊗ O_l(x, r)` (lines 4192-4193): the
-release's `TimeDependent.timeOracle` of the flat native primitives. -/
+/-- **One coherent sampled-time native call** `∑_r |r⟩⟨r| ⊗ O_l(x, r)` (proof of Lemma
+`odel:lem:dyson`): the release's `TimeDependent.timeOracle` of the flat native primitives. -/
 abbrev timeOracle (D : Data (X × Fin Ks) n Z s) :
     Query → X → EuclideanSpace ℂ (PBasis Ks n Z) →L[ℂ] EuclideanSpace ℂ (PBasis Ks n Z) :=
   TimeDependent.timeOracle (NativeSparseMaskedAccess.flatOracle D)
@@ -233,7 +234,7 @@ theorem payloadEncoding_isometry (hK : 0 < Ks) (D : Data (X × Fin Ks) n Z s) :
         (NativeSparseBlockEncoding.input D)))
 
 /-- The represented sample `G̃_r/(s Λ)`, `Λ = D.scale` (the normalisation `α = s η` of
-line 4172). -/
+the proof of Lemma `odel:lem:dyson`). -/
 def sampleOperator (D : Data (X × Fin Ks) n Z s) (x : X) (r : Fin Ks) :
     EuclideanSpace ℂ n →L[ℂ] EuclideanSpace ℂ n :=
   SparseStateOverlap.matrixOperator (fun i j => D.matrix (x, r) i j / ((s : ℂ) * D.scale))
@@ -291,8 +292,8 @@ theorem matrixOperator_eq_smul (D : Data (X × Fin Ks) n Z s) (x : X) (r : Fin K
 
 set_option maxRecDepth 4096 in
 set_option maxHeartbeats 400000 in
-/-- **O(1)-query block encoding at a selected time** (lines 4170-4176, 4191-4193): the six-query
-program `NativeSparseBlockEncoding.program D`, run coherently in the time address and
+/-- **O(1)-query block encoding at a selected time** (proof of Lemma `odel:lem:dyson`): the
+six-query program `NativeSparseBlockEncoding.program D`, run coherently in the time address and
 conjugated by the known time swap to address `r`, compresses to `G̃_r/(s Λ)`. -/
 theorem slot_compression (hK : 0 < Ks) (D : Data (X × Fin Ks) n Z s) (x : X) (r : Fin Ks) :
     (payloadEncoding hK D)† ∘L timeSwap hK r ∘L

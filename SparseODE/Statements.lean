@@ -11,6 +11,7 @@ Theorem 6.1 (`ode:thm:main`) of the accompanying paper is formalized by
 Their full statements are in `SparseODE/ODECompleteSuccess.lean` and build
 on the trial-family theorem `SparseHamiltonian.ImprovedSparseODE.solver`.
 The existing `SparseHamiltonian.*` declaration namespaces are preserved.
+References to the manuscript use its labels.
 
 For the equation `x' = A x + b`, the sparse data encodes `M = -A`.
 The Hermitian part of `M` is positive semidefinite. Source norms are exact

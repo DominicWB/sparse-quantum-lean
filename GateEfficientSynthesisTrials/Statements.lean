@@ -4,29 +4,34 @@ import GateEfficientSynthesis.ODESolver
 /-!
 # Synthesised trials with exact reflections: paper-to-Lean entry point
 
-Theorem `ode:thm:gates` of the accompanying paper ends with the per-trial claim "every
-successful trial has Euclidean error at most `ε`, up to a global phase". Its proof (paragraph
-"Bounded amplification of the implemented circuit") performs `j` Grover iterations on the
-actual finite-gate preparation unitary and its actual inverse, with the reflections kept exact
-("These tests are exactly implementable using reversible Boolean gates and a phase flip"), so
-every successful attempt outputs the data direction `y/‖y‖` of the implemented preparation, and
-the vector error of the implemented circuit (equation `ode:eq:gate-vector-error`) gives the
-per-trial error. The finite-gate-set forms of `GateEfficientSynthesis`
+Theorem `ode:thm:gates` of the accompanying paper ends with the per-trial claim "every successful
+trial has Euclidean error at most `ε`, up to a global phase". Its proof (paragraph "Amplifying the
+implemented circuit") performs `j` Grover iterations on the actual finite-gate preparation unitary
+and its actual inverse, with the reflections kept exact ("The two reflections test the known initial
+state and the selected zero-output-work subspace. They use reversible Boolean gates and a phase
+flip"), so every successful attempt outputs the data direction `y/‖y‖` of the implemented
+preparation, and the vector error of the implemented circuit (equation `ode:eq:gate-vector-error`)
+gives the per-trial error. The finite-gate-set forms of `GateEfficientSynthesis`
 (`GateSynth.native_ode_solver_synth`, `GateSynth.native_ode_time_solver_synth`) synthesise every
-gate of every trial, the reflections included, and state no per-trial claim
-(`GateSynth.SOutcome`). This library formalises Theorem `ode:thm:gates` over a finite gate set
-with the per-trial claim, as in the proof of the paper: only the preparation is synthesised, its
-inverse is the exact adjoint of the synthesised preparation, and the zero tests and the global
-sign are exact gates of the gate set. The released libraries are unchanged. All declarations
-below are in the namespace `SparseHamiltonian.GateSynthTrials`.
+gate of every trial, the reflections included, and state no per-trial claim (`GateSynth.SOutcome`).
+This library gives a partial formalisation, under this package's format hypotheses, of the
+finite-set statement of Theorem `ode:thm:gates`, with the per-trial claim (the manuscript states
+Theorem `ode:thm:gates` over a finite gate set; the conformance endpoints count native gates), as
+in the proof of the
+paper: only the preparation is synthesised, its inverse is the exact adjoint of the synthesised
+preparation, and the zero tests and the global sign are exact gates of the gate set. The released
+libraries are unchanged. All declarations below are in the namespace
+`SparseHamiltonian.GateSynthTrials`.
+References to the manuscript use its labels.
 
-* Theorem `ode:thm:gates` over a finite gate set, with the per-trial claim:
+* Theorem `ode:thm:gates` over a finite gate set (a partial formalisation, under this package's
+  format hypotheses, of its finite-set statement), with the per-trial claim:
   `native_ode_solver_trials` (constant coefficients), `native_ode_time_solver_trials`
   (time-dependent coefficients); from binary sparse data: `binary_ode_solver_trials`,
   `binary_ode_time_solver_trials`.
 * The gate-set hypotheses: `AdjClosed`, `zeroTestKinds` (`GateOf.inv`, `gateOf_mcGate`,
-  `two_le_zeroLitsN`, `gateOf_rgoodNG`, `gateOf_rseedNG`, `gateOf_negGateN`); they are without
-  loss of generality: `closeKinds`, `extra_hyps` (`zeroTestKinds_adjClosed`,
+  `two_le_zeroLitsN`, `gateOf_rgoodNG`, `gateOf_rseedNG`, `gateOf_negGateN`); stated assumptions,
+  met over the enlarged gate set `closeKinds`: `extra_hyps` (`zeroTestKinds_adjClosed`,
   `zeroTestKinds_finite`, `closeKinds_adjClosed`, `synthesis_closeKinds`).
 * The trial register and the synthesised preparation: `SX`, `sPool`, `SWO`, `embS`,
   `synthPrep` (`synthPrep_valid`, `synthPrep_counts`, `synthPrep_gateOf`,
@@ -69,16 +74,16 @@ gate of `prepN` at accuracy `η/(N+1)`, `N` its gates, and keeps every call.
   one-qubit matrix `-1` (`gateOf_mcGate`, `gateOf_rgoodNG`, `gateOf_rseedNG`,
   `gateOf_negGateN`). These are exactly the kinds that occur.
 
-**The hypotheses are not restrictive** (`extra_hyps`). For every synthesis hypothesis
+**The hypotheses are stated assumptions** (`extra_hyps`). For every synthesis hypothesis
 `Synthesis 𝒢₀ X len`, the gate set `closeKinds 𝒢₀ = 𝒢₀ ∪ {(p, uᴴ) | (p, u) ∈ 𝒢₀} ∪ zeroTestKinds`
 satisfies `Synthesis (closeKinds 𝒢₀) X len`, with the same ancillas and the same length function
 (`synthesis_closeKinds`: it is finite and contains `𝒢₀`), is closed under adjoints
 (`closeKinds_adjClosed`; the four kinds of the exact zero tests are self-adjoint,
-`zeroTestKinds_adjClosed`) and contains `zeroTestKinds`. So the endpoints apply over
-`closeKinds 𝒢₀` whenever the released synthesis hypothesis holds over `𝒢₀`. The two hypotheses
-are formal versions of the "actual inverse" of the paper's proof and of its zero tests "exactly
-implementable using reversible Boolean gates and a phase flip"; since the exact Grover analysis
-needs the inverse and the reflections to be exact, some form of each is required.
+`zeroTestKinds_adjClosed`) and contains `zeroTestKinds`. So the endpoints apply over `closeKinds 𝒢₀`
+whenever the released synthesis hypothesis holds over `𝒢₀`, with gate counts over `closeKinds 𝒢₀`,
+not over `𝒢₀`. The two hypotheses are formal versions of the "actual inverse" of the paper's proof
+and of its reflections, which "use reversible Boolean gates and a phase flip"; since the exact
+Grover analysis needs the inverse and the reflections to be exact, some form of each is required.
 
 Single-qubit synthesis and the decomposition of controlled gates enter only through the
 released hypothesis `GateSynth.Synthesis`; no other result from another paper is used.
@@ -114,8 +119,9 @@ preparation (`trial_bounds_of_vec10`, `native_trial_bounds10`): mean success at 
 every nonzero decoded trial within `ε/500` of `x/‖x‖` up to a global phase.
 
 **Endpoints.** Hypotheses: `hS : Synthesis 𝒢 X len`, `hadj : AdjClosed 𝒢`,
-`hzt : zeroTestKinds ⊆ 𝒢` (the last two without loss of generality, `extra_hyps`), and the
-public hypotheses of the native solver (unchanged).
+`hzt : zeroTestKinds ⊆ 𝒢` (the last two stated assumptions: `extra_hyps` meets them over
+`closeKinds 𝒢₀`, and the gate counts are then over that set), and the public hypotheses of the
+native solver (unchanged).
 
 * `native_ode_solver_trials` (constant coefficients; public data `p` with `p.PublicOK`, `U_J`
   gates, a public native private operation `nd`, arithmetic `ar` with `ArithOK` at accuracy `ζ`,
@@ -179,11 +185,11 @@ released certificate `prep_certificate`, `decoded_eq`, target facts) → `Binary
 * The exact zero tests use NOT gates with two controls of values `(0, 0)` and `(1, 0)`, a
   controlled `zMat` and the sign `-1`, each counted as one gate of `𝒢`. Adding these four
   self-adjoint kinds and the adjoints of `𝒢` keeps `𝒢` finite and keeps `Synthesis` with the same
-  length function (`extra_hyps`), so the hypotheses are not restrictive; for a fixed gate set such
-  as Clifford+T, which implements them only by exact circuits (a Toffoli gate with negated
-  controls in at most 19 gates, seven of them `T` or `T†` gates; the controlled `zMat` in 5
-  Clifford gates; `-1 = (XZ)²`), an exact decomposition step would multiply the zero-test count by
-  a constant; it is not formalised.
+  length function (`extra_hyps`), but they remain stated assumptions, the gate counts being over the
+  enlarged set; for a fixed gate set such as Clifford+T, which implements them only by exact
+  circuits (a Toffoli gate with negated controls in at most 19 gates, seven of them `T` or `T†`
+  gates; the controlled `zMat` in 5 Clifford gates; `-1 = (XZ)²`), an exact decomposition step would
+  multiply the zero-test count by a constant; it is not formalised.
 
 Every theorem of the library is axiom-audited in `GateEfficientSynthesisTrials/Audit.lean`.
 

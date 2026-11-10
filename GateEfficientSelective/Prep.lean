@@ -4,11 +4,13 @@ import GateEfficientSynthesisTrials.Protocol
 /-!
 # The selectively compiled preparation of the ODE trials
 
-Theorem `ode:thm:gates` amplifies one finite-gate preparation with its actual inverse and exact
-zero tests, and charges the supplied source circuits by their own gate count over the gate set
-(`G_src(ν)` in equation `ode:eq:gate-main`). The released finite-gate-set solvers
-(`GateSynthTrials.synthPrep`) synthesise every gate of the native preparation, the source
-circuits included. Here the native preparation `prepN` (on a native ODE register `HWO …`) is
+Theorem `ode:thm:gates` (here a partial formalisation, under this package's format hypotheses, of
+its finite-set statement) amplifies one finite-gate
+preparation with its actual inverse and exact zero tests, and charges the supplied source circuits
+by their own gate count over the gate set (`G_src(ν)` in equation `ode:eq:gate-main`). The released
+finite-gate-set solvers (`GateSynthTrials.synthPrep`) synthesise every gate of the native
+preparation, the source circuits included. Here the native preparation `prepN` (on a native ODE
+register `HWO …`) is
 compiled selectively (`GateSelective.selBudget`): its gates of `𝒢` (in particular every gate of a
 supplied source circuit over `𝒢`) are kept verbatim, the other gates are synthesised with the
 budget `η`, every primitive call is kept. The selective preparation is placed on the released

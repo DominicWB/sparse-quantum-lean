@@ -9,14 +9,14 @@ set_option synthInstance.maxHeartbeats 400000
 /-!
 # The released constant-coefficient ODE solver's oracle on a one-stage family
 
-Manuscript lines 4114-4115 ("The lower bounds thus apply to Theorems `ode:thm:main` and
-`ode:thm:time`") and Theorem `ode:thm:main` (lines 3013-3033). The released constant-coefficient
-solver `SparseHamiltonian.ODECompleteEndpoint.solver` takes native sparse data
-`Data X N Z s` without a time address (generator `-D.matrix x`,
-`ODEPublicSourceMesh.generator`) and runs a four-attempt protocol over the physical oracle family
-`ODEFinalNativeSource.physicalOracle (ι := ι) D Nm Tsl d J₀ Jb`, labelled by `Query ⊕ Bool`
-(matrix calls and the two source interfaces), with branch register `ι`, mesh size `Nm`, slot
-count `Tsl` and degree `d`.
+Manuscript: Section `odel:sec:main` ("the lower bounds apply to the upper bounds of the preceding
+section") and Theorem `ode:thm:main`. The released constant-coefficient solver
+`SparseHamiltonian.ODECompleteEndpoint.solver` takes native sparse data `Data X N Z s` without a
+time address (generator `-D.matrix x`, `ODEPublicSourceMesh.generator`) and runs a four-attempt
+protocol over the physical oracle family
+`ODEFinalNativeSource.physicalOracle (ι := ι) D Nm Tsl d J₀ Jb`, labelled by `Query ⊕ Bool` (matrix
+calls and the two source interfaces), with branch register `ι`, mesh size `Nm`, slot count `Tsl` and
+degree `d`.
 
 The hard constant-coefficient families of the lower bounds are one-stage families of the ODE
 model (`SparseLowerBounds.ODE.Family X N Z 1 s`): the `g = 1` Hamiltonian families
@@ -26,8 +26,8 @@ model (`SparseLowerBounds.ODE.Family X N Z 1 s`): the `g = 1` Hamiltonian famili
 * `constData F`: the stage-`0` data of a one-stage family, the input of the released solver
   (`ODELowerBoundExtensions.Release.reindexData` along `x ↦ (x, 0)`).
 * `constOracle F ι Nm Tsl d J₀ Jb`: the released solver's physical oracle on `constData F`.
-* `PublicConstSources J₀ Jb`: the source interfaces are unitary and input-independent (lines
-  4121-4122, "Initial and source preparation contain no hidden input information"); the predicate
+* `PublicConstSources J₀ Jb`: the source interfaces are unitary and input-independent (Section
+  `odel:sec:main`, "Initial and source preparations contain no hidden information"); the predicate
   `ODELowerBoundExtensions.Release.PublicSources` with one forcing piece.
 * The native primitives of `constData` of the two kinds of families are those of the underlying
   data (`oracles_constData_ham`, `oracles_constData_heat`), so the access conditions of the
@@ -91,7 +91,7 @@ theorem hardAccess_constData_heat [Fintype Z] [AddCommGroup Z] {n m : ℕ} (D : 
   ⟨hD.row_const, hD.column_const, hD.table_bit⟩
 
 /-- **Public source interfaces of the constant-coefficient solver**: the initial-state and
-forcing preparations are unitary and independent of the hidden input (lines 4121-4122); the
+forcing preparations are unitary and independent of the hidden input (Section `odel:sec:main`); the
 package's `PublicSources` with a single forcing piece. -/
 abbrev PublicConstSources (J₀ Jb : X → SysOp N) : Prop :=
   ODELowerBoundExtensions.Release.PublicSources J₀ (fun x (_ : Fin 1) => Jb x)

@@ -4,11 +4,11 @@ import ZeroTimeRemarks.Gates
 /-!
 # Theorem `hs:thm:gates` at zero time over a finite gate set: native implementations
 
-Theorem `hs:thm:gates` of the accompanying paper ends with "At `t = 0` the identity circuit
-suffices." The released library `ZeroTimeRemarks` states this remark for the exact-gate and
-native circuits; its guide lists the finite-gate-set variants (`GateSynth.*`) as not formalised.
-The released finite-gate-set endpoints (library `GateEfficientSynthesis`) synthesise every
-elementary gate of a native circuit with the budget `ε'` (`GateSynth.synthBudget`). The
+Theorem `hs:thm:gates` of the accompanying paper states "This is a time-independent result; at
+`t = 0` the identity suffices." The released library `ZeroTimeRemarks` states this remark for the
+exact-gate and native circuits; its guide lists the finite-gate-set variants (`GateSynth.*`) as not
+formalised. The released finite-gate-set endpoints (library `GateEfficientSynthesis`) synthesise
+every elementary gate of a native circuit with the budget `ε'` (`GateSynth.synthBudget`). The
 synthesis of the empty circuit is the empty circuit (`synthBudget_nil`), so the synthesis of the
 combined native circuits of `ZeroTimeRemarks.Gates` (the empty circuit at zero time, the released
 circuit otherwise) has no gate and no call at zero time:
@@ -190,15 +190,15 @@ theorem native_simulation_signed_synth_zero (hS : Synthesis 𝒢 X L) (ε' : ℝ
       exact hcalls p
     · convert herr using 1
 
-/-- **Native time-dependent part of Theorem `hs:thm:gates` over a finite gate set for every
-`t ≥ 0`, with the identity circuit at `t = 0`.** Under the hypotheses of the released
-`GateSynth.native_time_simulation_synth`, the synthesis of the combined native circuit
-`nativeCircuitT a m α t Q qbar ε UJg nd ar` consists of valid gates of `𝒢` and primitive calls,
-makes `0` primitive calls and uses `0` gates if `t = 0`, has the released counts otherwise (`N`
-the gate count of the released `nativeSimT`, bounded as in the released theorem), has the
-released qubit count, the propagator of the path exists, and for every propagator `U` its full
-output on the clean embedding is within `ε + ε'` of `U(t)`; at `t = 0` the error is exactly
-`0`. -/
+/-- **Native time-dependent gate-level simulation (Theorem `hs:thm:time` with the circuit of
+`hs:thm:gates`) over a finite gate set for every `t ≥ 0`, with the identity circuit at `t = 0`.**
+Under the hypotheses of the released `GateSynth.native_time_simulation_synth`, the synthesis of the
+combined native circuit `nativeCircuitT a m α t Q qbar ε UJg nd ar` consists of valid gates of `𝒢`
+and primitive calls, makes `0` primitive calls and uses `0` gates if `t = 0`, has the released
+counts otherwise (`N` the gate count of the released `nativeSimT`, bounded as in the released
+theorem), has the released qubit count, the propagator of the path exists, and for every propagator
+`U` its full output on the clean embedding is within `ε + ε'` of `U(t)`; at `t = 0` the error is
+exactly `0`. -/
 theorem native_time_simulation_synth_nonneg (hS : Synthesis 𝒢 X L) (ε' : ℝ) (hε' : 0 < ε')
     (a m : ℕ) (prim : J → Reg Y R →L[ℂ] Reg Y R) (hprim : ∀ j, IsUnitary (prim j))
     (UJg : List (Gate (Fin a ⊕ S))) (hUJg : ∀ g ∈ UJg, GateOK 3 g)

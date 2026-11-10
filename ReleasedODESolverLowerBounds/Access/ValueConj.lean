@@ -5,10 +5,10 @@ set_option autoImplicit false
 /-!
 # The inverse value call as a conjugated value call
 
-Manuscript Section `odel:sec:main`, lines 3669-3673 (a reversible value oracle, "their inverses
-and controls"). The native value primitive adds the entry word to the value register,
-`|a, z⟩ ↦ |a, z + v_a⟩`; its inverse subtracts it, so it is the value call conjugated by the
-known negation `z ↦ -z` of the value register.
+Manuscript Section `odel:sec:main` (a reversible value oracle, "including inverses, controls and
+coherent time addresses where needed"). The native value primitive adds the entry word to the value
+register, `|a, z⟩ ↦ |a, z + v_a⟩`; its inverse subtracts it, so it is the value call conjugated by
+the known negation `z ↦ -z` of the value register.
 
 * `negPrim N Z`: the negation of the value register of one native block, a known unitary
   (`negPrim_unitary`); the package's `DeferredMeasurementLowerBounds.Access.negValue` is its

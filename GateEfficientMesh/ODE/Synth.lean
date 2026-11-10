@@ -4,6 +4,10 @@ import GateEfficientBinaryODETime.Synth
 /-!
 # The ODE endpoints over a finite gate set
 
+The finite-gate-set forms of Theorem `ode:thm:gates` in this module are a partial formalisation of
+its finite-set statement, under this package's format hypotheses: the manuscript states Theorem
+`ode:thm:gates` over a finite gate set; the conformance endpoints count native gates.
+
 The released finite-set forms of Theorem `ode:thm:gates`, time-dependent part
 (`GateSynth.native_ode_time_solver_synth`, `GateBinaryODETime.binary_ode_time_solver_synth`),
 synthesise every trial of the native protocol with the synthesis budget `ε/200`
@@ -43,10 +47,11 @@ variable {S Zs Z Y J X : Type*} [Fintype S] [DecidableEq S] [Fintype Zs] [Decida
 variable {𝒢 : Set Kind} {len : ℝ → ℕ}
 
 /-- **Native dissipative ODE solver under the integrated certificate on the uniform slots over a
-finite gate set** (Theorem `ode:thm:gates`, time-dependent part, with finite-set synthesis as a
-hypothesis). The synthesised protocol `sprotocol hS (ε/200) (tnprepC p UJg nd ar loadC wpC) (2g)`
-has the released validity, gates of `𝒢`, call, gate and qubit counts of
-`GateSynth.native_ode_time_solver_synth`; for every instance as in
+finite gate set** (partial formalisation, under this package's format hypotheses, of the finite-set
+statement of Theorem `ode:thm:gates`, time-dependent part, with
+finite-set synthesis as a hypothesis). The synthesised protocol
+`sprotocol hS (ε/200) (tnprepC p UJg nd ar loadC wpC) (2g)` has the released validity, gates of `𝒢`,
+call, gate and qubit counts of `GateSynth.native_ode_time_solver_synth`; for every instance as in
 `native_ode_time_solver_certified` it succeeds with probability at least `2/3`, and its
 conditional output is within trace distance `ε` of `x(T)/‖x(T)‖` (`SOutcome`). -/
 theorem native_ode_time_solver_certified_synth (hS : Synthesis 𝒢 X len) (p : TParams)
@@ -123,10 +128,11 @@ theorem native_ode_time_solver_certified_synth (hS : Synthesis 𝒢 X len) (p : 
     hne (hout prim D Jl Wp Hs Ls G b x bs bmax ζs hprim hN hζs hload hwp hbudget hCore hx hGa
       hGint hbint hbmax hb hne hbud hcert)
 
-/-- **Native dissipative ODE solver on a nonuniform mesh over a finite gate set** (Theorem
-`ode:thm:gates`, time-dependent part, extended by uniform refinement to nonuniform meshes with
-breakpoints, with finite-set synthesis as a hypothesis). The synthesised protocol has the counts
-of `native_ode_time_solver_certified_synth`; for every mesh and instance as in
+/-- **Native dissipative ODE solver on a nonuniform mesh over a finite gate set** (partial
+formalisation, under this package's format hypotheses, of the finite-set statement of Theorem
+`ode:thm:gates`, time-dependent part, extended by uniform refinement to nonuniform meshes
+with breakpoints, with finite-set synthesis as a hypothesis). The synthesised protocol has the
+counts of `native_ode_time_solver_certified_synth`; for every mesh and instance as in
 `native_ode_time_solver_mesh` it has the guarantees `SOutcome`. -/
 theorem native_ode_time_solver_mesh_synth (hS : Synthesis 𝒢 X len) (p : TParams)
     (hp : p.PublicOK)
@@ -216,9 +222,10 @@ variable {X n : Type*} [Fintype n] [DecidableEq n] {Zs : Type*} [Fintype Zs] [De
 variable {Xa : Type*} [Fintype Xa] [DecidableEq Xa] {𝒢 : Set Kind} {len : ℝ → ℕ}
 
 /-- **Dissipative ODE solver from time-indexed binary sparse data under the integrated
-certificate on the uniform slots over a finite gate set** (Theorem `ode:thm:gates`,
-time-dependent part, with finite-set synthesis as a hypothesis). The synthesised protocol
-`sprotocol hS (ε/200) (q.prep loadC wpC) (2g)` has the released counts of
+certificate on the uniform slots over a finite gate set** (partial formalisation, under this
+package's format hypotheses, of the finite-set statement of Theorem `ode:thm:gates`, time-dependent
+part, with finite-set synthesis as a hypothesis). The synthesised
+protocol `sprotocol hS (ε/200) (q.prep loadC wpC) (2g)` has the released counts of
 `GateBinaryODETime.binary_ode_time_solver_synth`; for every input and instance as in
 `binary_ode_time_solver_certified` it has the guarantees `SOutcome`. -/
 theorem binary_ode_time_solver_certified_synth (hS : Synthesis 𝒢 Xa len) (q : PubT)
@@ -302,10 +309,11 @@ theorem binary_ode_time_solver_certified_synth (hS : Synthesis 𝒢 Xa len) (q :
       hbint hbmax hb hne hB hcert)
 
 /-- **Dissipative ODE solver from binary sparse data on a nonuniform mesh over a finite gate
-set** (Theorem `ode:thm:gates`, time-dependent part, extended by uniform refinement to
-nonuniform meshes with breakpoints, with finite-set synthesis as a hypothesis). The synthesised
-protocol has the counts of `binary_ode_time_solver_certified_synth`; it runs on the clock data
-`clockData D_m`, and for
+set** (partial formalisation, under this package's format hypotheses, of the finite-set statement
+of Theorem `ode:thm:gates`, time-dependent part, extended by uniform
+refinement to nonuniform meshes with breakpoints, with finite-set synthesis as a hypothesis). The
+synthesised protocol has the counts of `binary_ode_time_solver_certified_synth`; it runs on the
+clock data `clockData D_m`, and for
 every input and instance as in `binary_ode_time_solver_mesh` it has the guarantees
 `SOutcome`. -/
 theorem binary_ode_time_solver_mesh_synth (hS : Synthesis 𝒢 Xa len) (q : PubT) (hq : q.OK)

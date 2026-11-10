@@ -3,8 +3,8 @@ import ODELowerBoundExtensions.Padding.JointPad
 /-!
 # Theorem `odel:thm:joint` for the padded joint families
 
-Manuscript: Theorem `odel:thm:joint` (lines 3860-3868) and
-the end of its proof (lines 3899-3904): the dense padding to maximum sparsity exactly `s` and
+Manuscript: Theorem `odel:thm:joint` and
+the end of its proof: the dense padding to maximum sparsity exactly `s` and
 the known zero padding to any sufficiently large (qubit) register keep the bound
 `Q ≥ c_J ḡ √s τ`, `c_J = 1/400` (`SparseLowerBounds.ODE.jointConst`).
 
@@ -26,13 +26,13 @@ dense block, and `jointMu s`, the word length of `jointFamilyAt`, without it. So
 (`jointZeroPad_zeroPad`) and as an encoding: its value table is that of `jointFamilyAt` on the
 original block and `0` elsewhere (`jointZeroPad_table`, `jointPadFamily_table_off`).
 
-**Instance facts** (`jointDenseFamilyAt_props`, lines 3899-3903): maximum sparsity exactly `s`,
-block norm at most one, dyadic entries, the unchanged solution `jointSol`, `D = 0`, dimension
-`2Mm + s`; and `g = √M ∈ [ḡ/√2, ḡ]` (`jointDenseFamilyAt_g`, `jointPadFamilyAt_g` with
-`joint_instance_props`, lines 3866-3867). **Common dimension and qubit registers**
-(`joint_common_dimension`, `joint_qubit_register`, line 3904): for every `Nd` at least the
-dimension of `jointFamilyAt` (e.g. `Nd = 2^q ≥ 3 ḡ² s`) the zero padding `PadTo JointIndex Nd` has
-dimension exactly `Nd` and keeps the bound and the sparsity.
+**Instance facts** (`jointDenseFamilyAt_props`, proof of Theorem `odel:thm:joint`): maximum sparsity
+exactly `s`, block norm at most one, dyadic entries, the unchanged solution `jointSol`, `D = 0`,
+dimension `2Mm + s`; and `g = √M ∈ [ḡ/√2, ḡ]` (`jointDenseFamilyAt_g`, `jointPadFamilyAt_g` with
+`joint_instance_props`, Theorem `odel:thm:joint`). **Common dimension and qubit registers**
+(`joint_common_dimension`, `joint_qubit_register`, proof of Theorem `odel:thm:joint`): for every
+`Nd` at least the dimension of `jointFamilyAt` (e.g. `Nd = 2^q ≥ 3 ḡ² s`) the zero padding
+`PadTo JointIndex Nd` has dimension exactly `Nd` and keeps the bound and the sparsity.
 
 **Forms covered.** The full heralded `SparseLowerBounds.ODE.Solver` of `ODE/Model` (any branch
 register `ι`, any garbage space `G`), i.e. `Family.Forces`; controlled calls by the reduction of
@@ -58,9 +58,9 @@ set_option synthInstance.maxSize 1024
 theorem jointMu_le_padExp (s : ℕ) : jointMu s ≤ Hamiltonian.padExp s := by
   exact Nat.log_le_clog 2 s
 
-/-- **The word length of the padded joint family at the parameters**: `⌈log₂ s⌉ =
-Hamiltonian.padExp s` with the dense block (line 3900), `jointMu s = ⌊log₂ s⌋`, the word length
-of `jointFamilyAt`, without it. -/
+/-- **The word length of the padded joint family at the parameters**:
+`⌈log₂ s⌉ = Hamiltonian.padExp s` with the dense block (proof of Theorem `odel:thm:joint`),
+`jointMu s = ⌊log₂ s⌋`, the word length of `jointFamilyAt`, without it. -/
 def jointPadBits (s : ℕ) : Bool → ℕ
   | true => Hamiltonian.padExp s
   | false => jointMu s
@@ -120,9 +120,9 @@ theorem joint_forces_pad (hM : 2 ≤ M) (hMe : Even M) (hn : 1 ≤ n) (hμ : 1 �
 
 end General
 
-/-- **The densely padded hard family at the parameters** `(s, τ, ḡ)` of lines 3870-3876 and
-3899-3903: `jointFamilyAt` with the block `2^{-⌈log₂ s⌉} 1 1ᵀ = Hamiltonian.padBlock s` on the
-`Fin s` block, words `Word ⌈log₂ s⌉` (`Hamiltonian.padExp s`). -/
+/-- **The densely padded hard family at the parameters** `(s, τ, ḡ)` of the proof of Theorem
+`odel:thm:joint`: `jointFamilyAt` with the block `2^{-⌈log₂ s⌉} 1 1ᵀ = Hamiltonian.padBlock s` on
+the `Fin s` block, words `Word ⌈log₂ s⌉` (`Hamiltonian.padExp s`). -/
 def jointDenseFamilyAt (s : ℕ) (τ gbar : ℝ) (hs : 4 ≤ s) (hτ : 4 ≤ τ) :
     Family (Promised (jointM gbar) (jointN τ) (2 ^ jointMu s))
       (JointIndex (jointM gbar) (jointMu s) s) (Word (Hamiltonian.padExp s)) (jointN τ + 2) s :=
@@ -130,10 +130,10 @@ def jointDenseFamilyAt (s : ℕ) (τ gbar : ℝ) (hs : 4 ≤ s) (hτ : 4 ≤ τ)
     (one_le_jointMu (by omega)) (two_pow_jointMu_le (by omega)) (jointMu_le_padExp s) τ
     (jointN_time (by linarith))
 
-/-- **The hard family padded by a known register `P`** (lines 3904, 4005-4006), words
-`Word (jointPadBits s dense)`. With `dense = true` it carries the dense block (maximum sparsity
-exactly `s`, words `Word ⌈log₂ s⌉`). With `dense = false` it is the zero padding of
-`jointFamilyAt`: matrices `jointGen ⊕ 0_P`, sources and initial state `⊕ 0`
+/-- **The hard family padded by a known register `P`** (proof of Theorem `odel:thm:joint` and proof
+of Theorem `odel:thm:combined`), words `Word (jointPadBits s dense)`. With `dense = true` it carries
+the dense block (maximum sparsity exactly `s`, words `Word ⌈log₂ s⌉`). With `dense = false` it is
+the zero padding of `jointFamilyAt`: matrices `jointGen ⊕ 0_P`, sources and initial state `⊕ 0`
 (`jointZeroPad_zeroPad`), and the words `Word ⌊log₂ s⌋` of `jointFamilyAt` on the original block,
 `0` elsewhere (`jointZeroPad_table`). -/
 def jointPadFamilyAt (s : ℕ) (τ gbar : ℝ) (dense : Bool) (hs : 4 ≤ s) (hτ : 4 ≤ τ) (P : Type*)
@@ -146,9 +146,9 @@ def jointPadFamilyAt (s : ℕ) (τ gbar : ℝ) (dense : Bool) (hs : 4 ≤ s) (h�
 
 variable {s : ℕ} {τ gbar ε : ℝ}
 
-/-- **Plain zero padding of the joint family** (line 3904, lines 4005-4006): without the dense
-block, `jointPadFamilyAt … false … P` is the zero padding of `jointFamilyAt` by `P` (matrices
-`jointGen ⊕ 0_P`, sources and initial state `⊕ 0`). -/
+/-- **Plain zero padding of the joint family** (proof of Theorem `odel:thm:joint`, proof of Theorem
+`odel:thm:combined`): without the dense block, `jointPadFamilyAt … false … P` is the zero padding of
+`jointFamilyAt` by `P` (matrices `jointGen ⊕ 0_P`, sources and initial state `⊕ 0`). -/
 theorem jointZeroPad_zeroPad (hs : 4 ≤ s) (hτ : 4 ≤ τ) (P : Type*) [Fintype P] [DecidableEq P] :
     ZeroPad (jointPadFamilyAt s τ gbar false hs hτ P) (jointFamilyAt s τ gbar hs hτ) := by
   exact jointPadFamily_zeroPad_joint
@@ -164,12 +164,13 @@ theorem jointZeroPad_table (hs : 4 ≤ s) (hτ : 4 ≤ τ) (P : Type*) [Fintype 
       (jointFamilyAt s τ gbar hs hτ).data.table p (i, j) := by
   exact jointPadFamily_table_inl p i j
 
-/-- **The dense padding** (lines 3899-3903), at the parameters with `s ≥ 4`, `τ ≥ 4`: maximum row
-and column sparsity exactly `s` at every input and stage; the block `2^{-⌈log₂ s⌉} 1 1ᵀ`
-(`Hamiltonian.padBlock s`, `denseHam_padExp`) has operator norm at most one; every entry is
-`i · v/2^{⌈log₂ s⌉}` with `-2^{⌈log₂ s⌉} < v ≤ 2^{⌈log₂ s⌉}`; the solution is unchanged
-(`jointSol`, the solution of `jointFamilyAt`); `D = 0`; and the dimension is `2Mm + s`, that of
-`jointFamilyAt`. The dense analogue of the released instance bundle `joint_instance_props`. -/
+/-- **The dense padding** (proof of Theorem `odel:thm:joint`), at the parameters with `s ≥ 4`,
+`τ ≥ 4`: maximum row and column sparsity exactly `s` at every input and stage; the block
+`2^{-⌈log₂ s⌉} 1 1ᵀ` (`Hamiltonian.padBlock s`, `denseHam_padExp`) has operator norm at most one;
+every entry is `i · v/2^{⌈log₂ s⌉}` with `-2^{⌈log₂ s⌉} < v ≤ 2^{⌈log₂ s⌉}`; the solution is
+unchanged (`jointSol`, the solution of `jointFamilyAt`); `D = 0`; and the dimension is `2Mm + s`,
+that of `jointFamilyAt`. The dense analogue of the released instance bundle
+`joint_instance_props`. -/
 theorem jointDenseFamilyAt_props (hs : 4 ≤ s) (hτ : 4 ≤ τ) :
     SparsityAttained (jointDenseFamilyAt s τ gbar hs hτ) ∧
       ‖SparseStateOverlap.matrixOperator
@@ -189,8 +190,8 @@ theorem jointDenseFamilyAt_props (hs : 4 ≤ s) (hτ : 4 ≤ τ) :
     fun p i j => jointDenseFamily_dyadic p i j, fun x => jointDenseSol_solves x,
     fun x k => jointDenseFamily_skew x k, card_jointIndex⟩
 
-/-- **`g = √M` for the dense family** (lines 3845-3846, 3866-3867, 3876; as `jointFamilyAt_g`): the
-mass `B = 2` equals `√M ‖x(T)‖` with the unchanged solution `jointSol`. With
+/-- **`g = √M` for the dense family** (eq. `odel:eq:cancel` and Theorem `odel:thm:joint`; as
+`jointFamilyAt_g`): the mass `B = 2` equals `√M ‖x(T)‖` with the unchanged solution `jointSol`. With
 `joint_instance_props`, `ḡ/√2 ≤ √M ≤ ḡ`, i.e. `g = Θ(ḡ)`. -/
 theorem jointDenseFamilyAt_g (h : JointRange s τ gbar ε)
     (x : Promised (jointM gbar) (jointN τ) (2 ^ jointMu s)) :
@@ -202,7 +203,7 @@ theorem jointDenseFamilyAt_g (h : JointRange s τ gbar ε)
     show (jointDenseFamilyAt s τ gbar h.s_ge h.tau_ge).mass = 2 from jointDenseFamily_mass hM]
   field_simp
 
-/-- **`g = √M` for the padded family** (lines 3866-3867, 3904; as `jointFamilyAt_g`): the mass
+/-- **`g = √M` for the padded family** (Theorem `odel:thm:joint`; as `jointFamilyAt_g`): the mass
 `B = 2` equals `√M ‖x(T) ⊕ 0‖` for the padded solution `jointSol ⊕ 0` (`jointPadSol_solves`).
 With `joint_instance_props`, `ḡ/√2 ≤ √M ≤ ḡ`, i.e. `g = Θ(ḡ)`. -/
 theorem jointPadFamilyAt_g (h : JointRange s τ gbar ε) (dense : Bool) (P : Type*) [Fintype P]
@@ -218,10 +219,10 @@ theorem jointPadFamilyAt_g (h : JointRange s τ gbar ε) (dense : Bool) (P : Typ
       jointPadFamily_zeroPad.mass_eq.trans (jointDenseFamily_mass hM)]
   field_simp
 
-/-- **Theorem `odel:thm:joint` with maximum sparsity exactly `s`** (lines 3860-3868,
-3899-3903): for `s ≥ 4`, `τ ≥ 4`, `ḡ ≥ 2`, `0 < ε ≤ 1/64`, the densely padded joint family is in
-the class (`η = 1`, `T = τ`, `g ≤ ḡ`) and forces `ḡ √s τ / 400` matrix queries, the bound and
-constant of `joint_witness`. -/
+/-- **Theorem `odel:thm:joint` with maximum sparsity exactly `s`** (Theorem `odel:thm:joint`): for
+`s ≥ 4`, `τ ≥ 4`, `ḡ ≥ 2`, `0 < ε ≤ 1/64`, the densely padded joint family is in the class (`η = 1`,
+`T = τ`, `g ≤ ḡ`) and forces `ḡ √s τ / 400` matrix queries, the bound and constant of
+`joint_witness`. -/
 theorem joint_witness_dense (h : JointRange s τ gbar ε) :
     (jointDenseFamilyAt s τ gbar h.s_ge h.tau_ge).Witnesses τ gbar ε
       (jointConst * gbar * Real.sqrt s * τ) := by
@@ -237,9 +238,9 @@ theorem joint_witness_dense (h : JointRange s τ gbar ε) :
     (jointN_time (by linarith [h.tau_ge])) (by linarith [h.eps_le]) ι G A
   exact ⟨hb.trans hf.1, hb.trans hf.2⟩
 
-/-- **Theorem `odel:thm:joint` after known zero padding** (line 3904): for every finite known
-register `P`, with or without the dense block, the padded joint family is in the class
-(`η = 1`, `T = τ`, `g ≤ ḡ`) and forces `ḡ √s τ / 400` matrix queries; with the dense block it
+/-- **Theorem `odel:thm:joint` after known zero padding** (proof of Theorem `odel:thm:joint`): for
+every finite known register `P`, with or without the dense block, the padded joint family is in the
+class (`η = 1`, `T = τ`, `g ≤ ḡ`) and forces `ḡ √s τ / 400` matrix queries; with the dense block it
 has maximum sparsity exactly `s`. -/
 theorem joint_witness_pad (h : JointRange s τ gbar ε) (dense : Bool) (P : Type*) [Fintype P]
     [DecidableEq P] :
@@ -259,11 +260,11 @@ theorem joint_witness_pad (h : JointRange s τ gbar ε) (dense : Bool) (P : Type
     (by linarith [h.eps_le]) P ι G A
   exact ⟨hb.trans hf.1, hb.trans hf.2⟩
 
-/-- **Theorem `odel:thm:joint` in any sufficiently large common dimension** (lines 3904,
-4005-4006): for every `Nd` at least the dimension `2Mm + s` of `jointFamilyAt`, the joint family
-padded by `PadTo JointIndex Nd`, with or without the dense block, has dimension exactly `Nd`, is
-in the class and forces `ḡ √s τ / 400` matrix queries; with the dense block it has maximum
-sparsity exactly `s`. -/
+/-- **Theorem `odel:thm:joint` in any sufficiently large common dimension** (proof of Theorem
+`odel:thm:joint` and proof of Theorem `odel:thm:combined`): for every `Nd` at least the dimension
+`2Mm + s` of `jointFamilyAt`, the joint family padded by `PadTo JointIndex Nd`, with or without the
+dense block, has dimension exactly `Nd`, is in the class and forces `ḡ √s τ / 400` matrix queries;
+with the dense block it has maximum sparsity exactly `s`. -/
 theorem joint_common_dimension (h : JointRange s τ gbar ε) (dense : Bool) (Nd : ℕ)
     (hJ : Fintype.card (JointIndex (jointM gbar) (jointMu s) s) ≤ Nd) :
     Fintype.card (JointIndex (jointM gbar) (jointMu s) s ⊕
@@ -275,10 +276,10 @@ theorem joint_common_dimension (h : JointRange s τ gbar ε) (dense : Bool) (Nd 
           (PadTo (JointIndex (jointM gbar) (jointMu s) s) Nd))) := by
   exact ⟨card_padTo hJ, joint_witness_pad h dense _⟩
 
-/-- **Any sufficiently large qubit register** (line 3904): for every `q` with `3 ḡ² s ≤ 2^q`
-(the dimension of `jointFamilyAt` is at most `3 ḡ² s`, `joint_instance_props`), the joint
-family padded by `PadTo JointIndex (2^q)`, with or without the dense block, has dimension exactly
-`2^q`, is in the class and forces `ḡ √s τ / 400` matrix queries; with the dense block it has
+/-- **Any sufficiently large qubit register** (proof of Theorem `odel:thm:joint`): for every `q`
+with `3 ḡ² s ≤ 2^q` (the dimension of `jointFamilyAt` is at most `3 ḡ² s`, `joint_instance_props`),
+the joint family padded by `PadTo JointIndex (2^q)`, with or without the dense block, has dimension
+exactly `2^q`, is in the class and forces `ḡ √s τ / 400` matrix queries; with the dense block it has
 maximum sparsity exactly `s`. The case `Nd = 2^q` of `joint_common_dimension`. -/
 theorem joint_qubit_register (h : JointRange s τ gbar ε) (dense : Bool) (q : ℕ)
     (hq : 3 * gbar ^ 2 * s ≤ (2 : ℝ) ^ q) :

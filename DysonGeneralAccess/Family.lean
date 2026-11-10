@@ -7,7 +7,7 @@ set_option synthInstance.maxSize 4096
 /-!
 # The ODE lower-bound class as a specialisation
 
-Manuscript, Lemma `odel:lem:dyson` (lines 4155-4168) on the class of the ODE lower bounds
+Manuscript, Lemma `odel:lem:dyson` on the class of the ODE lower bounds
 (sampled-time access `Family.access ι`, Section `odel:sec:main`). The general-access construction of
 `Core` contains the single-program form of `DysonSingleProgram`:
 

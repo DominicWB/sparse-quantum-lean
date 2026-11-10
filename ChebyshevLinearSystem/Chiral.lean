@@ -36,6 +36,9 @@ walk of `Step.logOracle` is `WwO = (I - 2 J J†) Cayley(K)` for the transported
 
 This replaces the common-conjugator form `D = V† C V` of equation `qls:eq:commonconjugator`
 in the proof of Lemma `qls:lem:signedwalk` (`SignedStep.lean`).
+
+Notation: the regularization parameter is `σ` here and `ξ` in the manuscript, so a subscript `σ` (as
+in `g_σ`, `r_σ`, `H_{σ,r}`) stands for the manuscript's subscript `ξ`.
 -/
 
 namespace ChebyshevLinearSystem
